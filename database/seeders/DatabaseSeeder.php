@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,11 +16,46 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([ 
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+
+        Role::create([
+            'name' => 'Superadmin',
+            'guard_name' => 'web'
+        ]);
+
+        Role::create([
+            'name' => 'Administrator',
+            'guard_name' => 'web'
+        ]);
+
+        Role::create([
+            'name' => 'Guest',
+            'guard_name' => 'web'
+        ]);
+
+        $superadmin = User::create([
+            'name' => 'Superadmin',
+            'email' => 'jihadmaulana05@gmail.com',
+            'password' => bcrypt('12345'),
+        ]);
+
+        $superadmin->assignRole('Superadmin');
+
+        $administrator = User::create([
+            'name' => 'Administrator',
+            'email' => 'himurakoji91@gmail.com',
+            'password' => bcrypt('12345'),
+        ]);
+
+        $administrator->assignRole('Administrator');
+
+        $guest = User::create([
+            'name' => 'Guest',
+            'email' => 'kelanasamudera55@gmail.com',
+            'password' => bcrypt('12345'),
+        ]);
+
+        $guest->assignRole('Guest');
     }
 }
