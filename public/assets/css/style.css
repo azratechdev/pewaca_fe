@@ -4331,24 +4331,6 @@ table.focus-on tbody tr.focused th {
 }
 
 
-
-.login-box {
-    background: #fff;
-    width: 400px;
-    margin: 10% auto 0
-}
-
-.login-box .footer {
-    width: 100%;
-    left: 0;
-    right: 0
-}
-
-.login-box .social {
-    display: block;
-    margin-bottom: 30px
-}
-
 #recoverform {
     display: none
 }

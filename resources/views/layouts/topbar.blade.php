@@ -5,7 +5,7 @@
             <i class="fa fa-bars"></i>
         </a>
         <div class="top-left-part">
-            <a class="logo" href="index.html">
+            <a class="logo" href="{{ route('home') }}">
                 <b>
                     <img src="{{ asset('assets/plugins/images/logo.png') }}" alt="home" />
                 </b>
@@ -27,17 +27,18 @@
         </ul>
         <ul class="nav navbar-top-links navbar-right pull-right">
             <li class="right-side-toggle">
-                <a class="right-side-toggler dropdown-toggle u-dropdown text-blue waves-effect waves-light b-r-0 font-20" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <a class="right-side-toggler waves-effect waves-light b-r-0 font-20" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <i class="icon-settings"></i>
                 </a>
                
                 <ul class="dropdown-menu animated flipInY">
-                    <li><a href="javascript:void(0);"><i class="fa fa-user"></i> Profile</a></li>
-                    <li><a href="javascript:void(0);"><i class="fa fa-inbox"></i> Inbox</a></li>
+                    <li><a href=""><i class="fa fa-user"></i> Profile</a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a href="javascript:void(0);"><i class="fa fa-cog"></i> Account Settings</a></li>
+                    <li><a href=""><i class="fa fa-inbox"></i> Inbox</a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a href=""><i class="fa fa-power-off"></i> Logout</a></li>
+                    <li><a href=""><i class="fa fa-cog"></i> Account Settings</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="{{ route('logout') }}"><i class="fa fa-power-off"></i> Logout</a></li>
                 </ul>
             </li>
         </ul>

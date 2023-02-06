@@ -9,12 +9,20 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/plugins/images/favicon.png') }}">
-    <title>Cubic Admin Template</title>
+     <!-- ===== jQuery ===== -->
+     <script src="{{ asset('assets/plugins/components/jquery/dist/jquery.min.js') }}"></script>
+
+    <title>Administrator Skyhawk</title>
     <!-- ===== Bootstrap CSS ===== -->
     <link href="{{ asset('assets/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- ===== Plugin CSS ===== -->
     <link href="{{ asset('assets/plugins/components/chartist-js/dist/chartist.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/plugins/components/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css') }}" rel="stylesheet">
+
+    <!-- ===== Datatable CSS ===== -->
+    <link href="{{ asset('assets/plugins/components/datatables/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+
     <!-- ===== Animation CSS ===== -->
     <link href="{{ asset('assets/css/animate.css') }}" rel="stylesheet">
     <!-- ===== Custom CSS ===== -->
@@ -50,8 +58,7 @@
     <!-- ==============================
         Required JS Files
     =============================== -->
-    <!-- ===== jQuery ===== -->
-    <script src="{{ asset('assets/plugins/components/jquery/dist/jquery.min.js') }}"></script>
+   
     <!-- ===== Bootstrap JavaScript ===== -->
     <script src="{{ asset('assets/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <!-- ===== Slimscroll JavaScript ===== -->
@@ -69,8 +76,18 @@
     <script src="{{ asset('assets/plugins/components/sparkline/jquery.charts-sparkline.js') }}"></script>
     <script src="{{ asset('assets/plugins/components/knob/jquery.knob.js') }}"></script>
     <script src="{{ asset('assets/plugins/components/easypiechart/dist/jquery.easypiechart.min.js') }}"></script>
-    <script src="{{ asset('assets/js/db1.js"') }}"></script>
+    
+    <!-- ===== Datatable JS ===== -->
+    <script src="{{ asset('assets/plugins/components/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
     <!-- ===== Style Switcher JS ===== -->
+    
     <script src="{{ asset('assets/plugins/components/styleswitcher/jQuery.style.switcher.js') }}"></script>
 </body>
 

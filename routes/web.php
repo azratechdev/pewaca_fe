@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,13 +17,20 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+Route::get('/', [LoginController::class, 'index'])->name('log');
+Route::post('/login', [LoginController::class, 'login'])->name('login');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function(){
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+    //user route
+    Route::get('/users', [UserController::class, 'index'])->name('users');
+    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+    Route::post('/store', [UserController::class, 'store'])->name('store');
+    Route::post('/getUser', [UserController::class, 'getUser'])->name('getUser');
+    Route::put('/update/{id}', [UserController::class, 'update'])->name('update');
 });
 
