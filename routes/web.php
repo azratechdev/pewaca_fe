@@ -17,20 +17,26 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', [LoginController::class, 'index'])->name('log');
-Route::post('/login', [LoginController::class, 'login'])->name('login');
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/', [LoginController::class, 'showLoginForm'])->name('showLoginForm');
+Route::post('/postlogin', [LoginController::class, 'postlogin'])->name('postlogin');
+
+
 
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function(){
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+    //dashboard route
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
     //user route
     Route::get('/users', [UserController::class, 'index'])->name('users');
-    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
-    Route::post('/store', [UserController::class, 'store'])->name('store');
-    Route::post('/getUser', [UserController::class, 'getUser'])->name('getUser');
-    Route::put('/update/{id}', [UserController::class, 'update'])->name('update');
+    Route::get('/user/profile', [UserController::class, 'profile'])->name('profile');
+    Route::post('/user/store', [UserController::class, 'store'])->name('store');
+    Route::post('/user/getUser', [UserController::class, 'getUser'])->name('getUser');
+    Route::put('/user/update/{id}', [UserController::class, 'update'])->name('update');
+    Route::get('/user/delete/{id}', [UserController::class, 'destroy'])->name('destroy');
+
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 

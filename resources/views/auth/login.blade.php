@@ -57,7 +57,7 @@
         <div class="login-box">
             <div class="white-box">
                 <h3 class="box-title" align="center"><u>Login Administrator</u></h3>
-                <form class="form-horizontal" id="loginform" method="post" action="{{ route('login') }}" enctype="multipart/form-data">
+                <form class="form-horizontal" id="loginform" method="post" action="{{ route('postlogin') }}" enctype="multipart/form-data">
                     @include('layouts.elements.flash')
                     {{ csrf_field() }}
                     <div class="form-group">

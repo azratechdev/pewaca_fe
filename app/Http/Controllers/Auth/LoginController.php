@@ -3,22 +3,20 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function index()
+    public function showLoginForm()
     {
         return view('auth.login');
     }
-    
-    public function login(Request $request)
+        
+    public function postlogin(Request $request)
     {
         
         $capres = $request->input('g-recaptcha-response');
@@ -31,7 +29,7 @@ class LoginController extends Controller
                     'message' => 'Unauthorized User',
                     'alert-class' => 'alert-danger',
                 ]);
-                return redirect()->route('log');
+                return redirect()->route('showLoginForm');
             }
             else{
                
@@ -49,7 +47,9 @@ class LoginController extends Controller
                     $responses = $this->authenticate($request);
     
                 }
-               return redirect()->route($responses['redirectTo']);
+                
+              
+               return redirect()->intended($responses['redirectTo']);
             }
         }
         else{
@@ -57,7 +57,7 @@ class LoginController extends Controller
                 'message' => 'Invalid Captcha.!',
                 'alert-class' => 'alert-warning',
             ]);
-            return redirect()->route('log');
+            return redirect()->route('showLoginForm');
          
         }
        
@@ -68,27 +68,29 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
+           //dd(Auth::user());
             $responses = [
-                'redirectTo' => 'home',
+                'redirectTo' => 'dashboard',
             ];
            
         } else {
             $responses = [
-                'redirectTo' => 'log',
+                'redirectTo' => 'showLoginForm',
             ];
         }
         return $responses;
     }
 
-    public function logout(Request $request)
-    {
-        Session::flush();
+    public function logout()
+    {   
+        $user_id = Auth::user()->id;
+        $userToLogout = User::find($user_id);
+        Auth::setUser($userToLogout);
         Auth::logout();
         $this->guard();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect('/');
+        Session::flush();
+        
+        return redirect()->route('showLoginForm');
     }
 
     protected function guard()

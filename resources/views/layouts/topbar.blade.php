@@ -5,7 +5,7 @@
             <i class="fa fa-bars"></i>
         </a>
         <div class="top-left-part">
-            <a class="logo" href="{{ route('home') }}">
+            <a class="logo" href="{{ route('dashboard') }}">
                 <b>
                     <img src="{{ asset('assets/plugins/images/logo.png') }}" alt="home" />
                 </b>

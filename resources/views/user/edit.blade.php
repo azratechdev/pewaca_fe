@@ -8,9 +8,9 @@
           </button>
         </div>
         <div class="modal-body">
-            <form id="user_editform" method="post" action="{{ route('update', 1) }}" enctype="multipart/form-data">
-                {{ csrf_field() }}
+            <form id="user_editform" method="post" enctype="multipart/form-data">
                 {{ method_field('put') }}
+                {{ csrf_field() }}
                 <div class="form-group row">
                     <label class="col-sm-2">Username</label>
                     <div class="col-sm-6">

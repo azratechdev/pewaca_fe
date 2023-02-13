@@ -27,15 +27,15 @@
         <nav class="sidebar-nav">
             <ul id="side-menu">
                 <li>
-                    <a href="" aria-expanded="false"><i class="icon-home fa-fw"></i> <span class="hide-menu">Home</span></a>
+                    <a href="" aria-expanded="false"><i class="fa fa-dashboard fa-fw"></i> <span class="hide-menu">Dashboard</span></a>
                 </li>
                 <li>
-                    <a class="active waves-effect" href="javascript:void(0);" aria-expanded="false"><i class="icon-briefcase fa-fw"></i> <span class="hide-menu"> Master</span></a>
+                    <a class="active waves-effect" href="javascript:void(0);" aria-expanded="false"><i class="fa fa-briefcase fa-fw"></i> <span class="hide-menu"> Master</span></a>
                     <ul aria-expanded="false" class="collapse">
-                        <li><a href="{{ route('users') }}"><i class="icon-user" aria-hidden="true"> User</i></a></li>
-                        <li><a href="#"><i class="icon-people" aria-hidden="true"> Member</i></a></li>
-                        <li><a href="#"><i class="icon-cup" aria-hidden="true"> Activity</i></a></li>
-                        <li><a href="#"><i class="icon-fire" aria-hidden="true"> Equipment</i></a></li>
+                        <li><a href="{{ route('users') }}"><i class="fa fa-users" aria-hidden="true"></i> User</i></a></li>
+                        <li><a href="#"><i class="fa fa-id-card" aria-hidden="true"> Member</i></a></li>
+                        <li><a href="#"><i class="fa fa-coffee" aria-hidden="true"> Activity</i></a></li>
+                        <li><a href="#"><i class="fa fa-cubes" aria-hidden="true"> Equipment</i></a></li>
                     </ul>
                 </li>
             </ul>

@@ -30,6 +30,9 @@
     <!-- ===== Color CSS ===== -->
     <link href="{{ asset('assets/css/colors/default.css') }}" id="theme" rel="stylesheet">
     
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    
 </head>
 
 <body class="fix-header mini-sidebar">
@@ -58,7 +61,7 @@
     <!-- ==============================
         Required JS Files
     =============================== -->
-   
+  
     <!-- ===== Bootstrap JavaScript ===== -->
     <script src="{{ asset('assets/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <!-- ===== Slimscroll JavaScript ===== -->
