@@ -10,4 +10,9 @@ class MemberController extends Controller
     {
         return view('member.index');
     }
+
+    public function store()
+    {
+        
+    }
 }
