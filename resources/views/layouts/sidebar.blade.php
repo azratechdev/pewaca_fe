@@ -27,15 +27,31 @@
         <nav class="sidebar-nav">
             <ul id="side-menu">
                 <li>
-                    <a href="" aria-expanded="false"><i class="fa fa-dashboard fa-fw"></i> <span class="hide-menu">Dashboard</span></a>
+                    <a href="{{ route('dashboard') }}" aria-expanded="false"><i class="fa fa-dashboard fa-fw"></i> <span class="hide-menu">Dashboard</span></a>
                 </li>
                 <li>
                     <a class="active waves-effect" href="javascript:void(0);" aria-expanded="false"><i class="fa fa-briefcase fa-fw"></i> <span class="hide-menu"> Master</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="{{ route('users') }}"><i class="fa fa-users" aria-hidden="true"></i> User</i></a></li>
-                        <li><a href="#"><i class="fa fa-id-card" aria-hidden="true"> Member</i></a></li>
+                        <li><a href="{{ route('members') }}"><i class="fa fa-id-card" aria-hidden="true"> Member</i></a></li>
                         <li><a href="#"><i class="fa fa-coffee" aria-hidden="true"> Activity</i></a></li>
                         <li><a href="#"><i class="fa fa-cubes" aria-hidden="true"> Equipment</i></a></li>
+                        <li><a href="#"><i class="fa fa-money" aria-hidden="true"> Finance</i></a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="active waves-effect" href="javascript:void(0);" aria-expanded="false"><i class="fa fa-cogs fa-fw"></i> <span class="hide-menu"> CMS</span></a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="#"><i class="fa fa-server" aria-hidden="true"> Section</i></a></li>
+                        <li><a href="#"><i class="fa fa-newspaper-o" aria-hidden="true"> Content</i></a></li>
+                        <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"> Inquiry</i></a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="active waves-effect" href="javascript:void(0);" aria-expanded="false"><i class="fa fa-wrench fa-fw"></i> <span class="hide-menu"> Setting</span></a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="#"><i class="fa fa-user-secret" aria-hidden="true"></i> User Setting</i></a></li>
+                        <li><a href="#"><i class="fa fa-exchange" aria-hidden="true"></i> Api Setting</i></a></li>
                     </ul>
                 </li>
             </ul>

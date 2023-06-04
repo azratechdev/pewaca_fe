@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-12 col-sm-12">
             <div class="white-box stat-widget">
-                dashboard
+                Welcome {{ Auth::user()->name }} to dashboard page
             </div>
         </div>
     </div>

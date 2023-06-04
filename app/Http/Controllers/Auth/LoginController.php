@@ -34,7 +34,11 @@ class LoginController extends Controller
             else{
                
                 if (Hash::check($request->password, $user->password) && $user->email == $request->email) {
-                    $responses = $this->authenticate($request);
+                    //$responses = $this->authenticate($request);
+                    $credentials = $request->only('email', 'password');
+                    Auth::attempt($credentials);
+                    return redirect()->route('dashboard');
+                    
                 } else {
     
                     if (!Hash::check($request->password, $user->password) || $user->email != $request->email) {
@@ -42,14 +46,16 @@ class LoginController extends Controller
                             'message' => 'Username or Password is incorrect',
                             'alert-class' => 'alert-warning',
                         ]);
+
+                        return redirect()->route('showLoginForm');
                     }
     
-                    $responses = $this->authenticate($request);
+                    //$responses = $this->authenticate($request);
     
                 }
                 
               
-               return redirect()->intended($responses['redirectTo']);
+              // return redirect()->intended($responses['redirectTo']);
             }
         }
         else{
@@ -68,7 +74,7 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-           //dd(Auth::user());
+           
             $responses = [
                 'redirectTo' => 'dashboard',
             ];

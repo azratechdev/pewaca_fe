@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use App\Models\Role;
 use Illuminate\Support\Facades\Session;
+use Spatie\Permission\Models\Role as Roles;
+use Spatie\Permission\Models\Permission as Permissions;
 
 class UserController extends Controller
 {
@@ -14,8 +15,9 @@ class UserController extends Controller
     public function index()
     {
         $data = User::with('roles')->get()->toArray();
-        //dd($data);
-        $role = Role::get('name')->toArray();
+        $role = Roles::all()->pluck('name')->toArray();
+        $permission = Permissions::all()->pluck('name')->toArray();
+        //dd($permission);
       
         return view('user.userlist', compact('data','role'));
     }
@@ -55,17 +57,16 @@ class UserController extends Controller
         //dd($request->all());
         $validator = request()->validate([
             'name' => 'required|string|max:250',
-            'email' => 'required|email:rfc,dns',
+            'email' => 'required|string',
             'role' => 'required|string',
             'isactive' => 'required'
         ]);
 
         if($validator){
            
-            $data = (['name' => $request->name,
+            $data = ['name' => $request->name,
             'email' => $request->email,
-            'is_active' => $request->isactive]);
-
+            'is_active' => $request->isactive];
               
             if(isset($request->password)){
                 $val = request()->validate([
@@ -77,13 +78,24 @@ class UserController extends Controller
                 }
             }
 
-            $role = User::with('roles')->where('id', $id)->first();
-            dd($role);
+            $user = User::find($id);
+            $user->update($data);
+            $user->syncRoles($request->role);
+          
+            Session::flash('flash-message', [
+                'message' => 'User has been updated.!',
+                'alert-class' => 'alert-success',
+            ]);
+    
+            return redirect()->route('users');
 
-            dd($data);
-
-            //User::find($id)->update($data);
-
+        }
+        else{
+            
+            Session::flash('flash-message', [
+                'message' => 'update failed.!',
+                'alert-class' => 'alert-danger',
+            ]);
         }
     }
 

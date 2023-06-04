@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MemberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::put('/user/update/{id}', [UserController::class, 'update'])->name('update');
     Route::get('/user/delete/{id}', [UserController::class, 'destroy'])->name('destroy');
 
+    //member route
+    Route::get('/members', [MemberController::class, 'index'])->name('members');
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 

@@ -34,7 +34,7 @@
                         <select type="text" name="role" id="role" class="form-control" required>
                             <option>Select User Role</option>
                             @foreach($role as $key => $v)
-                            <option value="{{ $v['name'] }}">{{ $v['name'] }}</option>
+                            <option value="{{ $v }}">{{ $v }}</option>
                             @endforeach
                         </select>
                     </div>

@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
         $superadmin = User::create([
             'name' => 'Superadmin',
             'email' => 'jihadmaulana05@gmail.com',
-            'password' => bcrypt('12345'),
+            'password' => bcrypt('123456'),
         ]);
 
         $superadmin->assignRole('Superadmin');
@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
         $administrator = User::create([
             'name' => 'Administrator',
             'email' => 'himurakoji91@gmail.com',
-            'password' => bcrypt('12345'),
+            'password' => bcrypt('123456'),
         ]);
 
         $administrator->assignRole('Administrator');
@@ -53,7 +53,7 @@ class DatabaseSeeder extends Seeder
         $guest = User::create([
             'name' => 'Guest',
             'email' => 'kelanasamudera55@gmail.com',
-            'password' => bcrypt('12345'),
+            'password' => bcrypt('123456'),
         ]);
 
         $guest->assignRole('Guest');
