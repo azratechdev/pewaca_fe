@@ -21,6 +21,7 @@
     <!-- ===== Color CSS ===== -->
     <link href="{{ asset('assets/css/colors/default.css') }}" id="theme" rel="stylesheet">
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    {{-- <script src="https://www.google.com/recaptcha/api.js?render=reCAPTCHA_site_key"></script> --}}
     <style>
         .login-register {
             background: url(../assets/plugins/images/login-register.jpg) center center/cover no-repeat!important;
