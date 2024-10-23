@@ -1,2 +1,2 @@
-# skyhawk-backend
-Berisi aplikasi untuk pengurus (CMS dan API Server).
+# residence-frontend
+Aplikasi pengurus dan warga residence.
