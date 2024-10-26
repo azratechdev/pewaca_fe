@@ -3,9 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\MemberController;
+use App\Http\Controllers\PembayaranController;
+use App\Http\Controllers\PengurusController;
+use App\Http\Controllers\AkunController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,27 +21,29 @@ use App\Http\Controllers\MemberController;
 */
 
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('showLoginForm');
-Route::post('/postlogin', [LoginController::class, 'postlogin'])->name('postlogin');
+// Route::post('/postlogin', [LoginController::class, 'postlogin'])->name('postlogin');
 
 
 
-Auth::routes();
+// Auth::routes();
 
-Route::group(['middleware' => 'auth'], function(){
+// Route::group(['middleware' => 'auth'], function(){
 
     //dashboard route
-    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/addpost', [HomeController::class, 'addpost'])->name('addpost');
 
-    //user route
-    Route::get('/users', [UserController::class, 'index'])->name('users');
-    Route::get('/user/profile', [UserController::class, 'profile'])->name('profile');
-    Route::post('/user/store', [UserController::class, 'store'])->name('store');
-    Route::post('/user/getUser', [UserController::class, 'getUser'])->name('getUser');
-    Route::put('/user/update/{id}', [UserController::class, 'update'])->name('update');
-    Route::get('/user/delete/{id}', [UserController::class, 'destroy'])->name('destroy');
+    Route::get('/pembayaran', [PembayaranController::class, 'index'])->name('pembayaran');
+    Route::get('/addpembayaran', [PembayaranController::class, 'addpembayaran'])->name('addpembayaran');
 
-    //member route
-    Route::get('/members', [MemberController::class, 'index'])->name('members');
+    Route::get('/pengurus', [PengurusController::class, 'index'])->name('pengurus');
+
+    Route::get('/akun', [AkunController::class, 'akun'])->name('akun');
+    Route::get('/edit', [AkunController::class, 'edit'])->name('edit');
+    Route::get('/registrasi', [AkunController::class, 'registrasi'])->name('registrasi');
+
+    // //member route
+    // Route::get('/members', [MemberController::class, 'index'])->name('members');
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-});
+// });
 

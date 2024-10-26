@@ -6,7 +6,8 @@
     <div class="row">
         <div class="col-md-12 col-sm-12">
             <div class="white-box stat-widget">
-                Welcome {{ Auth::user()->name }} to dashboard page
+                {{-- Welcome Pengurus / Warga to dashboard page --}}
+                Welcome Pengurus / Warga to dashboard page 
             </div>
         </div>
     </div>

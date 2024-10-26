@@ -57,28 +57,28 @@
     <section id="wrapper" class="login-register">
         <div class="login-box">
             <div class="white-box">
-                <h3 class="box-title" align="center"><u>Login Administrator</u></h3>
+                <h3 class="box-title" align="center"><u>Login Pengurus / Warga</u></h3>
                 <form class="form-horizontal" id="loginform" method="post" action="{{ route('postlogin') }}" enctype="multipart/form-data">
                     @include('layouts.elements.flash')
                     {{ csrf_field() }}
                     <div class="form-group">
                         <div class="col-xs-12">
-                           <input type="email" class="form-control" name="email" placeholder="Enter email" required>
+                           <input type="email" class="form-control" name="email" placeholder="Enter email">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+                            <input type="password" name="password" class="form-control" id="password" placeholder="Password">
                         </div>
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <div class="col-xs-12">
                             <div class="g-recaptcha" data-sitekey="6Lfwf0gkAAAAAF6rAzrr7EmWKeYRz5eKl8oiFjIG"></div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="form-group">
                         <div class="col-xs-12">
-                           <a href="#" class="text-dark pull-right"><i class="fa fa-lock m-r-5"></i> Forgot pwd?</a> </div>
+                           <a href="#" class="text-dark pull-right"><i class="fa fa-lock m-r-5"></i> Forgot Password?</a> </div>
                     </div>
                    
                     <div class="form-group text-center">
