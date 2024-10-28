@@ -8,11 +8,11 @@
   <link href="{{ asset('assets/bootstrap/dist/css/bootstrap-5.min.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="{{ asset('assets/plugins/components/jquery/dist/jquery.min.js') }}"></script>
-  <script src="{{ asset('assets/bootstrap/dist/js/bootstrap-5.min.js') }}"></script>
+  
   
   <style>
     .navbar-custom {
-      background-color:  #00ffc3; /* Tosca color */
+      background-color:  #198754 !important; /* Tosca color #00ffc3*/ 
       padding-top: 0px;
       padding-bottom: 0px;
     }
@@ -25,28 +25,28 @@
       margin: 10px; /* Batas atas, kiri, kanan, dan bawah */
     }
     .card-header .nav-tabs{
-       background-color:  #00ffc3;
+       background-color:  #198754 !important;
     }
 
     /* Custom color for tabs */
     .nav-tabs .nav-link {
-            color: #00ffc3; /* hijau tosca */
+            color: #5cb85c; /* hijau tosca */
         }
         .nav-tabs .nav-link.active {
             color: white;
-            background-color: #00ffc3; /* hijau  #006666 */
+            background-color: #198754; /* hijau  #006666 */
         }
         /* Border color */
         .nav-tabs {
-            border-bottom: 2px solid #00ffc3; /* hijau tosca */
+            border-bottom: 2px solid #198754; /* hijau tosca */
         }
 
     .table thead th {
-            background-color: #00ffc3; /* hijau tosca */
+            background-color: #198754; /* hijau tosca */
             color: white;
         }
         .table, .table-bordered th, .table-bordered td {
-            border-color: #00ffc3; /* hijau tosca */
+            border-color: #198754; /* hijau tosca */
         }
   </style>
 </head>
@@ -60,7 +60,7 @@
   
 
   <!-- Bootstrap JS -->
- 
+  <script src="{{ asset('assets/bootstrap/dist/js/bootstrap-5.min.js') }}"></script>
   
  
 </body>

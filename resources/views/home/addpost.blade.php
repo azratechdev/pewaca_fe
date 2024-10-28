@@ -16,7 +16,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title text-center text-white">Buat Postingan</h5>
+                    <h5 class="card-title text-center">Buat Postingan</h5>
                 </div>
                 <div class="card-body">
                     <form id="loginform" method="post" >
