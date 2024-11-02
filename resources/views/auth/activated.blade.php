@@ -39,31 +39,20 @@
   <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-          
             <div class="login-alert">
-              @include('layouts.elements.flash')
+                @include('layouts.elements.flash')
             </div>
-          
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title text-center text-white">Login Warga / Pengurus</h5>
+                    <h5 class="card-title text-center text-white">Aktifasi Akun</h5>
                 </div>
                 <div class="card-body">
                    
-                    <form id="loginform" method="post" action="{{ route('postlogin') }}">
+                    <form id="activedform" method="post" action="{{ route('postActivated') }}">
                         @csrf
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" name="email" class="form-control" id="email" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" name="password" class="form-control" id="password" required>
-                        </div>
-                        <button type="submit" class="btn btn-success"><i class="fa fa-key"></i> Login</button>
-                        {{-- <a class="btn btn-success" href="{{ route('home') }}" role="button"><i class="fa fa-key"></i> Login</a> --}}
-                        <a class="btn btn-success" href="#" role="button"><i class="fa fa-pencil"></i> Registrasi</a>
-                        <a class="btn btn-success" href="#" role="button"><i class="fa fa-question-circle"></i> Lupa Password</a>
+                        <input type="text" name="code" class="form-control" id="code" required>
+                        <i class="fa fa-key fa-2x"></i>
+                        <button type="submit" class="btn btn-lg btn-success"><i class="fa fa-key"></i> Aktifasi Akun</button>
                     </form>
                 </div>
             </div>

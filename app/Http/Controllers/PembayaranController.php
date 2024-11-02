@@ -17,4 +17,9 @@ class PembayaranController extends Controller
         return view('pembayaran.addpembayaran');
     }
 
+    public function postPembayaran(Request $request)
+    {
+        dd($request->all());
+    }
+
 }

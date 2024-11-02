@@ -5,6 +5,9 @@
     <div class="row justify-content-center">
         <div class="row" style="padding-top:40px;">
             <div class="col-md-12">
+                <div class="login-alert">
+                    @include('layouts.elements.flash')
+                </div>
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" data-bs-toggle="tab" href="#approval" role="tab">Approval</a>
@@ -123,34 +126,43 @@
                                     <thead>
                                         <tr>
                                             <th>No.</th>
-                                            <th>Nama</th>
-                                            <th>Alamat</th>
-                                            <th>Unit</th>
+                                            <th>NIK</th>
+                                            <th>Name</th>
+                                            <th>Phone</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Ahmad</td>
-                                            <td>Jl. Merpati No. 45</td>
-                                            <td>Unit A</td>
-                                            <td><button class="btn btn-sm btn-primary ">Detail</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Siti</td>
-                                            <td>Jl. Kenari No. 12</td>
-                                            <td>Unit B</td>
-                                            <td><button class="btn btn-sm btn-primary">Detail</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Rudi</td>
-                                            <td>Jl. Melati No. 3</td>
-                                            <td>Unit C</td>
-                                            <td><button class="btn btn-sm btn-primary">Detail</button></td>
-                                        </tr>
+                                        @if(isset($data_warga['data']))
+                                            @if(!empty($data_warga['data']))
+                                                
+                                                @foreach ($data_warga['data'] as $key => $v )
+                                                <tr>
+                                                    <td>{{ $key+1 }}</td>
+                                                    <td>{{ $v['nik'] }}</td>
+                                                    <td>{{ $v['full_name'] }}</td>
+                                                    <td>{{ $v['phone_no'] }}</td>
+                                                    <td>
+                                                        <button style="color: white;" class="btn btn-sm btn-info" id="detail" data-id="{{ $v['id'] }}" title="Detail Warga">
+                                                            <i class="fa fa-list" aria-hidden="true"> Detail</i>
+                                                        </button> 
+                                                        <button style="color: white;" class="btn btn-sm btn-warning" id="detail" data-id="{{ $v['id'] }}" title="Edit Warga">
+                                                            <i class="fa fa-pencil" aria-hidden="true"> Edit</i>
+                                                        </button> 
+                                                        {{-- <button class="btn btn-xs btn-danger" id="delete_user" data-id="{{ $v['id'] }}" title="Delete User">
+                                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                        </button> --}}
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            @else
+                                                <tr>
+                                                    <td colspan="5">
+                                                        <strong>{{ $data_warga['messageS'] }}</strong>
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>
