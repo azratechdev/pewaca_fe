@@ -16,7 +16,7 @@
     }
       
     .card , .login-alert, .logo{
-        margin: 10px; /* Batas atas, kiri, kanan, dan bawah */
+        margin: 20px; /* Batas atas, kiri, kanan, dan bawah */
     }
     .card-header{
        background-color:  #198754;
@@ -83,6 +83,9 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
+                <div class="card" style="border: none;">
+                    <p>Pendaftaran Warga</p>
+                </div>
                 <div class="card">
                     <div class="card-body">
                         <form>
@@ -199,6 +202,11 @@
                             
                             <div class="form-group">
                                 <button type="submit" id="submitBtn" class="btn btn-success form-control" type="button" disabled>Daftar Sebagai Warga</button>
+                            </div>
+
+                            <br>
+                            <div class="mb-3">
+                                <p class="text-center">Sudah punya akun? <a href="{{ route('showLoginForm') }}"> Login</a></p>
                             </div>
                         </form>
                     </div>
