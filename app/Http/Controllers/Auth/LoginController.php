@@ -16,6 +16,11 @@ class LoginController extends Controller
         return view('auth.loginwarga');
     }
 
+    public function showRegister()
+    {
+        return view('auth.register');
+    }
+
     public function showActivated()
     {
         return view('auth.activated');

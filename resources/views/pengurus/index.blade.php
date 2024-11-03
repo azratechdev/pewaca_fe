@@ -158,7 +158,7 @@
                                             @else
                                                 <tr>
                                                     <td colspan="5">
-                                                        <strong>{{ $data_warga['messageS'] }}</strong>
+                                                        <strong>{{ $data_warga['message'] }}</strong>
                                                     </td>
                                                 </tr>
                                             @endif

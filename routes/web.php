@@ -22,7 +22,7 @@ use App\Http\Controllers\AkunController;
 
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('showLoginForm');
 Route::post('/', [LoginController::class, 'postlogin'])->name('postlogin');
-
+Route::get('/Registration', [LoginController::class, 'showRegister'])->name('showRegister');
 
 Auth::routes();
 
@@ -38,8 +38,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/addpembayaran', [PembayaranController::class, 'addpembayaran'])->name('addpembayaran');
     Route::post('/postpembayaran', [PembayaranController::class, 'postPembayaran'])->name('postPembayaran');
     Route::get('/akun', [AkunController::class, 'akun'])->name('akun');
-    Route::put('/edit', [AkunController::class, 'edit'])->name('edit');
-    Route::post('/registrasi', [AkunController::class, 'registrasi'])->name('registrasi');
+    Route::get('/edit', [AkunController::class, 'edit'])->name('edit');
+    Route::get('/registrasi', [AkunController::class, 'registrasi'])->name('registrasi');
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
     // Rute khusus untuk pengurus
