@@ -7,7 +7,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\AkunController;
-
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,8 +23,13 @@ use App\Http\Controllers\AkunController;
 
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('showLoginForm');
 Route::post('/', [LoginController::class, 'postlogin'])->name('postlogin');
-Route::get('/Registration', [LoginController::class, 'showRegister'])->name('showRegister');
+Route::get('/registration/{uuid?}', [RegisterController::class, 'showRegister'])->name('showRegister');
+Route::post('/postregistration', [RegisterController::class, 'postRegister'])->name('postRegister');
 
+Route::get('/forgotpassword', [ForgotPasswordController::class, 'showFormReset'])->name('showFormReset');
+Route::post('/sendmail', [ForgotPasswordController::class, 'sendMail'])->name('sendMail');
+Route::get('/reset/{uuid?}/{token?}', [ForgotPasswordController::class, 'newPassword'])->name('newPassword');
+Route::post('/sendnewpassword', [ForgotPasswordController::class, 'sendNewpassword'])->name('sendNewpassword');
 Auth::routes();
 
 // Rute yang membutuhkan autentikasi

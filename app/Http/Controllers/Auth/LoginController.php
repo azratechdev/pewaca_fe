@@ -15,47 +15,31 @@ class LoginController extends Controller
     {
         return view('auth.loginwarga');
     }
-
-    public function showRegister()
-    {
-        return view('auth.register');
-    }
-
-    public function showActivated()
-    {
-        return view('auth.activated');
-    }
-
-    public function postActivated(Request $request)
-    {
-        Session::flash('flash-message', [
-            'message' => 'Aktifasi sukses',
-            'alert-class' => 'alert-success',
-        ]);
-        return redirect()->route('home');
     
-    }
-        
     public function postlogin(Request $request)
     {
-        $email = $request->email;
-        $password = $request->password;
-    
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:8',
+        ]);
+
+        $data = [
+            'email' => $request->email,
+            'password' =>  $request->password,
+        ];
+        
         try {
             $response = Http::withHeaders([
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
-            ])->post('https://admin.pewaca.id/api/auth/login/', [
-                'email' => $email,
-                'password' => $password,
-            ]);
+            ])->post('https://api.pewaca.id/api/auth/login/', $data);
 
             $data_response = json_decode($response->body(), true);
 
             if ($data_response['success'] == true) {
                 $token = $data_response['data']['token'];
                 Session::put('token', $token); // Simpan token ke dalam session
-                $res = $this->authenticate($email);
+                $res = $this->authenticate($data['email']);
 
                 Session::flash('flash-message', [
                     'message' => $res['message'],
@@ -84,7 +68,7 @@ class LoginController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://admin.pewaca.id/api/auth/profil/');
+        ])->get('https://api.pewaca.id/api/auth/profil/');
 
         $auth_response = json_decode($response->body(), true);
         
