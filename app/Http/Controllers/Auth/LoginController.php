@@ -20,13 +20,15 @@ class LoginController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required|min:8',
+            'password' => 'required',
         ]);
 
         $data = [
             'email' => $request->email,
             'password' =>  $request->password,
         ];
+
+        //dd($data);
         
         try {
             $response = Http::withHeaders([
@@ -35,6 +37,8 @@ class LoginController extends Controller
             ])->post('https://api.pewaca.id/api/auth/login/', $data);
 
             $data_response = json_decode($response->body(), true);
+
+            //dd($data_response);
 
             if ($data_response['success'] == true) {
                 $token = $data_response['data']['token'];
@@ -74,7 +78,7 @@ class LoginController extends Controller
         
         if (isset($auth_response['data']['user'])) {
             $credentials = $auth_response['data']['user'];
-           
+            dd($credentials);
             Session::put(['cred' => $credentials]);
            
             if ($credentials['email'] == $email && $credentials['is_active'] == true) {

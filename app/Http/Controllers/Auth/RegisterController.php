@@ -14,7 +14,8 @@ class RegisterController extends Controller
    
     public function showRegister($uuid = null)
     {
-        //code: 1c99af82-cfa0-4d95-8f3e-32d1556bd6ba
+        //uuid: 1c99af82-cfa0-4d95-8f3e-32d1556bd6ba
+        //token : cgbfol-fafbf9d5271dd1354a29c443289edcfd
         if (!$uuid) {
             abort(404, 'UUID tidak ditemukan');
         }
@@ -45,7 +46,7 @@ class RegisterController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('https://api.pewaca.id/api/unit/{$uuid}/');
+        ])->get('https://api.pewaca.id/api/unit/'.$uuid."/");
         $unit_response = json_decode($response->body(), true);
         return $unit_response['data'];
     }
@@ -106,21 +107,41 @@ class RegisterController extends Controller
 
     public function postRegister(Request $request)
     {   
+        $request->validate([
+            'unit_id' => 'required|integer',
+            'nik' => 'required|numeric',
+            'full_name' => 'required|string|max:255',
+            'phone_no' => 'required|string|min:8|max:13',
+            'gender_id' => 'required|integer',
+            'date_of_birth' => 'required|date',
+            'religion' => 'required|integer',
+            'place_of_birth' => 'required|string|max:255',
+            'marital_status' => 'required|integer',
+            'marriagePhoto' => 'nullable|image|mimes:jpeg,jpg|max:2048',
+            'occupation' => 'required|integer',
+            'education' => 'required|integer',
+            'family_as' => 'required|integer',
+            'profile_photo' => 'nullable|image|mimes:jpeg,jpg|max:2048',
+            'code' => 'required|uuid',
+            'email' => 'required|email',
+            'password' => 'required|string'
+        ]);
+
        
-        if(isset($request->marriagePhoto)){
+
+        if(isset($request->marriagePhoto) && $request->hasFile('marriagePhoto')){
             $file1 = $request->file('marriagePhoto');
             $fileData_bk = base64_encode(file_get_contents($file1));
         }
         else{  $fileData_bk = "";}
        
-        if (isset($request->profile_photo)) {
+        if (isset($request->profile_photo) && $request->hasFile('profile_photo')) {
             $file2 = $request->file('profile_photo');
             $fileData_profile = $file2;  // Directly pass the file object.
         } else {
             $fileData_profile = null;  // or an empty value depending on the API's requirement.
         }
-               
-
+              
         $data = [
             'email' => $request->email,
             'password' => $request->password,
@@ -139,24 +160,38 @@ class RegisterController extends Controller
             'code' => $request->code
            
         ];
-   
+        //dd($data);
         try {
-          
-            $response = Http::withHeaders([
+
+            $http = Http::withHeaders([
                 'Accept' => 'application/json',
-            ])->attach(
-                'profile_photo', $fileData_profile, $file2->getClientOriginalName()  // This will send the file as multipart data.
-            )->post('https://api.pewaca.id/api/auth/sign-up/'.$request->code, $data);
+            ]);
+        
+            // Attach file only if it exists
+            if (isset($request->profile_photo) && $request->hasFile('profile_photo')) {
+                $file = $request->file('profile_photo');
+                $http->attach('profile_photo', file_get_contents($file->getRealPath()), $file->getClientOriginalName());
+            }
+        
+            // Send POST request
+            $response = $http->post('https://api.pewaca.id/api/auth/sign-up/'.$request->code."/", $data);
+          
+            // $response = Http::withHeaders([
+            //     'Accept' => 'application/json',
+            // ])->attach('profile_photo', $fileData_profile, $file2->getClientOriginalName() 
+            // )->post('https://api.pewaca.id/api/auth/sign-up/'.$request->code."/", $data);
 
         
             $data_response = json_decode($response->body(), true);
+
+            //dd($data_response);
            
             if ($data_response['success'] == true) {
                 session()->flash('status', 'success');
-                session()->flash('message', $data_response['message']);
+                session()->flash('message', $data_response['data']['message']);
             } else {
                 session()->flash('status', 'error');
-                session()->flash('message', $data_response['message']);
+                session()->flash('message', $data_response['data']['message']);
             }
             return redirect()->route('showRegister', ['uuid' => $request->code]);
 
@@ -167,19 +202,27 @@ class RegisterController extends Controller
         }
     }
 
-    public function showActivated()
+    public function verified($uuid = null, $token = null)
     {
-        return view('auth.activated');
+       //dd($uuid, $token);
+        return view('auth.verify', compact('uuid','token'));
     }
     
-    public function postActivated(Request $request)
+    public function postVerified(Request $request)
     {
-        Session::flash('flash-message', [
-            'message' => 'Aktifasi sukses',
-            'alert-class' => 'alert-success',
+        $request->validate([
+            'code' => 'required|uuid',
+            'token' => 'required|string'
         ]);
-        return redirect()->route('home');
-    
+
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+        ])->get('https://api.pewaca.id/api/auth/verify/'.$request->code."/".$request->token."/");
+        $verify_response = json_decode($response->body(), true);
+        
+        dd($verify_response);
+        
+        // return redirect()->route('auth.verified');
     }
     
 }

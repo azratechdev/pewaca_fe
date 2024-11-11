@@ -29,6 +29,7 @@
     .waca-logo {
         width: 200px; /* Sesuaikan ukuran yang diinginkan */
         height: 97px; /* Sesuaikan ukuran yang diinginkan */
+        border:0px;
     }
 
     

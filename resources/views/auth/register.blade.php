@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/plugins/images/favicon.png') }}">
   <title>Residence</title>
@@ -153,29 +154,37 @@
                             </div>
                         
                             <div class="form-floating mb-3">
-                                <select class="form-select" id="unit_id" name="unit_id" required>
+                                <select class="form-select  @error('unit_id') is-invalid @enderror" id="unit_id" name="unit_id" required>
                                     <option value="" disabled selected hidden>-Pilih Unit-</option>
                                     @foreach ($units as $unit )
-                                    <option value="{{ $unit['unit_id'] }}">{{ $unit['unit_name'] }}</option>
+                                    <option value="{{ $unit['unit_id'] }}" {{ old('gender') == $unit['unit_id'] ? 'selected' : '' }}>{{ $unit['unit_name'] }}</option>
                                     @endforeach
                                 </select>
                                 <label for="noUnit">No Unit</label>
+                                @error('unit_id')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="nik" name="nik" placeholder=" " required>
+                                <input type="number" pattern="[0-9]*" class="form-control @error('nik') is-invalid @enderror" value="{{ old('nik') }}" id="nik" name="nik" placeholder=" " required>
                                 <label for="nik">NIK</label>
+                                @error('nik')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="full_name" name="full_name" placeholder=" " required>
+                                <input type="text" class="form-control" id="full_name" name="full_name" placeholder=" " value="{{ old('full_name') }}" required>
                                 <label for="full_name ">Nama Lengkap</label>
                             </div>
                                                 
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="phone_no" name="phone_no" min="8" max="13" placeholder=" " required>
-                                {{-- <input type="text" class="form-control" id="phone" name="phone" pattern="^\+62[0-9]{8,13}$" placeholder=" " required> --}}
+                                <input type="number" class="form-control @error('phone_no') is-invalid @enderror" pattern="[0-9]{8,13}" value="{{ old('phone_no') }}" id="phone_no" name="phone_no" placeholder=" " required>
                                 <label for="phone_no ">Nomor Telepon</label>
+                                @error('phone_no')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         
                             <div class="form-floating mb-3">
@@ -189,7 +198,7 @@
                             </div>
                         
                             <div class="form-floating mb-3">
-                                <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" placeholder=" " required>
+                                <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" value="{{ old('date_of_birth') }}"  placeholder=" " required>
                                 <label for="date_of_birth ">Tanggal Lahir</label>
                             </div>
                         
@@ -204,12 +213,7 @@
                             </div>
                         
                             <div class="form-floating mb-3">
-                                <select class="form-select" id="place_of_birth" name="place_of_birth" required>
-                                    <option value="" disabled selected hidden>-Pilih Tempat Lahir-</option>
-                                    @foreach ($cities as $city )
-                                    <option value="{{ $city['id'] }}">{{ $city['name'] }}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text" id="place_of_birth" class="form-control" value="{{ old('place_of_birth') }}" name="place_of_birth" placeholder=" " required>
                                 <label for="place_of_birth ">Tempat Lahir</label>
                             </div>
                         
@@ -224,8 +228,11 @@
                             </div>
                         
                             <div class="form-floating mb-3" id="marriagePhotoGroup" style="display: none;">
-                                <input type="file" class="form-control" id="marriagePhoto" name="marriagePhoto">
+                                <input type="file" class="form-control @error('profile_photo') is-invalid @enderror" id="marriagePhoto" name="marriagePhoto" accept="image/jpeg,image/jpg">
                                 <label for="marriagePhoto">Upload Foto Buku Nikah</label>
+                                @error('marriagePhoto')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         
                             <div class="form-floating mb-3">
@@ -249,13 +256,19 @@
                             </div>
                         
                             <div class="form-floating mb-3">
-                                <input type="email" class="form-control" id="email" name="email" placeholder=" " required>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" id="email" name="email" placeholder=" " required>
                                 <label for="email">Alamat Email</label>
+                                @error('email')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         
                             <div class="form-floating mb-3">
-                                <input type="password" class="form-control" id="password" name="password" placeholder=" " required>
+                                <input type="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" id="password" name="password" placeholder=" " required>
                                 <label for="password">Buat Kata Sandi</label>
+                                @error('password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-floating mb-3">
@@ -269,8 +282,11 @@
                             </div>
                         
                             <div class="form-floating mb-3">
-                                <input type="file" class="form-control" id="profile_photo" name="profile_photo">
+                                <input type="file" class="form-control @error('profile_photo') is-invalid @enderror" id="profile_photo" name="profile_photo" accept="image/jpeg,image/jpg">
                                 <label for="profile_photo">Upload Foto Profil</label>
+                                @error('profile_photo')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         
                             <div class="form-group mb-3">
@@ -288,22 +304,43 @@
         </div>
     </div>
 
-    @if(session('status') == 'success'))
-        <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Sukses!',
-                text: '{{ session("message") }}'
-            });
-        </script>
-     @elseif(session('status') == 'error')
-        <script>
-            Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: '{{ session("message") }}'
-            });
-        </script>
+    @if (session('status') == 'success')
+    <script>
+        let uuid = $('input#code').val(); // Ambil nilai uuid dari request atau variabel yang sesuai
+        
+        Swal.fire({
+            title: '<strong style="font-size: 20px; font-weight: bold;">{{ session("message") }}</strong>',
+            text: 'Silahkan cek email Anda untuk melanjutkan verifikasi',
+            confirmButtonText: 'Mengerti',
+            customClass: {
+                confirmButton: 'btn btn-sm col-md-12 btn-success' // Menyesuaikan tombol
+            },
+            imageUrl: "{{ asset('assets/plugins/images/envelope.jpg') }}", // Gambar ikon custom
+            imageWidth: 120, // Ukuran gambar
+            imageHeight: 120
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '{{ route('showRegister', ['uuid' => '']) }}' + uuid;
+            }
+        });
+    </script>
+    @elseif (session('status') == 'error')
+    <script>
+        let uuid = $('input#code').val();
+        Swal.fire({
+            title: '{{ session("message") }}',
+            text: 'Pastikan data terisi',
+            icon: 'warning',
+            confirmButtonText: 'Mengerti',
+            customClass: {
+                confirmButton: 'btn btn-sm col-md-12 btn-success' // Menyesuaikan tombol
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '{{ route('showRegister', ['uuid' => '']) }}' + uuid;
+            }
+        });
+    </script>
     @endif
 
   <!-- Tambahkan jQuery -->
@@ -366,7 +403,6 @@
         $( document ).ready(function() {
             // Mendapatkan elemen yang dibutuhkan
             const statusSelect = document.getElementById('marital_status');
-            console.log(statusSelect);
             const marriagePhotoGroup = document.getElementById('marriagePhotoGroup');
             const marriagePhotoInput = document.getElementById('marriagePhoto');
 

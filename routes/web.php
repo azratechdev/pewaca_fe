@@ -25,6 +25,8 @@ Route::get('/', [LoginController::class, 'showLoginForm'])->name('showLoginForm'
 Route::post('/', [LoginController::class, 'postlogin'])->name('postlogin');
 Route::get('/registration/{uuid?}', [RegisterController::class, 'showRegister'])->name('showRegister');
 Route::post('/postregistration', [RegisterController::class, 'postRegister'])->name('postRegister');
+Route::get('/verified/{uuid?}/{token?}', [RegisterController::class, 'verified'])->name('showVerified');
+Route::post('/verified/{uuid?}/{token?}', [RegisterController::class, 'postVerified'])->name('postVerified');
 
 Route::get('/forgotpassword', [ForgotPasswordController::class, 'showFormReset'])->name('showFormReset');
 Route::post('/sendmail', [ForgotPasswordController::class, 'sendMail'])->name('sendMail');
