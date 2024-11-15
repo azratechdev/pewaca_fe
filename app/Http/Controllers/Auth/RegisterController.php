@@ -128,20 +128,6 @@ class RegisterController extends Controller
             'password' => 'required|string'
         ]);
 
-
-        if(isset($request->marriagePhoto) && $request->hasFile('marriagePhoto')){
-            $file1 = $request->file('marriagePhoto');
-            $fileData_bk = base64_encode(file_get_contents($file1));
-        }
-        else{  $fileData_bk = "";}
-       
-        if (isset($request->profile_photo) && $request->hasFile('profile_photo')) {
-            $file2 = $request->file('profile_photo');
-            $fileData_profile = $file2;  // Directly pass the file object.
-        } else {
-            $fileData_profile = null;  // or an empty value depending on the API's requirement.
-        }
-              
         $data = [
             'email' => $request->email,
             'password' => $request->password,
@@ -179,7 +165,7 @@ class RegisterController extends Controller
             //dd($data_response);
             if ($data_response['success'] == true) {
                 session()->flash('status', 'success');
-                session()->flash('message', $data_response['message']);
+                session()->flash('message', $data_response['data']['message']);
                 return redirect()->route('showRegister', ['uuid' => $request->code]);
             } else {
                

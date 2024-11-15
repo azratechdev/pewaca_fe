@@ -311,30 +311,30 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-    // Menangani pengiriman form
+   
         $('#registrasi').on('submit', function(e) {
-                       // Menampilkan SweetAlert dengan animasi loading
+               
             Swal.fire({
                 title: 'Memproses Data',
                 text: 'Harap tunggu sebentar...',
-                allowOutsideClick: false,  // Menonaktifkan klik luar untuk menutup
-                allowEscapeKey: false,    // Menonaktifkan Escape Key untuk menutup
+                allowOutsideClick: false, 
+                allowEscapeKey: false,  
                 didOpen: () => {
-                    Swal.showLoading();  // Menampilkan indikator loading
+                    Swal.showLoading(); 
                 }
             });
         });
     </script>
   @if (session('status') == 'success')
     <script>
-      // Pastikan input #code ada, dan ambil nilainya, atau gunakan fallback jika kosong
-      let uuid = $('input#code').length ? $('input#code').val() : '';
+    //   let uuid = $('input#code').length ? $('input#code').val() : '';
 
       Swal.fire({
           title: '<strong style="font-size: 20px; font-weight: bold;">{{ session("message") }}</strong>',
           text: 'Silahkan cek email Anda untuk melanjutkan verifikasi',
           confirmButtonText: 'Mengerti',
           allowOutsideClick: false,
+          allowEscapeKey: false,
           customClass: {
               confirmButton: 'btn btn-sm col-md-12 btn-success'
           },
@@ -343,16 +343,16 @@
           imageHeight: 120
       }).then((result) => {
           if (result.isConfirmed) {
-              // Arahkan ke route jika uuid ada
-              if (uuid) {
-                  window.location.href = '{{ route('showRegister', ['uuid' => '']) }}' + uuid;
-              }
+            window.location.href = '{{ route('showLoginForm') }}';
+            //   if (uuid) {
+               //   window.location.href = '{{ route('showRegister', ['uuid' => '']) }}' + uuid;
+            //   }
           }
       });
     </script>
 @elseif (session('status') == 'error')
     <script>
-      // Pastikan input #code ada, dan ambil nilainya, atau gunakan fallback jika kosong
+     
       let uuid = $('input#code').length ? $('input#code').val() : '';
 
       Swal.fire({
@@ -360,15 +360,15 @@
           text: 'Pastikan anda memiliki koneksi internet',
           icon: 'error',
           allowOutsideClick: false,
+          allowEscapeKey: false,
           confirmButtonText: 'Mengerti',
           customClass: {
               confirmButton: 'btn btn-sm col-md-12 btn-success'
           }
       }).then((result) => {
           if (result.isConfirmed) {
-              // Arahkan ke route jika uuid ada
               if (uuid) {
-                  window.location.href = '{{ route('showRegister', ['uuid' => '']) }}' + uuid;
+                window.location.href = '{{ route('showRegister', ['uuid' => '']) }}' + uuid;
               }
           }
       });
@@ -376,29 +376,26 @@
 
 @endif
     <script>
-        // Ambil elemen form dan tombol submit
+     
         const form = document.getElementById('registrasi');
         const submitBtn = document.getElementById('submitBtn');
         
-        // Fungsi untuk memeriksa apakah semua field required terisi
+      
         function checkFormValidity() {
-            // Memeriksa apakah semua input dengan atribut required terisi
+           
             const isValid = [...form.querySelectorAll('input[required], select[required]')].every(input => {
-                // Pastikan field tidak kosong
+            
                 if (input.type === 'file') {
                     return input.files.length > 0 || input.optional; // Periksa jika input file kosong
                 }
                 return input.value.trim() !== '';
             });
-            
-            // Aktifkan atau nonaktifkan tombol submit berdasarkan hasil validasi
+         
             submitBtn.disabled = !isValid;
         }
 
-        // Pasang event listener pada form untuk memantau perubahan pada input
         form.addEventListener('input', checkFormValidity);
 
-        // Inisialisasi status tombol submit saat pertama kali dimuat
         checkFormValidity();
     </script>
     <script>
@@ -410,8 +407,7 @@
             const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
             return uuidRegex.test(id);
         }
-
-        // Contoh penggunaan ketika form di-post
+       
         document.getElementById("registrasi").addEventListener("submit", function(event) {
             const id = document.getElementById("code").value;
             if (!validateUUID(id)) {
@@ -427,7 +423,6 @@
                         }
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            // Arahkan ke route jika uuid ada
                             if (uuid) {
                                 window.location.href = '{{ route('showRegister', ['uuid' => '']) }}' + uuid;
                             }
@@ -440,12 +435,11 @@
 
     <script>
         $( document ).ready(function() {
-            // Mendapatkan elemen yang dibutuhkan
+         
             const statusSelect = document.getElementById('marital_status');
             const marriagePhotoGroup = document.getElementById('marriagePhotoGroup');
             const marriagePhotoInput = document.getElementById('marriagePhoto');
 
-             // Cek apakah statusSelect ditemukan
             if (statusSelect) {
                 function toggleMarriagePhotoInput() {
                     const selectedStatus = statusSelect.value;
