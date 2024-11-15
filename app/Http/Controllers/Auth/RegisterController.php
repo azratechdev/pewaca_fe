@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Validator;
 
 
 class RegisterController extends Controller
@@ -127,7 +128,6 @@ class RegisterController extends Controller
             'password' => 'required|string'
         ]);
 
-       
 
         if(isset($request->marriagePhoto) && $request->hasFile('marriagePhoto')){
             $file1 = $request->file('marriagePhoto');
@@ -166,39 +166,42 @@ class RegisterController extends Controller
             $http = Http::withHeaders([
                 'Accept' => 'application/json',
             ]);
-        
-            // Attach file only if it exists
+
             if (isset($request->profile_photo) && $request->hasFile('profile_photo')) {
                 $file = $request->file('profile_photo');
                 $http->attach('profile_photo', file_get_contents($file->getRealPath()), $file->getClientOriginalName());
             }
-        
-            // Send POST request
+           
             $response = $http->post('https://api.pewaca.id/api/auth/sign-up/'.$request->code."/", $data);
-          
-            // $response = Http::withHeaders([
-            //     'Accept' => 'application/json',
-            // ])->attach('profile_photo', $fileData_profile, $file2->getClientOriginalName() 
-            // )->post('https://api.pewaca.id/api/auth/sign-up/'.$request->code."/", $data);
-
-        
+                            
             $data_response = json_decode($response->body(), true);
 
             //dd($data_response);
-           
             if ($data_response['success'] == true) {
                 session()->flash('status', 'success');
-                session()->flash('message', $data_response['data']['message']);
+                session()->flash('message', $data_response['message']);
+                return redirect()->route('showRegister', ['uuid' => $request->code]);
             } else {
-                session()->flash('status', 'error');
-                session()->flash('message', $data_response['data']['message']);
-            }
-            return redirect()->route('showRegister', ['uuid' => $request->code]);
+               
+                $data_errors = $data_response['errors'] ?? [];
 
+                $validator = Validator::make([], []);
+                
+                foreach ($data_errors as $field => $messages) {
+                    foreach ($messages as $message) {
+                        $validator->errors()->add($field, $message);
+                    }
+                }
+
+                return redirect()->route('showRegister', ['uuid' => $request->code])
+                                ->withErrors($validator)
+                                ->withInput(); 
+            }
+        
         } catch (\Exception $e) {
             session()->flash('status', 'error');
             session()->flash('message', 'Gagal Mengirim Data');
-            return redirect()->route('showRegister', ['uuid' => $request->code]);
+            return redirect()->route('showRegister', ['uuid' => $request->code])->withInput();
         }
     }
 
@@ -211,7 +214,7 @@ class RegisterController extends Controller
     public function postVerified(Request $request)
     {
         $request->validate([
-            'code' => 'required|uuid',
+            'code' => 'required|string',
             'token' => 'required|string'
         ]);
 

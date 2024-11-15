@@ -78,7 +78,7 @@ class LoginController extends Controller
         
         if (isset($auth_response['data']['user'])) {
             $credentials = $auth_response['data']['user'];
-            dd($credentials);
+            //dd($credentials);
             Session::put(['cred' => $credentials]);
            
             if ($credentials['email'] == $email && $credentials['is_active'] == true) {

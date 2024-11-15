@@ -8,13 +8,7 @@
   <title>Residence</title>
   
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-   <!-- CSS Select2 -->
-   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-  
- 
-  
+   
   <style>
     .navbar-custom {
       background-color:  #198754; /* Tosca color */
@@ -157,7 +151,7 @@
                                 <select class="form-select  @error('unit_id') is-invalid @enderror" id="unit_id" name="unit_id" required>
                                     <option value="" disabled selected hidden>-Pilih Unit-</option>
                                     @foreach ($units as $unit )
-                                    <option value="{{ $unit['unit_id'] }}" {{ old('gender') == $unit['unit_id'] ? 'selected' : '' }}>{{ $unit['unit_name'] }}</option>
+                                    <option value="{{ $unit['unit_id'] }}" {{ old('unit_id') == $unit['unit_id'] ? 'selected' : '' }}>{{ $unit['unit_name'] }}</option>
                                     @endforeach
                                 </select>
                                 <label for="noUnit">No Unit</label>
@@ -177,6 +171,9 @@
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="full_name" name="full_name" placeholder=" " value="{{ old('full_name') }}" required>
                                 <label for="full_name ">Nama Lengkap</label>
+                                @error('full_name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                                                 
                             <div class="form-floating mb-3">
@@ -191,7 +188,7 @@
                                 <select class="form-select" id="gender_id" name="gender_id" required>
                                     <option value="" disabled selected hidden>-Pilih Jenis Kelamin-</option>
                                     @foreach ($genders as $gender)
-                                    <option value="{{ $gender['id'] }}">{{ $gender['name'] }}</option>
+                                    <option value="{{ $gender['id'] }}" {{ old('gender_id') == $gender['id'] ? 'selected' : '' }}>{{ $gender['name'] }}</option>
                                     @endforeach
                                 </select>
                                 <label for="gender_id ">Jenis Kelamin</label>
@@ -206,7 +203,7 @@
                                 <select class="form-select" id="religion" name="religion" required>
                                     <option value="" disabled selected hidden>-Pilih Agama-</option>
                                     @foreach ($religions as $religion )
-                                    <option value="{{ $religion['id'] }}">{{ $religion['name'] }}</option>
+                                    <option value="{{ $religion['id'] }}" {{ old('religion') ==  $religion['id'] ? 'selected' : '' }}>{{ $religion['name'] }}</option>
                                     @endforeach
                                 </select>
                                 <label for="religion">Agama</label>
@@ -221,14 +218,14 @@
                                 <select class="form-select" id="marital_status" name="marital_status" required>
                                     <option value="" disabled selected hidden>-Pilih Status-</option>
                                     @foreach ($statuses as $status )
-                                    <option value="{{ $status['id'] }}">{{ $status['name'] }}</option>
+                                    <option value="{{ $status['id'] }}" {{ old('marital_status') == $status['id'] ? 'selected' : '' }}>{{ $status['name'] }}</option>
                                     @endforeach
                                 </select>
                                 <label for="marital_status">Status</label>
                             </div>
                         
                             <div class="form-floating mb-3" id="marriagePhotoGroup" style="display: none;">
-                                <input type="file" class="form-control @error('profile_photo') is-invalid @enderror" id="marriagePhoto" name="marriagePhoto" accept="image/jpeg,image/jpg">
+                                <input type="file" class="form-control @error('marriagePhoto') is-invalid @enderror" id="marriagePhoto" name="marriagePhoto" accept="image/jpeg,image/jpg">
                                 <label for="marriagePhoto">Upload Foto Buku Nikah</label>
                                 @error('marriagePhoto')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -239,7 +236,7 @@
                                 <select class="form-select" id="occupation" name="occupation" required>
                                     <option value="" disabled selected hidden>-Pilih Pekerjaan-</option>
                                     @foreach ($jobs as $job)
-                                    <option value="{{ $job['id'] }}">{{ $job['name'] }}</option>
+                                    <option value="{{ $job['id'] }}" {{ old('occupation') == $job['id'] ? 'selected' : '' }}>{{ $job['name'] }}</option>
                                     @endforeach
                                 </select>
                                 <label for="occupation ">Pekerjaan</label>
@@ -249,7 +246,7 @@
                                 <select class="form-select" id="education" name="education" required>
                                     <option value="" disabled selected hidden>-Pilih Pendidikan-</option>
                                     @foreach ($educations as $education)
-                                    <option value="{{ $education['id'] }}">{{ $education['name'] }}</option>
+                                    <option value="{{ $education['id'] }}" {{ old('education') == $education['id'] ? 'selected' : '' }}>{{ $education['name'] }}</option>
                                     @endforeach
                                 </select>
                                 <label for="education">Pendidikan</label>
@@ -275,7 +272,7 @@
                                 <select class="form-select" id="family_as" name="family_as" required>
                                     <option value="" disabled selected hidden>-Pilih Sebagai-</option>
                                     @foreach ($families as $family)
-                                    <option value="{{ $family['id'] }}">{{ $family['name'] }}</option>
+                                    <option value="{{ $family['id'] }}" {{ old('family_as') == $family['id'] ? 'selected' : '' }}>{{ $family['name'] }}</option>
                                     @endforeach
                                 </select>
                                 <label for="family_as">Family As</label>
@@ -303,45 +300,7 @@
             </div>
         </div>
     </div>
-
-    @if (session('status') == 'success')
-    <script>
-        let uuid = $('input#code').val(); // Ambil nilai uuid dari request atau variabel yang sesuai
-        
-        Swal.fire({
-            title: '<strong style="font-size: 20px; font-weight: bold;">{{ session("message") }}</strong>',
-            text: 'Silahkan cek email Anda untuk melanjutkan verifikasi',
-            confirmButtonText: 'Mengerti',
-            customClass: {
-                confirmButton: 'btn btn-sm col-md-12 btn-success' // Menyesuaikan tombol
-            },
-            imageUrl: "{{ asset('assets/plugins/images/envelope.jpg') }}", // Gambar ikon custom
-            imageWidth: 120, // Ukuran gambar
-            imageHeight: 120
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = '{{ route('showRegister', ['uuid' => '']) }}' + uuid;
-            }
-        });
-    </script>
-    @elseif (session('status') == 'error')
-    <script>
-        let uuid = $('input#code').val();
-        Swal.fire({
-            title: '{{ session("message") }}',
-            text: 'Pastikan data terisi',
-            icon: 'warning',
-            confirmButtonText: 'Mengerti',
-            customClass: {
-                confirmButton: 'btn btn-sm col-md-12 btn-success' // Menyesuaikan tombol
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = '{{ route('showRegister', ['uuid' => '']) }}' + uuid;
-            }
-        });
-    </script>
-    @endif
+   
 
   <!-- Tambahkan jQuery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -349,9 +308,73 @@
   <!-- JS Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- JS Select2 -->
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-  
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+    // Menangani pengiriman form
+        $('#registrasi').on('submit', function(e) {
+                       // Menampilkan SweetAlert dengan animasi loading
+            Swal.fire({
+                title: 'Memproses Data',
+                text: 'Harap tunggu sebentar...',
+                allowOutsideClick: false,  // Menonaktifkan klik luar untuk menutup
+                allowEscapeKey: false,    // Menonaktifkan Escape Key untuk menutup
+                didOpen: () => {
+                    Swal.showLoading();  // Menampilkan indikator loading
+                }
+            });
+        });
+    </script>
+  @if (session('status') == 'success')
+    <script>
+      // Pastikan input #code ada, dan ambil nilainya, atau gunakan fallback jika kosong
+      let uuid = $('input#code').length ? $('input#code').val() : '';
+
+      Swal.fire({
+          title: '<strong style="font-size: 20px; font-weight: bold;">{{ session("message") }}</strong>',
+          text: 'Silahkan cek email Anda untuk melanjutkan verifikasi',
+          confirmButtonText: 'Mengerti',
+          allowOutsideClick: false,
+          customClass: {
+              confirmButton: 'btn btn-sm col-md-12 btn-success'
+          },
+          imageUrl: "{{ asset('assets/plugins/images/envelope.jpg') }}",
+          imageWidth: 120,
+          imageHeight: 120
+      }).then((result) => {
+          if (result.isConfirmed) {
+              // Arahkan ke route jika uuid ada
+              if (uuid) {
+                  window.location.href = '{{ route('showRegister', ['uuid' => '']) }}' + uuid;
+              }
+          }
+      });
+    </script>
+@elseif (session('status') == 'error')
+    <script>
+      // Pastikan input #code ada, dan ambil nilainya, atau gunakan fallback jika kosong
+      let uuid = $('input#code').length ? $('input#code').val() : '';
+
+      Swal.fire({
+          title: '{{ session("message") }}',
+          text: 'Pastikan anda memiliki koneksi internet',
+          icon: 'error',
+          allowOutsideClick: false,
+          confirmButtonText: 'Mengerti',
+          customClass: {
+              confirmButton: 'btn btn-sm col-md-12 btn-success'
+          }
+      }).then((result) => {
+          if (result.isConfirmed) {
+              // Arahkan ke route jika uuid ada
+              if (uuid) {
+                  window.location.href = '{{ route('showRegister', ['uuid' => '']) }}' + uuid;
+              }
+          }
+      });
+    </script>
+
+@endif
     <script>
         // Ambil elemen form dan tombol submit
         const form = document.getElementById('registrasi');
@@ -393,7 +416,23 @@
             const id = document.getElementById("code").value;
             if (!validateUUID(id)) {
                 event.preventDefault();
-                alert("Invalid ID format!");
+                    Swal.fire({
+                        title:'Unknow Page',
+                        text: 'Tindakan tidak dikenali, pastikan anda menuju halaman yang benar.',
+                        icon: 'error',
+                        allowOutsideClick: false,
+                        confirmButtonText: 'Mengerti',
+                        customClass: {
+                            confirmButton: 'btn btn-sm col-md-12 btn-success'
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Arahkan ke route jika uuid ada
+                            if (uuid) {
+                                window.location.href = '{{ route('showRegister', ['uuid' => '']) }}' + uuid;
+                            }
+                        }
+                    });
             }
         });
    
