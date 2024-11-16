@@ -58,7 +58,7 @@
               if (data.success === true) {
                   Swal.fire({
                       title: '<strong style="font-size: 20px; font-weight: bold;">'+data.data.message+'</strong>',
-                      text: 'Selamat data anda telah terferifikasi, silahkan login.',
+                      text: 'Selamat data anda telah terverifikasi, silahkan login.',
                       confirmButtonText: 'Mengerti',
                       customClass: {
                           confirmButton: 'btn btn-sm col-md-12 btn-success'
@@ -121,7 +121,7 @@
                   if (data.success) {
                       Swal.fire({
                          title: '<strong style="font-size: 20px; font-weight: bold;">'+data.data.message+'</strong>',
-                         text: 'Selamat data anda telah terferifikasi, silahkan login.',
+                         text: 'Selamat data anda telah terverifikasi, silahkan login.',
                           icon: 'success',
                           confirmButtonText: 'Mengerti',
                           customClass: {
