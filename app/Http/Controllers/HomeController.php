@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
    
     public function index()
     {
-        //dd('here');
+        //dd(Session::get('cred'));
         return view('home.index');
     }
 

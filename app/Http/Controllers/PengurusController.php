@@ -22,13 +22,13 @@ class PengurusController extends Controller
             $response = Http::withHeaders([
                 'Accept' => 'application/json',
                 'Authorization' => 'Token '.Session::get('token'),
-            ])->get('https://admin.pewaca.id/api/warga/');
+            ])->get('https://api.pewaca.id/api/warga/');
                
             $warga_response = json_decode($response->body(), true);
-            // dd($warga_response);
+            //dd($warga_response);
             if (isset($warga_response['data'])) {
                 $data = $warga_response['data'];
-
+                //dd($data);
                 $warga = [
                     'data' => $data,
                     'message' => ''

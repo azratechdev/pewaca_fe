@@ -18,14 +18,25 @@
         </li>
 
         <!-- Cek apakah role user adalah pengurus -->
-        @if(Session::has('cred') && collect(Session::get('cred')['residence_commites'])->contains('role', 1))
+        {{-- @if(Session::has('cred') && collect(Session::get('cred')['residence_commites'])->contains('role', 1))
           <li class="nav-item">
               <a href="{{ route('pengurus') }}" class="nav-link text-center text-white">
                   <i class="fa fa-id-card fa-2x"></i>
                   <span class="small d-block">Pengurus</span>
               </a>
           </li>
-        @endif
+        @endif --}}
+
+        @if(Session::has('cred') && collect(Session::get('cred')['residence_commites'])->contains(function ($commite) {
+          return isset($commite['role']['id']) && $commite['role']['id'] === 1;
+          }))
+          <li class="nav-item">
+              <a href="{{ route('pengurus') }}" class="nav-link text-center text-white">
+                  <i class="fa fa-id-card fa-2x"></i>
+                  <span class="small d-block">Pengurus</span>
+              </a>
+          </li>
+      @endif
 
         {{-- <li class="nav-item">
           <a href="{{ route('pengurus') }}" class="nav-link text-center text-white">

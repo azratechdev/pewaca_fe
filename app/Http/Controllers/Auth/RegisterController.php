@@ -193,8 +193,31 @@ class RegisterController extends Controller
 
     public function verified($uuid = null, $token = null)
     {
-       //dd($uuid, $token);
-        return view('auth.verify', compact('uuid','token'));
+        return view('auth.verify');
+        // try{
+
+        //     $response = Http::withHeaders([
+        //         'Accept' => 'application/json',
+        //     ])->get('https://api.pewaca.id/api/auth/verify/'.$uuid."/".$token."/");
+        //     $verify_response = json_decode($response->body(), true);
+            
+        //    // dd($verify_response);
+        //     if ($verify_response['success'] == true) {
+        //         session()->flash('status', 'success');
+        //         session()->flash('message', $verify_response['message']);
+               
+        //     } else {
+        //         session()->flash('status', 'warning');
+        //         session()->flash('message', $verify_response['message']);
+        //     }
+        //     return redirect()->route('showVerified');
+
+        // } catch (\Exception $e) {
+        //     session()->flash('status', 'error');
+        //     session()->flash('message', 'Gagal Verifikasi, Pastikan anda memiliki akses internet');
+        //     return redirect()->route('showVerified');
+        // }
+      
     }
     
     public function postVerified(Request $request)
