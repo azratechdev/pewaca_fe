@@ -162,8 +162,7 @@ class RegisterController extends Controller
                             
             $data_response = json_decode($response->body(), true);
 
-            //dd($data_response);
-            if ($data_response['success'] == true) {
+            if ($response->successful()) {
                 session()->flash('status', 'success');
                 session()->flash('message', $data_response['data']['message']);
                 return redirect()->route('showRegister', ['uuid' => $request->code]);
@@ -194,31 +193,7 @@ class RegisterController extends Controller
     public function verified($uuid = null, $token = null)
     {
         return view('auth.verify');
-        // try{
-
-        //     $response = Http::withHeaders([
-        //         'Accept' => 'application/json',
-        //     ])->get('https://api.pewaca.id/api/auth/verify/'.$uuid."/".$token."/");
-        //     $verify_response = json_decode($response->body(), true);
-            
-        //    // dd($verify_response);
-        //     if ($verify_response['success'] == true) {
-        //         session()->flash('status', 'success');
-        //         session()->flash('message', $verify_response['message']);
-               
-        //     } else {
-        //         session()->flash('status', 'warning');
-        //         session()->flash('message', $verify_response['message']);
-        //     }
-        //     return redirect()->route('showVerified');
-
-        // } catch (\Exception $e) {
-        //     session()->flash('status', 'error');
-        //     session()->flash('message', 'Gagal Verifikasi, Pastikan anda memiliki akses internet');
-        //     return redirect()->route('showVerified');
-        // }
-      
-    }
+    } 
     
     public function postVerified(Request $request)
     {
@@ -234,7 +209,6 @@ class RegisterController extends Controller
         
         dd($verify_response);
         
-        // return redirect()->route('auth.verified');
     }
     
 }
