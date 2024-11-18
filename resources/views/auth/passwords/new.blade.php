@@ -63,22 +63,28 @@
                         <p>Masukan kata sandi baru dan konfirmasi, pastikan bernilai sama.</p>
                     </div>
 
-                    <div class="mb-3">
+                    {{-- <div class="mb-3">
                         @include('layouts.elements.flash')
                     </div>
-      
+       --}}
                     <form id="newPassword" method="POST" action="{{ route('sendNewpassword') }}">
                         @csrf
                         <input type="hidden" class="form-control" name="code" id="code">
                         <input type="hidden" class="form-control" name="token" id="token">
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                            <input type="password" class="form-control"  @error('password') is-invalid @enderror" value="{{ old('password') }}" name="password" id="password" placeholder="Password">
                             <label for="floatingPassword">Buat Kata Sandi Baru</label>
+                            @error('password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Password">
+                            <input type="password" class="form-control"  @error('confirm_password') is-invalid @enderror" value="{{ old('confirm_password') }}" name="confirm_password" id="confirm_password" placeholder="Password">
                             <label for="floatingPassword">Kofirmasi Kata Sandi Baru</label>
+                            @error('confirm_password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <br>
                         <div class="row">
@@ -113,11 +119,10 @@
   <!-- JS Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- JS Select2 -->
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-  
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
-            // Mendapatkan URL saat ini
+        // Mendapatkan URL saat ini
         let url = window.location.href;
 
         // Membagi URL berdasarkan '/'
@@ -127,10 +132,98 @@
         let uuid = urlParts[4];  // 1c99af82-cfa0-4d95-8f3e-32d1556bd6ba
         let token = urlParts[5]; // 342343253463wefsdfgd
 
+        //alert(token);
+
         $('input#code').val(uuid);
         $('input#token').val(token);
 
     </script>
+
+  <script>
+    
+      $('#newPassword').on('submit', function(e) {
+        Swal.fire({
+            title: 'Mengganti kata sandi',
+            text: 'Harap tunggu sebentar...',
+            allowOutsideClick: false, 
+            allowEscapeKey: false,  
+            didOpen: () => {
+                Swal.showLoading(); 
+            }
+        });
+      });
+  </script>
+
+@if (session('status') == 'success')
+<script>
+//   let uuid = $('input#code').length ? $('input#code').val() : '';
+
+    Swal.fire({
+        title: '<strong style="font-size: 20px; font-weight: bold;">{{ session("message") }}</strong>',
+        text: 'Berhasil mangganti kata sandi.!',
+        confirmButtonText: 'Lanjutkan',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        customClass: {
+            confirmButton: 'btn btn-sm col-md-12 btn-success'
+        },
+        imageUrl: "{{ asset('assets/plugins/images/verified.jpg') }}",
+        imageWidth: 120,
+        imageHeight: 120
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '{{ route('showLoginForm') }}';
+        }
+  });
+</script>
+@elseif (session('status') == 'warning')
+<script>
+    //alert('HERER'+ uuid + token);
+    Swal.fire({
+        title: '<strong style="font-size: 20px; font-weight: bold;">{{ session("message") }}</strong>',
+        text: 'Periksa kembali kata sandi.!',
+        icon: 'warning',
+        confirmButtonText: 'Mengerti',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        customClass: {
+            confirmButton: 'btn btn-sm col-md-12 btn-success'
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            let uuid = $('input#code').length ? $('input#code').val() : '';
+            let token = $('input#token').length ? $('input#token').val() : '';
+            $('form#newPassword').reset();
+            window.location.href = '{{ route('newPassword', ['uuid' => '']) }}' + uuid + '/token=' + token;
+        }
+    });
+
+</script>
+@elseif (session('status') == 'error')
+<script>
+ 
+  Swal.fire({
+      title: '{{ session("message") }}',
+      text: 'Pastikan anda memiliki koneksi internet',
+      icon: 'error',
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      confirmButtonText: 'Mengerti',
+      customClass: {
+          confirmButton: 'btn btn-sm col-md-12 btn-success'
+      }
+  }).then((result) => {
+       if (result.isConfirmed) {
+            let uuid = $('input#code').length ? $('input#code').val() : '';
+            let token = $('input#token').length ? $('input#token').val() : '';
+            window.location.href = '{{ route('newPassword', ['uuid' => '']) }}'+'/'+ uuid + '/' + token;
+         }
+  });
+</script>
+
+@endif
+  
+    
     <script>
         function togglePasswordVisibility() {
             const passwordInput = document.getElementById('password');
