@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/plugins/images/favicon.png') }}">
-  <title>Residence</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/plugins/images/pewaca-green.jpeg') }}">
+  <title>Pewaca</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
    {{-- <!-- CSS Select2 -->
    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> --}}
@@ -32,6 +32,44 @@
         width: 200px; /* Sesuaikan ukuran yang diinginkan */
         height: 97px; /* Sesuaikan ukuran yang diinginkan */
     }
+
+    .swal2-popup.rounded-alert {
+    border-radius: 12px !important;
+    padding: 20px;
+    width: 400px !important;
+    max-width: 75%;
+}
+
+/* Tambahan styling opsional */
+.swal2-popup .swal2-title {
+    font-size: 20px !important;
+    font-weight: bold !important;
+    margin: 10px 0 !important;
+}
+
+.swal2-popup .swal2-content {
+    font-size: 14px !important;
+    margin-bottom: 10px !important;
+    text-align: center;
+}
+.swal2-actions {
+    display: flex !important; /* Atur elemen pembungkus tombol agar fleksibel */
+    justify-content: center !important; /* Pusatkan tombol */
+    width: 100% !important; /* Pastikan pembungkus tombol lebar penuh */
+    margin: 0 !important;
+}
+
+.swal-confirm-btn {
+    display: block !important; /* Ubah tombol menjadi elemen blok */
+    width: 100% !important; /* Pastikan tombol melebar penuh */
+    padding: 10px !important; /* Tinggi tombol */
+    font-size: 16px !important; /* Ukuran teks */
+    background-color: #198754 !important; /* Warna hijau success */
+    color: white !important; /* Teks putih */
+    border: none !important; /* Hapus border */
+    border-radius: 4px !important; /* Sudut melengkung */
+    text-align: center !important; /* Teks di tengah */
+}
 
     
   </style>
@@ -98,31 +136,53 @@
 
     @if (session('status') == 'success')
     <script>
+        
         Swal.fire({
-            title: '<strong style="font-size: 20px; font-weight: bold;">Success</strong>',
-            text: 'Silahkan cek email Anda untuk melanjutkan atur ulang kata sandi',
+            html: `
+                <div style="text-align: center; font-size: 14px;">
+                    <h2 style="font-size: 20px; font-weight: bold; margin: 10px 0">
+                        Success
+                    </h2>
+                    <p>Silahkan cek email Anda untuk melanjutkan atur ulang kata sandi.</p>
+                    <img
+                        src="{{ asset('assets/plugins/images/verified-send.jpeg') }}"
+                        alt="Verified"
+                        style="width: 180px; height: 175px; margin: 10px 0" />
+                </div>
+            `,
+            
+            showConfirmButton: true,
             confirmButtonText: 'Mengerti',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
             customClass: {
-                confirmButton: 'btn btn-sm col-md-12 btn-success' // Menyesuaikan tombol
-            },
-            imageUrl: "{{ asset('assets/plugins/images/envelope.jpg') }}", // Gambar ikon custom
-            imageWidth: 120, // Ukuran gambar
-            imageHeight: 120
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = '{{ route('showLoginForm') }}';
+                popup: 'rounded-alert', // Class untuk border-radius
+                confirmButton: 'swal-confirm-btn'
             }
+        }).then(() => {
+            window.location.href = '{{ route('showLoginForm') }}';
         });
     </script>
     @elseif (session('status') == 'error')
     <script>
         Swal.fire({
-            title: 'Error',
-            text: 'Alamat Email tidak dikenal, masukan email yang sudah terdaftar.',
+            html: `
+                <div style="text-align: center; font-size: 14px;">
+                    <i class="swal2-icon swal2-error" style="font-size: 50px; margin-bottom: 10px;"></i>
+                    <h2 style="font-size: 20px; font-weight: bold; margin: 10px 0;">
+                       Error
+                    </h2>
+                    <p>Alamat Email tidak dikenal, masukan email yang sudah terdaftar..</p>
+                </div>
+            `,
+            showConfirmButton: true,
             icon: 'error',
             confirmButtonText: 'Mengerti',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
             customClass: {
-                confirmButton: 'btn btn-sm col-md-12 btn-success' // Menyesuaikan tombol
+                popup: 'rounded-alert',
+                confirmButton: 'swal-confirm-btn'
             }
         }).then((result) => {
             if (result.isConfirmed) {
@@ -131,28 +191,6 @@
         });
     </script>
     @endif
-
-  {{-- <script>
-       
-    Swal.fire({
-        title: '<strong style="font-size: 20px; font-weight: bold;">Success</strong>',
-        text: 'Silahkan cek email Anda untuk melanjutkan atur ulang kata sandi',
-        
-        confirmButtonText: 'Mengerti',
-        customClass: {
-            confirmButton: 'btn btn-sm col-md-12 btn-success' // Menyesuaikan tombol
-        },
-        imageUrl: "{{ asset('assets/plugins/images/envelope.jpg') }}", // Gambar ikon custom
-        imageWidth: 120, // Ukuran gambar
-        imageHeight: 120
-    }).then((result) => {
-        if (result.isConfirmed) {
-            window.location.href = '{{ route('showLoginForm') }}';
-        }
-    });
-   
-  </script> --}}
-
   <script>
     const emailInput = document.getElementById('email');
    

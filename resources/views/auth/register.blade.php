@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/plugins/images/favicon.png') }}">
-  <title>Residence</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/plugins/images/pewaca-green.jpeg') }}">
+  <title>Pewaca</title>
   
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
    
@@ -29,6 +29,7 @@
         width: 200px; /* Sesuaikan ukuran yang diinginkan */
         height: 97px; /* Sesuaikan ukuran yang diinginkan */
     }
+
   </style>
 
 <style>
@@ -92,29 +93,43 @@
         color: #333;
     }
 
- 
-    /* Remove border radius for left-aligned select2 */
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-        line-height: 28px;
-    }
+.swal2-popup.rounded-alert {
+    border-radius: 12px !important;
+    padding: 20px;
+    width: 400px !important;
+    max-width: 75%;
+}
 
-    .select2-container .select2-selection--single {
-        height: calc(2em + 0.75rem + 2px) !important; /* Sesuaikan ukuran tinggi */
-        padding: 0.375rem 0.75rem !important;
-        border: 1px solid #ccc !important;
-        border-radius: 4px;
-    }
+/* Tambahan styling opsional */
+.swal2-popup .swal2-title {
+    font-size: 20px !important;
+    font-weight: bold !important;
+    margin: 10px 0 !important;
+}
 
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-        line-height: calc(2em + 0.75rem) !important;
-        color: #333;
-    }
+.swal2-popup .swal2-content {
+    font-size: 14px !important;
+    margin-bottom: 10px !important;
+    text-align: center;
+}
+.swal2-actions {
+    display: flex !important; /* Atur elemen pembungkus tombol agar fleksibel */
+    justify-content: center !important; /* Pusatkan tombol */
+    width: 100% !important; /* Pastikan pembungkus tombol lebar penuh */
+    margin: 0 !important;
+}
 
-    /* Hapus border tambahan */
-    .select2-container--default .select2-selection--single .select2-selection__arrow {
-        height: 100%;
-    }
-
+.swal-confirm-btn {
+    display: block !important; /* Ubah tombol menjadi elemen blok */
+    width: 100% !important; /* Pastikan tombol melebar penuh */
+    padding: 10px !important; /* Tinggi tombol */
+    font-size: 16px !important; /* Ukuran teks */
+    background-color: #198754 !important; /* Warna hijau success */
+    color: white !important; /* Teks putih */
+    border: none !important; /* Hapus border */
+    border-radius: 4px !important; /* Sudut melengkung */
+    text-align: center !important; /* Teks di tengah */
+}
 </style>
   
 </head>
@@ -132,8 +147,8 @@
         
                         <div class="mb-3">
                             <p class="text-left" style="font-size: 1.2em;">Pendaftaran Warga</p>
-                            <p>Teras Country Residence</p>
-                            <p style="font-size:1vw;">Mohon lengkapi data untuk persyaratan menjadi warga<p>
+                            <p  style="font-size: 1.0em;">Teras Country Residence</p>
+                            <p style="font-size:0.8em;">Mohon lengkapi data untuk persyaratan menjadi warga<p>
                         </div>
               
                         {{-- <div class="mb-3">
@@ -313,7 +328,6 @@
     <script>
    
         $('#registrasi').on('submit', function(e) {
-               
             Swal.fire({
                 title: 'Memproses Data',
                 text: 'Harap tunggu sebentar...',
@@ -327,51 +341,64 @@
     </script>
   @if (session('status') == 'success')
     <script>
-    //   let uuid = $('input#code').length ? $('input#code').val() : '';
-
-      Swal.fire({
-          title: '<strong style="font-size: 20px; font-weight: bold;">{{ session("message") }}</strong>',
-          text: 'Silahkan cek email Anda untuk melanjutkan verifikasi',
-          confirmButtonText: 'Mengerti',
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          customClass: {
-              confirmButton: 'btn btn-sm col-md-12 btn-success'
-          },
-          imageUrl: "{{ asset('assets/plugins/images/envelope.jpg') }}",
-          imageWidth: 120,
-          imageHeight: 120
-      }).then((result) => {
-          if (result.isConfirmed) {
+    
+        Swal.fire({
+            html: `
+                <div style="text-align: center; font-size: 14px;">
+                    <h2 style="font-size: 20px; font-weight: bold; margin: 10px 0">
+                        {{ session("message") }}
+                    </h2>
+                    <p>Silahkan cek email Anda untuk melanjutkan verifikasi.</p>
+                    <img
+                        src="{{ asset('assets/plugins/images/verified-send.jpeg') }}"
+                        alt="Verified"
+                        style="width: 180px; height: 175px; margin: 10px 0" />
+                </div>
+            `,
+            
+            showConfirmButton: true,
+            confirmButtonText: 'Mengerti',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            customClass: {
+                popup: 'rounded-alert', // Class untuk border-radius
+                confirmButton: 'swal-confirm-btn'
+            }
+        }).then(() => {
             window.location.href = '{{ route('showLoginForm') }}';
-            //   if (uuid) {
-               //   window.location.href = '{{ route('showRegister', ['uuid' => '']) }}' + uuid;
-            //   }
-          }
-      });
+        });
     </script>
 @elseif (session('status') == 'error')
     <script>
      
       let uuid = $('input#code').length ? $('input#code').val() : '';
 
-      Swal.fire({
-          title: '{{ session("message") }}',
-          text: 'Pastikan anda memiliki koneksi internet',
-          icon: 'error',
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          confirmButtonText: 'Mengerti',
-          customClass: {
-              confirmButton: 'btn btn-sm col-md-12 btn-success'
-          }
-      }).then((result) => {
-          if (result.isConfirmed) {
-              if (uuid) {
-                window.location.href = '{{ route('showRegister', ['uuid' => '']) }}' + uuid;
-              }
-          }
-      });
+        Swal.fire({
+            html: `
+                <div style="text-align: center; font-size: 14px;">
+                    <i class="swal2-icon swal2-error" style="font-size: 50px; margin-bottom: 10px;"></i>
+                    <h2 style="font-size: 20px; font-weight: bold; margin: 10px 0;">
+                       {{ session("message") }}
+                    </h2>
+                    <p>Gagal Verifikasi, Pastikan anda memiliki akses internet.</p>
+                </div>
+            `,
+            showConfirmButton: true,
+            icon: 'error',
+            confirmButtonText: 'Verifikasi Ulang',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            customClass: {
+                popup: 'rounded-alert',
+                confirmButton: 'swal-confirm-btn'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                if (uuid) {
+                    window.location.href = '{{ route('showRegister', ['uuid' => '']) }}' + uuid;
+                }
+            }
+        });
     </script>
 
 @endif
@@ -412,25 +439,34 @@
             const id = document.getElementById("code").value;
             if (!validateUUID(id)) {
                 event.preventDefault();
-                    Swal.fire({
-                        title:'Unknow Page',
-                        text: 'Tindakan tidak dikenali, pastikan anda menuju halaman yang benar.',
-                        icon: 'error',
-                        allowOutsideClick: false,
-                        confirmButtonText: 'Mengerti',
-                        customClass: {
-                            confirmButton: 'btn btn-sm col-md-12 btn-success'
+                Swal.fire({
+                    html: `
+                        <div style="text-align: center; font-size: 14px;">
+                            <i class="swal2-icon swal2-error" style="font-size: 50px; margin-bottom: 10px;"></i>
+                            <h2 style="font-size: 20px; font-weight: bold; margin: 10px 0;">
+                                Unknow Page
+                            </h2>
+                            <p>Tindakan tidak dikenali, pastikan anda menuju halaman yang benar.</p>
+                        </div>
+                    `,
+                    showConfirmButton: true,
+                    icon: 'error',
+                    confirmButtonText: 'Mengerti',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    customClass: {
+                        popup: 'rounded-alert',
+                        confirmButton: 'swal-confirm-btn'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        if (uuid) {
+                            window.location.href = '{{ route('showRegister', ['uuid' => '']) }}' + uuid;
                         }
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            if (uuid) {
-                                window.location.href = '{{ route('showRegister', ['uuid' => '']) }}' + uuid;
-                            }
-                        }
-                    });
+                    }
+                });
             }
         });
-   
     </script>
 
     <script>
