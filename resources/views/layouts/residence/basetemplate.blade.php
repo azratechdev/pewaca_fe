@@ -61,11 +61,12 @@
     height: 100px; /* Disesuaikan untuk ukuran dua kali lipat */
     width: 100px;
     transition: color 0.3s ease-in-out;
+   
 }
 
 .navbar-nav .nav-link i {
     font-size: 2rem; /* Ikon 2 kali lebih besar */
-    margin-bottom: 0.5rem;
+    /* margin-bottom: 0.5rem; */
 }
 
 .navbar-nav .nav-link:hover, 
