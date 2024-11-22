@@ -86,15 +86,6 @@
                         </picture>
                     </div>
 
-                    {{-- <div class="mb-3 d-flex align-items-center">
-                        <a href="{{ route('showLoginForm') }}" class="text-dark">
-                            <i class="fas fa-arrow-left"></i>
-                        </a>
-                        <strong>
-                            <p class="text-left mb-0 ms-2">Buat Kata Sandi Baru</p>
-                        </strong>
-                    </div> --}}
-
                     <div class="mb-3 d-flex align-items-center">
                         <p>Masukan kata sandi baru dan konfirmasi, pastikan bernilai sama.</p>
                     </div>
