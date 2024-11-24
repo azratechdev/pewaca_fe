@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="row" style="padding-top:20px;">
             <div class="col-md-12 col-sm-12">
-                <div class="pull-left"><a href="{{ route('home') }}"><b><i class="fa fa-arrow-left"></i></b></a></div>
+                <div class="pull-left"><a href="{{ route('home') }}" class="text-dark"><i class="fa fa-arrow-left"></i></a></div>
             </div>
         </div>
         <div class="col-md-12">

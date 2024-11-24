@@ -27,6 +27,7 @@ Route::get('/registration/{uuid?}', [RegisterController::class, 'showRegister'])
 Route::post('/postregistration', [RegisterController::class, 'postRegister'])->name('postRegister');
 Route::get('/verified/{uuid?}/{token?}', [RegisterController::class, 'verified'])->name('showVerified');
 //Route::post('/verified/{uuid?}/{token?}', [RegisterController::class, 'postVerified'])->name('postVerified');
+Route::get('/activated', [LoginController::class, 'showActivated'])->name('activated');
 
 Route::get('/forgotpassword', [ForgotPasswordController::class, 'showFormReset'])->name('showFormReset');
 Route::post('/sendmail', [ForgotPasswordController::class, 'sendMail'])->name('sendMail');
@@ -39,8 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
     
     // Rute yang bisa diakses oleh semua peran
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::get('/activated', [LoginController::class, 'showActivated'])->name('activated');
-    Route::post('/postActivated', [LoginController::class, 'postActivated'])->name('postActivated');
+    // Route::post('/postActivated', [LoginController::class, 'postActivated'])->name('postActivated');
     Route::get('/addpost', [HomeController::class, 'addpost'])->name('addpost');
     Route::get('/pembayaran', [PembayaranController::class, 'index'])->name('pembayaran');
     Route::get('/addpembayaran', [PembayaranController::class, 'addpembayaran'])->name('addpembayaran');

@@ -15,6 +15,11 @@ class LoginController extends Controller
     {
         return view('auth.loginwarga');
     }
+
+    public function showActivated()
+    {
+        return view('auth.activated');
+    }
     
     public function postlogin(Request $request)
     {
@@ -51,11 +56,18 @@ class LoginController extends Controller
                 ]);
                 return redirect()->route($res['redirectTo']);
             } else {
-                Session::flash('flash-message', [
-                    'message' => $data_response['message'],
-                    'alert-class' => 'alert-danger',
-                ]);
-                return redirect()->route('showLoginForm');
+                if($data_response['message'] == 'User is inactive'){
+                    session()->flash('status', 'warning');
+                    session()->flash('message', 'Gagal Mengirim Data');
+                    return redirect()->route('activated');
+                }
+                else{
+                    Session::flash('flash-message', [
+                        'message' => $data_response['message'],
+                        'alert-class' => 'alert-danger',
+                    ]);
+                    return redirect()->route('showLoginForm');
+                }
             }
 
         } catch (\Exception $e) {
@@ -78,7 +90,7 @@ class LoginController extends Controller
         
         if (isset($auth_response['data']['user'])) {
             $credentials = $auth_response['data']['user'];
-            //dd($credentials);
+            dd($credentials);
             Session::put(['cred' => $credentials]);
            
             if ($credentials['email'] == $email && $credentials['is_active'] == true) {

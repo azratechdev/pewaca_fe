@@ -3,7 +3,7 @@
     <ul class="navbar-nav nav-justified w-100">
       <li class="nav-item">
         <a href="{{ route('home') }}" class="nav-link text-center {{ Request::is('home') ? 'active' : '' }}">
-          <i class="fa fa-home fa-2x"></i>
+          <i class="fa fa-home fa-3x"></i>
           <span class="small d-block">Home</span>
         </a>
       </li>
@@ -19,7 +19,7 @@
       @endif
       <li class="nav-item">
         <a href="{{ route('pembayaran') }}" class="nav-link text-center {{ Request::is('pembayaran') ? 'active' : '' }}">
-          <i class="fa fa-file-text fa-2x"></i> <!-- Ikon Purchase Order -->
+          <i class="fa fa-file fa-2x"></i> <!-- Ikon Purchase Order -->
           <span class="small d-block">Cashout</span>
         </a>
       </li>
