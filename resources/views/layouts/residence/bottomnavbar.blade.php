@@ -1,4 +1,5 @@
-<nav class="navbar navbar-custom navbar-dark navbar-expand fixed-bottom">
+
+<div class="navbar navbar-custom navbar-dark navbar-expand fixed-bottom">
   <div class="container-fluid">
     <ul class="navbar-nav nav-justified w-100">
       <li class="nav-item">
@@ -19,7 +20,7 @@
       @endif
       <li class="nav-item">
         <a href="{{ route('pembayaran') }}" class="nav-link text-center {{ Request::is('pembayaran') ? 'active' : '' }}">
-          <i class="fa fa-file fa-2x"></i> <!-- Ikon Purchase Order -->
+          <i class="fa fa-receipt fa-2x"></i> <!-- Ikon Purchase Order -->
           <span class="small d-block">Cashout</span>
         </a>
       </li>
@@ -55,4 +56,5 @@
       </li>
     </ul>
   </div>
-</nav>
+</div>
+

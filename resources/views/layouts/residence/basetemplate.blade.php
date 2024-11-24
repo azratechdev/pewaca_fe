@@ -27,8 +27,6 @@
     background-color: #198754 !important;
     }   
 
-    
-
     .nav-tabs .nav-link {
         color: #5cb85c; /* Warna default teks */
         transition: all 0.3s ease-in-out; /* Efek transisi halus */
@@ -50,7 +48,7 @@
     .navbar-custom {
     background-color: #ffffff !important;
     padding: 0;
-    border-top: 2px solid #6c757d; /* Garis abu-abu di atas navbar */
+    border-bottom: 2px solid #6c757d; /* Garis abu-abu di atas navbar */
     margin: 0; /* Menambahkan jarak 20px ke kiri dan kanan */
     /* border-radius: 0 0 10px 10px;  */
     }
