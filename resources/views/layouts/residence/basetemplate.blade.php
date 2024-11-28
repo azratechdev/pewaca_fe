@@ -47,8 +47,8 @@
 
     .navbar-custom {
     background-color: #ffffff !important;
-    padding: 0;
-    border-bottom: 2px solid #6c757d; /* Garis abu-abu di atas navbar */
+    padding-bottom: 55px;
+    border-bottom: 0px solid #6c757d; /* Garis abu-abu di atas navbar */
     margin: 0; /* Menambahkan jarak 20px ke kiri dan kanan */
     /* border-radius: 0 0 10px 10px;  */
     }

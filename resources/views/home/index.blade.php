@@ -3,8 +3,6 @@
 
 <div class="container">
     <div class="container mx-auto px-4">
-        @include('layouts.elements.flash')
-       
         <div class="flex justify-between items-center" style="padding-top: 10px;">
             <div class="flex items-center">
                 <img alt="Waca Logo" height="120"  width="170" src="{{ asset('assets/plugins/images/wacalogo.jpg') }}"/>
@@ -20,6 +18,8 @@
                 </div>
             </a>
         </div>
+        <br>
+        @include('layouts.elements.flash')
         <div class="flex items-center justify-left bg-red-50 p-4 rounded-lg shadow-md w-full max-w-full mt-3">
             <div class="flex items-left">
                 <i class="fas fa-receipt text-red-500 text-2xl mr-3"></i>
@@ -68,3 +68,4 @@
 </div>
   
 @endsection 
+

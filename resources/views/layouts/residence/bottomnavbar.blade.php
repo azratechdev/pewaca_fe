@@ -1,5 +1,6 @@
 
-<div class="navbar navbar-custom navbar-dark navbar-expand fixed-bottom">
+{{-- <div class="navbar navbar-custom navbar-dark navbar-expand fixed-bottom"> --}}
+  <div class="navbar navbar-custom navbar-dark navbar-expand fixed-bottom bg-white">
   <div class="container-fluid">
     <ul class="navbar-nav nav-justified w-100">
       <li class="nav-item">
@@ -24,7 +25,15 @@
           <span class="small d-block">Cashout</span>
         </a>
       </li>
-      <li class="nav-item dropup">
+
+      <li class="nav-item">
+        <a href="{{ route('akun') }}" class="nav-link text-center {{ Request::is('akun') ? 'active' : '' }}">
+          <i class="fa fa-user fa-2x"></i> <!-- Ikon Purchase Order -->
+          <span class="small d-block">Akun</span>
+        </a>
+      </li>
+
+      {{-- <li class="nav-item dropup">
         <a href="#" 
           class="nav-link text-center {{ Request::is('akun') || Request::is('edit') || Request::is('registrasi') ? 'active' : '' }}" 
           role="button" 
@@ -52,9 +61,17 @@
               <a class="dropdown-item" href="{{ route('logout') }}">Keluar</a>
           </li>
         </ul>
-      
-      </li>
+      </li> --}}
     </ul>
   </div>
 </div>
 
+<div class="fixed-bottom bg-white py-2 border-t border-gray-200">
+  <div class="flex justify-center items-center py-2">
+      <i class="fas fa-lock text-gray-500"></i>
+      <span class="ml-2 text-gray-700">lingka.id</span>
+  </div>
+  <div class="flex justify-center">
+      <div class="w-25 h-1 bg-black rounded-full"></div>
+  </div>
+</div>

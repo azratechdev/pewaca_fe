@@ -9,7 +9,7 @@ class AkunController extends Controller
 {
     public function akun()
     {
-        return view('akun.index');
+        return view('akun.akunpage');
     }
 
     public function edit()
