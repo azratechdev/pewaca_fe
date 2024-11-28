@@ -1,45 +1,69 @@
 @extends('layouts.residence.basetemplate')
 @section('content')
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="row" style="padding-top:20px;">
-            <div class="col-md-12 col-sm-12">
-                <div class="pull-left"><a href="{{ route('home') }}"><b><i class="fa fa-arrow-left"></i></b></a></div>
-                <div class="pull-right">
-                    {{-- <a class="btn btn-default btn-sm" href="{{ route('addpost') }}">
-                        <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Post
-                    </a> --}}
-                </div>
-            </div>
+<div class="flex items-center justify-centern">
+    <div class="bg-white w-full max-w-xxl rounded-lg shadow-lg">
+     <div class="flex items-center mb-4">
+      <i class="fas fa-arrow-left text-black text-xl cursor-pointer">
+      </i>
+     </div>
+     <form>
+      <div class="relative mb-4">
+       <input accept="image/*" class="hidden" id="imageUpload" type="file"/>
+       <label class="cursor-pointer relative" for="imageUpload">
+        <img alt="Preview of uploaded image" class="w-full h-48 object-cover rounded-lg" height="200" id="imagePreview" src="https://storage.googleapis.com/a1aa/image/2zJUesL3lnSQXKjSrMcSGaKXHEiGkQJgQPWfpOGzDDuZJd1TA.jpg" width="300"/>
+        <div class="absolute inset-0 flex flex-col items-center justify-center">
+         <i class="fas fa-plus text-white text-4xl mb-2">
+         </i>
+         <span class="text-white text-lg">
+          Upload Foto
+         </span>
+         <span class="text-white text-sm">
+          (Opsional)
+         </span>
         </div>
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title text-center">Buat Postingan</h5>
-                </div>
-                <div class="card-body">
-                    <form id="loginform" method="post" >
-                        <div class="mb-3">
-                            <label for="title" class="form-label">Judul :</label>
-                            <input type="text" class="form-control" id="judul">
-                        </div>
-                        <div class="mb-3">
-                            <label for="file" class="form-label">Gambar :</label>
-                            <input type="file" class="form-control" id="gambar">
-                        </div>
-                        <div class="mb-3">
-                            <label for="deskirpsi" class="form-label">Deskripsi :</label>
-                            <textarea type="deskripsi" col="5" class="form-control" id="deskripsi"></textarea>
-                        </div>
-                        <a class="btn btn-success" href="{{ route('home') }}" role="button"><i class="fa fa-save"></i> Simpan</a>
-                        <a class="btn btn-warning" href="{{ route('home') }}" role="button">Cancel</a>
-                        
-                    </form>
-                </div>
-            </div>
-        </div>
+       </label>
+       <button class="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hidden" id="removeImageButton">
+        <i class="fas fa-times">
+        </i>
+       </button>
+      </div>
+      <div class="mb-6">
+       <label class="block text-gray-500 mb-2">
+        Tulis Sesuatu
+       </label>
+       <textarea class="w-full p-3 border border-gray-300 rounded-lg" id="textInput" placeholder="Tulis Sesuatu..." rows="4">
+       </textarea>
+       
+      </div>
+        <button class="w-full bg-green-600 text-white py-3 rounded-lg" type="submit">
+        Posting
+        </button>       
+     </form>
     </div>
-  </div>
+    <script>
+     const imageUpload = document.getElementById('imageUpload');
+     const imagePreview = document.getElementById('imagePreview');
+     const removeImageButton = document.getElementById('removeImageButton');
   
+     imageUpload.addEventListener('change', function() {
+       const file = this.files[0];
+       if (file) {
+         const reader = new FileReader();
+         reader.onload = function(e) {
+           imagePreview.src = e.target.result;
+           removeImageButton.classList.remove('hidden');
+         }
+         reader.readAsDataURL(file);
+       }
+     });
+  
+     removeImageButton.addEventListener('click', function() {
+       imagePreview.src = 'https://placehold.co/300x200?text=Upload+Image';
+       imageUpload.value = '';
+       removeImageButton.classList.add('hidden');
+     });
+    </script>
+</div>
+
 @endsection 
