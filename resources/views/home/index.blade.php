@@ -1,9 +1,38 @@
+@php
+use Carbon\Carbon;
+$isPengurus = $user['is_pengurus'] ?? false;
+$isChecker = $warga['is_checker'] ?? false;
+@endphp
+@if (!$isPengurus && !$isChecker)
+<div class="container">
+    <div class="container mx-auto px-4">
+        <div class="flex items-center justify-center">
+            <div class="max-w-sm w-full text-center">
+                <img alt="Pewaca logo" class="mx-auto mt-4 mb-36" height="120" src="{{ asset('assets/plugins/images/wacalogo.jpg') }}" width="170"/>
+                <div class="mb-10">
+                    <img alt="Illustration of a document with a clock" class="mx-auto" height="200" src="{{ asset('assets/plugins/images/verified-wait.jpeg') }}" width="200"/>
+                </div>
+                <div class="mb-10">
+                    <h1 class="text-xl font-semibold mb-2">
+                    Pendaftaran menunggu di verifikasi pengurus
+                    </h1>
+                    <p class="text-gray-600">
+                    Mohon menunggu untuk proses verifikasi oleh pengurus
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@else
+
 @extends('layouts.residence.basetemplate')
 @section('content')
 
 <div class="container">
     <div class="container mx-auto px-4">
-        <div class="flex justify-between items-center" style="padding-top: 10px;">
+       <div class="flex justify-between items-center" style="padding-top: 10px;">
             <div class="flex items-center">
                 <img alt="Waca Logo" height="120"  width="170" src="{{ asset('assets/plugins/images/wacalogo.jpg') }}"/>
             </div>
@@ -33,39 +62,42 @@
             </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-3">
-            @for ($i = 0; $i < 12; $i++)
+            @foreach($stories as $story)
             <div class="max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden">
                 <div class="flex items-center p-4">
-                    <img alt="Profile picture" class="w-12 h-12 rounded-full" height="161" src="https://storage.googleapis.com/a1aa/image/ZoAiGzvASA4pG9oiGwu50UAjrOG21IrMhFOGfFnKGy1xU85JA.jpg" width="161"/>
+                    <img alt="Profile picture" class="w-12 h-12 rounded-full" height="161" src="{{ $story['image'] }}" width="161"/>
                     <div class="ml-4">
                         <div class="text-gray-900 font-bold">
-                            Jhondoe
+                            {{ $story['created_by'] }}
                         </div>
                         <div class="text-gray-600 text-sm">
-                            12 Sep 2024 18:00
+                            {{ Carbon::parse($story['created_on'])->format('d M Y H:i') }}
                         </div>
-                    </div>
-                    <div class="ml-auto text-green-500">
-                        <i class="fab fa-whatsapp"></i>
                     </div>
                 </div>
                 <div class="px-4 pb-4">
                     <h5 class="text-gray-900 font-bold">
-                        Judul Postingan 1
+                        Title Here
                     </h5>
                     <br/>
-                    <img alt="Deskripsi gambar di sini" class="w-full" height="300" src="https://storage.googleapis.com/a1aa/image/H57fey20D7hosUpCSOhc7cF23nePfIDDnB1EfPEiU8YiMFf8E.jpg" width="500"/>
+                    <img alt="Deskripsi gambar di sini" class="fixed-img" src="{{ $story['image'] }}"/>
                     <br/>
                     <br/>
                     <p class="text-gray-900">
-                        Deskripsi postingan di sini
+                        {{ Str::length($story['story']) > 50 ? Str::limit($story['story'], 50) : $story['story'] }}
+                    </p>
+                    <br/>
+                    <p class="text-gray-900">
+                        Comments 0 Like {{ $story['total_like'] }}
                     </p>
                 </div>
             </div>
-            @endfor
+            @endforeach
+          
         </div>
     </div>
 </div>
-  
+
 @endsection 
 
+@endif

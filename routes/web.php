@@ -42,14 +42,19 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     // Route::post('/postActivated', [LoginController::class, 'postActivated'])->name('postActivated');
     Route::get('/addpost', [HomeController::class, 'addpost'])->name('addpost');
+    Route::post('/storypost', [HomeController::class, 'postStory'])->name('addPost');
     Route::get('/pembayaran', [PembayaranController::class, 'index'])->name('pembayaran');
     Route::get('/addpembayaran', [PembayaranController::class, 'addpembayaran'])->name('addpembayaran');
     Route::post('/postpembayaran', [PembayaranController::class, 'postPembayaran'])->name('postPembayaran');
     Route::get('/akun', [AkunController::class, 'akun'])->name('akun');
+    Route::get('/infoakun', [AkunController::class, 'infoakun'])->name('infoakun');
+    Route::get('/inforekening', [AkunController::class, 'inforekening'])->name('inforekening');
+    Route::get('/infokeluarga', [AkunController::class, 'infokeluarga'])->name('infokeluarga');
     Route::get('/edit', [AkunController::class, 'edit'])->name('edit');
     Route::get('/registrasi', [AkunController::class, 'registrasi'])->name('registrasi');
-    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-
+    
+    Route::get('/logout', [LoginController::class, 'logout'])->name('log_out');
+    
     // Rute khusus untuk pengurus
     Route::group(['middleware' => 'role:pengurus'], function () {
         Route::get('/pengurus', [PengurusController::class, 'index'])->name('pengurus');

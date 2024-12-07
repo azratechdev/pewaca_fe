@@ -15,21 +15,18 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <style>
-    /* .navbar-custom { background-color: #198754 !important; padding: 0; }
-    .navbar-nav .nav-link { font-size: 0.7rem; } */
+  
     .card { margin: 10px; }
-    /* .card-header .nav-tabs { background-color: #198754 !important; }
-    .nav-tabs .nav-link { color: #5cb85c; }
-    .nav-tabs .nav-link.active { color: white; background-color: #198754; }
-    .nav-tabs { border-bottom: 2px solid #198754; } */
+   
 
     .card-header .nav-tabs {
     background-color: #198754 !important;
     }   
 
     .nav-tabs .nav-link {
-        color: #5cb85c; /* Warna default teks */
+      
         transition: all 0.3s ease-in-out; /* Efek transisi halus */
+       
     }
 
    
@@ -40,10 +37,10 @@
     }
 
     .nav-tabs {
-        border-bottom: 2px solid #198754; /* Garis bawah tab */
+        border-bottom: 0px solid #198754; /* Garis bawah tab */
+        border-radius: 2px;
     }
-    .table thead th { background-color: #198754; color: white; }
-    .table, .table-bordered th, .table-bordered td { border-color: #198754; }
+    
 
     .navbar-custom {
     background-color: #ffffff !important;
@@ -65,6 +62,7 @@
     transition: color 0.3s ease-in-out;
    
 }
+
 
 .navbar-nav .nav-link i {
     font-size: 2rem; /* Ikon 2 kali lebih besar */
@@ -105,18 +103,41 @@
 .nav-link span {
     color: inherit; /* Ikon dan teks mengikuti warna link */
 }
+#content {
+    flex: 1; /* Membuat area konten fleksibel untuk scroll */
+    overflow-y: auto; /* Mengaktifkan scroll jika konten melebihi layar */
+    margin-bottom: 100px;
+}
+    body {
+        padding-bottom: 100px; /* Sesuaikan tinggi navbar */
+    }
 
+    .fixed-img {
+        width: 220px;
+        height: 240px;
+        object-fit: cover; /* Menjaga rasio aspek */
+    }
+
+    .img-upload {
+        /* width: 350px;
+        height: 200px; */
+        width: 220px;
+        height: 240px;
+        object-fit: cover;
+    }
   </style>
 </head>
 <body>
-  
-  {{-- @include('layouts.residence.topnavbar') --}}
-  @include('layouts.residence.bottomnavbar')
-  @yield('content')
-  
-  
+
+    <div id="content">
+        @yield('content')
+    </div>
+      
+    <div class="bottom-navbar">
+        @include('layouts.residence.bottomnavbar')
+    </div>
+   
   <script src="{{ asset('assets/bootstrap/dist/js/bootstrap-5.min.js') }}"></script>
 
-  
 </body>
 </html>

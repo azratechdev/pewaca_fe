@@ -7,10 +7,8 @@
   <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/plugins/images/pewaca-green.jpeg') }}">
   <title>Pewaca</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-   <!-- CSS Select2 -->
-   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <style>
     .navbar-custom {
       background-color:  #198754; /* Tosca color */
@@ -100,15 +98,20 @@
     </div>
   </div>
 
+  <div class="fixed-bottom bg-white py-2 border-t border-gray-200">
+    <div class="flex justify-center items-center py-2">
+        <i class="fas fa-lock text-gray-500"></i>
+        <span class="ml-2 text-gray-700">lingka.id</span>
+    </div>
+    <div class="flex justify-center">
+        <div class="w-25 h-1 bg-black rounded-full"></div>
+    </div>
+  </div>
+
   <!-- Bootstrap JS -->
- 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+     
   <!-- JS Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- JS Select2 -->
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
   
   <script>

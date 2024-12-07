@@ -87,11 +87,17 @@ class LoginController extends Controller
         ])->get('https://api.pewaca.id/api/auth/profil/');
 
         $auth_response = json_decode($response->body(), true);
+
+        //dd($auth_response)['data'];
         
         if (isset($auth_response['data']['user'])) {
             $credentials = $auth_response['data']['user'];
-            //dd($credentials);
+            $warga_data = $auth_response['data']['warga'];
+            $residence_data = $auth_response['data']['residence'];
+           
             Session::put(['cred' => $credentials]);
+            Session::put(['warga' => $warga_data]);
+            Session::put(['residence' => $residence_data]);
            
             if ($credentials['email'] == $email && $credentials['is_active'] == true) {
                
