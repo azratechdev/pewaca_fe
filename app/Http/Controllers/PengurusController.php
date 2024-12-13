@@ -22,7 +22,7 @@ class PengurusController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/warga/?page=2&is_checker=false');
+        ])->get('https://api.pewaca.id/api/warga/?page=1&is_checker=false');
         $warga_response = json_decode($response->body(), true);
         return  $warga_response['data'];
        
