@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/plugins/images/pewaca-green.jpeg') }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/plugins/images/pewaca.jpeg') }}">
   <title>Pewaca</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -43,7 +43,7 @@
                 <div class="card-body">
                   <div class="mb-3" style="align-items: left;">
                     <picture>
-                      <img src="{{ asset('assets/plugins/images/wacalogo.jpg') }}" class="img-fluid img-thumbnail waca-logo" alt="Waca Logo">
+                      <img src="{{ asset('assets/plugins/images/wacalogo.jpeg') }}" class="img-fluid img-thumbnail waca-logo" alt="Waca Logo">
                     </picture>
                   </div>
 

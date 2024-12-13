@@ -3,7 +3,7 @@
     <div class="container mx-auto px-4">
        <div class="flex justify-between items-center" style="padding-top: 10px;">
             <div class="flex items-center">
-                <img alt="Waca Logo" height="120"  width="170" src="{{ asset('assets/plugins/images/wacalogo.jpg') }}"/>
+                <img alt="Waca Logo" height="120"  width="170" src="{{ asset('assets/plugins/images/wacalogo.jpeg') }}"/>
             </div>
             <a href="{{ route('addpost') }}">
                 <div class="flex items-center">
@@ -23,7 +23,7 @@
     <div class="container mx-auto px-4">
         <div class="flex items-center justify-center">
             <div class="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full text-center">
-            <img alt="Pewaca logo" class="mx-auto mb-4" height="120" src="{{ asset('assets/plugins/images/wacalogo.jpg') }}" width="170"/>
+            <img alt="Pewaca logo" class="mx-auto mb-4" height="120" src="{{ asset('assets/plugins/images/wacalogo.jpeg') }}" width="170"/>
             <div class="mb-6">
             <img alt="Illustration of a document with a clock" class="mx-auto" height="200" src="{{ asset('assets/plugins/images/verified-wait.jpeg') }}" width="200"/>
             </div>

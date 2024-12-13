@@ -19,7 +19,7 @@
         return isset($commite['role']['id']) && $commite['role']['id'] === 1;
         }))
         <li class="nav-item">
-            <a href="{{ route('pengurus') }}" class="nav-link text-center">
+            <a href="{{ route('pengurus') }}" class="nav-link text-center {{ Request::is('pengurus') ? 'active' : '' }}">
                 <i class="fa fa-id-card fa-2x"></i>
                 <span class="small d-block">Pengurus</span>
             </a>
@@ -27,7 +27,7 @@
       @endif
 
       <li class="nav-item">
-        <a href="{{ route('pembayaran') }}" class="nav-link text-center" @if (!$isPengurus && !$isChecker) cursor-not-allowed text-gray-400 @endif" 
+        <a href="{{ route('pembayaran') }}" class="nav-link text-center {{ Request::is('pembayaran') ? 'active' : '' }}" @if (!$isPengurus && !$isChecker) cursor-not-allowed text-gray-400 @endif" 
         style="@if (!$isPengurus && !$isChecker) pointer-events: none; @endif">
           <i class="fa fa-receipt fa-2x"></i> <!-- Ikon Purchase Order -->
           <span class="small d-block">Cashout</span>
@@ -35,7 +35,7 @@
       </li>
 
       <li class="nav-item">
-        <a href="{{ route('akun') }}" class="nav-link text-center">
+        <a href="{{ route('akun') }}" class="nav-link text-center {{ Request::is('akun') ? 'active' : '' }}">
           <i class="fa fa-user fa-2x"></i> <!-- Ikon Purchase Order -->
           <span class="small d-block">Akun</span>
         </a>

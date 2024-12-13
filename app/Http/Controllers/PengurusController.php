@@ -8,25 +8,46 @@ use Illuminate\Support\Facades\Session;
 
 class PengurusController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        
-        $peoples = $this->getWarga(); 
-        //dd($peoples);
-        return view('pengurus.index', compact('peoples'));
+       
+        $people_false = $this->getWargaFalse(); 
+        $people_true = $this->getWargaTrue();
+        //dd($people_true);
+        return view('pengurus.index', compact('people_false', 'people_true'));
     }
 
-    public function getWarga()
+    public function getWargaFalse()
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/warga/');
+        ])->get('https://api.pewaca.id/api/warga/?page=2&is_checker=false');
         $warga_response = json_decode($response->body(), true);
-     
         return  $warga_response['data'];
        
     }
+
+    public function getWargaTrue()
+    {
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Token '.Session::get('token'),
+        ])->get('https://api.pewaca.id/api/warga/?page=1&is_checker=true');
+        $warga_response = json_decode($response->body(), true);
+        return  $warga_response['data'];
+       
+    }
+
+    // public function getTotalFalse()
+    // {
+    //     $response = Http::withHeaders([
+    //         'Accept' => 'application/json',
+    //         'Authorization' => 'Token '.Session::get('token'),
+    //     ])->get('https://api.pewaca.id/api/warga/?is_checker=false');
+    //     $warga_response = json_decode($response->body(), true);
+    //     return  $warga_response['data'];
+    // }
 
 
 }

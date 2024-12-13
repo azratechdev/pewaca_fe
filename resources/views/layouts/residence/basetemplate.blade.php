@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/plugins/images/pewaca-green.jpeg') }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/plugins/images/pewaca.jpeg') }}">
   <title>Pewaca</title>
   
   <!-- JS -->
@@ -17,31 +17,42 @@
   <style>
   
     .card { margin: 10px; }
-   
-
-    .card-header .nav-tabs {
+    .card-header {
     background-color: #198754 !important;
-    }   
+    }  
+    
+    /*CSS navbwr with icon pada menu pengurus*/
+    .custom-nav-button {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 4px;
+        padding: 10px;
+        text-align: center;
+        background-color: #f8f9fa; /* Background button */
+        color: #abebc6; /* Hijau cerah untuk teks dan ikon */
+        transition: background-color 0.3s ease;
+    }
+
+    .custom-nav-button:hover {
+        color: white;
+    }
+
+    .custom-nav-button .fa {
+        margin-bottom: 5px; /* Spacing between icon and text */
+    }
+
+    .custom-nav-button span {
+        font-size: 12px; /* Font size for the text */
+    }
 
     .nav-tabs .nav-link {
-      
-        transition: all 0.3s ease-in-out; /* Efek transisi halus */
-       
+       transition: all 0.3s ease-in-out; /* Efek transisi halus */
     }
+    /*sampai sini*/
 
-   
-    .nav-tabs .nav-link:hover,
-    .nav-tabs .nav-link.active {
-        color: white !important; /* Warna teks putih saat aktif */
-        background-color: #198754 !important; /* Latar belakang hijau */
-    }
-
-    .nav-tabs {
-        border-bottom: 0px solid #198754; /* Garis bawah tab */
-        border-radius: 2px;
-    }
-    
-
+    /*CSS Menu Bar*/
     .navbar-custom {
     background-color: #ffffff !important;
     padding-bottom: 55px;
@@ -50,83 +61,103 @@
     /* border-radius: 0 0 10px 10px;  */
     }
 
-.navbar-nav .nav-link {
-    font-size: 1.4rem; /* Ukuran 2 kali lebih besar */
-    color: #6c757d !important; /* Abu-abu */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100px; /* Disesuaikan untuk ukuran dua kali lipat */
-    width: 100px;
-    transition: color 0.3s ease-in-out;
-   
-}
+    .navbar-nav .nav-link {
+        font-size: 1.4rem; /* Ukuran 2 kali lebih besar */
+        color: #6c757d !important; /* Abu-abu */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100px; /* Disesuaikan untuk ukuran dua kali lipat */
+        width: 100px;
+        transition: color 0.3s ease-in-out;
+    
+    }
 
+    .navbar-nav .nav-link i {
+        font-size: 2rem; /* Ikon 2 kali lebih besar */
+        /* margin-bottom: 0.5rem; */
+    }
 
-.navbar-nav .nav-link i {
-    font-size: 2rem; /* Ikon 2 kali lebih besar */
-    /* margin-bottom: 0.5rem; */
-}
+    .navbar-nav .nav-link:hover, 
+    .navbar-nav .nav-link.active {
+        color: #198754 !important; /* Hijau pada hover atau aktif */
+        background-color: #ffffff !important; /* Background tetap putih */
+    }
 
-.navbar-nav .nav-link:hover, 
-.navbar-nav .nav-link.active {
-    color: #198754 !important; /* Hijau pada hover atau aktif */
-    background-color: #ffffff !important; /* Background tetap putih */
-}
+    .nav-link {
+        color: #6c757d; /* Default abu-abu */
+        transition: color 0.3s ease-in-out; /* Transisi halus */
+    }
 
-.dropdown-menu .dropdown-item {
-    color: #6c757d; /* Warna default teks abu-abu */
-    transition: all 0.3s ease-in-out; /* Efek transisi halus */
-}
+    .nav-link:hover, 
+    .nav-link.active, 
+    .nav-link[aria-expanded="true"] {
+        color: #198754 !important; /* Hijau saat aktif atau hover */
+    }
 
-.dropdown-menu .dropdown-item:hover,
-.dropdown-menu .dropdown-item:focus,
-.dropdown-menu .dropdown-item.active {
-    color: #ffffff !important; /* Warna teks putih */
-    background-color: #198754 !important; /* Warna hijau */
-}
+    .nav-link i,
+    .nav-link span {
+        color: inherit; /* Ikon dan teks mengikuti warna link */
+    }
+    /*samapai sini*/
 
-
-.nav-link {
-    color: #6c757d; /* Default abu-abu */
-    transition: color 0.3s ease-in-out; /* Transisi halus */
-}
-
-.nav-link:hover, 
-.nav-link.active, 
-.nav-link[aria-expanded="true"] {
-    color: #198754 !important; /* Hijau saat aktif atau hover */
-}
-
-.nav-link i,
-.nav-link span {
-    color: inherit; /* Ikon dan teks mengikuti warna link */
-}
-#content {
-    flex: 1; /* Membuat area konten fleksibel untuk scroll */
-    overflow-y: auto; /* Mengaktifkan scroll jika konten melebihi layar */
-    margin-bottom: 100px;
-}
+    /*CSS content dan body*/
+    #content {
+        flex: 1; /* Membuat area konten fleksibel untuk scroll */
+        overflow-y: auto; /* Mengaktifkan scroll jika konten melebihi layar */
+        margin-bottom: 100px;
+    }
     body {
         padding-bottom: 100px; /* Sesuaikan tinggi navbar */
     }
+    /*samapai sini*/
 
+    /* css image story*/
     .fixed-img {
-        width: 220px;
+        width: 340px;
         height: 240px;
-        object-fit: cover; /* Menjaga rasio aspek */
+        object-fit: cover; /* Memastikan gambar tidak terdistorsi */
+        border-radius: 8px; /* Memberikan sedikit radius pada gambar */
     }
-
+    .card-content {
+        min-height: 150px; /* Pastikan area teks memiliki tinggi minimum */
+        width: 360px;
+    }  
+    .profile-picture {
+        width: 48px; /* Ukuran konsisten untuk avatar */
+        height: 48px;
+        object-fit: cover;
+    }
+    /*sampai sini*/ 
+    
+    /* css image upload*/
     .img-upload {
-        /* width: 350px;
-        height: 200px; */
         width: 220px;
         height: 240px;
         object-fit: cover;
     }
+
+    /*css content story*/
+    .d-none {
+    display: none;
+    }
+    .text-green-500 {
+        /* color: #007bff; */
+        cursor: pointer;
+    }
+    .text-blue-500:hover {
+        text-decoration: underline;
+    }
+    .text-justify {
+        text-align: justify; /* Ratakan kiri dan kanan */
+        word-spacing: 0.05em; /* Atur jarak antar kata */
+        line-height: 1.2; /* Atur spasi antar baris */
+        word-break: break-word;
+    }
   </style>
 </head>
+
 <body>
 
     <div id="content">
@@ -136,7 +167,7 @@
     <div class="bottom-navbar">
         @include('layouts.residence.bottomnavbar')
     </div>
-   
+
   <script src="{{ asset('assets/bootstrap/dist/js/bootstrap-5.min.js') }}"></script>
 
 </body>
