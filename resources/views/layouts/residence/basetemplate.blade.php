@@ -123,6 +123,7 @@
     .card-content {
         min-height: 150px; /* Pastikan area teks memiliki tinggi minimum */
         width: 360px;
+      
     }  
     .profile-picture {
         width: 48px; /* Ukuran konsisten untuk avatar */
@@ -130,7 +131,7 @@
         object-fit: cover;
     }
     /*sampai sini*/ 
-    
+
     /* css image upload*/
     .img-upload {
         width: 220px;
@@ -154,6 +155,22 @@
         word-spacing: 0.05em; /* Atur jarak antar kata */
         line-height: 1.2; /* Atur spasi antar baris */
         word-break: break-word;
+    }
+  
+    .custom-item-content {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    .custom-card-content {
+        padding-top: 0rem;
+        padding-bottom: 0rem;
+        margin-top: 0rem;
+        margin-bottom: 0rem;
+    }
+
+    .custom-comment {
+       resize: none;  /* Menghindari perubahan ukuran manual */
     }
   </style>
 </head>

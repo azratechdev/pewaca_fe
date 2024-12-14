@@ -17,8 +17,9 @@ class HomeController extends Controller
         $warga = Session::get('warga');
         $residence = Session::get('residence');
         $stories = $this->getStories();
-
-        return view('home.index', compact('user', 'warga', 'residence', 'stories'));
+        $replays = $this->getReplays();
+        //dd($replays);
+        return view('home.index', compact('user', 'warga', 'residence', 'stories', 'replays'));
     }
 
     public function getStories()
@@ -31,6 +32,25 @@ class HomeController extends Controller
         $stories_response = json_decode($response->body(), true);
         //dd($stories_response);
         return $stories_response['data'];
+    }
+
+    public function getReplays()
+    {
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Token '.Session::get('token'),
+        ])->get('https://api.pewaca.id/api/story-replays/?story_id=11');
+        
+        $replay_response = json_decode($response->body(), true);
+        
+        //Periksa apakah 'results' ada dalam response
+        if (isset($replay_response['results'])) {
+            $results = $replay_response['results'];
+            return $results;
+        } else {
+            // Jika 'results' tidak ada, bisa memberikan pesan atau menangani error
+            return 'Data results tidak ditemukan.';
+        }
     }
 
     public function addpost()

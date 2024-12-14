@@ -48,18 +48,7 @@ $isChecker = $warga['is_checker'] ?? false;
         </div>
         <br>
         @include('layouts.elements.flash')
-        <div class="flex items-center justify-left bg-red-50 p-4 rounded-lg shadow-md w-full max-w-full mt-3">
-            <div class="flex items-left">
-                <i class="fas fa-receipt text-red-500 text-2xl mr-3"></i>
-                <div>
-                    <p class="text-red-500 font-semibold">Tagihan sudah melewati jatuh tempo</p>
-                    <p class="text-red-500">Segera lakukan pembayaran</p>
-                </div>
-            </div>
-            <div class="ml-auto">
-                <i class="fas fa-chevron-circle-right text-red-500 text-xl"></i>
-            </div>
-        </div>
+        @include('layouts.elements.tagihan')
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
             @foreach($stories as $story)
             <div class="w-full max-w-full bg-white rounded-lg shadow-lg overflow-hidden">
@@ -81,32 +70,71 @@ $isChecker = $warga['is_checker'] ?? false;
                 </div>
         
                 <!-- Content Section -->
-                <div class="px-4 pb-4 card-content">
+                <div class="px-4 pb-4 custom-item-content">
                     <p class="text-gray-900 text-justify">
-                        <span class="story-preview">
+                        <div class="story-default{{ $story['id'] }}" style="display: block;">
                             {{ Str::limit($story['story'], 40) }}
-                        </span>
-                        <span class="story-full d-none">
+                        </div>
+                        <div class="story-full{{ $story['id'] }}" style="display: none;">
                             {{ $story['story'] }}
-                        </span>
+                        </div>
                         @if(Str::length($story['story']) > 40)
-                            <a href="javascript:void(0)" class="toggle-story text-green-500">selengkapnya</a>
+                            <a href="javascript:void(0)" class="toggle-story text-green-500" data-id="{{ $story['id'] }}">selengkapnya</a>
                         @endif
                     </p>
                     <br/>
                     @if(!empty($story['image']))
-                        <img alt="Deskripsi gambar di sini" class="fixed-img" src="{{ $story['image'] }}" />
+                        <img alt="No images uploaded" class="fixed-img" src="{{ $story['image'] }}" />
                         <br/>
                     @endif
-                    <p class="text-gray-900 d-inline-flex gap-1">
-                        <button class="btn btn-sm btn-default" type="button" data-bs-toggle="collapse" data-bs-target="#comment-area" aria-expanded="false" aria-controls="collapseExample">
-                          Comment 
-                        </button>
-                    </p>
-                    <div class="collapse" id="comment-area">
-                        Comment Here
-                    
+                   
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <a href="javascript:void(0)" class="toggle-comment text-green-500" data-id="{{ $story['id'] }}">Comment</a> 
+                        </div>
+                        <div class="flex items-center">
+                            <a href="javascript:void(0)" class="toggle-like text-green-500" data-id="{{ $story['id'] }}"> Like {{ $story['total_like'] }}</a>
+                        </div>
                     </div>
+                </div>
+                
+                <div class="comment-full{{ $story['id'] }}" style="display:none;">
+                    <div class="flex items-left max-w-full" style="padding-left: 20px;">
+                        <img 
+                            alt="Profile picture" 
+                            class="profile-picture rounded-full" 
+                            style="width: 36px; height: 36px;"
+                            src="{{ $story['warga']['profile_photo'] }}" 
+                        />
+                        <div class="ml-4 col-md-9 col-9 input-comment">
+                            <div style="font-size: 12px;"> <!-- Ukuran font deskripsi -->
+                                <form id="form-comment{{ $story['id'] }}" enctype="multipart/form-data">
+                                <input type="hidden" id="storyid{{ $story['id'] }}" value="{{ $story['id'] }}"/>
+                                <textarea id="story-comment{{ $story['id'] }}" class="form-control border rounded" style="font-size: 12px;" placeholder="Tulis Komentar" required></textarea>
+                                <button data-id="{{ $story['id'] }}" style="font-size: 12px;" class="btn btn-sm btn-success mt-2 send-comment" type="submit">Send Comment</button>
+                                </form>
+                            </div><hr class="mt-2 mb-2">
+                        </div>
+                    </div>
+                    <div class="comment-before"></div>
+                    @include('home.comment')
+                </div>
+                <div class="like-full{{ $story['id'] }}" style="display:none;">
+                    @for ($i = 0; $i < 5; $i++)
+                    <div class="flex items-left max-w-full mb-2" style="padding-left: 25px;">
+                        <img 
+                            alt="Profile picture" 
+                            class="profile-picture rounded-full" 
+                            style="width: 36px; height: 36px;"
+                            src="{{ $story['warga']['profile_photo'] }}" 
+                        />
+                        <div class="ml-4">
+                            <div class="text-gray-900 font-bold" style="font-size: 14px;">
+                                {{ $story['warga']['full_name'] }}
+                            </div>
+                        </div>
+                    </div>
+                    @endfor
                 </div>
             </div>
             @endforeach
@@ -114,28 +142,135 @@ $isChecker = $warga['is_checker'] ?? false;
     </div>
 </div>
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    // Toggle story
-    document.querySelectorAll('.toggle-story').forEach(function (toggleBtn) {
-        toggleBtn.addEventListener('click', function () {
-            const parent = this.closest('.card-content');
-            const preview = parent.querySelector('.story-preview');
-            const full = parent.querySelector('.story-full');
 
-            if (preview.classList.contains('d-none')) {
-                preview.classList.remove('d-none');
-                full.classList.add('d-none');
-                this.textContent = 'selengkapnya';
-            } else {
-                preview.classList.add('d-none');
-                full.classList.remove('d-none');
-                this.textContent = 'sembunyikan';
+$(document).ready(function () {
+    $(document).on("click", ".send-comment", function() {
+        const formid = $(this).attr('data-id');
+        
+        $('#form-comment'+formid).submit(function (e) {
+            //alert('#form-comment'+formid);return;
+            e.preventDefault();
+            // Ambil data dari form
+            const token = '{{ session::get('token') }}'; // Ambil token dari elemen HTML
+            const storyId = $('#storyid'+formid).val();
+            const commentText = $('#story-comment'+formid).val();
+        
+            const fullName = '{{ session()->get('warga.full_name') }}';
+            const profile =  '{{ session()->get('warga.profile_photo') }}';
+                
+            // Validasi input
+            if (!commentText.trim()) {
+                alert('Komentar tidak boleh kosong.');
+                return;
             }
+
+            alert(storyId+' - '+commentText);return;
+
+            // Kirim data ke API
+            $.ajax({
+                url: 'https://api.pewaca.id/api/story-replays/',
+                type: 'POST',
+                headers: {
+                    'accept': 'application/json',
+                    'Authorization': `Token ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify({
+                    story: storyId,
+                    replay: commentText
+                }),
+                success: function (response) {
+                    if (response.success) {// Buat elemen HTML dari respons
+                        
+                        const commentHtml = `
+                            <div class="flex items-left p-4 custom-card-content">
+                                <img 
+                                    alt="Profile picture" 
+                                    class="profile-picture rounded-full" 
+                                    style="width: 48px; height: 48px;"
+                                    src="${profile}" 
+                                />
+                                <div class="ml-4">
+                                    <div class="text-gray-900 font-bold" style="font-size: 14px;">
+                                        ${fullName}
+                                    </div>
+                                    <div style="font-size: 12px;">
+                                        <p>${response.data.replay}</p>
+                                    </div>
+                                </div>
+                            </div>`;
+
+                        // Append ke bagian atas elemen dengan class comment-append
+                        $('.comment-before').prepend(commentHtml);
+
+                        // Kosongkan textarea setelah submit
+                        $('#story-comment').val('');
+                    } else {
+                        alert('Gagal mengirim komentar. Respon tidak berhasil.');
+                    }
+                },
+                error: function (error) {
+                    alert('Gagal mengirim komentar. Silakan coba lagi.');
+                }
+            });
         });
+    });    
+});
+$(document).ready(function () {
+    $(document).on("click", ".toggle-story", function() {
+        const dataId = $(this).attr("data-id");
+        const targetDiv1 = $(`.story-default${dataId}`);
+        const targetDiv2 = $(`.story-full${dataId}`);
+       
+        if (targetDiv1.css("display") === "block" && $(this).text() === 'selengkapnya') {
+            targetDiv2.css("display", "block");
+            targetDiv1.css("display", "none"); 
+            $(this).text('lebih sedikit');
+
+        } else {
+            targetDiv1.css("display", "block");
+            targetDiv2.css("display", "none");
+            $(this).text('selengkapnya');
+
+        }
+
     });
 
-});
+    $(document).on("click", ".toggle-comment", function() {
+        const dataId = $(this).attr("data-id");
+        const targetDiv = $(`.comment-full${dataId}`);
+        const targetOther = $(`.like-full${dataId}`);
+       
+        if (targetDiv.css("display") === "none") {
+            targetDiv.css("display", "block");
+            targetOther.css("display", "none"); // Sembunyikan like
+        } 
+        // else {
+        //     targetDiv.css("display", "none");
+        // }
 
+    });
+
+    $(document).on("click", ".toggle-like", function() {
+        const dataId = $(this).attr("data-id");
+        const targetDiv = $(`.like-full${dataId}`);
+        const targetOther = $(`.comment-full${dataId}`);
+       
+        if (targetDiv.css("display") === "none") {
+            targetDiv.css("display", "block");
+            targetOther.css("display", "none"); // Sembunyikan comment
+        } else {
+            targetDiv.css("display", "none");
+        }
+
+    });
+
+    $(document).on("click", ".load-more", function() {
+        const before = 1;
+        const after = before + 1;
+        alert(after);
+    });
+});
 </script>
 @endsection 
 @endif
