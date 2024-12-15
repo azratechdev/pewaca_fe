@@ -12,6 +12,8 @@ class PengurusController extends Controller
     {
        
         $people_false = $this->getWargaFalse(); 
+
+        //dd($people_false);
         $people_true = $this->getWargaTrue();
         //dd($people_true);
         return view('pengurus.index', compact('people_false', 'people_true'));
@@ -38,16 +40,6 @@ class PengurusController extends Controller
         return  $warga_response['data'];
        
     }
-
-    // public function getTotalFalse()
-    // {
-    //     $response = Http::withHeaders([
-    //         'Accept' => 'application/json',
-    //         'Authorization' => 'Token '.Session::get('token'),
-    //     ])->get('https://api.pewaca.id/api/warga/?is_checker=false');
-    //     $warga_response = json_decode($response->body(), true);
-    //     return  $warga_response['data'];
-    // }
 
 
 }

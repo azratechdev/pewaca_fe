@@ -17,9 +17,9 @@ class HomeController extends Controller
         $warga = Session::get('warga');
         $residence = Session::get('residence');
         $stories = $this->getStories();
-        $replays = $this->getReplays();
+       
         //dd($replays);
-        return view('home.index', compact('user', 'warga', 'residence', 'stories', 'replays'));
+        return view('home.index', compact('user', 'warga', 'residence', 'stories'));
     }
 
     public function getStories()
@@ -34,23 +34,34 @@ class HomeController extends Controller
         return $stories_response['data'];
     }
 
-    public function getReplays()
+    public function getReplays(Request $request)
     {
-        $response = Http::withHeaders([
-            'Accept' => 'application/json',
-            'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/story-replays/?story_id=11');
+        $request->validate([
+            'story_id' => 'required|integer',
+        ]);
+
+        // $response = Http::withHeaders([
+        //     'Accept' => 'application/json',
+        //     'Authorization' => 'Token '.Session::get('token'),
+        // ])->get('https://api.pewaca.id/api/story-replays/?page=1&story_id='.$request->story_id);
         
-        $replay_response = json_decode($response->body(), true);
-        
-        //Periksa apakah 'results' ada dalam response
-        if (isset($replay_response['results'])) {
-            $results = $replay_response['results'];
-            return $results;
-        } else {
-            // Jika 'results' tidak ada, bisa memberikan pesan atau menangani error
-            return 'Data results tidak ditemukan.';
-        }
+        // $replay_response = json_decode($response->body(), true);
+
+        $storyId = $request->input('story_id');
+
+        $data = [
+            'story_id' => $storyId,
+            'comments' => [
+                ['user' => 'John Doe', 'comment' => 'This is a test comment.'],
+                ['user' => 'Jane Smith', 'comment' => 'Another test comment.']
+            ]
+        ];
+
+        // Render view dengan data
+        $html = view('home.comment_default', $data)->render();
+
+        return response()->json(['html' => $html]);
+
     }
 
     public function addpost()

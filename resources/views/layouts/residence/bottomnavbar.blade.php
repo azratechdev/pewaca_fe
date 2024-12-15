@@ -4,7 +4,7 @@
     $isPengurus = Session::get('cred.is_pengurus') ?? false;
     $isChecker = Session::get('warga.is_checker') ?? false;
   @endphp
-  <div class="navbar navbar-custom navbar-dark navbar-expand fixed-bottom bg-white">
+<div class="navbar navbar-custom navbar-dark navbar-expand fixed-bottom bg-white" style="padding-bottom: 10px;">
   <div class="container-fluid">
     <ul class="navbar-nav nav-justified w-100">
 
@@ -40,12 +40,11 @@
           <span class="small d-block">Akun</span>
         </a>
       </li>
-
     </ul>
   </div>
 </div>
 
-<div class="fixed-bottom bg-white py-2 border-t border-gray-200">
+{{-- <div class="fixed-bottom bg-white py-2 border-t border-gray-200">
   <div class="flex justify-center items-center py-2">
       <i class="fas fa-lock text-gray-500"></i>
       <span class="ml-2 text-gray-700">lingka.id</span>
@@ -53,4 +52,4 @@
   <div class="flex justify-center">
       <div class="w-25 h-1 bg-black rounded-full"></div>
   </div>
-</div>
+</div> --}}

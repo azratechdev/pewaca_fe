@@ -88,7 +88,7 @@ $isChecker = $warga['is_checker'] ?? false;
                         <br/>
                     @endif
                    
-                    <div class="flex justify-between items-center">
+                   <div class="flex justify-between items-center">
                         <div class="flex items-center">
                             <a href="javascript:void(0)" class="toggle-comment text-green-500" data-id="{{ $story['id'] }}">Comment</a> 
                         </div>
@@ -104,7 +104,7 @@ $isChecker = $warga['is_checker'] ?? false;
                             alt="Profile picture" 
                             class="profile-picture rounded-full" 
                             style="width: 36px; height: 36px;"
-                            src="{{ $story['warga']['profile_photo'] }}" 
+                            src="{{ $warga['profile_photo'] }}" 
                         />
                         <div class="ml-4 col-md-9 col-9 input-comment">
                             <div style="font-size: 12px;"> <!-- Ukuran font deskripsi -->
@@ -116,7 +116,7 @@ $isChecker = $warga['is_checker'] ?? false;
                             </div><hr class="mt-2 mb-2">
                         </div>
                     </div>
-                    <div class="comment-before"></div>
+                    {{-- <div class="comment-before"></div> --}}
                     @include('home.comment')
                 </div>
                 <div class="like-full{{ $story['id'] }}" style="display:none;">
@@ -141,6 +141,8 @@ $isChecker = $warga['is_checker'] ?? false;
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 
 $(document).ready(function () {
@@ -157,6 +159,7 @@ $(document).ready(function () {
         
             const fullName = '{{ session()->get('warga.full_name') }}';
             const profile =  '{{ session()->get('warga.profile_photo') }}';
+            const wargaData = { 'full_name': fullName};
                 
             // Validasi input
             if (!commentText.trim()) {
@@ -164,7 +167,7 @@ $(document).ready(function () {
                 return;
             }
 
-            alert(storyId+' - '+commentText);return;
+           // alert(storyId+' - '+commentText);return;
 
             // Kirim data ke API
             $.ajax({
@@ -177,7 +180,8 @@ $(document).ready(function () {
                 },
                 data: JSON.stringify({
                     story: storyId,
-                    replay: commentText
+                    replay: commentText,
+                    warga: wargaData
                 }),
                 success: function (response) {
                     if (response.success) {// Buat elemen HTML dari respons
@@ -201,12 +205,17 @@ $(document).ready(function () {
                             </div>`;
 
                         // Append ke bagian atas elemen dengan class comment-append
-                        $('.comment-before').prepend(commentHtml);
+                        $('.comment-before'+formid).prepend(commentHtml);
 
                         // Kosongkan textarea setelah submit
-                        $('#story-comment').val('');
+                        $('#story-comment'+formid).val('');
+                        
+                        Swal.fire('Success!', 'Warga successfully verified.', 'success');
+
+                
                     } else {
                         alert('Gagal mengirim komentar. Respon tidak berhasil.');
+                        // Swal.fire('Success!', 'Warga successfully verified.', 'success');
                     }
                 },
                 error: function (error) {
@@ -244,6 +253,10 @@ $(document).ready(function () {
         if (targetDiv.css("display") === "none") {
             targetDiv.css("display", "block");
             targetOther.css("display", "none"); // Sembunyikan like
+            //alert(dataId);
+            const storyId = dataId
+            //fetchComments(storyId); // Panggil fungsi fetchComments
+
         } 
         // else {
         //     targetDiv.css("display", "none");
@@ -265,12 +278,28 @@ $(document).ready(function () {
 
     });
 
-    $(document).on("click", ".load-more", function() {
-        const before = 1;
-        const after = before + 1;
-        alert(after);
-    });
+    function fetchComments(storyId) {
+        $.ajax({
+            url: "{{ route('getReplays') }}", // URL endpoint ke Laravel
+            method: "POST",
+            data: {
+                story_id: storyId,
+                _token: "{{ csrf_token() }}" // Sertakan CSRF token
+            },
+            success: function (response) {
+                if (response.html) {
+                    $('.comment-show'+storyId).html(response.html);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+
+
 });
+
 </script>
 @endsection 
 @endif
