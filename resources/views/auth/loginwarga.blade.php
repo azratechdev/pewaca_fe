@@ -97,7 +97,7 @@
         </div>
     </div>
   </div>
-
+{{-- 
   <div class="fixed-bottom bg-white py-2 border-t border-gray-200">
     <div class="flex justify-center items-center py-2">
         <i class="fas fa-lock text-gray-500"></i>
@@ -106,7 +106,7 @@
     <div class="flex justify-center">
         <div class="w-25 h-1 bg-black rounded-full"></div>
     </div>
-  </div>
+  </div> --}}
 
   <!-- Bootstrap JS -->
      
