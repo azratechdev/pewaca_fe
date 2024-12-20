@@ -185,36 +185,25 @@ $(document).ready(function () {
                 }),
                 success: function (response) {
                     if (response.success) {// Buat elemen HTML dari respons
-                        
-                        const commentHtml = `
-                            <div class="flex items-left p-4 custom-card-content">
-                                <img 
-                                    alt="Profile picture" 
-                                    class="profile-picture rounded-full" 
-                                    style="width: 48px; height: 48px;"
-                                    src="${profile}" 
-                                />
-                                <div class="ml-4">
-                                    <div class="text-gray-900 font-bold" style="font-size: 14px;">
-                                        ${fullName}
-                                    </div>
-                                    <div style="font-size: 12px;">
-                                        <p>${response.data.replay}</p>
-                                    </div>
-                                </div>
-                            </div>`;
-
-                        // Append ke bagian atas elemen dengan class comment-append
-                        $('.comment-before'+formid).prepend(commentHtml);
-
                         // Kosongkan textarea setelah submit
                         $('#story-comment'+formid).val('');
-                        
-                        Swal.fire('Success!', 'Warga successfully verified.', 'success');
-
-                
-                    } else {
-                        alert('Gagal mengirim komentar. Respon tidak berhasil.');
+                        const storyId = formid
+                        $.ajax({
+                            url: "{{ route('getReplays') }}", // URL endpoint ke Laravel
+                            method: "POST",
+                            data: {
+                                story_id: storyId,
+                                _token: "{{ csrf_token() }}" // Sertakan CSRF token
+                            },
+                            success: function (response) {
+                                if (response.html) {
+                                    $('.comment-show'+storyId).html(response.html);
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                console.error(xhr.responseText);
+                            }
+                        });
                         // Swal.fire('Success!', 'Warga successfully verified.', 'success');
                     }
                 },
@@ -255,7 +244,7 @@ $(document).ready(function () {
             targetOther.css("display", "none"); // Sembunyikan like
             //alert(dataId);
             const storyId = dataId
-            //fetchComments(storyId); // Panggil fungsi fetchComments
+            fetchComments(storyId); // Panggil fungsi fetchComments
 
         } 
         // else {
@@ -296,8 +285,33 @@ $(document).ready(function () {
             }
         });
     }
+});
 
+$(document).ready(function () {
+    $(document).on("click", ".load-more", function() {
+        const storyId = $(this).attr("data-id");
+        const url = $(this).attr("data-next");
 
+        //alert(dataId +' '+ url);
+
+        $.ajax({
+            url: "{{ route('getReplaysMore') }}", // URL endpoint ke Laravel
+            method: "POST",
+            data: {
+                story_id: storyId,
+                url : url,
+                _token: "{{ csrf_token() }}" // Sertakan CSRF token
+            },
+            success: function (response) {
+                if (response.html) {
+                    $('.comment-more'+storyId).html(response.html);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    });
 });
 
 </script>

@@ -16,16 +16,3 @@
     </div>
 </div>
 @endforeach
-
-<div class="comment-more{{ $comment['story'] }}"></div>
-
-@if($data['next'] != null)
-<div class="flex items-left max-w-full mb-2" style="padding-left: 20px;">
-    <div class="text-green-500 load-more" data-id="{{ $comment['story'] }}" 
-    data-next="{{ $data['next'] }}" style="font-size: 12px;">Load More</div>
-</div>
-@else
-<div class="flex items-left max-w-full mb-2" style="padding-left: 20px;">
-    <div class="text-white" style="font-size: 12px;">&nbsp;</div>
-</div>
-@endif

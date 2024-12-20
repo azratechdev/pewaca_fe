@@ -4,13 +4,13 @@
     $isPengurus = Session::get('cred.is_pengurus') ?? false;
     $isChecker = Session::get('warga.is_checker') ?? false;
   @endphp
-<div class="navbar navbar-custom navbar-dark navbar-expand fixed-bottom bg-white" style="padding-bottom: 10px;">
+<div class="navbar navbar-custom navbar-dark navbar-expand fixed-bottom bg-white" style="padding-bottom: 0px;">
   <div class="container-fluid">
     <ul class="navbar-nav nav-justified w-100">
 
       <li class="nav-item">
         <a href="{{ route('home') }}" class="nav-link text-center {{ Request::is('home') ? 'active' : '' }}">
-          <i class="fa fa-home fa-3x"></i>
+          <i class="fa fa-home"></i>
           <span class="small d-block">Home</span>
         </a>
       </li>
@@ -20,7 +20,7 @@
         }))
         <li class="nav-item">
             <a href="{{ route('pengurus') }}" class="nav-link text-center {{ Request::is('pengurus') ? 'active' : '' }}">
-                <i class="fa fa-id-card fa-2x"></i>
+                <i class="fa fa-id-card"></i>
                 <span class="small d-block">Pengurus</span>
             </a>
         </li>
@@ -29,14 +29,14 @@
       <li class="nav-item">
         <a href="{{ route('pembayaran') }}" class="nav-link text-center {{ Request::is('pembayaran') ? 'active' : '' }}" @if (!$isPengurus && !$isChecker) cursor-not-allowed text-gray-400 @endif" 
         style="@if (!$isPengurus && !$isChecker) pointer-events: none; @endif">
-          <i class="fa fa-receipt fa-2x"></i> <!-- Ikon Purchase Order -->
+          <i class="fa fa-receipt"></i> <!-- Ikon Purchase Order -->
           <span class="small d-block">Cashout</span>
         </a>
       </li>
 
       <li class="nav-item">
         <a href="{{ route('akun') }}" class="nav-link text-center {{ Request::is('akun') ? 'active' : '' }}">
-          <i class="fa fa-user fa-2x"></i> <!-- Ikon Purchase Order -->
+          <i class="fa fa-user"></i> <!-- Ikon Purchase Order -->
           <span class="small d-block">Akun</span>
         </a>
       </li>

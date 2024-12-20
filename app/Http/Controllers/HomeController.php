@@ -40,25 +40,43 @@ class HomeController extends Controller
             'story_id' => 'required|integer',
         ]);
 
-        // $response = Http::withHeaders([
-        //     'Accept' => 'application/json',
-        //     'Authorization' => 'Token '.Session::get('token'),
-        // ])->get('https://api.pewaca.id/api/story-replays/?page=1&story_id='.$request->story_id);
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Token '.Session::get('token'),
+        ])->get('https://api.pewaca.id/api/story-replays/?page=1&story_id='.$request->story_id);
         
-        // $replay_response = json_decode($response->body(), true);
+        $replay_response = json_decode($response->body(), true);
 
-        $storyId = $request->input('story_id');
-
-        $data = [
-            'story_id' => $storyId,
-            'comments' => [
-                ['user' => 'John Doe', 'comment' => 'This is a test comment.'],
-                ['user' => 'Jane Smith', 'comment' => 'Another test comment.']
-            ]
-        ];
-
+        $data = $replay_response;
+      
         // Render view dengan data
-        $html = view('home.comment_default', $data)->render();
+        $html = view('home.comment_default', ['data' => $data])->render();
+
+        return response()->json(['html' => $html]);
+
+    }
+
+    public function getReplaysMore(Request $request)
+    {
+        $request->validate([
+            'story_id' => 'required|integer',
+            'url' => 'required|string'
+        ]);
+        
+        if (str_starts_with($request->url, 'http://')) {
+            $url = preg_replace('/^http:/', 'https:', $request->url);
+        }
+        //dd($url);
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Token '.Session::get('token'),
+        ])->get($url);
+               
+        $replay_response = json_decode($response->body(), true);
+
+        $data = $replay_response;
+        // Render view dengan data
+        $html = view('home.comment_more', ['data' => $data])->render();
 
         return response()->json(['html' => $html]);
 

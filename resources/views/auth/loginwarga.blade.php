@@ -26,8 +26,8 @@
     }
 
     .waca-logo {
-        width: 200px; /* Sesuaikan ukuran yang diinginkan */
-        height: 97px; /* Sesuaikan ukuran yang diinginkan */
+        width: 190px; /* Sesuaikan ukuran yang diinginkan */
+        height: 60px; /* Sesuaikan ukuran yang diinginkan */
         border:0px;
     }
 
@@ -41,14 +41,15 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                  <div class="mb-3" style="align-items: left;">
+                  <div class="mb-4 mt-4" style="align-items: left;">
                     <picture>
                       <img src="{{ asset('assets/plugins/images/wacalogo.jpeg') }}" class="img-fluid img-thumbnail waca-logo" alt="Waca Logo">
                     </picture>
                   </div>
 
                   <div class="mb-3">
-                    <p class="text-left">Selamat Datang di Waca</p>
+                    <p class="text-left">Selamat Datang di</p>
+                    <p><strong>Pewaca</strong></p>
                   </div>
       
                   <div class="mb-3">

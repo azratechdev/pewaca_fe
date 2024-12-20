@@ -44,6 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/addpost', [HomeController::class, 'addpost'])->name('addpost');
     Route::post('/storypost', [HomeController::class, 'postStory'])->name('addPost');
     Route::post('/fetch-html-comment', [HomeController::class, 'getReplays'])->name('getReplays');
+    Route::post('/comment-more', [HomeController::class, 'getReplaysMore'])->name('getReplaysMore');
     Route::get('/pembayaran', [PembayaranController::class, 'index'])->name('pembayaran');
     Route::get('/addpembayaran', [PembayaranController::class, 'addpembayaran'])->name('addpembayaran');
     Route::post('/postpembayaran', [PembayaranController::class, 'postPembayaran'])->name('postPembayaran');
