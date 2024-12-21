@@ -66,6 +66,9 @@ class HomeController extends Controller
         if (str_starts_with($request->url, 'http://')) {
             $url = preg_replace('/^http:/', 'https:', $request->url);
         }
+        else{
+            $url = $request->url;
+        }
         //dd($url);
         $response = Http::withHeaders([
             'Accept' => 'application/json',

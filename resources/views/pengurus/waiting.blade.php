@@ -15,37 +15,19 @@
         </p>
     </div>
 </div>
-<br>
-<div class="flex justify-between items-center">
+
+<div class="flex justify-between items-center mt-2">
     <div class="flex items-center">
-        <button class="btn btn-sm btn-success approved-warga" data-id="{{ $warga['id'] }}">Approve</button>
+        <p class="text-warning d-flex align-items-center">
+            <i class="far fa-clock"></i>&nbsp; Waiting Approval
+        </p>
     </div>
     
     <div class="flex items-center">
-        <button class="btn btn-sm btn-warning" style="color: white;"
-        data-bs-toggle="modal" data-bs-target="#rejectModal{{ $warga['id'] }}">Reject</button>
+        <a href="{{ route('detail_warga', ['id' => $warga['id']]) }}" class="btn btn-sm btn-success w-20" style="color: white;border-radius:8px;">Detail</a>
     </div>
 </div><br>
-<div class="modal fade" id="rejectModal{{ $warga['id'] }}" tabindex="-1" aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Reject Reason</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form id="form-reject{{ $warga['id'] }}">
-            <div class="modal-body">
-                <input type="hidden" id="warga_id{{ $warga['id'] }}" value="{{ $warga['id'] }}"/>
-                <textarea class="form-control" name="reject-reason" id="reject-reason{{ $warga['id'] }}" cols="4" required></textarea>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">Cancel</button>
-            <button data-id="{{ $warga['id'] }}"type="submit" class="btn btn-sm btn-primary send-reject">Save</button>
-            </div>
-        </form>
-        </div>
-    </div>
-</div><hr><br>
+
 @endforeach
 <div class="flex justify-between items-center">
     <div class="flex items-center">

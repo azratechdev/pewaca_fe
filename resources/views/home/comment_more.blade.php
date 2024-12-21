@@ -1,5 +1,5 @@
 @foreach($data['results'] as $comment)
-<div id="all-comment{{ $comment['story'] }}" class="flex items-left max-w-full mb-2 comment-all" style="padding-left: 20px; padding-right:10px;">
+<div id="comment-more{{ $comment['story'] }}" class="flex items-left max-w-full mb-2" style="padding-left: 20px; padding-right:10px;">
     <img 
         alt="Profile picture" 
         class="profile-picture rounded-full" 

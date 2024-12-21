@@ -304,7 +304,14 @@ $(document).ready(function () {
             },
             success: function (response) {
                 if (response.html) {
-                    $('.comment-more'+storyId).html(response.html);
+                    $('.comment-more'+storyId).append(response.html);
+                    // const next = $('#comment-more'+storyId).attr("data-next");
+                    // if(next === null){
+                    //     $('#load-more'+storyId).css("display", "none");
+                    // }
+                    // else{
+                    //     $('#load-more'+storyId).css("display", "block");
+                    // }
                 }
             },
             error: function (xhr, status, error) {

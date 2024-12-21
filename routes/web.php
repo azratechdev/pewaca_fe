@@ -56,10 +56,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/registrasi', [AkunController::class, 'registrasi'])->name('registrasi');
     
     Route::get('/logout', [LoginController::class, 'logout'])->name('log_out');
-    
+
+       
     // Rute khusus untuk pengurus
     Route::group(['middleware' => 'role:pengurus'], function () {
         Route::get('/pengurus', [PengurusController::class, 'index'])->name('pengurus');
+        Route::get('/warga-detail/{id}', [PengurusController::class, 'detail_warga'])->name('detail_warga');
+        Route::get('/warga-reject/{id}', [PengurusController::class, 'reject_warga'])->name('reject_warga');
+        Route::post('/post-reject', [PengurusController::class, 'post_reject'])->name('post_reject');
     });
 });
 

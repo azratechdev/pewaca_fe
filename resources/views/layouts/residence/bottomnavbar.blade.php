@@ -4,8 +4,8 @@
     $isPengurus = Session::get('cred.is_pengurus') ?? false;
     $isChecker = Session::get('warga.is_checker') ?? false;
   @endphp
-<div class="navbar navbar-custom navbar-dark navbar-expand fixed-bottom bg-white" style="padding-bottom: 0px;">
-  <div class="container-fluid">
+<div class="navbar navbar-custom navbar-dark navbar-expand fixed-bottom bg-white" style="padding: 0px;">
+  <div class="container-fluid" style="padding-left: 0px;padding-right: 0px;height: 85px;">
     <ul class="navbar-nav nav-justified w-100">
 
       <li class="nav-item">

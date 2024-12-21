@@ -38,7 +38,33 @@ class PengurusController extends Controller
         ])->get('https://api.pewaca.id/api/warga/?page=1&is_checker=true');
         $warga_response = json_decode($response->body(), true);
         return  $warga_response['data'];
-       
+    }
+
+    public function detail_warga($id)
+    {
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Token '.Session::get('token'),
+        ])->get('https://api.pewaca.id/api/warga/'.$id.'/');
+        $warga_response = json_decode($response->body(), true);
+        $warga = $warga_response['data'];
+
+        return view('pengurus.detail_warga', compact('warga'));
+
+    }
+
+    public function reject_warga($id)
+    {
+        $warga_id = $id;
+ 
+        return view('pengurus.reject_form', compact('warga_id'));
+
+    }
+
+    public function post_reject(Request $request)
+    {
+        dd($request->all());
+ 
     }
 
 
