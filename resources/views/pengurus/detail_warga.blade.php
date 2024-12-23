@@ -14,7 +14,7 @@
             <div class="flex justify-between items-center mt-2">
                 <div class="flex items-center">
                     <p class="text-warning d-flex align-items-center">
-                        <i class="far fa-clock"></i>&nbsp; Waiting Approval
+                       <i class="far fa-clock"></i>&nbsp; Waiting Approval
                     </p>
                 </div>
                 
@@ -87,9 +87,52 @@
         <!-- Footer -->
         <div class="flex justify-content-between" style="padding:10px;">
             <a href="{{ route('reject_warga', ['id' => $warga['id']]) }}" class="btn btn-danger w-40 me-2">Reject</a>
-            <button class="btn btn-success w-60">Approve</button>
+            <button class="btn btn-success w-60 approved-warga" data-id="{{ $warga['id'] }}">Approve</button>
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(document).ready(function () {
+        $(document).on("click", ".approved-warga", function() {
+       
+            const token = "{{ Session::get('token') }}";
+            const wargaId = $(this).data('id');
+        
+            //alert(token + ' ' + wargaId);return;
+        
+            // Tampilkan SweetAlert konfirmasi
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'Do you want to approve this warga?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, approve it!',
+                cancelButtonText: 'No, cancel!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: 'https://api.pewaca.id/api/warga/verify/',
+                        type: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Authorization': `Token ${token}`,
+                            'Content-Type': 'application/json'
+                        },
+                        data: JSON.stringify({
+                            "warga_id": wargaId
+                        }),
+                        success: function(data) {
+                            Swal.fire('Success!', 'Warga successfully verified.', 'success');
+                        },
+                        error: function(xhr, status, error) {
+                            Swal.fire('Error!', 'Something went wrong, please try again.', 'error');
+                        }
+                    });
+                }
+            });
+        });
+    });    
+</script>
     
 @endsection

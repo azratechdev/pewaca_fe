@@ -99,6 +99,7 @@ class LoginController extends Controller
             Session::put(['warga' => $warga_data]);
             Session::put(['residence' => $residence_data]);
            
+           
             if ($credentials['email'] == $email && $credentials['is_active'] == true) {
                
                 $responses = [

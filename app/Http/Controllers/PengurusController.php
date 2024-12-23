@@ -13,7 +13,6 @@ class PengurusController extends Controller
        
         $people_false = $this->getWargaFalse(); 
 
-        //dd($people_false);
         $people_true = $this->getWargaTrue();
         //dd($people_true);
         return view('pengurus.index', compact('people_false', 'people_true'));
@@ -24,9 +23,9 @@ class PengurusController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/warga/?page=1&is_checker=false');
+        ])->get('https://api.pewaca.id/api/warga/?page=1&is_checker=false&isreject=');
         $warga_response = json_decode($response->body(), true);
-        return  $warga_response['data'];
+        return  $warga_response['results'];
        
     }
 
@@ -35,9 +34,9 @@ class PengurusController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/warga/?page=1&is_checker=true');
+        ])->get('https://api.pewaca.id/api/warga/?page=1&is_checker=true&isreject=false');
         $warga_response = json_decode($response->body(), true);
-        return  $warga_response['data'];
+        return  $warga_response['results'];
     }
 
     public function detail_warga($id)
@@ -63,7 +62,44 @@ class PengurusController extends Controller
 
     public function post_reject(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
+        $request->validate([
+            'warga_id' => 'required|integer',
+            'alasan' => 'required|string'
+        ]);
+
+        $data = [
+            'warga_id' => $request->warga_id,
+            'reason' => $request->alasan
+        ];
+        //dd($data);
+        try {
+            //dd('here');
+            $http = Http::withHeaders([
+                'Accept' => 'application/json',
+                'Authorization' => 'Token '.Session::get('token'),
+            ]);
+                       
+            $response = $http->post('https://api.pewaca.id/api/warga/reject/', $data);
+
+            $data_response = json_decode($response->body(), true);
+
+            //dd($data_response);
+
+            if ($response->successful()) {
+                session()->flash('status', 'success');
+                session()->flash('message', $data_response['data']['message']);
+                return redirect()->route('pengurus');
+            } else {
+                session()->flash('message', $data_response['data']['message']);
+                return redirect()->route('pengurus');
+            }
+        
+        } catch (\Exception $e) {
+            session()->flash('status', 'error');
+            session()->flash('message', 'Gagal Mengirim Komentar');
+            return redirect()->route('pengurus');
+        }
  
     }
 

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
    
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/plugins/images/pewaca.jpeg') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/plugins/images/logo.png') }}">
     <title>Cubic Admin Template</title>
     <!-- ===== Bootstrap CSS ===== -->
     <link href="{{ asset('assets/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">

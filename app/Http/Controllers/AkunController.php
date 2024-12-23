@@ -18,10 +18,17 @@ class AkunController extends Controller
 
     public function infoakun()
     {   
-        $user = Session::get('cred');
-        $warga = Session::get('warga');
-        $residence = Session::get('residence');
-        return view('akun.akuninfo', compact('user', 'warga', 'residence'));
+        // $user = Session::get('cred');
+        // $warga = Session::get('warga');
+        // $residence = Session::get('residence');
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Token '.Session::get('token'),
+        ])->get('https://api.pewaca.id/api/auth/profil/');
+        $warga_response = json_decode($response->body(), true);
+        $data = $warga_response['data'];
+        //dd($data);
+        return view('akun.akuninfo', compact('data'));
     }
 
     public function inforekening()

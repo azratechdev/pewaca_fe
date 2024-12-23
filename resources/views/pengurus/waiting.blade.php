@@ -26,7 +26,8 @@
     <div class="flex items-center">
         <a href="{{ route('detail_warga', ['id' => $warga['id']]) }}" class="btn btn-sm btn-success w-20" style="color: white;border-radius:8px;">Detail</a>
     </div>
-</div><br>
+</div><hr class="mt-2">
+<br>
 
 @endforeach
 <div class="flex justify-between items-center">

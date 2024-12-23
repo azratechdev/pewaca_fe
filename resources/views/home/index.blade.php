@@ -11,7 +11,7 @@ $isChecker = $warga['is_checker'] ?? false;
     <div class="container mx-auto px-4">
         <div class="flex items-center justify-center">
             <div class="max-w-sm w-full text-center">
-                <img alt="Pewaca logo" class="mx-auto mt-4 mb-20" height="120" src="{{ asset('assets/plugins/images/wacalogo.jpeg') }}" width="170"/>
+                <img alt="Pewaca logo" class="mx-auto mt-4 mb-20" height="120" src="{{ asset('assets/plugins/images/mainlogo.png') }}" width="170"/>
                 <div class="mb-10">
                     <img alt="Illustration of a document with a clock" class="mx-auto" height="200" src="{{ asset('assets/plugins/images/verified-wait.jpeg') }}" width="200"/>
                 </div>
@@ -33,7 +33,7 @@ $isChecker = $warga['is_checker'] ?? false;
     <div class="container mx-auto">
        <div class="flex justify-between items-center" style="padding-top: 10px;">
             <div class="flex items-center">
-                <img alt="Waca Logo" height="120"  width="170" src="{{ asset('assets/plugins/images/wacalogo.jpeg') }}"/>
+                <img alt="Waca Logo" height="120"  width="170" src="{{ asset('assets/plugins/images/mainlogo.png') }}"/>
             </div>
             <a href="{{ route('addpost') }}">
                 <div class="flex items-center">
@@ -111,7 +111,7 @@ $isChecker = $warga['is_checker'] ?? false;
                                 <form id="form-comment{{ $story['id'] }}" enctype="multipart/form-data">
                                 <input type="hidden" id="storyid{{ $story['id'] }}" value="{{ $story['id'] }}"/>
                                 <textarea id="story-comment{{ $story['id'] }}" class="form-control border rounded" style="font-size: 12px;" placeholder="Tulis Komentar" required></textarea>
-                                <button data-id="{{ $story['id'] }}" style="font-size: 12px;" class="btn btn-sm btn-success mt-2 send-comment" type="submit">Send Comment</button>
+                                <button data-id="{{ $story['id'] }}" style="font-size: 12px;" class="btn btn-sm btn-success mt-2 send-comment" type="submit">Send</button>
                                 </form>
                             </div><hr class="mt-2 mb-2">
                         </div>
