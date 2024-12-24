@@ -149,7 +149,7 @@ $(document).ready(function () {
     $(document).on("click", ".send-comment", function() {
         const formid = $(this).attr('data-id');
         
-        $('#form-comment'+formid).submit(function (e) {
+        $('#form-comment'+formid).off('submit').on('submit', function (e) {
             //alert('#form-comment'+formid);return;
             e.preventDefault();
             // Ambil data dari form
