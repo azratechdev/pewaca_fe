@@ -173,6 +173,7 @@ $(document).ready(function () {
             $.ajax({
                 url: 'https://api.pewaca.id/api/story-replays/',
                 type: 'POST',
+                cache: false,
                 headers: {
                     'accept': 'application/json',
                     'Authorization': `Token ${token}`,
@@ -191,6 +192,7 @@ $(document).ready(function () {
                         $.ajax({
                             url: "{{ route('getReplays') }}", // URL endpoint ke Laravel
                             method: "POST",
+                            cache: false,
                             data: {
                                 story_id: storyId,
                                 _token: "{{ csrf_token() }}" // Sertakan CSRF token
@@ -271,6 +273,7 @@ $(document).ready(function () {
         $.ajax({
             url: "{{ route('getReplays') }}", // URL endpoint ke Laravel
             method: "POST",
+            cache: false,
             data: {
                 story_id: storyId,
                 _token: "{{ csrf_token() }}" // Sertakan CSRF token
