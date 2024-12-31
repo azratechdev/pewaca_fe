@@ -29,8 +29,9 @@
     }
 
     .waca-logo {
-        width: 200px; /* Sesuaikan ukuran yang diinginkan */
-        height: 97px; /* Sesuaikan ukuran yang diinginkan */
+        width: 190px; /* Sesuaikan ukuran yang diinginkan */
+        height: 60px; /* Sesuaikan ukuran yang diinginkan */
+        border:0px;
     }
 
     .swal2-popup.rounded-alert {
@@ -80,11 +81,11 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <div class="mb-3" style="align-items: left;">
+                    <div class="mb-4 mt-4" style="align-items: left;">
                         <picture>
-                            <img src="{{ asset('assets/plugins/images/wacalogo.jpg') }}" class="img-fluid img-thumbnail waca-logo" alt="Waca Logo">
+                          <img src="{{ asset('assets/plugins/images/mainlogo.png') }}" class="img-fluid img-thumbnail waca-logo" alt="Waca Logo">
                         </picture>
-                    </div>
+                    </div> 
 
                     <div class="mb-3 d-flex align-items-center">
                         <a href="{{ route('showLoginForm') }}" class="text-dark">
