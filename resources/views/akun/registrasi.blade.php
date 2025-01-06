@@ -21,7 +21,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="deskirpsi" class="form-label">Alamat :</label>
-                            <textarea type="deskripsi" col="5" class="form-control" id="deskripsi">Pendaftaran Warga BAru</textarea>
+                            <textarea type="deskripsi" col="5" class="form-control" id="deskripsi">Pendaftaran Warga Baru</textarea>
                         </div>
                         <div class="mb-3">
                             <label for="file" class="form-label">Foto :</label>

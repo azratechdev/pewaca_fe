@@ -5,13 +5,13 @@
     $isChecker = Session::get('warga.is_checker') ?? false;
   @endphp
 <div class="navbar navbar-custom navbar-dark navbar-expand fixed-bottom bg-white" style="padding: 0px;">
-  <div class="container-fluid" style="padding-left: 0px;padding-right: 0px;height: 85px;">
+  <div class="container-fluid" style="padding-left: 0px;padding-right: 0px;height: 75px;">
     <ul class="navbar-nav nav-justified w-100">
 
       <li class="nav-item">
         <a href="{{ route('home') }}" class="nav-link text-center {{ Request::is('home') ? 'active' : '' }}">
-          <i class="fa fa-home"></i>
-          <span class="small d-block">Home</span>
+          <i class="fa fa-home menu-icon"></i>
+          <span class="small d-block menu-text">Home</span>
         </a>
       </li>
 
@@ -20,8 +20,8 @@
         }))
         <li class="nav-item">
             <a href="{{ route('pengurus') }}" class="nav-link text-center {{ Request::is('pengurus') ? 'active' : '' }}">
-                <i class="fa fa-id-card"></i>
-                <span class="small d-block">Pengurus</span>
+                <i class="fa fa-id-card menu-icon"></i>
+                <span class="small d-block menu-text">Pengurus</span>
             </a>
         </li>
       @endif
@@ -29,15 +29,15 @@
       <li class="nav-item">
         <a href="{{ route('pembayaran') }}" class="nav-link text-center {{ Request::is('pembayaran') ? 'active' : '' }}" @if (!$isPengurus && !$isChecker) cursor-not-allowed text-gray-400 @endif" 
         style="@if (!$isPengurus && !$isChecker) pointer-events: none; @endif">
-          <i class="fa fa-receipt"></i> <!-- Ikon Purchase Order -->
-          <span class="small d-block">Cashout</span>
+          <i class="fa fa-receipt menu-icon"></i> <!-- Ikon Purchase Order -->
+          <span class="small d-block menu-text">Cashout</span>
         </a>
       </li>
 
       <li class="nav-item">
         <a href="{{ route('akun') }}" class="nav-link text-center {{ Request::is('akun') ? 'active' : '' }}">
-          <i class="fa fa-user"></i> <!-- Ikon Purchase Order -->
-          <span class="small d-block">Akun</span>
+          <i class="fa fa-user menu-icon"></i> <!-- Ikon Purchase Order -->
+          <span class="small d-block menu-text">Akun</span>
         </a>
       </li>
     </ul>

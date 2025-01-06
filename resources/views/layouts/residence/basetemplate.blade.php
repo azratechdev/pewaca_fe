@@ -22,7 +22,7 @@
     background-color: #198754 !important;
     }  
     
-    /*CSS navbwr with icon pada menu pengurus*/
+    /*CSS navbar with icon pada menu pengurus*/
     .custom-nav-button {
         display: flex;
         flex-direction: column;
@@ -63,14 +63,14 @@
     }
 
     .navbar-nav .nav-link {
-        font-size: 1.4rem; /* Ukuran 2 kali lebih besar */
+        font-size: 1rem; 
         color: #6c757d !important; /* Abu-abu */
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 100px; /* Disesuaikan untuk ukuran dua kali lipat */
-        width: 100px;
+        height: 80px;
+        width: 80px;
         transition: color 0.3s ease-in-out;
     
     }
@@ -159,8 +159,8 @@
     }
   
     .custom-item-content {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
+        padding-left: 0.8rem;
+        padding-right: 0.8rem;
     }
 
     .custom-card-content {
@@ -173,6 +173,18 @@
     .custom-comment {
        resize: none;  /* Menghindari perubahan ukuran manual */
     }
+
+    /* Custom Menu Icon and Text Sizes */
+    .menu-icon {
+        font-size: 30px !important; /* Ukuran ikon lebih kecil */
+        /* line-height: 1.2 !important; */
+    }
+
+    .menu-text {
+        font-size: 16px; /* Ukuran teks lebih kecil */
+        line-height: 1.2; /* Jarak antar teks lebih rapat */
+    }
+    
   </style>
 </head>
 

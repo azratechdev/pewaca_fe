@@ -51,7 +51,7 @@ $isChecker = $warga['is_checker'] ?? false;
         @include('layouts.elements.tagihan')
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
             @foreach($stories as $story)
-            <div class="w-full max-w-full bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="w-full max-w-full bg-white shadow-xs rounded-lg overflow-hidden">
                 <!-- Header Section -->
                 <div class="flex items-center p-4">
                     <img 
@@ -137,6 +137,9 @@ $isChecker = $warga['is_checker'] ?? false;
                     @endfor
                 </div>
             </div>
+            {{-- <div class="w-full max-w-full bg-white shadow-xs rounded-lg overflow-hidden">
+                
+            </div> --}}
             @endforeach
         </div>
     </div>

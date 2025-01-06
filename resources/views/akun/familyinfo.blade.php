@@ -7,7 +7,7 @@
         <div class="p-6 border-b">
             
             <h1 class="text-xl font-semibold text-gray-800">
-                <a href="{{ route('infokeluarga') }}" class="text-dark">
+                <a href="{{ route('akun') }}" class="text-dark">
                     <i class="fas fa-arrow-left"></i>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;Keluarga
             </h1>

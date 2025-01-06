@@ -9,7 +9,7 @@ use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
-
+use App\Http\Controllers\TagihanController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -64,6 +64,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/warga-detail/{id}', [PengurusController::class, 'detail_warga'])->name('detail_warga');
         Route::get('/warga-reject/{id}', [PengurusController::class, 'reject_warga'])->name('reject_warga');
         Route::post('/post-reject', [PengurusController::class, 'post_reject'])->name('post_reject');
+
+       
+        Route::get('/pengurus/tagihan/list', [TagihanController::class, 'list'])->name('tagihan.list');
+        Route::get('/pengurus/tagihan/add', [TagihanController::class, 'addTagihan'])->name('tagihan.add');
+        Route::post('/pengurus/tagihan/post', [TagihanController::class, 'postTagihan'])->name('tagihan.post');
     });
+
 });
 
