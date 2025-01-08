@@ -116,7 +116,7 @@
 
     /* css image story*/
     .fixed-img {
-        width: 340px;
+        width: 100%;
         height: 240px;
         object-fit: cover; /* Memastikan gambar tidak terdistorsi */
         border-radius: 8px; /* Memberikan sedikit radius pada gambar */
@@ -158,11 +158,6 @@
         word-break: break-word;
     }
   
-    .custom-item-content {
-        padding-left: 0.8rem;
-        padding-right: 0.8rem;
-    }
-
     .custom-card-content {
         padding-top: 0rem;
         padding-bottom: 0rem;

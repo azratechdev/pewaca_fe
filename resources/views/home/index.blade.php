@@ -31,7 +31,7 @@ $isChecker = $warga['is_checker'] ?? false;
 
 <div class="container">
     <div class="container mx-auto">
-       <div class="flex justify-between items-center" style="padding-top: 10px;">
+        <div class="flex justify-between items-center" style="padding-top: 10px;">
             <div class="flex items-center">
                 <img alt="Waca Logo" height="120"  width="170" src="{{ asset('assets/plugins/images/mainlogo.png') }}"/>
             </div>
@@ -51,9 +51,9 @@ $isChecker = $warga['is_checker'] ?? false;
         @include('layouts.elements.tagihan')
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
             @foreach($stories as $story)
-            <div class="w-full max-w-full bg-white shadow-xs rounded-lg overflow-hidden">
+            <div class="w-full max-w-full bg-white overflow-hidden" style="border-bottom: 0.5px solid #a7a7a7;">
                 <!-- Header Section -->
-                <div class="flex items-center p-4">
+                <div class="flex items-center">
                     <img 
                         alt="Profile picture" 
                         class="profile-picture rounded-full" 
@@ -70,25 +70,26 @@ $isChecker = $warga['is_checker'] ?? false;
                 </div>
         
                 <!-- Content Section -->
-                <div class="px-4 pb-4 custom-item-content">
-                    <p class="text-gray-900 text-justify">
-                        <div class="story-default{{ $story['id'] }}" style="display: block;">
-                            {{ Str::limit($story['story'], 40) }}
-                        </div>
-                        <div class="story-full{{ $story['id'] }}" style="display: none;">
-                            {{ $story['story'] }}
-                        </div>
-                        @if(Str::length($story['story']) > 40)
-                            <a href="javascript:void(0)" class="toggle-story text-green-500" data-id="{{ $story['id'] }}">selengkapnya</a>
-                        @endif
-                    </p>
-                    <br/>
-                    @if(!empty($story['image']))
-                        <img alt="No images uploaded" class="fixed-img" src="{{ $story['image'] }}" />
+                <div class="pb-4 mt-2">
+                    <div class="items-center">
+                        <p class="text-gray-900 text-justify">
+                            <div class="story-default{{ $story['id'] }}" style="display: block;">
+                                {{ Str::limit($story['story'], 40) }}
+                            </div>
+                            <div class="story-full{{ $story['id'] }}" style="display: none;">
+                                {{ $story['story'] }}
+                            </div>
+                            @if(Str::length($story['story']) > 40)
+                                <a href="javascript:void(0)" class="toggle-story text-green-500" data-id="{{ $story['id'] }}">selengkapnya</a>
+                            @endif
+                        </p>
                         <br/>
-                    @endif
-                   
-                   <div class="flex justify-between items-center">
+                        @if(!empty($story['image']))
+                            <img alt="No images uploaded" class="fixed-img" src="{{ $story['image'] }}" />
+                            <br/>
+                        @endif
+                    </div>   
+                    <div class="flex justify-between items-center">
                         <div class="flex items-center">
                             <a href="javascript:void(0)" class="toggle-comment text-green-500" data-id="{{ $story['id'] }}">Comment</a> 
                         </div>
@@ -99,7 +100,7 @@ $isChecker = $warga['is_checker'] ?? false;
                 </div>
                 
                 <div class="comment-full{{ $story['id'] }}" style="display:none;">
-                    <div class="flex items-left max-w-full" style="padding-left: 20px;">
+                    <div class="flex items-left max-w-full">
                         <img 
                             alt="Profile picture" 
                             class="profile-picture rounded-full" 
@@ -121,7 +122,7 @@ $isChecker = $warga['is_checker'] ?? false;
                 </div>
                 <div class="like-full{{ $story['id'] }}" style="display:none;">
                     @for ($i = 0; $i < 5; $i++)
-                    <div class="flex items-left max-w-full mb-2" style="padding-left: 25px;">
+                    <div class="flex items-left max-w-full mb-2">
                         <img 
                             alt="Profile picture" 
                             class="profile-picture rounded-full" 
