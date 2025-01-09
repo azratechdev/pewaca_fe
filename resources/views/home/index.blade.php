@@ -107,15 +107,24 @@ $isChecker = $warga['is_checker'] ?? false;
                             style="width: 36px; height: 36px;"
                             src="{{ $warga['profile_photo'] }}" 
                         />
-                        <div class="ml-4 col-md-9 col-9 input-comment">
-                            <div style="font-size: 12px;"> <!-- Ukuran font deskripsi -->
-                                <form id="form-comment{{ $story['id'] }}" enctype="multipart/form-data">
+                        <div class="ml-4 col-md-10 col-10 mb-2 input-comment" style="font-size: 12px;">
+                            <form id="form-comment{{ $story['id'] }}" enctype="multipart/form-data" style="display: flex; align-items: stretch; gap: 8px;">
+                                <input type="hidden" id="storyid{{ $story['id'] }}" value="{{ $story['id'] }}" />
+                                <textarea id="story-comment{{ $story['id'] }}" class="form-control border rounded" style="font-size: 12px; flex: 1;" placeholder="Tulis Komentar" required></textarea>
+                                <button data-id="{{ $story['id'] }}" class="btn btn-xs btn-success send-comment" type="submit" style="font-size: 12px;">
+                                    <i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i>
+                                </button>
+                            </form>
+                        </div>
+                        {{-- <div class="ml-4 col-md-9 col-9 mb-2 input-comment" style="font-size: 12px;">
+                            <form id="form-comment{{ $story['id'] }}" enctype="multipart/form-data">
                                 <input type="hidden" id="storyid{{ $story['id'] }}" value="{{ $story['id'] }}"/>
                                 <textarea id="story-comment{{ $story['id'] }}" class="form-control border rounded" style="font-size: 12px;" placeholder="Tulis Komentar" required></textarea>
-                                <button data-id="{{ $story['id'] }}" style="font-size: 12px;" class="btn btn-sm btn-success mt-2 send-comment" type="submit">Send</button>
-                                </form>
-                            </div><hr class="mt-2 mb-2">
-                        </div>
+                                <button data-id="{{ $story['id'] }}" style="width: 65px;font-size: 12px;" class="btn btn-xs btn-success mt-2 send-comment" type="submit">
+                                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                </button>
+                            </form>
+                        </div> --}}
                     </div>
                     {{-- <div class="comment-before"></div> --}}
                     @include('home.comment')
