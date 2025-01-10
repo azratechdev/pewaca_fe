@@ -10,12 +10,12 @@ class PengurusController extends Controller
 {
     public function index(Request $request)
     {
-       
+        $data_tagihan = $this->getTagihan();
         $people_false = $this->getWargaFalse(); 
 
         $people_true = $this->getWargaTrue();
         //dd($people_true);
-        return view('pengurus.index', compact('people_false', 'people_true'));
+        return view('pengurus.index', compact('people_false', 'people_true', 'data_tagihan'));
     }
 
     public function getWargaFalse()
@@ -101,6 +101,19 @@ class PengurusController extends Controller
             return redirect()->route('pengurus');
         }
  
+    }
+
+    public function getTagihan()
+    {
+
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Token '.Session::get('token'),
+        ])->get('https://api.pewaca.id/api/tagihan/');
+        $tagihan_response = json_decode($response->body(), true);
+        return $tagihan_response;
+
+      
     }
 
 

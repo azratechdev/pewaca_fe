@@ -9,11 +9,33 @@ use Illuminate\Support\Facades\Session;
 
 class TagihanController extends Controller
 {
-    public function list(Request $request)
+    public function list()
     {
-        $data = "1234";
-        
-        return view('pengurus.tagihan.list', compact('data'));
+        try {
+            $response = Http::withHeaders([
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Token ' . Session::get('token'),
+            ])->get('https://api.pewaca.id/api/tagihan/');
+    
+            $data_response = json_decode($response->body(), true);
+
+            dd($data_response);
+    
+            if ($response->successful()) {
+                return view('pengurus.tagihan.list', compact('data'));
+            } else {
+                \Log::warning('Response Error', [
+                    'status' => $response->status(),
+                    'body' => $response->body(),
+                ]);
+            }
+        } catch (\Exception $e) {
+            \Log::error('Gagal mengirim data tagihan', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+        }
     }
 
     public function addTagihan()
@@ -22,6 +44,68 @@ class TagihanController extends Controller
         return view('pengurus.tagihan.add');
        
     }
+
+    public function editTagihan($id)
+    {
+        try {
+            $response = Http::withHeaders([
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Token ' . Session::get('token'),
+            ])->get('https://api.pewaca.id/api/tagihan/'.$id.'/');
+    
+            $data_response = json_decode($response->body(), true);
+
+            //dd($data_response);
+    
+            if ($response->successful()) {
+                $tagihan = $data_response;
+                return view('pengurus.tagihan.edit', compact('tagihan'));
+            } else {
+                \Log::warning('Response Error', [
+                    'status' => $response->status(),
+                    'body' => $response->body(),
+                ]);
+                Session::flash('flash-message', [
+                    'message' => 'Data tidak ditemukan',
+                    'alert-class' => 'alert-warning',
+                ]);
+                return redirect()->route('tagihan.edit', ['id' => $id]);
+            }
+        } catch (\Exception $e) {
+            \Log::error('Gagal mengambil data tagihan', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+    
+            Session::flash('flash-message', [
+                'message' => 'Gagal mengambil data tagihan',
+                'alert-class' => 'alert-danger',
+            ]);
+            return redirect()->route('tagihan.edit', ['id' => $id]);
+        }
+
+       
+       
+    }
+
+    public function update(Request $request, $id)
+    {
+        $tagihan = $id;
+
+        // Validasi dan update data
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'amount' => 'required|numeric|min:0',
+        ]);
+
+        $tagihan->update($validatedData);
+
+        // Redirect ke halaman edit
+        return redirect()->route('tagihan.edit', ['id' => $tagihan->id])
+                        ->with('success', 'Tagihan berhasil diperbarui.');
+    }
+
 
     public function postTagihan(Request $request)
     {

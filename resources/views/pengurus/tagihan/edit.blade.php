@@ -32,7 +32,7 @@
         <h1 class="text-xl font-semibold text-gray-800">
           <a href="{{ route('pengurus') }}" class="text-dark">
               <i class="fas fa-arrow-left"></i>
-          </a>&nbsp;Add Tagihan
+          </a>&nbsp;Edit Tagihan
       </h1>
       </div>
     </div>
@@ -40,11 +40,12 @@
     <div class="mb-3">
         @include('layouts.elements.flash')
     </div>
-    <form id="pengurus_tagihan_add" method="post" action="{{ route('tagihan.post') }}" enctype="multipart/form-data">
+    <form id="pengurus_tagihan_edit" method="post" action="{{ route('tagihan.post') }}" enctype="multipart/form-data">
       @csrf
         <div>
             <div class="form-floating mt-2">
-                <input type="text" class="form-control @error('nama_tagihan') is-invalid @enderror" value="{{ old('nama_tagihan') }}" id="nama_tagihan" name="nama_tagihan" placeholder=" " required>
+                <input type="hidden" name="tagihan_id" value="{{ $tagihan['id'] }}">
+                <input type="text" class="form-control @error('nama_tagihan') is-invalid @enderror" value="{{ $tagihan['name'] }}" id="nama_tagihan" name="nama_tagihan" placeholder=" " required>
                 <label for="nama_tagihan">Nama Tagihan</label>
                 @error('nama_tagihan')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -52,7 +53,7 @@
             </div>
 
             <div class="form-floating mt-4">
-                <input type="text" class="form-control @error('deskripsi') is-invalid @enderror" value="{{ old('deskripsi') }}" id="deskripsi" name="deskripsi" placeholder=" " required>
+                <input type="text" class="form-control @error('deskripsi') is-invalid @enderror" value="{{ $tagihan['description'] }}" id="deskripsi" name="deskripsi" placeholder=" " required>
                 <label for="deskripsi">Deskripsi</label>
                 @error('deskripsi')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -62,24 +63,24 @@
             <div class="form-floating mt-4">
                 <select class="form-control" id="type_iuran" name="type_iuran" required>
                     <option value="" disabled selected hidden>- Pilih Type Iuran -</option>
-                    <option value="wajib" {{ old('type_iuran') == "wajib" ? 'selected' : '' }}>Wajib</option>
-                    <option value="tidak wajib" {{ old('type_iuran') == "tidak wajib"? 'selected' : '' }}>Tidak Wajib</option>
+                    <option value="wajib" @if ($tagihan['tipe'] == "wajib") selected @endif>Wajib</option>
+                    <option value="tidak wajib" @if ($tagihan['tipe'] == "tidak wajib") selected @endif>Tidak Wajib</option>
                 </select>
                 <label for="type_iuran">Type Iuran</label>
             </div>
 
             <div class="form-floating mt-4">
-                <input type="date" class="form-control" id="from_date" name="from_date" value="{{ old('from_date') }}"  placeholder=" " required>
+                <input type="date" class="form-control" id="from_date" name="from_date" value=""  placeholder=" " required>
                 <label for="from_date">From Date</label>
             </div>
 
             <div class="form-floating mt-4">
-                <input type="date" class="form-control" id="due_date" name="due_date" value="{{ old('due_date') }}"  placeholder=" " required>
+                <input type="date" class="form-control" id="due_date" name="due_date" value="{{ $tagihan['date_due'] }}"  placeholder=" " required>
                 <label for="due_date">Tanggal Terakhir Bayar</label>
             </div>
           
             <div class="form-floating mt-4">
-                <input type="text" class="form-control rupiah-input @error('nominal') is-invalid @enderror" value="{{ old('nominal') }}" id="nominal" name="nominal"
+                <input type="text" class="form-control rupiah-input @error('nominal') is-invalid @enderror" value="{{ $tagihan['amount'] }}" id="nominal" name="nominal"
                 placeholder="Rp. 0" pattern="^Rp\.\s?(\d{1,3}(\.\d{3})*|\d+)$" required>
                 <label for="nominal">Nominal</label>
                 @error('nominal')
@@ -109,10 +110,10 @@
 
             <div id="repeat-container" class="form-floating mt-4">
                 <select class="form-control" id="repeat" name="repeat">
-                    <option value="one_time" selected hidden>Select</option>
-                    <option value="weekly" {{ old('repeat') == "weekly" ? 'selected' : '' }}>Weekly</option>
-                    <option value="monthly" {{ old('repeat') == "monthly"? 'selected' : '' }}>Monthly</option>
-                    <option value="yearly" {{ old('repeat') == "yearly"? 'selected' : '' }}>Yearly</option>
+                    <option value="one_time" @if ($tagihan['jenis_tagihan'] == "one_time") selected @endif>Select</option>
+                    <option value="weekly" @if ($tagihan['jenis_tagihan'] == "weekly") selected @endif>Weekly</option>
+                    <option value="monthly" @if ($tagihan['jenis_tagihan'] == "monthly") selected @endif>Monthly</option>
+                    <option value="yearly" @if ($tagihan['jenis_tagihan'] == "yearly") selected @endif>Yearly</option>
                 </select>
                 <label for="repeat">Type Iuran</label>
             </div>

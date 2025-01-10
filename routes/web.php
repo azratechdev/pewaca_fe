@@ -66,9 +66,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/post-reject', [PengurusController::class, 'post_reject'])->name('post_reject');
 
        
-        Route::get('/pengurus/tagihan/list', [TagihanController::class, 'list'])->name('tagihan.list');
+        Route::get('/pengurus/tagihan/list', [TagihanController::class, 'list'])->name('pengurus.tagihan.list');
         Route::get('/pengurus/tagihan/add', [TagihanController::class, 'addTagihan'])->name('tagihan.add');
         Route::post('/pengurus/tagihan/post', [TagihanController::class, 'postTagihan'])->name('tagihan.post');
+        Route::get('/pengurus/tagihan/{id}/edit', [TagihanController::class, 'editTagihan'])->name('pengurus.tagihan.edit');
     });
 
 });
