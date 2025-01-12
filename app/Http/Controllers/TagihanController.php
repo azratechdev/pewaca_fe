@@ -20,8 +20,6 @@ class TagihanController extends Controller
     
             $data_response = json_decode($response->body(), true);
 
-            dd($data_response);
-    
             if ($response->successful()) {
                 return view('pengurus.tagihan.list', compact('data'));
             } else {
@@ -197,6 +195,12 @@ class TagihanController extends Controller
         return (int) $formatted;
     }
    
+    public function approvalDetail(Request $request, $id)
+    {
+        $id = $id;
+        return view('pengurus.tagihan.detail_approval');
+       
+    }
 
 
 }

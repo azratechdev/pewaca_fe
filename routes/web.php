@@ -64,12 +64,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/warga-detail/{id}', [PengurusController::class, 'detail_warga'])->name('detail_warga');
         Route::get('/warga-reject/{id}', [PengurusController::class, 'reject_warga'])->name('reject_warga');
         Route::post('/post-reject', [PengurusController::class, 'post_reject'])->name('post_reject');
-
+        Route::get('/pengurus/role/add', [PengurusController::class, 'addPengurus'])->name('addPengurus');
+       
        
         Route::get('/pengurus/tagihan/list', [TagihanController::class, 'list'])->name('pengurus.tagihan.list');
         Route::get('/pengurus/tagihan/add', [TagihanController::class, 'addTagihan'])->name('tagihan.add');
         Route::post('/pengurus/tagihan/post', [TagihanController::class, 'postTagihan'])->name('tagihan.post');
         Route::get('/pengurus/tagihan/{id}/edit', [TagihanController::class, 'editTagihan'])->name('pengurus.tagihan.edit');
+        Route::get('/pengurus/tagihan/approval/{id}/detail', [TagihanController::class, 'approvalDetail'])->name('pengurus.approval.detail');
     });
 
 });

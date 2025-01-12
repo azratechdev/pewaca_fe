@@ -112,9 +112,12 @@ class PengurusController extends Controller
         ])->get('https://api.pewaca.id/api/tagihan/');
         $tagihan_response = json_decode($response->body(), true);
         return $tagihan_response;
-
-      
     }
 
+    public function addPengurus()
+    {
+        return view('pengurus.addrole');
+       
+    }
 
 }

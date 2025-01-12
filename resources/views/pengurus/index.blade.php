@@ -38,7 +38,7 @@
                    @include('pengurus.tagihan.menutagihan')
                 </div>
                 <div class="tab-pane fade" id="role" role="tabpanel">
-                    @include('pengurus.history')
+                    @include('pengurus.listrole')
                 </div>
                 <div class="tab-pane fade" id="warga" role="tabpanel">
                     @include('pengurus.listwarga')
