@@ -8,7 +8,7 @@
           <a href="{{ route('home') }}" class="text-dark">
               <i class="fas fa-arrow-left"></i>
           </a>&nbsp;Add Post
-      </h1>
+        </h1>
       </div>
     </div>
 

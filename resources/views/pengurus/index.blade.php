@@ -13,19 +13,19 @@
         <div class="p-2">
             <ul class="nav nav-tabs" role="tablist" style="border:none;">
                 <li class="nav-item">
-                    <a class="nav-link active custom-nav-button" data-bs-toggle="tab" href="#tagihan" role="tab">
+                    <a href="{{ route('pengurus.tagihan') }}" class="nav-link custom-nav-button active">
                         <i class="fa fa-check-circle fa-2x"></i> <!-- Ikon Approval -->
                         <span class="d-block">Tagihan</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link custom-nav-button" data-bs-toggle="tab" href="#role" role="tab">
+                    <a href="{{ route('pengurus.role') }}" class="nav-link custom-nav-button active">
                         <i class="fa fa-id-card fa-2x"></i> <!-- Ikon History -->
                         <span class="d-block">Role</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link custom-nav-button" data-bs-toggle="tab" href="#warga" role="tab">
+                    <a href="{{ route('pengurus.warga') }}" class="nav-link custom-nav-button active">
                         <i class="fa fa-users fa-2x"></i> <!-- Ikon Warga -->
                         <span class="d-block">Warga</span>
                     </a>
@@ -33,7 +33,7 @@
               </ul>            
         
             <!-- Tab panes -->
-            <div class="tab-content border-top-0">
+            {{-- <div class="tab-content border-top-0">
                 <div class="tab-pane fade show active" id="tagihan" role="tabpanel">
                    @include('pengurus.tagihan.menutagihan')
                 </div>
@@ -43,7 +43,7 @@
                 <div class="tab-pane fade" id="warga" role="tabpanel">
                     @include('pengurus.listwarga')
                 </div>
-            </div>
+            </div> --}}
         </div>
        
     </div>

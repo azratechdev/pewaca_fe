@@ -45,9 +45,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/storypost', [HomeController::class, 'postStory'])->name('addPost');
     Route::post('/fetch-html-comment', [HomeController::class, 'getReplays'])->name('getReplays');
     Route::post('/comment-more', [HomeController::class, 'getReplaysMore'])->name('getReplaysMore');
-    Route::get('/pembayaran', [PembayaranController::class, 'index'])->name('pembayaran');
-    Route::get('/addpembayaran', [PembayaranController::class, 'addpembayaran'])->name('addpembayaran');
-    Route::post('/postpembayaran', [PembayaranController::class, 'postPembayaran'])->name('postPembayaran');
+   
+    
+    //AKun Route
     Route::get('/akun', [AkunController::class, 'akun'])->name('akun');
     Route::get('/infoakun', [AkunController::class, 'infoakun'])->name('infoakun');
     Route::get('/inforekening', [AkunController::class, 'inforekening'])->name('inforekening');
@@ -64,15 +64,28 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/warga-detail/{id}', [PengurusController::class, 'detail_warga'])->name('detail_warga');
         Route::get('/warga-reject/{id}', [PengurusController::class, 'reject_warga'])->name('reject_warga');
         Route::post('/post-reject', [PengurusController::class, 'post_reject'])->name('post_reject');
+                
+        Route::get('/pengurus/tagihan', [PengurusController::class, 'pengurus_tagihan'])->name('pengurus.tagihan');
+        Route::get('/pengurus/role', [PengurusController::class, 'pengurus_role'])->name('pengurus.role');
         Route::get('/pengurus/role/add', [PengurusController::class, 'addPengurus'])->name('addPengurus');
-       
-       
+        Route::get('/pengurus/warga', [PengurusController::class, 'pengurus_warga'])->name('pengurus.warga');
+
+
         Route::get('/pengurus/tagihan/list', [TagihanController::class, 'list'])->name('pengurus.tagihan.list');
         Route::get('/pengurus/tagihan/add', [TagihanController::class, 'addTagihan'])->name('tagihan.add');
         Route::post('/pengurus/tagihan/post', [TagihanController::class, 'postTagihan'])->name('tagihan.post');
         Route::get('/pengurus/tagihan/{id}/edit', [TagihanController::class, 'editTagihan'])->name('pengurus.tagihan.edit');
+        Route::put('/pengurus/tagihan/update', [TagihanController::class, 'postEditTagihan'])->name('pengurus.tagihan.postEdit');
         Route::get('/pengurus/tagihan/approval/{id}/detail', [TagihanController::class, 'approvalDetail'])->name('pengurus.approval.detail');
+        Route::post('/pengurus/tagihan/publish', [TagihanController::class, 'publish'])->name('tagihan.publish');
     });
+    
+    //cashout route
+    Route::get('/pembayaran', [PembayaranController::class, 'index'])->name('pembayaran');
+    //Route::get('/addpembayaran', [PembayaranController::class, 'addpembayaran'])->name('addpembayaran');
+    Route::post('/postpembayaran', [PembayaranController::class, 'postPembayaran'])->name('postPembayaran');
+    Route::get('/pembayaran/list', [PembayaranController::class, 'list'])->name('pembayaran.list');
+    Route::get('/pembayaran/{id}/add', [PembayaranController::class, 'addPembayaran'])->name('pembayaran.add');
 
 });
 

@@ -40,8 +40,9 @@
     <div class="mb-3">
         @include('layouts.elements.flash')
     </div>
-    <form id="pengurus_tagihan_edit" method="post" action="{{ route('tagihan.post') }}" enctype="multipart/form-data">
+    <form id="pengurus_tagihan_edit" method="post" action="{{ route('pengurus.tagihan.postEdit') }}" enctype="multipart/form-data">
       @csrf
+      @method('PUT')
         <div>
             <div class="form-floating mt-2">
                 <input type="hidden" name="tagihan_id" value="{{ $tagihan['id'] }}">
@@ -131,7 +132,7 @@
     
 <script>
      
-     const form = document.getElementById('pengurus_tagihan');
+     const form = document.getElementById('pengurus_tagihan_edit');
      const submitBtn = document.getElementById('submitBtn');
      
    

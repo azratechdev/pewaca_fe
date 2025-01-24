@@ -10,12 +10,27 @@ class PengurusController extends Controller
 {
     public function index(Request $request)
     {
-        $data_tagihan = $this->getTagihan();
-        $people_false = $this->getWargaFalse(); 
+        return view('pengurus.index');
+    }
 
+    public function pengurus_tagihan(Request $request)
+    {
+        $data_tagihan = $this->getTagihan();
+      
+        return view('pengurus.tagihan.tagihan_menu', compact('data_tagihan'));
+    }
+
+    public function pengurus_role()
+    {
+        $data_pengurus="";
+        return view('pengurus.role.listrole', compact('data_pengurus'));
+    }
+
+    public function pengurus_warga()
+    {
+        $people_false = $this->getWargaFalse(); 
         $people_true = $this->getWargaTrue();
-        //dd($people_true);
-        return view('pengurus.index', compact('people_false', 'people_true', 'data_tagihan'));
+        return view('pengurus.warga.listwarga', compact('people_false', 'people_true'));
     }
 
     public function getWargaFalse()
@@ -116,7 +131,7 @@ class PengurusController extends Controller
 
     public function addPengurus()
     {
-        return view('pengurus.addrole');
+        return view('pengurus.role.addrole');
        
     }
 

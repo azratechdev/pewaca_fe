@@ -130,7 +130,7 @@
     
 <script>
      
-     const form = document.getElementById('pengurus_tagihan');
+     const form = document.getElementById('pengurus_tagihan_add');
      const submitBtn = document.getElementById('submitBtn');
      
    

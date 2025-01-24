@@ -43,8 +43,49 @@ class TagihanController extends Controller
        
     }
 
+    public function publish(Request $request)
+    {
+        $request->validate([
+            'tagihan_id' => 'required|string',
+            '_token' => 'required|string',
+        ]);
+
+        $id = $request->tagihan_id;
+
+        try {
+            $response = Http::withHeaders([
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Token ' . Session::get('token'),
+            ])->post('https://api.pewaca.id/api/tagihan/publish-tagihan/' . $id . '/');
+
+            $data_response = json_decode($response->body(), true);
+
+            //dd($data_response);
+
+            if ($data_response['success'] == true) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Tagihan berhasil dipublish.',
+                    'data' => $data_response['data'], // Opsional, jika ada data tambahan
+                ], 200);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Gagal mempublish tagihan.',
+                ], 400);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan server.',
+            ], 500);
+        }
+    }
+
     public function editTagihan($id)
     {
+        //dd($id);
         try {
             $response = Http::withHeaders([
                 'Accept' => 'application/json',
@@ -57,7 +98,8 @@ class TagihanController extends Controller
             //dd($data_response);
     
             if ($response->successful()) {
-                $tagihan = $data_response;
+                $tagihan = $data_response['data'];
+                //dd($tagihan);
                 return view('pengurus.tagihan.edit', compact('tagihan'));
             } else {
                 \Log::warning('Response Error', [
@@ -82,15 +124,11 @@ class TagihanController extends Controller
             ]);
             return redirect()->route('tagihan.edit', ['id' => $id]);
         }
-
-       
-       
     }
 
-    public function update(Request $request, $id)
+    public function postEditTagihan(Request $request)
     {
-        $tagihan = $id;
-
+        //dd($request->all());
         // Validasi dan update data
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
@@ -100,7 +138,7 @@ class TagihanController extends Controller
         $tagihan->update($validatedData);
 
         // Redirect ke halaman edit
-        return redirect()->route('tagihan.edit', ['id' => $tagihan->id])
+        return redirect()->route('tagihan.edit', ['id' => $request->tagihan_id])
                         ->with('success', 'Tagihan berhasil diperbarui.');
     }
 
@@ -128,12 +166,6 @@ class TagihanController extends Controller
             'tipe' => $request->type_iuran,
             'description' => $request->deskripsi,
             'from_date' => $request->from_date,
-            // 'is_publish' => false,
-            // 'publish_date' => now()->format('Y-m-d H:i:s'),
-            // 'create_at' => now()->format('Y-m-d H:i:s'),
-            // 'created_by' => session::get('cred')['user_id'],
-            // 'residence' => 'test'
-                     
         ];
 
         //dd($data);
