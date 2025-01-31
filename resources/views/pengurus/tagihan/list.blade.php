@@ -63,11 +63,17 @@
             
         </p>
     </div>
+    @if($tagihan['is_publish'] == false)
     <div class="flex items-right">
         <a href="{{ route('pengurus.tagihan.edit', ['id' => $tagihan['id']]) }}" class="btn btn-sm btn-light w-20" style="border-radius:8px;">Edit</a>
         &nbsp;&nbsp;
         <a data-id="{{ $tagihan['id'] }}" class="btn btn-sm btn-success w-20 btn-publish" style="color: white;border-radius:8px;">Publish</a>
     </div>
+    @else
+    <div class="flex items-right">
+       <a class="btn btn-sm btn-primary w-20" style="color: white;border-radius:8px;">Published</a>
+    </div>
+    @endif
 </div>
 <hr class="mt-3 mb-2">
 @endforeach

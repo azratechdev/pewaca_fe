@@ -20,7 +20,7 @@ class PembayaranController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/tagihan-warga/?status=waiting payment');
+        ])->get('https://api.pewaca.id/api/tagihan-warga/self-list/?status=unpaid');
         $tagihan_response = json_decode($response->body(), true);
         return $tagihan_response;
     }
@@ -93,62 +93,69 @@ class PembayaranController extends Controller
             ]);
             return redirect()->route('pembayaran.add', ['id' => $id]);
         }
-
-       
-       
     }
 
     public function postPembayaran(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
         $request->validate([
-            'tagihan_id' => 'required|string',
-            'amount' => 'required|number',
-            'residence_bank' => 'required|number',
-            'post_picture' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
+            'bukti_pembayaran' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+            'nominal' => 'required|string',
+            'residence_bank' => 'required|string',
+            'tipe' => 'required|string',
         ]);
-
+       
         $nominal_original_format = $this->formatNominal($request->nominal);
 
-        $data = [
-            'residence_bank' => $request->residence_bank,
-            'amount' => $nominal_original_format,
-            'tagihan_id' => $request->tagihan_id,
-        ];
-
-        //dd($data);
-        if (!Session::has('token')) {
-            Session::flash('flash-message', [
-                'message' => 'Token tidak tersedia, silakan login ulang.',
-                'alert-class' => 'alert-danger',
-            ]);
-            return redirect()->route('tagihan.add');
-        }
-
+        
         try {
-            
-
-            //dd($data_response);
-    
-            if ($response->successful()) {
+            //dd('here');
+           
+            $http = Http::withHeaders([
+                'Accept' => 'application/json', // Header untuk menerima JSON
+                'Authorization' => 'Token ' . session::get('token'),
+            ]);
+        
+            if ($request->hasFile('bukti_pembayaran')) {
+                $file = $request->file('bukti_pembayaran');
+                $http->attach(
+                    'bukti_pembayaran', 
+                    file_get_contents($file->getRealPath()), 
+                    $file->getClientOriginalName()
+                );
+            }
+        
+            $data = [
+                'amount' => $nominal_original_format,
+                'residence_bank' => $request->residence_bank,
+            ];
+        
+            $response = $http->patch(
+                'https://api.pewaca.id/api/tagihan-warga/bayar/' . $request->tagihan_id . '/',
+                $data
+            );
+        
+            $data_response = json_decode($response->body(), true);
+            //dd()
+            if ($data_response['success'] == true) {
                 Session::flash('flash-message', [
-                    'message' => 'Add Tagihan Success',
+                    'message' => 'Bukti pembayaran berhasil diunggah',
                     'alert-class' => 'alert-success',
                 ]);
-                return redirect()->route('tagihan.add');
+                return redirect()->route('pembayaran');
             } else {
                 \Log::warning('Response Error', [
                     'status' => $response->status(),
                     'body' => $response->body(),
                 ]);
                 Session::flash('flash-message', [
-                    'message' => 'Periksa Data Kembali',
+                    'message' => 'Bukti pembayaran gagal diunggah',
                     'alert-class' => 'alert-warning',
                 ]);
-                return redirect()->route('tagihan.add');
+                return redirect()->route('pembayaran');
             }
         } catch (\Exception $e) {
-            \Log::error('Gagal mengirim data tagihan', [
+            \Log::error('Gagal mengirim data', [
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
             ]);
@@ -157,8 +164,16 @@ class PembayaranController extends Controller
                 'message' => 'Gagal Mengirim Data',
                 'alert-class' => 'alert-danger',
             ]);
-            return redirect()->route('tagihan.add');
+            return redirect()->route('pembayaran');
         }
+    }
+
+    public function formatNominal($nominal)
+    {
+        // Hapus simbol mata uang, spasi, dan titik
+        $formatted = preg_replace('/[^\d]/', '', $nominal);
+        // Kembalikan nilai sebagai integer
+        return (int) $formatted;
     }
 
 }

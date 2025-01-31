@@ -5,25 +5,23 @@
     <div class="bg-white w-full max-w-6xl">
         <!-- Header -->
         <div class="p-6 border-b">
-            <h1 class="text-xl font-semibold text-gray-800">
-                <a href="{{ route('akun') }}" class="text-dark">
-                    <i class="fas fa-arrow-left"></i>
-                </a>&nbsp;&nbsp;&nbsp;&nbsp;Info Akun
-            </h1>
-            {{-- <br>
             <div class="flex justify-between items-center mt-2">
                 <div class="flex items-center">
-                    <p class="text-warning d-flex align-items-center">
-                       <i class="far fa-clock"></i>&nbsp; Waiting Approval
-                    </p>
+                    <h1 class="text-xl font-semibold text-gray-800">
+                        <a href="{{ route('akun') }}" class="text-dark">
+                            <i class="fas fa-arrow-left"></i>
+                        </a>&nbsp;&nbsp;&nbsp;&nbsp;Info Akun
+                    </h1>
                 </div>
                 
                 <div class="flex items-center">
-                    <p class="text-dark d-flex align-items-center">
-                        <i class="far fa-calendar"></i>&nbsp; 12 Agustus 2024
-                    </p>
+                    <h1 class="text-xl font-semibold text-gray-800">
+                        <a href="{{ route('akunEdit') }}" class="text-dark" title="Edit Akun">
+                            <i class="fas fa-user-edit"></i>
+                        </a>
+                    </h1>
                 </div>
-            </div> --}}
+            </div>
         </div>
         
         <div class="p-6">
@@ -38,11 +36,11 @@
                 </div>
                 <div class="flex items-center">
                     <span class="text-gray-600">Nama Perumahan <br>
-                       <strong>{{ $data['residence']['name'] }}</strong></span>
+                       <strong>{{ $data['warga']['unit_id']['unit_residence_name'] }}</strong></span>
                 </div>
                 <div class="flex items-center">
                     <span class="text-gray-600">No Unit <br>
-                        <strong>{{ $data['residence']['name'] }}</strong></span>
+                        <strong>{{ $data['warga']['unit_id']['unit_size'] }}</strong></span>
                 </div>
                 <div class="flex items-center">
                     <span class="text-gray-600">NIK <br>
@@ -66,44 +64,48 @@
                 </div>
                 <div class="flex items-center">
                     <span class="text-gray-600">Jenis Kelamin <br>
-                       @if($data['warga']['gender_id'] == 1)
-                        Laki-laki
-                       @else
-                        Perempuan
-                       @endif 
+                        @if($data['warga']['gender_id'] == 1)
+                            <strong>Laki-laki</strong>
+                        @else
+                            <strong>Perempuan</strong>
+                        @endif 
                     </span>
                 </div>
                 <div class="flex items-center">
                     <span class="text-gray-600">Tanggal Lahir <br>
-                       <strong>{{ $data['warga']['date_of_birth'] }}</strong>
+                       <strong>{{ $data['warga']['date_of_birth'] ?? '00-00-0000'}}</strong>
                     </span>
                 </div>
                 <div class="flex items-center">
                     <span class="text-gray-600">Agama <br>
-                        <strong>{{ $data['warga']['religion']}}</strong>
+                        <strong>{{ $data['warga']['religion']['name']}}</strong>
                     </span>
                 </div>
                 <div class="flex items-center">
                     <span class="text-gray-600">Status <br>
-                        <strong>{{ $data['warga']['marital_status']}}</strong> <p class="text-green-500">Lihat Buku Nikah</p>
+                        <strong>{{ $data['warga']['marital_status']['name']}}</strong>
                     </span>
                 </div>
-                {{-- <div class="flex items-center">
-                    <span class="text-gray-600">Buku Nikah <br>
-                        <img 
-                        alt="Belum ada" 
-                        class="profile-picture rounded w-32 h-24" 
-                        src="https://storage.googleapis.com/a1aa/image/ZoAiGzvASA4pG9oiGwu50UAjrOG21IrMhFOGfFnKGy1xU85JA.jpg"
-                    /></span>
-                </div> --}}
+                @if( $data['warga']['marital_status']['name'] == 'Kawin')
+                    <div class="flex items-center">
+                        <span class="text-gray-600">Buku Nikah <br>
+                            <img 
+                            alt="Belum ada" 
+                            class="profile-picture rounded w-32 h-24" 
+                            src="https://storage.googleapis.com/a1aa/image/ZoAiGzvASA4pG9oiGwu50UAjrOG21IrMhFOGfFnKGy1xU85JA.jpg"
+                        /></span>
+                    </div>
+                @else
+                    <p class="text-yellow-500">Tidak ada buku nikah</p>
+                @endif
                 <div class="flex items-center">
                     <span class="text-gray-600">Pekerjaan <br>
-                        <strong>{{ $data['warga']['occupation'] }}</strong>
+                        <strong>{{ $data['warga']['occupation']['name'] }}</strong>
                     </span>
                 </div>
                 <div class="flex items-center">
                     <span class="text-gray-600">Pendidikan <br>
-                        <strong>{{ $data['warga']['education'] }}</strong>
+                        <strong>{{ $data['warga']['education']['name'] }}</strong>
                     </span>
                 </div>
             </div>

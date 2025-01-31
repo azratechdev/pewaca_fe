@@ -55,7 +55,6 @@ class TagihanController extends Controller
         try {
             $response = Http::withHeaders([
                 'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
                 'Authorization' => 'Token ' . Session::get('token'),
             ])->post('https://api.pewaca.id/api/tagihan/publish-tagihan/' . $id . '/');
 
@@ -135,7 +134,7 @@ class TagihanController extends Controller
             'amount' => 'required|numeric|min:0',
         ]);
 
-        $tagihan->update($validatedData);
+       // $tagihan->update($validatedData);
 
         // Redirect ke halaman edit
         return redirect()->route('tagihan.edit', ['id' => $request->tagihan_id])

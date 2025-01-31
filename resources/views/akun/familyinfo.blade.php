@@ -1,11 +1,9 @@
 @extends('layouts.residence.basetemplate')
-
 @section('content')
 <div class="flex justify-center items-center">
-    <div class="bg-white w-full max-w-6xl rounded-lg shadow-lg">
+    <div class="bg-white w-full max-w-6xl">
         <!-- Header -->
         <div class="p-6 border-b">
-            
             <h1 class="text-xl font-semibold text-gray-800">
                 <a href="{{ route('akun') }}" class="text-dark">
                     <i class="fas fa-arrow-left"></i>
@@ -22,10 +20,10 @@
             />
             <div class="ml-4">
                 <p class="font-semibold text-lg text-gray-800">
-                    Jhondoe
+                    {{ $warga['full_name'] }}
                 </p>
                 <p class="text-gray-500">
-                    Kepala Keluarga
+                    {{ $warga['family_as']['name'] }}
                 </p>
             </div>
         </div>
@@ -62,11 +60,11 @@
             </div>
         </div>
 
-        <div class="p-6 border-t">
-            <button 
-                class="w-full bg-green-600 text-white py-2 px-4 rounded-lg">
+        <div class="p-0 mt-2">
+            <a href="{{ route('addkeluarga') }}" 
+                class="btn btn-success w-full bg-green-600 text-white py-2 px-4 rounded-lg">
                 ADD
-            </button>
+            </a>
         </div>
         
     </div>

@@ -1,3 +1,6 @@
+<div class="mb-3">
+    @include('layouts.elements.flash')
+</div>
 @foreach($data_tagihan['data'] as $tagihan)
 <div class="flex justify-center items-center" style="height: 100%;">
     <div class="bg-white w-full max-w-6xl">
@@ -5,6 +8,18 @@
             <div class="flex items-center">
                 <p class="d-flex align-items-center">
                   <strong>{{ $tagihan['tagihan']['name'] }}</strong>
+                </p>
+            </div>
+
+            <div class="flex items-center">
+                <?php if ($tagihan['tagihan']['tipe'] == "wajib"){
+                        $col = 'red';
+                    }else{
+                        $col = 'lightgreen';
+                    }
+                ?>
+                <p class="d-flex align-items-center" style="color:<?php echo $col;?>">
+                  <strong>{{ $tagihan['tagihan']['tipe'] }}</strong>
                 </p>
             </div>
         </div>  
@@ -55,7 +70,9 @@
         </p>
     </div>
     <div class="flex items-right">
+        @if($tagihan['tagihan']['tipe'] != 'wajib')
         <a href="#" class="btn btn-sm btn-light w-20" style="border-radius:8px;">Tidak</a>
+        @endif
         &nbsp;&nbsp;
         <a href="{{ route('pembayaran.add', ['id' => $tagihan['id']]) }}" class="btn btn-sm btn-success w-20 btn-publish" style="color: white;border-radius:8px;">Bayar</a>
     </div>

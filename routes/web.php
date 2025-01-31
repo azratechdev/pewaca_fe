@@ -50,8 +50,14 @@ Route::group(['middleware' => 'auth'], function () {
     //AKun Route
     Route::get('/akun', [AkunController::class, 'akun'])->name('akun');
     Route::get('/infoakun', [AkunController::class, 'infoakun'])->name('infoakun');
+    Route::get('/akun/edit/profile/', [AkunController::class, 'editAkun'])->name('akunEdit');
+    Route::post('/akun/edit/profile/', [AkunController::class, 'updateAkun'])->name('akunUpdate');
     Route::get('/inforekening', [AkunController::class, 'inforekening'])->name('inforekening');
+    Route::get('/rekening/add', [AkunController::class, 'addRekening'])->name('addRekening');
+    Route::post('/rekening/post', [AkunController::class, 'postRekening'])->name('postRekening');
     Route::get('/infokeluarga', [AkunController::class, 'infokeluarga'])->name('infokeluarga');
+    Route::get('/addkeluarga', [AkunController::class, 'addKeluarga'])->name('addkeluarga');
+    Route::get('/postkeluarga', [AkunController::class, 'postKeluarga'])->name('postkeluarga');
     Route::get('/edit', [AkunController::class, 'edit'])->name('edit');
     Route::get('/registrasi', [AkunController::class, 'registrasi'])->name('registrasi');
     
@@ -82,8 +88,7 @@ Route::group(['middleware' => 'auth'], function () {
     
     //cashout route
     Route::get('/pembayaran', [PembayaranController::class, 'index'])->name('pembayaran');
-    //Route::get('/addpembayaran', [PembayaranController::class, 'addpembayaran'])->name('addpembayaran');
-    Route::post('/postpembayaran', [PembayaranController::class, 'postPembayaran'])->name('postPembayaran');
+    Route::post('/pembayaran/postpembayaran', [PembayaranController::class, 'postPembayaran'])->name('postPembayaran');
     Route::get('/pembayaran/list', [PembayaranController::class, 'list'])->name('pembayaran.list');
     Route::get('/pembayaran/{id}/add', [PembayaranController::class, 'addPembayaran'])->name('pembayaran.add');
 

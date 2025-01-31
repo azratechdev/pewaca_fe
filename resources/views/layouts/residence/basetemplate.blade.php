@@ -15,6 +15,9 @@
   {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> --}}
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
   <style>
   
     .card { margin: 10px; }
@@ -193,7 +196,10 @@
         @include('layouts.residence.bottomnavbar')
     </div>
 
-  <script src="{{ url('assets/bootstrap/dist/js/bootstrap-5.min.js') }}"></script>
+    <script src="{{ url('assets/bootstrap/dist/js/bootstrap-5.min.js') }}"></script>
+
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 </body>
 </html>

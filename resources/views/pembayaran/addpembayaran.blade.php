@@ -135,8 +135,8 @@
         </div>
     </div> 
     <hr class="mt-2">
-    <form id="pembayaran_tagihan" method="post" action="{{ route('tagihan.post') }}" enctype="multipart/form-data">
-      @csrf
+    <form id="pembayaran_tagihan" method="post" action="{{ route('postPembayaran') }}" enctype="multipart/form-data">
+        @csrf
         <div class="flex justify-between items-center mt-3">
             <div class="flex items-center">
                 <p class="d-flex align-items-center">
@@ -153,7 +153,7 @@
                       class="hidden" 
                       id="imageUpload" 
                       type="file" 
-                      name="post_picture"
+                      name="bukti_pembayaran"
                     />
                     
                     <label class="cursor-pointer relative" for="imageUpload">
@@ -191,9 +191,9 @@
                 placeholder="Rp. 0" pattern="^Rp\.\s?(\d{1,3}(\.\d{3})*|\d+)$" required>
                 <label for="nominal">Nominal</label>
 
-                <input type="hidden" name="residence_bank" value="1234567" required/>
-                <input type="hidden" name="id" value="{{ $tagihan['data']['id'] }}" required/>
-                <input type="hidden" id="type" name="tipe" value="{{ $tagihan['data']['tagihan']['tipe'] }}" required/>
+                <input type="hidden" name="residence_bank" value="12345678" required/>
+                <input type="hidden" name="tagihan_id" value="{{ $tagihan['data']['id'] }}" required/>
+                <input type="hidden" id="tipe" name="tipe" value="{{ $tagihan['data']['tagihan']['tipe'] }}" required/>
             </div>
         </div>
         <br>
@@ -228,7 +228,7 @@
 
 <script>
     const paymentInput = document.getElementById('nominal');
-    const typeInput = document.getElementById('type');
+    const typeInput = document.getElementById('tipe');
     
     // Ambil nilai amount dari server dan hapus ".00" jika ada
     let amount = "{{ $tagihan['data']['tagihan']['amount'] }}".split('.')[0]; // Mengambil angka sebelum "."
