@@ -149,8 +149,8 @@ class TagihanController extends Controller
             'nama_tagihan' => 'required|string',
             'deskripsi' => 'required|string',
             'type_iuran' => 'required|string',
-            'from_date' => 'required|date',
-            'due_date' => 'required|date',
+            'jatuh_tempo' => 'nullable|date',
+            'periode' => 'nullable|date',
             'nominal' => 'required|string',
             'repeat' => 'required|string',
         ]);

@@ -69,18 +69,18 @@
             @include('layouts.elements.flash')
             <form id="update_akun" method="post" action="{{ route('akunUpdate') }}" enctype="multipart/form-data">
                 @csrf
-                <div class="d-inline mb-3">
-                    <span class="text-gray-600"><br>
+                <div class="form-floating mb-3">
+                   
                         <img 
                         alt="Belum ada" 
                         class="profile-picture rounded w-32 h-32" 
-                        src="https://storage.googleapis.com/a1aa/image/ZoAiGzvASA4pG9oiGwu50UAjrOG21IrMhFOGfFnKGy1xU85JA.jpg"
+                        src="{{ $data['warga']['profile_photo'] }}"
                     />
-                    </span>
-                    <span class="text-gray-600">Ganti Photo</span>
+                   
+                    <a id="change_photo" href="#" class="btn btn-sm btn-success">Ganti Photo</a>
                 </div>
                 
-                <div class="form-floating mb-3">
+                <div class="form-floating mb-3" style="display:none;">
                     <input type="file" class="form-control @error('profile_photo') is-invalid @enderror" id="profile_photo" name="profile_photo" accept="image/jpeg,image/jpg">
                     <label for="profile_photo">Upload Foto Profil</label>
                     @error('profile_photo')

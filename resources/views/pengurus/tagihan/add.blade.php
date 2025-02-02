@@ -43,6 +43,37 @@
     <form id="pengurus_tagihan_add" method="post" action="{{ route('tagihan.post') }}" enctype="multipart/form-data">
       @csrf
         <div>
+            <div class="flex justify-between items-center mt-4">
+              <div class="flex items-center">
+                  <p class="d-flex align-items-center">
+                    <strong>Repeat</strong>
+                  </p>
+              </div>
+              
+              <div class="flex items-center">
+                  <div class="flex items-center">
+                      <div class="form-check form-switch custom-switch">
+                          <input 
+                            class="form-check-input" 
+                            type="checkbox" 
+                            role="switch" 
+                            id="repeat_button"/>
+                      </div>
+                  </div>
+              </div>
+            </div>
+
+            <div id="repeat-container" class="form-floating mt-4">
+                <select class="form-control" id="repeat" name="repeat">
+                    <option value="one_time" selected hidden>Select</option>
+                    <option value="weekly" {{ old('repeat') == "weekly" ? 'selected' : '' }}>Weekly</option>
+                    <option value="monthly" {{ old('repeat') == "monthly"? 'selected' : '' }}>Monthly</option>
+                    <option value="yearly" {{ old('repeat') == "yearly"? 'selected' : '' }}>Yearly</option>
+                </select>
+                <label for="repeat">Type Iuran</label>
+            </div>
+            <hr class="mt-2 mb-2">
+
             <div class="form-floating mt-2">
                 <input type="text" class="form-control @error('nama_tagihan') is-invalid @enderror" value="{{ old('nama_tagihan') }}" id="nama_tagihan" name="nama_tagihan" placeholder=" " required>
                 <label for="nama_tagihan">Nama Tagihan</label>
@@ -68,7 +99,17 @@
                 <label for="type_iuran">Type Iuran</label>
             </div>
 
-            <div class="form-floating mt-4">
+            <div id="tempo" class="form-floating mt-4">
+                <input type="date" class="form-control" id="jatuh_tempo" name="jatuh_tempo" value="{{ old('from_date') }}"  placeholder=" " required>
+                <label for="jatuh_tempo">Jatuh Tempo</label>
+            </div>
+
+            <div id="periode" class="form-floating mt-4" style="display:none;">
+              <input type="date" class="form-control" id="periode" name="periode" value="{{ old('from_date') }}"  placeholder=" " required>
+              <label for="periode">Periode</label>
+            </div>
+
+            {{-- <div class="form-floating mt-4">
                 <input type="date" class="form-control" id="from_date" name="from_date" value="{{ old('from_date') }}"  placeholder=" " required>
                 <label for="from_date">From Date</label>
             </div>
@@ -76,7 +117,7 @@
             <div class="form-floating mt-4">
                 <input type="date" class="form-control" id="due_date" name="due_date" value="{{ old('due_date') }}"  placeholder=" " required>
                 <label for="due_date">Tanggal Terakhir Bayar</label>
-            </div>
+            </div> --}}
           
             <div class="form-floating mt-4">
                 <input type="text" class="form-control rupiah-input @error('nominal') is-invalid @enderror" value="{{ old('nominal') }}" id="nominal" name="nominal"
@@ -87,35 +128,7 @@
                 @enderror
             </div>
 
-            <div class="flex justify-between items-center mt-4">
-                <div class="flex items-center">
-                    <p class="d-flex align-items-center">
-                       <strong>Repeat</strong>
-                    </p>
-                </div>
-                
-                <div class="flex items-center">
-                    <div class="flex items-center">
-                        <div class="form-check form-switch custom-switch">
-                            <input 
-                              class="form-check-input" 
-                              type="checkbox" 
-                              role="switch" 
-                              id="repeat_button"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="repeat-container" class="form-floating mt-4">
-                <select class="form-control" id="repeat" name="repeat">
-                    <option value="one_time" selected hidden>Select</option>
-                    <option value="weekly" {{ old('repeat') == "weekly" ? 'selected' : '' }}>Weekly</option>
-                    <option value="monthly" {{ old('repeat') == "monthly"? 'selected' : '' }}>Monthly</option>
-                    <option value="yearly" {{ old('repeat') == "yearly"? 'selected' : '' }}>Yearly</option>
-                </select>
-                <label for="repeat">Type Iuran</label>
-            </div>
+            
           
         </div>
         <br>
@@ -127,6 +140,38 @@
     </form>
   </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+function getDefaultDates() {
+  const now = new Date(); // Tanggal sekarang
+  const tomorrow = new Date(now); // Salin tanggal sekarang
+  tomorrow.setDate(now.getDate() + 1); // Tambahkan 1 hari
+
+  // Format tanggal ke dalam bentuk "d-M-Y" (contoh: 12-Feb-2025)
+  const formatDate = (date) => {
+    const day = date.getDate();
+    const month = date.toLocaleString('default', { month: 'short' });
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
+
+  return [formatDate(now), formatDate(tomorrow)];
+}
+</script>
+<script>
+  flatpickr("#periode", {
+    mode: "range",
+    dateFormat: "d-M-Y",
+    defaultDate: getDefaultDates(), // Contoh default value ["12-Feb-2025", "15-Feb-2025"]
+    locale: "id", // Bahasa Indonesia
+    onReady: function(selectedDates, dateStr, instance) {
+      if (!selectedDates.length) {
+        instance.input.placeholder = "Pilih Periode";
+      }
+    }
+  });
+</script>
     
 <script>
      
@@ -153,15 +198,31 @@
     // Get the checkbox and the select container
     const repeatButton = document.getElementById('repeat_button');
     const repeatContainer = document.getElementById('repeat-container');
+    const tempo = document.getElementById('tempo');
+    const periode = document.getElementById('periode');
 
     // Add event listener to toggle visibility
     repeatButton.addEventListener('change', function () {
       if (this.checked) {
         repeatContainer.style.display = 'block'; // Show the select dropdown
         repeatContainer.setAttribute('required', 'required');
+        
+        periode.style.display = 'block'; // Show the select dropdown
+        periode.setAttribute('required', 'required');
+
+        tempo.style.display = 'none';
+        tempo.removeAttribute('required');
+
+
       } else {
         repeatContainer.style.display = 'none'; // Hide the select dropdown
         repeatContainer.removeAttribute('required');
+
+        tempo.style.display = 'block'; // Show the select dropdown
+        tempo.setAttribute('required', 'required');
+
+        periode.style.display = 'none';
+        periode.removeAttribute('required');
       }
     });
   </script>

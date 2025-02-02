@@ -1,12 +1,12 @@
 @extends('layouts.residence.basetemplate')
 @section('content')
 <div class="flex justify-center items-center">
-    <div class="bg-white w-full max-w-6xl shadow-lg">
+    <div class="bg-white w-full max-w-6xl">
         <div class="p-6 border-b">
             <h1 class="text-xl font-semibold text-gray-800">
                 <a href="{{ route('pengurus') }}" class="text-dark">
                     <i class="fas fa-arrow-left"></i>
-                </a>&nbsp;Tagihan
+                </a>&nbsp;&nbsp;&nbsp;&nbsp;Biaya
             </h1>
         </div>
 
@@ -14,7 +14,7 @@
             <div class="pb-2">
                 <div class="flex items-lefts" style="padding-bottom: 10px;">
                     <div class="flex items-left">
-                        <a href="javascript:void(0)" class="btn btn-default toggle-tagihan">Tagihan</a> 
+                        <a href="javascript:void(0)" class="btn btn-default toggle-tagihan">Biaya</a> 
                         <a href="javascript:void(0)" class="btn btn-default toggle-approval">Approval</a>
                         <a href="javascript:void(0)" class="btn btn-default toggle-approved">Approved</a>
                         <a href="javascript:void(0)" class="btn btn-default toggle-tunggakan">Tunggakan</a>

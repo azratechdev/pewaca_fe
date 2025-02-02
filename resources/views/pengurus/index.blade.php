@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="flex justify-center items-center">
-    <div class="bg-white w-full max-w-6xl shadow-lg">
+    <div class="bg-white w-full max-w-6xl">
         <!-- Header -->
         <div class="p-6 border-b">
             <h1 class="text-xl font-semibold text-gray-800">
@@ -15,7 +15,7 @@
                 <li class="nav-item">
                     <a href="{{ route('pengurus.tagihan') }}" class="nav-link custom-nav-button active">
                         <i class="fa fa-check-circle fa-2x"></i> <!-- Ikon Approval -->
-                        <span class="d-block">Tagihan</span>
+                        <span class="d-block">Biaya</span>
                     </a>
                 </li>
                 <li class="nav-item">

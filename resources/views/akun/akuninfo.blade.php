@@ -31,7 +31,7 @@
                         <img 
                         alt="Belum ada" 
                         class="profile-picture rounded w-32 h-32" 
-                        src="https://storage.googleapis.com/a1aa/image/ZoAiGzvASA4pG9oiGwu50UAjrOG21IrMhFOGfFnKGy1xU85JA.jpg"
+                        src="{{ $data['warga']['profile_photo'] }}"
                     /></span>
                 </div>
                 <div class="flex items-center">

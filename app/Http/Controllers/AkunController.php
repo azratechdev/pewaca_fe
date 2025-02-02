@@ -251,7 +251,6 @@ class AkunController extends Controller
             'family_as' => 'required|integer',
             'profile_photo' => 'nullable|image|mimes:jpeg,jpg|max:2048',
             'email' => 'required|email',
-            
         ]);
 
         $data = [
@@ -269,7 +268,6 @@ class AkunController extends Controller
             'occupation' => $request->occupation,
             'education' => $request->education,
             'family_as' => $request->family_as,
-                       
         ];
 
         try {
@@ -292,13 +290,15 @@ class AkunController extends Controller
             $response = $http->put('https://api.pewaca.id/api/auth/profil/update/', $data);
             $response = json_decode($response->body(), true);
 
+            dd($response);
 
-            if ($response->successful()) {
+            if ($response['success'] == true) {
                 Session::flash('flash-message', [
                     'message' => $response['data']['message'],
                     'alert-class' => 'alert-success',
                 ]);
                 return redirect()->route('akunEdit');
+
             } else {
                
                 $data_errors = $data_response['errors'] ?? [];
@@ -319,7 +319,7 @@ class AkunController extends Controller
         } catch (\Exception $e) {
             session()->flash('status', 'error');
             session()->flash('message', 'Gagal Mengirim Data');
-            return redirect()->route('addkeluarga')->withInput();
+            return redirect()->route('akunEdit')->withInput();
         }
     }
 
