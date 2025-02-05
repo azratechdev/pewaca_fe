@@ -144,30 +144,45 @@ class TagihanController extends Controller
 
     public function postTagihan(Request $request)
     {
-       
-        $request->validate([
-            'nama_tagihan' => 'required|string',
-            'deskripsi' => 'required|string',
-            'type_iuran' => 'required|string',
-            'jatuh_tempo' => 'nullable|date',
-            'periode' => 'nullable|date',
-            'nominal' => 'required|string',
-            'repeat' => 'required|string',
+      // dd($request->all());
+       $request->validate([
+        'nama_tagihan' => 'required|string',
+        'deskripsi' => 'required|string',
+        'type_iuran' => 'required|string',
+        'jatuh_tempo' => 'nullable|string',
+        'periode' => 'nullable|string', // Bisa berupa rentang tanggal
+        'nominal' => 'required|string',
+        'repeat' => 'nullable|string', // Tidak wajib, karena hanya muncul saat repeat_button aktif
         ]);
-
+        
         $nominal_original_format = $this->formatNominal($request->nominal);
-
+        
+        $from_date = null;
+        $due_date = null;
+        
+        
+        // Jika repeat diaktifkan, gunakan periode
+        if ($request->filled('periode')) {
+            $tgl = explode(' to ', $request->periode);
+            //dd($tgl);
+            $from_date = $tgl[0] ?? null; // Hindari error jika tidak ada rentang
+            $due_date = $tgl[1] ?? null;
+        }
+       
+        if ($request->filled('jatuh_tempo')) {
+            $due_date = $request->jatuh_tempo;
+        }
+                             
         $data = [
             'jenis_tagihan' => $request->repeat,
             'amount' => $nominal_original_format,
-            'date_due' => $request->due_date,
+            'date_due' => $due_date,
             'name' => $request->nama_tagihan,
             'tipe' => $request->type_iuran,
             'description' => $request->deskripsi,
-            'from_date' => $request->from_date,
+            'from_date' => $from_date,
         ];
 
-        //dd($data);
         if (!Session::has('token')) {
             Session::flash('flash-message', [
                 'message' => 'Token tidak tersedia, silakan login ulang.',
@@ -194,10 +209,6 @@ class TagihanController extends Controller
                 ]);
                 return redirect()->route('tagihan.add');
             } else {
-                \Log::warning('Response Error', [
-                    'status' => $response->status(),
-                    'body' => $response->body(),
-                ]);
                 Session::flash('flash-message', [
                     'message' => 'Periksa Data Kembali',
                     'alert-class' => 'alert-warning',
@@ -205,11 +216,6 @@ class TagihanController extends Controller
                 return redirect()->route('tagihan.add');
             }
         } catch (\Exception $e) {
-            \Log::error('Gagal mengirim data tagihan', [
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString(),
-            ]);
-    
             Session::flash('flash-message', [
                 'message' => 'Gagal Mengirim Data',
                 'alert-class' => 'alert-danger',

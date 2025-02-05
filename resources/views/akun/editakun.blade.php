@@ -69,7 +69,7 @@
             @include('layouts.elements.flash')
             <form id="update_akun" method="post" action="{{ route('akunUpdate') }}" enctype="multipart/form-data">
                 @csrf
-                <div class="form-floating mb-3">
+                {{-- <div class="form-floating mb-3">
                    
                         <img 
                         alt="Belum ada" 
@@ -78,9 +78,25 @@
                     />
                    
                     <a id="change_photo" href="#" class="btn btn-sm btn-success">Ganti Photo</a>
+                </div> --}}
+
+                <div class="d-flex align-items-center mb-3">
+                    <!-- Foto Profil -->
+                    <div class="me-3">
+                        <img 
+                            alt="Belum ada" 
+                            class="profile-picture rounded w-32 h-32" 
+                            src="{{ $data['warga']['profile_photo'] }}"
+                        />
+                    </div>
+                    
+                    <!-- Tombol Ganti Photo -->
+                    <div>
+                        <a id="change_photo" href="#" class="btn btn-sm btn-success" style="color:white;">Ganti Photo</a>
+                    </div>
                 </div>
                 
-                <div class="form-floating mb-3" style="display:none;">
+                <div id="photo_input_container" class="form-floating mb-3" style="display:none;">
                     <input type="file" class="form-control @error('profile_photo') is-invalid @enderror" id="profile_photo" name="profile_photo" accept="image/jpeg,image/jpg">
                     <label for="profile_photo">Upload Foto Profil</label>
                     @error('profile_photo')
@@ -244,16 +260,7 @@
                         <i class="fas fa-eye"></i>
                     </div>
                 </div> --}}
-                
-
-                {{-- <div class="form-floating mb-3">
-                    <input type="file" class="form-control @error('profile_photo') is-invalid @enderror" id="profile_photo" name="profile_photo" accept="image/jpeg,image/jpg">
-                    <label for="profile_photo">Upload Foto Profil</label>
-                    @error('profile_photo')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div> --}}
-
+           
                 <br>
                 <div class="row">
                     <div class="col-md-12">
@@ -316,6 +323,32 @@
         }
     }
   </script>
+
+<script>
+    document.getElementById("change_photo").addEventListener("click", function(event) {
+        event.preventDefault(); // Mencegah navigasi default dari <a href="#">
+        
+        let inputContainer = document.getElementById("photo_input_container");
+        let inputPhoto = document.getElementById("profile_photo");
+        let button = document.getElementById("change_photo");
+
+        if (inputContainer.style.display === "none") {
+            // Tampilkan input, tambahkan required, ubah tombol jadi Cancel
+            inputContainer.style.display = "block";
+            inputPhoto.setAttribute("required", "required");
+            button.classList.remove("btn-success");
+            button.classList.add("btn-warning");
+            button.textContent = "Urungkan";
+        } else {
+            // Sembunyikan input, hilangkan required, ubah tombol jadi Ganti Photo
+            inputContainer.style.display = "none";
+            inputPhoto.removeAttribute("required");
+            button.classList.remove("btn-warning");
+            button.classList.add("btn-success");
+            button.textContent = "Ganti Photo";
+        }
+    });
+</script>
 {{-- <script>
     document.getElementById('togglePassword').addEventListener('click', function() {
         const passwordInput = document.getElementById('password');

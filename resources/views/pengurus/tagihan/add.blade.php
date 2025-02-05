@@ -105,7 +105,7 @@
             </div>
 
             <div id="periode" class="form-floating mt-4" style="display:none;">
-              <input type="date" class="form-control" id="periode" name="periode" value="{{ old('from_date') }}"  placeholder=" " required>
+              <input type="date" class="form-control" id="periode" name="periode" value="{{ old('from_date') }}"  placeholder=" ">
               <label for="periode">Periode</label>
             </div>
 
@@ -163,7 +163,7 @@ function getDefaultDates() {
   flatpickr("#periode", {
     mode: "range",
     dateFormat: "d-M-Y",
-    defaultDate: getDefaultDates(), // Contoh default value ["12-Feb-2025", "15-Feb-2025"]
+    //defaultDate: getDefaultDates(),
     locale: "id", // Bahasa Indonesia
     onReady: function(selectedDates, dateStr, instance) {
       if (!selectedDates.length) {
@@ -199,33 +199,46 @@ function getDefaultDates() {
     const repeatButton = document.getElementById('repeat_button');
     const repeatContainer = document.getElementById('repeat-container');
     const tempo = document.getElementById('tempo');
+    const jatuhTempo = document.getElementById('jatuh_tempo'); // Input dalam tempo
     const periode = document.getElementById('periode');
+    const periodeInput = document.querySelector('#periode input'); // Input dalam periode
 
     // Add event listener to toggle visibility
     repeatButton.addEventListener('change', function () {
       if (this.checked) {
-        repeatContainer.style.display = 'block'; // Show the select dropdown
-        repeatContainer.setAttribute('required', 'required');
-        
-        periode.style.display = 'block'; // Show the select dropdown
-        periode.setAttribute('required', 'required');
+            // Hide 'tempo' and disable its required attribute
+            tempo.style.display = 'none';
+            jatuhTempo.removeAttribute('required');
+            jatuhTempo.setAttribute('disabled', 'true');
 
-        tempo.style.display = 'none';
-        tempo.removeAttribute('required');
+            // Show 'repeatContainer' and set required attribute
+            repeatContainer.style.display = 'block';
+            repeatContainer.querySelector('select').setAttribute('required', 'required');
 
+            // Show 'periode' and set required attribute
+            periode.style.display = 'block';
+            periodeInput.setAttribute('required', 'required');
+            periodeInput.removeAttribute('disabled');
 
-      } else {
-        repeatContainer.style.display = 'none'; // Hide the select dropdown
-        repeatContainer.removeAttribute('required');
+        } else {
+            // Show 'tempo' and set required attribute
+            tempo.style.display = 'block';
+            jatuhTempo.setAttribute('required', 'required');
+            jatuhTempo.removeAttribute('disabled');
 
-        tempo.style.display = 'block'; // Show the select dropdown
-        tempo.setAttribute('required', 'required');
+            // Hide 'repeatContainer' and remove required attribute
+            repeatContainer.style.display = 'none';
+            repeatContainer.querySelector('select').removeAttribute('required');
 
-        periode.style.display = 'none';
-        periode.removeAttribute('required');
-      }
+            // Hide 'periode' and remove required attribute
+            periode.style.display = 'none';
+            periodeInput.removeAttribute('required');
+            periodeInput.setAttribute('disabled', 'true');
+        }
     });
   </script>
+
+  
 
 <script>
     // Script to format input dynamically
