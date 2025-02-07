@@ -66,7 +66,7 @@
                 
                 <div class="flex items-center">
                     <p class="d-flex align-items-center">
-                        BCA
+                        {{ $bank['bank']['bank_name'] }}
                     </p>
                 </div>
             </div>
@@ -119,11 +119,11 @@
 <script>
     $(document).on('click', '.hapus-bank', function (e) {
     e.preventDefault();
-    let tagihanId = $(this).data('id');
+    let bank_id = $(this).data('id');
     const publishUrl = @json(route('tagihan.publish'));
 
     Swal.fire({
-        title: 'Yakin ingin menghapus rekening ini?',
+        title: 'Yakin ingin menghapus rekening ini?' ,
         text: "Tindakan ini tidak dapat diubah!",
         icon: 'warning',
         showCancelButton: true,
@@ -132,37 +132,33 @@
         confirmButtonText: 'Ya, Hapus!'
     }).then((result) => {
         if (result.isConfirmed) {
-            $.ajax({
-                url: publishUrl, // Laravel route URL
-                method: 'POST',
-                data: {
-                    tagihan_id: tagihanId,
-                    _token: $('meta[name="csrf-token"]').attr('content'),
-                },
-                success: function (response) {
-                    if (response.success) {
-                        Swal.fire(
-                            'Berhasil!',
-                            response.message,
-                            'success'
-                        );
-                    } else {
-                        Swal.fire(
-                            'Gagal!',
-                            response.message,
-                            'error'
-                        );
-                    }
-                },
-                error: function (xhr) {
-                    let message = xhr.responseJSON?.message || 'Terjadi kesalahan. Coba lagi nanti.';
-                    Swal.fire(
-                        'Error!',
-                        message,
-                        'error'
-                    );
-                    console.error(xhr.responseJSON);
+            fetch(`https://api.pewaca.id/api/residence-banks/${bank_id}/`, {
+                method: "DELETE",
+                headers: {
+                    "Accept": "application/json",
+                    "Authorization": "Token {{ Session::get('token') }}",
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": "ehbPFxLcdp440i5BmhZAq8c1wRQZuJVIzR2CrWBrwS2CgMFuD0wRdd0Ifor2VLZB"
                 }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.id == bankId && data.isactive === true) {
+                    Swal.fire({
+                        title: "Sukses!",
+                        text: "Rekening berhasil dihapus.",
+                        icon: "success",
+                        confirmButtonText: "OK"
+                    }).then(() => {
+                        location.reload(); // Refresh halaman setelah sukses
+                    });
+                } else {
+                    Swal.fire("Error", "Terjadi kesalahan, coba lagi.", "error");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                Swal.fire("Error", "Gagal menghubungi server.", "error");
             });
         }
     });
