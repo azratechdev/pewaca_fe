@@ -71,10 +71,6 @@ class PembayaranController extends Controller
                 $tagihan = $data_response;
                 return view('pembayaran.addpembayaran', compact('tagihan'));
             } else {
-                Log::warning('Response Error', [
-                    'status' => $response->status(),
-                    'body' => $response->body(),
-                ]);
                 Session::flash('flash-message', [
                     'message' => 'Data tidak ditemukan',
                     'alert-class' => 'alert-warning',
@@ -82,17 +78,19 @@ class PembayaranController extends Controller
                 return redirect()->route('pembayaran.addpembayaran', ['id' => $id]);
             }
         } catch (\Exception $e) {
-            Log::error('Gagal mengambil data tagihan', [
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString(),
-            ]);
-    
             Session::flash('flash-message', [
                 'message' => 'Gagal mengambil data tagihan',
                 'alert-class' => 'alert-danger',
             ]);
             return redirect()->route('pembayaran.add', ['id' => $id]);
         }
+    }
+
+    public function uploadbukti($id)
+    {
+        $id_tagihan = $id;
+        return view('pembayaran.uploadbuktipage', compact('id_tagihan'));
+        
     }
 
     public function postPembayaran(Request $request)

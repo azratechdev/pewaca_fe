@@ -219,7 +219,7 @@
                     <label for="education">Pendidikan</label>
                 </div>
             
-                <div class="form-floating mb-3">
+                {{-- <div class="form-floating mb-3">
                     <input type="email" class="form-control @error('email') is-invalid @enderror" value="{{ $data['user']['email'] }}" id="email" name="email" placeholder=" " required>
                     <label for="email">Alamat Email</label>
                     @error('email')
@@ -246,7 +246,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 {{-- <div class="input-group">
                     <div class="form-floating mb-3">
                         <input type="password" class="form-control @error('password') is-invalid @enderror" value="" id="password" name="password" placeholder="">
@@ -310,19 +310,6 @@
 
     checkFormValidity();
 </script>
-<script>
-    function togglePasswordVisibility() {
-        const passwordInput = document.getElementById('password');
-        const showPasswordCheckbox = document.getElementById('showPasswordCheckbox');
-
-        
-        if (showPasswordCheckbox.checked) {
-            passwordInput.type = 'text';
-        } else {
-            passwordInput.type = 'password';
-        }
-    }
-  </script>
 
 <script>
     document.getElementById("change_photo").addEventListener("click", function(event) {
@@ -349,28 +336,5 @@
         }
     });
 </script>
-{{-- <script>
-    document.getElementById('togglePassword').addEventListener('click', function() {
-        const passwordInput = document.getElementById('password');
-        const icon = this.querySelector('i');
-        const val = document.getElementById('password').value;
 
-        if (passwordInput.type === 'password' && val !== "") {
-            passwordInput.type = 'text';
-            icon.classList.remove('fa-eye');
-            icon.classList.add('fa-eye-slash'); 
-        }
-        else if (passwordInput.type === 'text' && val !== ""){
-            passwordInput.type = 'password';
-            icon.classList.remove('fa-eye-slash');
-            icon.classList.add('fa-eye'); 
-        }
-        else {
-            passwordInput.type = 'password';
-            icon.classList.remove('fa-eye');
-            icon.classList.add('fa-eye-slash');
-        }
-    });
-</script> --}}
-  
 @endsection 

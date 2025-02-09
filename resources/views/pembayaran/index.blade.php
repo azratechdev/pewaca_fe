@@ -1,7 +1,7 @@
 @extends('layouts.residence.basetemplate')
 @section('content')
 <div class="flex justify-center items-center">
-    <div class="bg-white w-full max-w-6xl shadow-lg">
+    <div class="bg-white w-full max-w-6xl">
         <!-- Header -->
         <div class="p-6 border-b">
             <h1 class="text-xl font-semibold text-gray-800">

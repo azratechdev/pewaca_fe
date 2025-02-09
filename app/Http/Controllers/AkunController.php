@@ -250,12 +250,12 @@ class AkunController extends Controller
             'education' => 'required|integer',
             'family_as' => 'required|integer',
             'profile_photo' => 'nullable|image|mimes:jpeg,jpg|max:2048',
-            'email' => 'required|email',
+            //'email' => 'required|email',
         ]);
 
         $data = [
-            'email' => $request->email,
-            'password' => $request->password,
+           // 'email' => $request->email,
+           // 'password' => $request->password,
             'unit_id' => $request->unit_id,
             'nik' => $request->nik,
             'full_name' => $request->full_name,
@@ -269,6 +269,8 @@ class AkunController extends Controller
             'education' => $request->education,
             'family_as' => $request->family_as,
         ];
+
+        //dd($data);
 
         try {
 
@@ -290,11 +292,11 @@ class AkunController extends Controller
             $response = $http->put('https://api.pewaca.id/api/auth/profil/update/', $data);
             $response = json_decode($response->body(), true);
 
-            dd($response);
+            //dd($response);
 
             if ($response['success'] == true) {
                 Session::flash('flash-message', [
-                    'message' => $response['data']['message'],
+                    'message' => 'Akun berhasil diedit',
                     'alert-class' => 'alert-success',
                 ]);
                 return redirect()->route('akunEdit');

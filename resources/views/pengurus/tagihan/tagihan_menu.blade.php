@@ -14,9 +14,9 @@
             <div class="pb-2">
                 <div class="flex items-lefts" style="padding-bottom: 10px;">
                     <div class="flex items-left">
-                        <a href="javascript:void(0)" class="btn btn-default toggle-tagihan">Biaya</a> 
-                        <a href="javascript:void(0)" class="btn btn-default toggle-approval">Approval</a>
-                        <a href="javascript:void(0)" class="btn btn-default toggle-approved">Approved</a>
+                        <a href="javascript:void(0)" class="btn btn-default toggle-tagihan">Daftar Biaya</a> 
+                        <a href="javascript:void(0)" class="btn btn-default toggle-approval">Menunggu Konfirmasi</a>
+                        <a href="javascript:void(0)" class="btn btn-default toggle-approved">Disetujui</a>
                         <a href="javascript:void(0)" class="btn btn-default toggle-tunggakan">Tunggakan</a>
                     </div>
                 </div>

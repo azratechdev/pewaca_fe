@@ -143,7 +143,7 @@
             })
             .then(response => response.json())
             .then(data => {
-                if (data.id == bankId && data.isactive === true) {
+                if (data) {
                     Swal.fire({
                         title: "Sukses!",
                         text: "Rekening berhasil dihapus.",

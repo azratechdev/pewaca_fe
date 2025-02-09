@@ -99,13 +99,32 @@
                     src="https://storage.googleapis.com/a1aa/image/ZoAiGzvASA4pG9oiGwu50UAjrOG21IrMhFOGfFnKGy1xU85JA.jpg"
                 /></span>
             </div>
-           
         </div>
+
+        <div class="p-6 mt-2">
+            <div class="col-md-12">
+                <a href="" class="btn btn-success form-control d-flex align-items-center justify-content-between">
+                    <span>
+                        <i class="fa fa-file-invoice me-2"></i> Detail Bukti Pembayaran
+                    </span>
+                    <i class="fa fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="p-6 mt-2">
+            <a href="" 
+                class="btn btn-success w-full bg-green-600 text-white py-2 px-4 rounded-lg">
+                Approve
+            </a>
+        </div>
+      
+       
         <!-- Footer -->
-        <div class="flex justify-content-between p-6">
-            <a href="{{ route('reject_warga', ['id' => '1']) }}" class="btn btn-danger w-40 me-2">Reject</a>
-            <button class="btn btn-success w-60 approved-warga" data-id="1">Approve</button>
-        </div>
+        {{-- <div class="flex justify-content-between p-6"> --}}
+            {{-- <a href="{{ route('reject_warga', ['id' => '1']) }}" class="btn btn-danger w-40 me-2">Reject</a> --}}
+            {{-- <button class="btn btn-success w-60 approved-warga" data-id="1">Approve</button> --}}
+        {{-- </div> --}}
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
