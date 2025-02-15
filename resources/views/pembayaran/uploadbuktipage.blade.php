@@ -6,7 +6,7 @@
     <div class="flex justify-between items-center" style="padding-top: 10px;">
       <div class="flex items-center">
         <h1 class="text-xl font-semibold text-gray-800">
-          <a href="{{ route('pembayaran.add', ['id' => $id_tagihan]) }}" class="text-dark">
+          <a href="{{ route('pembayaran.add', ['id' => $tagihan['data']['id']]) }}" class="text-dark">
               <i class="fas fa-arrow-left"></i>
           </a>&nbsp;&nbsp;Bukti Pembayaran
       </h1>
@@ -64,15 +64,22 @@
         </div> 
        
         <div>
+           
             <div class="form-floating mt-4">
+               
                 <input type="text" class="form-control rupiah-input @error('nominal') is-invalid @enderror" value="" id="nominal" name="nominal"
                 placeholder="Rp. 0" pattern="^Rp\.\s?(\d{1,3}(\.\d{3})*|\d+)$" required>
                 <label for="nominal">Nominal</label>
+               
+
+                <input type="hidden" name="residence_bank" value="{{ $tagihan['data']['residence_bank']['id'] }}" required/>
+                <input type="hidden" name="tagihan_id" value="{{ $tagihan['data']['id'] }}" required/>
+                <input type="hidden" id="tipe" name="tipe" value="{{ $tagihan['data']['tagihan']['tipe'] }}" required/>
             </div>
 
             <div class="form-floating mt-4">
-                <textarea name="upload_note" class="form-control" id="uploadNote" style="height: 120px" ></textarea>
-                <label for="uploadNote">Note</label>
+                <textarea name="note" class="form-control" id="note" style="height: 120px" ></textarea>
+                <label for="note">Note</label>
             </div>
         </div>
         
@@ -85,115 +92,113 @@
     </form>
   </div>
 </div>
-    
 <script>
-     const form = document.getElementById('pembayaran_tagihan');
-     const submitBtn = document.getElementById('submitBtn');
+  const form = document.getElementById('pembayaran_tagihan');
+  const submitBtn = document.getElementById('submitBtn');
+  
+
+  function checkFormValidity() {
      
+     const isValid = [...form.querySelectorAll('input[required]')].every(input => {
+         return input.value.trim() !== '';
+     });
    
-     function checkFormValidity() {
-        
-        const isValid = [...form.querySelectorAll('input[required]')].every(input => {
-            return input.value.trim() !== '';
-        });
-      
-         submitBtn.disabled = !isValid;
+      submitBtn.disabled = !isValid;
+  }
+
+  form.addEventListener('input', checkFormValidity);
+
+  checkFormValidity();
+
+</script>
+
+<script>
+ const paymentInput = document.getElementById('nominal');
+ const typeInput = document.getElementById('tipe');
+ 
+ // Ambil nilai amount dari server dan hapus ".00" jika ada
+ let amount = "{{ $tagihan['data']['tagihan']['amount'] }}".split('.')[0]; // Mengambil angka sebelum "."
+ const typeValue = typeInput.value; // Ambil tipe
+
+ // Set nilai awal berdasarkan tipe
+ if (typeValue === 'wajib') {
+   paymentInput.value = `Rp. ${parseInt(amount, 10).toLocaleString('id-ID')}`;
+   paymentInput.readOnly = true; // Input tidak dapat diubah
+ } else {
+   paymentInput.value = ''; // Kosongkan jika tidak wajib
+   paymentInput.readOnly = false;
+ }
+
+ // Event listener untuk format Rupiah saat user mengetik (jika tidak wajib)
+ paymentInput.addEventListener('input', function (e) {
+   if (typeValue !== 'wajib') {
+     let value = this.value.replace(/[^0-9]/g, ''); // Hanya angka
+     if (value) {
+       value = parseInt(value, 10).toLocaleString('id-ID'); // Format angka ke Rupiah
+       this.value = `Rp. ${value}`;
+     } else {
+       this.value = '';
      }
+   }
+ });
 
-     form.addEventListener('input', checkFormValidity);
-
-     checkFormValidity();
- 
+ // Event listener untuk mengatur nilai default jika input dikosongkan
+ paymentInput.addEventListener('blur', function () {
+   if (typeValue !== 'wajib' && !this.value.startsWith('Rp.')) {
+     this.value = ''; // Kosongkan input jika tidak "wajib"
+   }
+ });
 </script>
 
 <script>
-    const paymentInput = document.getElementById('nominal');
-    // const typeInput = document.getElementById('tipe');
-    
-    // // Ambil nilai amount dari server dan hapus ".00" jika ada
-    // Mengambil angka sebelum "."
-    // const typeValue = typeInput.value; // Ambil tipe
-  
-    // Set nilai awal berdasarkan tipe
-    // if (typeValue === 'wajib') {
-    //   paymentInput.value = `Rp. ${parseInt(amount, 10).toLocaleString('id-ID')}`;
-    //   paymentInput.readOnly = true; // Input tidak dapat diubah
-    // } else {
-      paymentInput.value = ''; // Kosongkan jika tidak wajib
-      paymentInput.readOnly = false;
-    // }
-  
-    // Event listener untuk format Rupiah saat user mengetik (jika tidak wajib)
-    paymentInput.addEventListener('input', function (e) {
-      if (typeValue !== 'wajib') {
-        let value = this.value.replace(/[^0-9]/g, ''); // Hanya angka
-        if (value) {
-          value = parseInt(value, 10).toLocaleString('id-ID'); // Format angka ke Rupiah
-          this.value = `Rp. ${value}`;
-        } else {
-          this.value = '';
-        }
-      }
-    });
-  
-    // Event listener untuk mengatur nilai default jika input dikosongkan
-    paymentInput.addEventListener('blur', function () {
-      if (typeValue !== 'wajib' && !this.value.startsWith('Rp.')) {
-        this.value = ''; // Kosongkan input jika tidak "wajib"
-      }
-    });
-</script>
+ const imageUpload = document.getElementById('imageUpload');
+ const imagePreview = document.getElementById('imagePreview');
+ const removeImageButton = document.getElementById('removeImageButton');
 
+ imageUpload.addEventListener('change', function() {
+   const file = this.files[0];
+   if (file) {
+     const reader = new FileReader();
+     reader.onload = function(e) {
+       imagePreview.src = e.target.result;
+       removeImageButton.classList.remove('hidden');
+       imagePreview.classList.remove('hidden'); // Tampilkan gambar
+       imagePreview.classList.remove('bg-gray-200'); // Hapus latar abu-abu
+     }
+     reader.readAsDataURL(file);
+   }
+ });
 
-<script>
-    const imageUpload = document.getElementById('imageUpload');
-    const imagePreview = document.getElementById('imagePreview');
-    const removeImageButton = document.getElementById('removeImageButton');
- 
-    imageUpload.addEventListener('change', function() {
-      const file = this.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          imagePreview.src = e.target.result;
-          removeImageButton.classList.remove('hidden');
-          imagePreview.classList.remove('hidden'); // Tampilkan gambar
-          imagePreview.classList.remove('bg-gray-200'); // Hapus latar abu-abu
-        }
-        reader.readAsDataURL(file);
-      }
-    });
- 
-    removeImageButton.addEventListener('click', function() {
-      imagePreview.src = 'x';
-      imageUpload.value = '';
-      removeImageButton.classList.add('hidden');
-      imagePreview.classList.add('hidden');
-    });
+ removeImageButton.addEventListener('click', function() {
+   imagePreview.src = 'x';
+   imageUpload.value = '';
+   removeImageButton.classList.add('hidden');
+   imagePreview.classList.add('hidden');
+ });
 </script> 
-
 <script>
-   document.getElementById('pembayaran_tagihan').addEventListener('submit', function (event) {
-    // Ambil elemen input file
-    const imageUpload = document.getElementById('imageUpload');
-    // Ambil elemen div untuk alert
-    const alertUploadDiv = document.querySelector('.alert-upload');
+document.getElementById('pembayaran_tagihan').addEventListener('submit', function (event) {
+ // Ambil elemen input file
+ const imageUpload = document.getElementById('imageUpload');
+ // Ambil elemen div untuk alert
+ const alertUploadDiv = document.querySelector('.alert-upload');
 
-    // Hapus alert sebelumnya jika ada
-    alertUploadDiv.innerHTML = '';
+ // Hapus alert sebelumnya jika ada
+ alertUploadDiv.innerHTML = '';
 
-    // Periksa apakah input file kosong
-    if (!imageUpload.value) {
-        // Cegah pengiriman form
-        event.preventDefault();
+ // Periksa apakah input file kosong
+ if (!imageUpload.value) {
+     // Cegah pengiriman form
+     event.preventDefault();
 
-        // Tambahkan pesan alert ke dalam div
-        alertUploadDiv.innerHTML = `
-            <label class="mb-2" style="font-size:10px;color:red;">
-                Upload Bukti Pembayaran Wajib Disertakan
-            </label>
-        `;
-    }
+     // Tambahkan pesan alert ke dalam div
+     alertUploadDiv.innerHTML = `
+         <label class="mb-2" style="font-size:10px;color:red;">
+             Upload Bukti Pembayaran Wajib Disertakan
+         </label>
+     `;
+ }
 });
+
 </script>
 @endsection 

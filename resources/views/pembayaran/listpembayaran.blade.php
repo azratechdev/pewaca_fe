@@ -69,13 +69,20 @@
             
         </p>
     </div>
-    <div class="flex items-right">
-        @if($tagihan['tagihan']['tipe'] != 'wajib')
-        <a href="#" class="btn btn-sm btn-light w-20" style="border-radius:8px;">Tidak</a>
-        @endif
-        &nbsp;&nbsp;
-        <a href="{{ route('pembayaran.add', ['id' => $tagihan['id']]) }}" class="btn btn-sm btn-success w-20 btn-publish" style="color: white;border-radius:8px;">Bayar</a>
-    </div>
+    @if($tagihan['status'] == 'unpaid')
+        <div class="flex items-right">
+            @if($tagihan['tagihan']['tipe'] != 'wajib')
+            <a href="#" class="btn btn-sm btn-light w-20" style="border-radius:8px;">Tidak</a>
+            @endif
+            &nbsp;&nbsp;
+            <a href="{{ route('pembayaran.add', ['id' => $tagihan['id']]) }}" class="btn btn-sm btn-success w-20 btn-publish" style="color: white;border-radius:8px;">Bayar</a>
+        </div>
+    @else
+        <div class="flex items-right">
+            &nbsp;&nbsp;
+            <a href="#" class="btn btn-sm btn-success w-20 btn-publish" style="color: white;border-radius:8px;">Detail</a>
+        </div>
+    @endif
 </div>
 <hr class="mt-3 mb-2">
 @endforeach

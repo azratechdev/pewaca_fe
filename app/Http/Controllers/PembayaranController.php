@@ -88,9 +88,35 @@ class PembayaranController extends Controller
 
     public function uploadbukti($id)
     {
-        $id_tagihan = $id;
-        return view('pembayaran.uploadbuktipage', compact('id_tagihan'));
-        
+        try {
+            $response = Http::withHeaders([
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Token ' . Session::get('token'),
+            ])->get('https://api.pewaca.id/api/tagihan-warga/'.$id.'/');
+    
+            $data_response = json_decode($response->body(), true);
+
+            //dd($data_response);
+    
+            if ($response->successful()) {
+                $tagihan = $data_response;
+                return view('pembayaran.uploadbuktipage', compact('tagihan'));
+            } else {
+                Session::flash('flash-message', [
+                    'message' => 'Data tidak ditemukan',
+                    'alert-class' => 'alert-warning',
+                ]);
+                return redirect()->route('pembayaran.uploadbuktipage', ['id' => $id]);
+            }
+        } catch (\Exception $e) {
+            Session::flash('flash-message', [
+                'message' => 'Gagal mengambil data tagihan',
+                'alert-class' => 'alert-danger',
+            ]);
+            return redirect()->route('pembayaran.uploadbuktipage', ['id' => $id]);
+        }
+               
     }
 
     public function postPembayaran(Request $request)
@@ -101,6 +127,7 @@ class PembayaranController extends Controller
             'nominal' => 'required|string',
             'residence_bank' => 'required|string',
             'tipe' => 'required|string',
+            'note' => 'nullable|string',
         ]);
        
         $nominal_original_format = $this->formatNominal($request->nominal);
@@ -126,6 +153,7 @@ class PembayaranController extends Controller
             $data = [
                 'amount' => $nominal_original_format,
                 'residence_bank' => $request->residence_bank,
+                'note' => $request->note
             ];
         
             $response = $http->patch(
@@ -163,6 +191,39 @@ class PembayaranController extends Controller
                 'alert-class' => 'alert-danger',
             ]);
             return redirect()->route('pembayaran');
+        }
+    }
+
+    public function detailPembayaran($id)
+    {
+        try {
+            $response = Http::withHeaders([
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Token ' . Session::get('token'),
+            ])->get('https://api.pewaca.id/api/tagihan-note/list/'.$id.'/');
+    
+            $data_response = json_decode($response->body(), true);
+
+            dd($data_response);
+            
+    
+            if ($response->successful()) {
+                $list = $data_response;
+                return view('pembayaran.detailpembayaran', compact('list'));
+            } else {
+                Session::flash('flash-message', [
+                    'message' => 'Data tidak ditemukan',
+                    'alert-class' => 'alert-warning',
+                ]);
+                return redirect()->route('pembayaran.detailpembayaran', ['id' => $id]);
+            }
+        } catch (\Exception $e) {
+            Session::flash('flash-message', [
+                'message' => 'Gagal mengambil data bukti pembayaran',
+                'alert-class' => 'alert-danger',
+            ]);
+            return redirect()->route('pembayaran.detailpembayaran', ['id' => $id]);
         }
     }
 

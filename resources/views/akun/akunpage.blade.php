@@ -57,26 +57,6 @@
                 <i class="fas fa-chevron-right ml-auto text-gray-500"></i>
             </a>
 
-            {{-- <a class="flex items-center p-4 border-b hover:bg-gray-100" href="{{ route('infoakun') }}">
-                <i class="fas fa-user text-gray-500">
-                </i>
-                <span class="ml-4">
-                    Info Akun
-                </span>
-                <i class="fas fa-chevron-right ml-auto text-gray-500">
-                </i>
-            </a>
-
-            <a class="flex items-center p-4 border-b hover:bg-gray-100" href="#">
-                <i class="fas fa-users text-gray-500">
-                </i>
-                <span class="ml-4">
-                    Keluarga
-                </span>
-                <i class="fas fa-chevron-right ml-auto text-gray-500">
-                </i>
-            </a> --}}
-
             <a class="flex items-center p-4 hover:bg-gray-100" href="{{ route('log_out') }}">
                 <i class="fas fa-sign-out-alt text-gray-500">
                 </i>

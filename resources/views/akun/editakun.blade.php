@@ -180,14 +180,14 @@
                     </select>
                     <label for="marital_status">Status</label>
                 </div>
-            
-                {{-- <div class="form-floating mb-3" id="marriagePhotoGroup" style="display: none;">
+                            
+                <div class="form-floating mb-3" id="marriagePhotoGroup">
                     <input type="file" class="form-control @error('marriagePhoto') is-invalid @enderror" id="marriagePhoto" name="marriagePhoto" accept="image/jpeg,image/jpg">
                     <label for="marriagePhoto">Upload Foto Buku Nikah</label>
                     @error('marriagePhoto')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                </div> --}}
+                </div>
 
                 <div class="form-floating mb-3">
                     <select class="form-select" id="family_as" name="family_as" required>

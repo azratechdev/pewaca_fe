@@ -196,7 +196,7 @@ class AkunController extends Controller
         $data = [
             'account_number' => $request->nomor_rekening,
             'account_holder_name' => $request->nama_lengkap,
-            'isactive' => true,
+            'isactive' => false,
             'residence' => $residence_id,
             'bank' => $request->nama_bank
         ];
@@ -288,6 +288,15 @@ class AkunController extends Controller
                     $file->getClientOriginalName()
                 );
             }
+
+            if (isset($request->marriagePhoto) && $request->hasFile('marriagePhoto')) {
+                $file = $request->file('marriagePhoto');
+                $http = $http->attach(
+                    'marriage_photo',
+                    file_get_contents($file->getRealPath()),
+                    $file->getClientOriginalName()
+                );
+            }
     
             $response = $http->put('https://api.pewaca.id/api/auth/profil/update/', $data);
             $response = json_decode($response->body(), true);
@@ -299,7 +308,7 @@ class AkunController extends Controller
                     'message' => 'Akun berhasil diedit',
                     'alert-class' => 'alert-success',
                 ]);
-                return redirect()->route('akunEdit');
+                return redirect()->route('infoakun');
 
             } else {
                
