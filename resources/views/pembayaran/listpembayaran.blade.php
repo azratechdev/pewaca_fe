@@ -63,6 +63,29 @@
         </div>
     </div>
 </div>
+
+<div class="flex justify-between items-center mt-2">
+    @if($tagihan['status'] == 'rejected')
+    <div class="flex items-center justify-left bg-red-50 p-2 rounded-lg shadow-md w-full max-w-full mt-3">
+        <div class="flex items-left">
+            <i class="fas fa-wallet-x text-red-500 text-2xl mr-3"></i>
+            <div>
+                <p class="text-red-500 font-semibold">Pembayaran Tidak Disetujui</p>
+                <p class="text-red-500">Note: Photo bukti pembayaran tidak jelas mohon uplaod ulang bukti pembayaran</p>
+            </div>
+        </div>
+    </div>
+    @endif
+
+    @if($tagihan['tagihan']['date_due'] >= date('Y-m-d')) 
+        @include('layouts.elements.tempo')
+    @endif
+
+    @if($tagihan['status'] == 'process')
+        @include('layouts.elements.confirm')
+    @endif
+</div>
+
 <div class="flex justify-between items-center mt-2">
     <div class="flex items-center">
         <p class="text-warning d-flex align-items-center">
@@ -80,7 +103,7 @@
     @else
         <div class="flex items-right">
             &nbsp;&nbsp;
-            <a href="#" class="btn btn-sm btn-success w-20 btn-publish" style="color: white;border-radius:8px;">Detail</a>
+            <a href="{{ route('pembayaran.add', ['id' => $tagihan['id']]) }}" class="btn btn-sm btn-success w-20 btn-publish" style="color: white;border-radius:8px;">Detail</a>
         </div>
     @endif
 </div>

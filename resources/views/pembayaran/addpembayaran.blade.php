@@ -26,19 +26,31 @@
   </style>
 </style>
 <div class="container">
-    <div class="container mx-auto px-4">
-        <div class="flex justify-between items-center" style="padding-top: 10px;">
+    <div class="container mx-auto px-3">
+        <div class="flex justify-between items-center" style="padding-top: 20px;">
         <div class="flex items-center">
             <h1 class="text-xl font-semibold text-gray-800">
             <a href="{{ route('pembayaran') }}" class="text-dark">
                 <i class="fas fa-arrow-left"></i>
-            </a>&nbsp;Pembayaran Tagihan
+            </a>&nbsp;&nbsp;Pembayaran Tagihan
         </h1>
         </div>
         </div>
         <br>
         <div class="mb-3">
             @include('layouts.elements.flash')
+
+            @if($tagihan['data']['status'] == 'rejected')
+                @include('layouts.elements.rejected')
+            @endif
+
+            @if($tagihan['data']['status']== 'process')
+                @include('layouts.elements.confirm')
+            @endif
+
+            @if($tagihan['data']['tagihan']['date_due'] >= date('Y-m-d')) 
+                @include('layouts.elements.tempo')
+            @endif
         </div>
     
         <div class="flex justify-between items-center">
@@ -146,7 +158,7 @@
                         <i class="fa fa-arrow-right"></i>
                     </a>
                 @else
-                    <a href="{{ route('pembayaran.detail_bukti') }}" class="btn btn-success form-control d-flex align-items-center justify-content-between">
+                    <a href="{{ route('pembayaran.detail_bukti', ['id' => $tagihan['data']['id']]) }}" class="btn btn-success form-control d-flex align-items-center justify-content-between">
                         <span>
                             Detail Bukti Pembayaran
                         </span>

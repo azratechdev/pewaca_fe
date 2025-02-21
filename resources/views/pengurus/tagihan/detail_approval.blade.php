@@ -8,9 +8,10 @@
             <h1 class="text-xl font-semibold text-gray-800">
                 <a href="{{ route('pengurus') }}" class="text-dark">
                     <i class="fas fa-arrow-left"></i>
-                </a>&nbsp;&nbsp;&nbsp;&nbsp;Detail Approval
+                </a>&nbsp;&nbsp;&nbsp;&nbsp;Detail Pembayaran Tagihan
             </h1>
         </div>
+                
         <div class="p-6 mt-2 space-y-2">
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
@@ -21,7 +22,7 @@
                 
                 <div class="flex items-center">
                     <p class="td-flex align-items-center">
-                        <strong>jhondoe</strong>
+                        <strong>{{ $data['warga'] }}</strong>
                     </p>
                 </div>
             </div>
@@ -34,7 +35,7 @@
                 
                 <div class="flex items-center">
                     <p class="td-flex align-items-center">
-                        <strong>Residence Tiga</strong>
+                        <strong>{{ $data['tagihan']['residence'] }}</strong>
                     </p>
                 </div>
             </div>
@@ -47,7 +48,7 @@
                 
                 <div class="flex items-center">
                     <p class="td-flex align-items-center">
-                        <strong>A78FG</strong>
+                        <strong>{{ $data['unit_id'] }} - A78FG</strong>
                     </p>
                 </div>
             </div>
@@ -60,7 +61,7 @@
                 
                 <div class="flex items-center">
                     <p class="td-flex align-items-center">
-                        <strong>Pembangunan</strong>
+                        <strong>{{ $data['tagihan']['name'] }}</strong>
                     </p>
                 </div>
             </div>
@@ -73,7 +74,7 @@
                 
                 <div class="flex items-center">
                     <p class="td-flex align-items-center">
-                        <strong>Rp150.000</strong>
+                        <strong>Rp {{ $data['tagihan']['amount'] }}</strong>
                     </p>
                 </div>
             </div>
@@ -85,25 +86,23 @@
                 </div>
                 
                 <div class="flex items-center">
-                    <p class="td-flex align-items-center" style="color:lightgreen;">
-                        <strong>Lunas</strong>
-                    </p>
+                    @if($data['status'] == "paid")
+                        <p class="td-flex align-items-center" style="color:lightgreen;">
+                            <strong>Lunas</strong>
+                        </p>
+                    @else
+                        <p class="td-flex align-items-center" style="color:orange;"
+                            <strong>{{ $data['status'] }}</strong>
+                        </p>
+                    @endif
                 </div>
             </div>
            
-            <div class="flex items-center">
-                <span class="text-gray-600">Photo Bukti Pembayaran<br>
-                    <img 
-                    alt="Belum ada" 
-                    class="profile-picture rounded w-32 h-24" 
-                    src="https://storage.googleapis.com/a1aa/image/ZoAiGzvASA4pG9oiGwu50UAjrOG21IrMhFOGfFnKGy1xU85JA.jpg"
-                /></span>
-            </div>
         </div>
 
         <div class="p-6 mt-2">
             <div class="col-md-12">
-                <a href="" class="btn btn-success form-control d-flex align-items-center justify-content-between">
+                <a href="{{ route('pembayaran.detail_bukti', ['id' => $data['id']]) }}" class="btn btn-success form-control d-flex align-items-center justify-content-between">
                     <span>
                         <i class="fa fa-file-invoice me-2"></i> Detail Bukti Pembayaran
                     </span>
@@ -112,13 +111,14 @@
             </div>
         </div>
 
-        <div class="p-6 mt-2">
-            <a href="" 
-                class="btn btn-success w-full bg-green-600 text-white py-2 px-4 rounded-lg">
-                Approve
-            </a>
-        </div>
-      
+        @if ($data['status'] != 'paid')
+            <div class="p-6 mt-2">
+                <a class="btn btn-success approved-tagihan-warga w-full bg-green-600 text-white py-2 px-4 rounded-lg"
+                data-id="{{ $data['id'] }}" data-warga_id="{{ $data['warga'] }}">
+                    Approve
+                </a>
+            </div>
+        @endif
        
         <!-- Footer -->
         {{-- <div class="flex justify-content-between p-6"> --}}
@@ -130,17 +130,18 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function () {
-        $(document).on("click", ".approved-warga", function() {
+        $(document).on("click", "a.approved-tagihan-warga", function() {
        
             const token = "{{ Session::get('token') }}";
-            const wargaId = $(this).data('id');
+            const tagihanId = $(this).data('id');
+            const wargaId = $(this).data('warga_id');
         
-            //alert(token + ' ' + wargaId);return;
+           // alert(tagihanId + ' ' + wargaId);return;
         
             // Tampilkan SweetAlert konfirmasi
             Swal.fire({
-                title: 'Are you sure?',
-                text: 'Do you want to approve this warga?',
+                title: 'Approve tagihan ini.?',
+                text: 'Do you want to approve this bill ?',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Yes, approve it!',

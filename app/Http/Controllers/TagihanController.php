@@ -36,6 +36,8 @@ class TagihanController extends Controller
         }
     }
 
+    
+
     public function addTagihan()
     {
         //dd(session::get('cred')['user_id']);
@@ -232,10 +234,17 @@ class TagihanController extends Controller
         return (int) $formatted;
     }
    
-    public function approvalDetail(Request $request, $id)
+    public function approvalDetail($id)
     {
-        $id = $id;
-        return view('pengurus.tagihan.detail_approval');
+        
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Token '.Session::get('token'),
+        ])->get('https://api.pewaca.id/api/tagihan-warga/'.$id.'/');
+        $tagihan_response = json_decode($response->body(), true);
+        $data =  $tagihan_response['data'];
+
+        return view('pengurus.tagihan.detail_approval', compact('data'));
        
     }
 

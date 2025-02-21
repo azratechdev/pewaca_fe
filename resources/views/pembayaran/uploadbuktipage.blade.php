@@ -17,7 +17,7 @@
         @include('layouts.elements.flash')
     </div>
    
-    <form id="pembayaran_tagihan" method="post" action="{{ route('postPembayaran') }}" enctype="multipart/form-data">
+    <form id="upload_bukti_tagihan" method="post" action="{{ route('postPembayaran') }}" enctype="multipart/form-data">
         @csrf
         <div class="flex justify-between items-center mt-3">
             <div class="flex items-center">
@@ -64,21 +64,18 @@
         </div> 
        
         <div>
-           
-            <div class="form-floating mt-4">
-               
+           <div class="form-floating mt-4">
                 <input type="text" class="form-control rupiah-input @error('nominal') is-invalid @enderror" value="" id="nominal" name="nominal"
                 placeholder="Rp. 0" pattern="^Rp\.\s?(\d{1,3}(\.\d{3})*|\d+)$" required>
                 <label for="nominal">Nominal</label>
                
-
                 <input type="hidden" name="residence_bank" value="{{ $tagihan['data']['residence_bank']['id'] }}" required/>
                 <input type="hidden" name="tagihan_id" value="{{ $tagihan['data']['id'] }}" required/>
-                <input type="hidden" id="tipe" name="tipe" value="{{ $tagihan['data']['tagihan']['tipe'] }}" required/>
+                <input type="hidden" id="tipe" value="{{ $tagihan['data']['tagihan']['tipe'] }}" required/>
             </div>
 
             <div class="form-floating mt-4">
-                <textarea name="note" class="form-control" id="note" style="height: 120px" ></textarea>
+                <textarea name="note" class="form-control" id="note" style="height: 120px"></textarea>
                 <label for="note">Note</label>
             </div>
         </div>
@@ -93,7 +90,7 @@
   </div>
 </div>
 <script>
-  const form = document.getElementById('pembayaran_tagihan');
+  const form = document.getElementById('upload_bukti_tagihan');
   const submitBtn = document.getElementById('submitBtn');
   
 
@@ -121,33 +118,33 @@
  const typeValue = typeInput.value; // Ambil tipe
 
  // Set nilai awal berdasarkan tipe
- if (typeValue === 'wajib') {
+//  if (typeValue === 'wajib') {
    paymentInput.value = `Rp. ${parseInt(amount, 10).toLocaleString('id-ID')}`;
-   paymentInput.readOnly = true; // Input tidak dapat diubah
- } else {
-   paymentInput.value = ''; // Kosongkan jika tidak wajib
-   paymentInput.readOnly = false;
- }
+   paymentInput.readOnly = true;
+//  } else {
+//    paymentInput.value = ''; 
+//    paymentInput.readOnly = false;
+//  }
 
  // Event listener untuk format Rupiah saat user mengetik (jika tidak wajib)
- paymentInput.addEventListener('input', function (e) {
-   if (typeValue !== 'wajib') {
-     let value = this.value.replace(/[^0-9]/g, ''); // Hanya angka
-     if (value) {
-       value = parseInt(value, 10).toLocaleString('id-ID'); // Format angka ke Rupiah
-       this.value = `Rp. ${value}`;
-     } else {
-       this.value = '';
-     }
-   }
- });
+//  paymentInput.addEventListener('input', function (e) {
+//    if (typeValue !== 'wajib') {
+//      let value = this.value.replace(/[^0-9]/g, ''); // Hanya angka
+//      if (value) {
+//        value = parseInt(value, 10).toLocaleString('id-ID'); // Format angka ke Rupiah
+//        this.value = `Rp. ${value}`;
+//      } else {
+//        this.value = '';
+//      }
+//    }
+//  });
 
  // Event listener untuk mengatur nilai default jika input dikosongkan
- paymentInput.addEventListener('blur', function () {
-   if (typeValue !== 'wajib' && !this.value.startsWith('Rp.')) {
-     this.value = ''; // Kosongkan input jika tidak "wajib"
-   }
- });
+//  paymentInput.addEventListener('blur', function () {
+//    if (typeValue !== 'wajib' && !this.value.startsWith('Rp.')) {
+//      this.value = ''; // Kosongkan input jika tidak "wajib"
+//    }
+//  });
 </script>
 
 <script>
@@ -177,7 +174,7 @@
  });
 </script> 
 <script>
-document.getElementById('pembayaran_tagihan').addEventListener('submit', function (event) {
+document.getElementById('upload_bukti_tagihan').addEventListener('submit', function (event) {
  // Ambil elemen input file
  const imageUpload = document.getElementById('imageUpload');
  // Ambil elemen div untuk alert

@@ -4,7 +4,7 @@
 <div class="flex justify-center items-center">
     <div class="bg-white w-full max-w-6xl">
         <!-- Header -->
-        <img src="{{ asset('assets/plugins/images/bg.png') }}" class="bg-img">
+        <img src="{{ $data['residence']['image'] }}" class="bg-img">
 
         <div style="position: relative;top:-290px">
             <div class="p-6">
@@ -116,8 +116,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 </div>
 
@@ -125,7 +123,7 @@
 
 <style>
     img.bg-img{
-        min-width:1024px;
+        min-width:430px;
         min-height: 100%;
         width:100%;
         height:300px;

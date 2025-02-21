@@ -16,8 +16,9 @@ class PengurusController extends Controller
     public function pengurus_tagihan(Request $request)
     {
         $data_tagihan = $this->getTagihan();
-      
-        return view('pengurus.tagihan.tagihan_menu', compact('data_tagihan'));
+        $data_confirm = $this->list_confirm();
+        $data_approved = $this->list_approved();
+        return view('pengurus.tagihan.tagihan_menu', compact('data_tagihan', 'data_confirm', 'data_approved'));
     }
 
     public function pengurus_role()
@@ -125,6 +126,26 @@ class PengurusController extends Controller
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
         ])->get('https://api.pewaca.id/api/tagihan/');
+        $tagihan_response = json_decode($response->body(), true);
+        return $tagihan_response;
+    }
+
+    public function list_confirm()
+    {
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Token '.Session::get('token'),
+        ])->get('https://api.pewaca.id/api/tagihan-warga/self-list/?status=process');
+        $tagihan_response = json_decode($response->body(), true);
+        return $tagihan_response;
+    }
+
+    public function list_approved()
+    {
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Token '.Session::get('token'),
+        ])->get('https://api.pewaca.id/api/tagihan-warga/self-list/?status=paid');
         $tagihan_response = json_decode($response->body(), true);
         return $tagihan_response;
     }

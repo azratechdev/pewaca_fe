@@ -48,7 +48,7 @@ $isChecker = $warga['is_checker'] ?? false;
         </div>
         <br>
         @include('layouts.elements.flash')
-        @include('layouts.elements.tagihan')
+              
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
             @foreach($stories as $story)
             <div class="w-full max-w-full bg-white overflow-hidden" style="border-bottom: 0.5px solid #a7a7a7;">

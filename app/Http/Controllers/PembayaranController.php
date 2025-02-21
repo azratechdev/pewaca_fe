@@ -20,7 +20,7 @@ class PembayaranController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/tagihan-warga/self-list/?status=unpaid');
+        ])->get('https://api.pewaca.id/api/tagihan-warga/self-list/?status=unpaid,process');
         $tagihan_response = json_decode($response->body(), true);
         return $tagihan_response;
     }
@@ -126,16 +126,13 @@ class PembayaranController extends Controller
             'bukti_pembayaran' => 'required|image|mimes:jpeg,jpg,png|max:2048',
             'nominal' => 'required|string',
             'residence_bank' => 'required|string',
-            'tipe' => 'required|string',
-            'note' => 'nullable|string',
+            'tagihan_id' => 'required|string'
         ]);
-       
+        //dd('here');
         $nominal_original_format = $this->formatNominal($request->nominal);
-
         
         try {
-            //dd('here');
-           
+                   
             $http = Http::withHeaders([
                 'Accept' => 'application/json', // Header untuk menerima JSON
                 'Authorization' => 'Token ' . session::get('token'),
@@ -153,7 +150,8 @@ class PembayaranController extends Controller
             $data = [
                 'amount' => $nominal_original_format,
                 'residence_bank' => $request->residence_bank,
-                'note' => $request->note
+                'note' => $request->note,
+                // 'id' => $request->tagihan_id
             ];
         
             $response = $http->patch(
@@ -162,35 +160,27 @@ class PembayaranController extends Controller
             );
         
             $data_response = json_decode($response->body(), true);
-            //dd()
-            if ($data_response['success'] == true) {
+            //dd($data_response);
+
+            if ($response['success'] == true) {
                 Session::flash('flash-message', [
                     'message' => 'Bukti pembayaran berhasil diunggah',
                     'alert-class' => 'alert-success',
                 ]);
-                return redirect()->route('pembayaran');
+                return redirect()->route('pembayaran.detail_bukti', ['id' => $request->tagihan_id]);
             } else {
-                \Log::warning('Response Error', [
-                    'status' => $response->status(),
-                    'body' => $response->body(),
-                ]);
                 Session::flash('flash-message', [
                     'message' => 'Bukti pembayaran gagal diunggah',
                     'alert-class' => 'alert-warning',
                 ]);
-                return redirect()->route('pembayaran');
+                return redirect()->route('pembayaran.upload_bukti', ['id' => $request->tagihan_id]);
             }
         } catch (\Exception $e) {
-            \Log::error('Gagal mengirim data', [
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString(),
-            ]);
-    
             Session::flash('flash-message', [
                 'message' => 'Gagal Mengirim Data',
                 'alert-class' => 'alert-danger',
             ]);
-            return redirect()->route('pembayaran');
+            return redirect()->route('pembayaran.upload_bukti', ['id' => $request->tagihan_id]);
         }
     }
 
@@ -205,18 +195,13 @@ class PembayaranController extends Controller
     
             $data_response = json_decode($response->body(), true);
 
-            dd($data_response);
-            
-    
+            //dd($data_response);
+                
             if ($response->successful()) {
-                $list = $data_response;
-                return view('pembayaran.detailpembayaran', compact('list'));
-            } else {
-                Session::flash('flash-message', [
-                    'message' => 'Data tidak ditemukan',
-                    'alert-class' => 'alert-warning',
-                ]);
-                return redirect()->route('pembayaran.detailpembayaran', ['id' => $id]);
+                $list = $data_response['data'];
+                $id = $id;
+                //dd($list);
+                return view('pembayaran.detailpembayaran', compact('list', 'id'));
             }
         } catch (\Exception $e) {
             Session::flash('flash-message', [
