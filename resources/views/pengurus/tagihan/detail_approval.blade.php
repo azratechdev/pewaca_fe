@@ -140,12 +140,16 @@
         
             // Tampilkan SweetAlert konfirmasi
             Swal.fire({
-                title: 'Approve tagihan ini.?',
-                text: 'Do you want to approve this bill ?',
-                icon: 'warning',
+                title: 'Approve tagihan ini?',
+                text: 'Harap periksa lebih lanjut.',
                 showCancelButton: true,
                 confirmButtonText: 'Yes, approve it!',
-                cancelButtonText: 'No, cancel!'
+                cancelButtonText: 'No, cancel!',
+                customClass: {
+                    confirmButton: 'swal2-stacked swal2-success-btn', // Tombol utama
+                    cancelButton: 'swal2-stacked swal2-secondary-btn' // Tombol sekunder
+                },
+                buttonsStyling: true
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({

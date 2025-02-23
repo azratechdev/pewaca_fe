@@ -47,8 +47,9 @@ class RegisterController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('https://api.pewaca.id/api/unit/'.$uuid."/");
+        ])->get('https://api.pewaca.id/api/units/code/'.$uuid."/");
         $unit_response = json_decode($response->body(), true);
+        //dd($unit_response);
         return $unit_response['data'];
     }
 

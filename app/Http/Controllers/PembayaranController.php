@@ -184,6 +184,67 @@ class PembayaranController extends Controller
         }
     }
 
+    public function postNote(Request $request)
+    {
+        //dd($request->all());
+        $request->validate([
+            'image' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
+            'tagihan_warga_id' => 'required|string',
+            'warga_id' => 'required|string'
+        ]);
+    
+        
+        try {
+                   
+            $http = Http::withHeaders([
+                'Accept' => 'application/json', // Header untuk menerima JSON
+                'Authorization' => 'Token ' . session::get('token'),
+            ]);
+        
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $http->attach(
+                    'images', 
+                    file_get_contents($file->getRealPath()), 
+                    $file->getClientOriginalName()
+                );
+            }
+        
+            $data = [
+                'note' => $request->note,
+                'tagihan_warga' => $request->tagihan_warga_id,
+                'warga' => $request->warga_id
+              
+            ];
+        
+            $response = $http->patch(
+                'https://api.pewaca.id/api/tagihan-note/create-note/', $data
+            );
+        
+            $data_response = json_decode($response->body(), true);
+          
+            if ($response['success'] == true) {
+                Session::flash('flash-message', [
+                    'message' => 'Catatan berhasil dikirim',
+                    'alert-class' => 'alert-success',
+                ]);
+                return redirect()->route('pembayaran.detail_bukti', ['id' => $request->tagihan_id]);
+            } else {
+                Session::flash('flash-message', [
+                    'message' => 'Catatan gagal dikirim',
+                    'alert-class' => 'alert-warning',
+                ]);
+                return redirect()->route('pembayaran.upload_bukti', ['id' => $request->tagihan_id]);
+            }
+        } catch (\Exception $e) {
+            Session::flash('flash-message', [
+                'message' => 'Gagal Mengirim Data',
+                'alert-class' => 'alert-danger',
+            ]);
+            return redirect()->route('pembayaran.upload_bukti', ['id' => $request->tagihan_id]);
+        }
+    }
+
     public function detailPembayaran($id)
     {
         try {

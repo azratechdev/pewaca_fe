@@ -89,6 +89,7 @@ Route::group(['middleware' => 'auth'], function () {
     //cashout route
     Route::get('/pembayaran', [PembayaranController::class, 'index'])->name('pembayaran');
     Route::post('/pembayaran/postpembayaran', [PembayaranController::class, 'postPembayaran'])->name('postPembayaran');
+    Route::post('/pembayaran/postnote', [PembayaranController::class, 'postNote'])->name('postNote');
     Route::get('/pembayaran/list', [PembayaranController::class, 'list'])->name('pembayaran.list');
     Route::get('/pembayaran/{id}/add', [PembayaranController::class, 'addpembayaran'])->name('pembayaran.add');
     Route::get('/pembayaran/{id}/upload', [PembayaranController::class, 'uploadbukti'])->name('pembayaran.upload_bukti');
