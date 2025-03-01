@@ -64,7 +64,7 @@ class PengurusController extends Controller
         $warga_response = json_decode($response->body(), true);
         $warga = $warga_response['data'];
 
-        return view('pengurus.detail_warga', compact('warga'));
+        return view('pengurus.warga.detail_warga', compact('warga'));
 
     }
 
@@ -72,7 +72,7 @@ class PengurusController extends Controller
     {
         $warga_id = $id;
  
-        return view('pengurus.reject_form', compact('warga_id'));
+        return view('pengurus.warga.reject_form', compact('warga_id'));
 
     }
 
