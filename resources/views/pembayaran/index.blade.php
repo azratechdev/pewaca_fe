@@ -25,7 +25,7 @@
             @include('pembayaran.listpembayaran')
         </div>
         <div class="col-md-12 col-sm-12 pembayaran-riwayat" style="display:none;padding-left:15px;padding-right:15px;">
-            riwayat pembayaran
+            @include('pembayaran.history')
         </div>
         <div class="col-md-12 col-sm-12 postingan-riwayat" style="display:none;padding-left:15px;padding-right:15px;">
             postingan list

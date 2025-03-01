@@ -71,12 +71,14 @@
         </div>
         @endforeach
         <br>
+        @if($status != "paid")
         <div class="p-0 mt-2">
             <a href="{{ route('pembayaran.upload_bukti', ['id' => $id]) }}" 
                 class="btn btn-success w-full bg-green-600 text-white py-2 px-4 rounded-lg">
                 ADD
             </a>
         </div>
+        @endif
     </div>
 </div>
 

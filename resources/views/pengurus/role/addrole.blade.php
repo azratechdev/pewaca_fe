@@ -1,29 +1,27 @@
 @extends('layouts.residence.basetemplate')
 @section('content')
 <style>
-   <style>
-    /* Custom Switch Styles */
-    .custom-switch .form-check-input {
-      width: 4rem;
-      height: 2rem;
-      border-radius: 2rem;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    }
-    .custom-switch .form-check-input:not(:checked) {
-      background-color: #ccc;
-      border-color: #ccc;
-    }
-    .custom-switch .form-check-input:checked {
-      background-color: #198754;
-      border-color: #198754;
-      box-shadow: 0 0 10px rgba(25, 135, 84, 0.5); */
-    }
 
-    #repeat-container {
-      display: none;
-    }
-    
-  </style>
+    /* Atur tampilan Select2 agar sesuai dengan form-floating */
+.select2-container .select2-selection--single {
+    height: calc(3.5rem + 2px); /* Sesuaikan dengan tinggi form-floating */
+    padding: 1rem 0.75rem;
+    border-radius: 0.25rem;
+    border: 1px solid #ced4da;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 100%;
+    top: 0;
+    right: 0.75rem;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 2.5;
+    padding-left: 0;
+    padding-right: 0;
+}
+
 </style>
 <div class="container">
   <div class="container mx-auto px-4">
@@ -44,19 +42,21 @@
       @csrf
         <div>
             <div class="form-floating mt-2">
-                <input type="text" class="form-control @error('nama_pengurus') is-invalid @enderror" value="{{ old('nama_pengurus') }}" id="nama_pengurus" name="nama_pengurus" placeholder=" " required>
-                <label for="nama_pengurus">Nama Pengurus</label>
-                @error('nama_pengurus')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+              <select class="form-control form-select" id="nama_pengurus" name="nama_pengurus" required>
+                <option>-Pilih Warga-</option>
+                @foreach ($wargas as $key => $warga)
+                    <option value="{{ $warga['id'] }}">{{ $warga['full_name'] }}</option>
+                @endforeach
+              </select>
+              <label for="nama_bank">Nama Pengurus</label>
             </div>
 
             <div class="form-floating mt-4">
                 <select class="form-control" id="role" name="role" required>
                     <option value="" disabled selected hidden>- Pilih Role -</option>
-                    <option value="bendahara">Bendahara</option>
-                    <option value="sekretaris">Sekretaris</option>
-                    <option value="humas">Humas</option>
+                    @foreach($roles as $key => $role)
+                    <option value="{{ $role['id'] }}">{{ $role['name'] }}</option>
+                    @endforeach
                 </select>
                 <label for="role">Role</label>
             </div>
@@ -70,7 +70,14 @@
     </form>
   </div>
 </div>
-    
+<script>
+  $(document).ready(function() {
+      $('#nama_pengurus').select2({
+          placeholder: " ",
+          allowClear: true
+      });
+  });
+</script>    
 <script>
      
      const form = document.getElementById('pengurus_role_add');

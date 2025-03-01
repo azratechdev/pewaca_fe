@@ -150,10 +150,50 @@ class PengurusController extends Controller
         return $tagihan_response;
     }
 
+    public function getRole()
+    {
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Token '.Session::get('token'),
+        ])->get('https://api.pewaca.id/api/roles/');
+        $role_response = json_decode($response->body(), true);
+        return  $role_response['results'];
+    }
+
+    public function getWarga()
+    {
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Token '.Session::get('token'),
+        ])->get('https://api.pewaca.id/api/warga/?is_checker=true&isreject=false');
+        $warga_response = json_decode($response->body(), true);
+        return  $warga_response['results'];
+    }
+
     public function addPengurus()
     {
-        return view('pengurus.role.addrole');
+        $roles = $this->getRole();
+        $wargas = $this->getWarga();
+        //dd($wargas);
+        return view('pengurus.role.addrole', compact('roles', 'wargas'));
        
+    }
+
+    public function postRole(Request $request)
+    {
+        dd($request->all());
+        $request->validate([
+            'role' => 'required|integer',
+            'nama_pengurus' => 'required|integer'
+        ]);
+
+        $data = [
+            'warga_id' => $request->nama_pengurus,
+            'role_id' => $request->role,
+        ];
+
+        
+
     }
 
 }

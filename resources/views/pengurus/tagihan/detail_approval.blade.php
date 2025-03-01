@@ -1,6 +1,28 @@
 @extends('layouts.residence.basetemplate')
 
 @section('content')
+<style>
+    /* Custom styling for vertical buttons */
+    .swal2-actions {
+        flex-direction: column !important; /* Set buttons vertically */
+        border-radius: 12px;
+    }
+    .swal2-confirm {
+        width: 350px;
+        border-radius: 12px;
+        border: 1px solid #128C7E;
+        background: #128c7e !important;
+        color: #fff !important;
+    }
+    .swal2-cancel {
+        width: 350px;
+        border-radius: 12px;
+        border: 1px solid #128C7E;
+        background: #fff !important;
+        color: #128c7e !important;
+
+    }
+</style>
 <div class="flex justify-center items-center">
     <div class="bg-white w-full max-w-6xl">
         <!-- Header -->
@@ -136,24 +158,22 @@
             const tagihanId = $(this).data('id');
             const wargaId = $(this).data('warga_id');
         
-           // alert(tagihanId + ' ' + wargaId);return;
+            // alert(tagihanId + ' ' + wargaId);
+            // return;
         
             // Tampilkan SweetAlert konfirmasi
             Swal.fire({
-                title: 'Approve tagihan ini?',
-                text: 'Harap periksa lebih lanjut.',
+                title: 'Approve Tagihan',
+                text: 'Apakah anda yakin ingin menyetujui tagihan ini?',
                 showCancelButton: true,
-                confirmButtonText: 'Yes, approve it!',
-                cancelButtonText: 'No, cancel!',
-                customClass: {
-                    confirmButton: 'swal2-stacked swal2-success-btn', // Tombol utama
-                    cancelButton: 'swal2-stacked swal2-secondary-btn' // Tombol sekunder
-                },
-                buttonsStyling: true
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yakin',
+                cancelButtonText: 'Tidak'
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: 'https://api.pewaca.id/api/warga/verify/',
+                        url: 'https://api.pewaca.id/api/tagihan-warga/'+tagihanId+'/approve/',
                         type: 'POST',
                         headers: {
                             'Accept': 'application/json',
@@ -164,7 +184,7 @@
                             "warga_id": wargaId
                         }),
                         success: function(data) {
-                            Swal.fire('Success!', 'Warga successfully verified.', 'success');
+                            Swal.fire('Success!', 'Tagihan berhasil disetujui.', 'success');
                         },
                         error: function(xhr, status, error) {
                             Swal.fire('Error!', 'Something went wrong, please try again.', 'error');

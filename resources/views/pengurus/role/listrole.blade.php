@@ -1,8 +1,8 @@
 @extends('layouts.residence.basetemplate')
 @section('content')
 <div class="flex justify-center items-center">
-    <div class="bg-white w-full max-w-6xl shadow-lg">
-        <div class="p-6 border-b">
+    <div class="bg-white w-full max-w-6xl">
+        <div class="p-6">
             <h1 class="text-xl font-semibold text-gray-800">
                 <a href="{{ route('pengurus') }}" class="text-dark">
                     <i class="fas fa-arrow-left"></i>
@@ -79,7 +79,7 @@
                 </div>
                 <hr class="mt-2">
 
-                <div class="p-0 mt-2">
+                <div class="p-3 mt-2">
                     <a href="{{ route('addPengurus') }}" 
                         class="btn btn-success w-full bg-green-600 text-white py-2 px-4 rounded-lg">
                         ADD

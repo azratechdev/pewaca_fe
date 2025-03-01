@@ -11,8 +11,11 @@ class PembayaranController extends Controller
     public function index()
     {   
         $data_tagihan = $this->getTagihan();
-        //dd($data_tagihan);
-        return view('pembayaran.index', compact('data_tagihan'));
+        $data_approved = $this->getApproved();
+        //dd($data_approved);
+        $warga_id = session::get('cred')['residence_commites'][0]['warga'];
+        //$residence_id = session::get('cred')['residence_commites'][0]['residence'];
+        return view('pembayaran.index', compact('data_tagihan', 'data_approved', 'warga_id'));
     }
 
     public function getTagihan()
@@ -256,13 +259,20 @@ class PembayaranController extends Controller
     
             $data_response = json_decode($response->body(), true);
 
-            //dd($data_response);
+            $res = Http::withHeaders([
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Token ' . Session::get('token'),
+            ])->get('https://api.pewaca.id/api/tagihan-warga/'.$id.'/');
+    
+            $data_tagihan = json_decode($res->body(), true);
                 
             if ($response->successful()) {
                 $list = $data_response['data'];
                 $id = $id;
-                //dd($list);
-                return view('pembayaran.detailpembayaran', compact('list', 'id'));
+                $status = $data_tagihan['data']['status'];
+                //dd($status);
+                return view('pembayaran.detailpembayaran', compact('list', 'id', 'status'));
             }
         } catch (\Exception $e) {
             Session::flash('flash-message', [
@@ -271,6 +281,16 @@ class PembayaranController extends Controller
             ]);
             return redirect()->route('pembayaran.detailpembayaran', ['id' => $id]);
         }
+    }
+
+    public function getApproved()
+    {
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Token '.Session::get('token'),
+        ])->get('https://api.pewaca.id/api/tagihan-warga/self-list/?status=paid');
+        $tagihan_response = json_decode($response->body(), true);
+        return $tagihan_response;
     }
 
     public function formatNominal($nominal)
