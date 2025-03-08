@@ -1,4 +1,3 @@
-
 @foreach($people_true as $warga)
 <div class="flex justify-left items-left">
     <img 
@@ -13,17 +12,13 @@
         <p class="text-gray-500">
             {{ $warga['user']['email']}}
         </p>
-        {{-- @if($warga['isreject'] == true)
-        <button class="btn btn-sm btn-warning" style="color:white">Rejected</button>
-        @else
-        <button class="btn btn-sm btn-success">Approved</button>
-        @endif --}}
+      
     </div>
 </div>
 <div class="flex justify-between items-center mt-2">
     <div class="flex items-center">
-        <p class="text-warning d-flex align-items-center">
-            {{-- <i class="far fa-clock"></i>&nbsp; Waiting Approval --}}
+        <p class="text-success d-flex align-items-center">
+            <i class="fa fa-check"></i>&nbsp; Approved
         </p>
     </div>
     
@@ -33,10 +28,8 @@
 </div><hr class="mt-2">
 <br>
 @endforeach
-<div class="flex justify-left items-left">
-    <button class="btn btn-success w-100">Add</button>
-</div>
-{{-- <div class="flex justify-between items-center">
+
+<div class="flex justify-between items-center">
     <div class="flex items-center">
         <button class="btn btn-sm btn-info" style="color: white;">< Previous</button>
     </div>
@@ -44,5 +37,5 @@
     <div class="flex items-center">
         <button class="btn btn-sm btn-info" style="color: white;">Next Page ></button>
     </div>
-</div><br> --}}
+</div><br>
 

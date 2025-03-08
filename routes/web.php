@@ -75,7 +75,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/pengurus/role', [PengurusController::class, 'pengurus_role'])->name('pengurus.role');
         Route::get('/pengurus/role/add', [PengurusController::class, 'addPengurus'])->name('addPengurus');
         Route::get('/pengurus/warga', [PengurusController::class, 'pengurus_warga'])->name('pengurus.warga');
-
+        Route::post('/pengurus/role/postrole', [PengurusController::class, 'postRole'])->name('pengurus.postrole');
 
         Route::get('/pengurus/tagihan/list', [TagihanController::class, 'list'])->name('pengurus.tagihan.list');
         Route::get('/pengurus/tagihan/add', [TagihanController::class, 'addTagihan'])->name('tagihan.add');

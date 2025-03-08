@@ -16,7 +16,7 @@
             </div>
             <div class="flex justify-content-between" style="padding:10px;">
                 <input type="hidden" name="warga_id" value="{{ $warga_id }}" />
-                <textarea placeholder="Tulis Alasan Reject" id="alasan" name="alasan" class="w-full p-3 border border-gray-300 rounded-lg" rows="5" required></textarea>
+                <textarea placeholder="Tulis Alasan Reject" id="reason" name="reason" class="w-full p-3 border border-gray-300 rounded-lg" rows="5" required></textarea>
             </div>
             <div class="flex justify-content-between" style="padding:10px;">
                 <button type="submit" class="btn btn-success w-100">Continue</button>

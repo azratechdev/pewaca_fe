@@ -8,28 +8,43 @@
                     <i class="fas fa-arrow-left"></i>
                 </a>&nbsp;Role
             </h1>
+            <br>
+            @include('layouts.elements.flash')
         </div>
-
+      
         <div class="flex justify-center items-center">
             <div class="bg-white w-full max-w-6xl">
+                @foreach($data_pengurus['results'] as $key => $val)
                 <div class="p-6 flex items-center border-t mt-2">
                     <img 
                         alt="User profile picture" 
                         class="w-16 h-16 rounded-full border-2 border-gray-300" 
-                        src="https://via.placeholder.com/150" 
+                        src="{{ $val['warga']['profile_photo'] }}" 
                     />
                     <div class="ml-4">
                         <p class="font-semibold text-lg text-gray-800">
-                            Jhondoe
+                            {{ $val['warga']['full_name'] }}
                         </p>
                         <p class="text-gray-500">
-                            Admin Operasional
+                        @if (!empty($result['role_name']))
+                            {{ $val['role_name'] }}
+                        @else
+                            {{ $val['role'] }}
+                        @endif
                         </p>
                     </div>
                 </div>
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center">
+                        <p class="text-warning d-flex align-items-center"></p>
+                    </div>
+                    <div class="flex items-right">
+                        <a href="" class="btn btn-sm btn-light w-20" style="border-radius:8px;">Hapus</a>
+                    </div>
+                </div>
                 <hr class="mt-2">
-
-                <div class="p-6 flex items-center">
+                @endforeach
+                {{-- <div class="p-6 flex items-center">
                     <img 
                         alt="User profile picture" 
                         class="w-16 h-16 rounded-full border-2 border-gray-300" 
@@ -77,7 +92,7 @@
                         <a href="" class="btn btn-sm btn-light w-20" style="border-radius:8px;">Hapus</a>
                     </div>
                 </div>
-                <hr class="mt-2">
+                <hr class="mt-2"> --}}
 
                 <div class="p-3 mt-2">
                     <a href="{{ route('addPengurus') }}" 

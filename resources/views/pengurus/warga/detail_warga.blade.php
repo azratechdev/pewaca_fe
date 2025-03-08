@@ -13,9 +13,15 @@
             <br>
             <div class="flex justify-between items-center mt-2">
                 <div class="flex items-center">
-                    <p class="text-warning d-flex align-items-center">
-                       <i class="far fa-clock"></i>&nbsp; Waiting Approval
-                    </p>
+                    @if($warga['is_checker'] == false && $warga['isreject'] == false)
+                        <p class="text-warning d-flex align-items-center">
+                            <i class="far fa-clock"></i>&nbsp; Waiting Approval
+                        </p>
+                    @else
+                        <p class="text-success d-flex align-items-center">
+                            <i class="fa fa-check"></i>&nbsp; Approved
+                        </p>
+                    @endif
                 </div>
                 
                 <div class="flex items-center">
@@ -85,10 +91,12 @@
             </div>
         </div>
         <!-- Footer -->
+        @if($warga['is_checker'] == false && $warga['isreject'] == false)
         <div class="flex justify-content-between" style="padding:10px;">
             <a href="{{ route('reject_warga', ['id' => $warga['id']]) }}" class="btn btn-danger w-40 me-2">Reject</a>
             <button class="btn btn-success w-60 approved-warga" data-id="{{ $warga['id'] }}">Approve</button>
         </div>
+        @endif
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

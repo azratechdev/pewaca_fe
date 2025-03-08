@@ -38,11 +38,11 @@
     <div class="mb-3">
         @include('layouts.elements.flash')
     </div>
-    <form id="pengurus_role_add" method="post" action="" enctype="multipart/form-data">
+    <form id="pengurus_role_add" method="post" action="{{ route('pengurus.postrole') }}" enctype="multipart/form-data">
       @csrf
         <div>
             <div class="form-floating mt-2">
-              <select class="form-control form-select" id="nama_pengurus" name="nama_pengurus" required>
+              <select class="form-control form-select" id="nama_pengurus" name="warga_id" required>
                 <option>-Pilih Warga-</option>
                 @foreach ($wargas as $key => $warga)
                     <option value="{{ $warga['id'] }}">{{ $warga['full_name'] }}</option>
@@ -52,7 +52,7 @@
             </div>
 
             <div class="form-floating mt-4">
-                <select class="form-control" id="role" name="role" required>
+                <select class="form-control" id="role" name="role_id" required>
                     <option value="" disabled selected hidden>- Pilih Role -</option>
                     @foreach($roles as $key => $role)
                     <option value="{{ $role['id'] }}">{{ $role['name'] }}</option>

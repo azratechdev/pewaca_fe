@@ -23,8 +23,19 @@ class PengurusController extends Controller
 
     public function pengurus_role()
     {
-        $data_pengurus="";
+        $data_pengurus = $this->getPengurus(); 
+        //dd($data_pengurus);
         return view('pengurus.role.listrole', compact('data_pengurus'));
+    }
+
+    public function getPengurus()
+    {
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Token '.Session::get('token'),
+        ])->get('https://api.pewaca.id/api/residence-commite/');
+        $warga_response = json_decode($response->body(), true);
+        return  $warga_response;
     }
 
     public function pengurus_warga()
@@ -64,6 +75,8 @@ class PengurusController extends Controller
         $warga_response = json_decode($response->body(), true);
         $warga = $warga_response['data'];
 
+        //dd($warga);
+
         return view('pengurus.warga.detail_warga', compact('warga'));
 
     }
@@ -71,7 +84,7 @@ class PengurusController extends Controller
     public function reject_warga($id)
     {
         $warga_id = $id;
- 
+        
         return view('pengurus.warga.reject_form', compact('warga_id'));
 
     }
@@ -81,7 +94,7 @@ class PengurusController extends Controller
         //dd($request->all());
         $request->validate([
             'warga_id' => 'required|integer',
-            'alasan' => 'required|string'
+            'reason' => 'required|string'
         ]);
 
         $data = [
@@ -181,16 +194,51 @@ class PengurusController extends Controller
 
     public function postRole(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
         $request->validate([
-            'role' => 'required|integer',
-            'nama_pengurus' => 'required|integer'
+            'role_id' => 'required|integer',
+            'warga_id' => 'required|integer'
         ]);
 
         $data = [
-            'warga_id' => $request->nama_pengurus,
-            'role_id' => $request->role,
+            'warga' => $request->warga_id,
+            'role' => $request->role_id,
         ];
+
+        try {
+            //dd('here');
+            $http = Http::withHeaders([
+                'Accept' => 'application/json',
+                'Authorization' => 'Token '.Session::get('token'),
+            ]);
+                       
+            $response = $http->post('https://api.pewaca.id/api/residence-commite/', $data);
+
+            $data_response = json_decode($response->body(), true);
+
+            //dd($data_response);
+
+            if ($response['success'] == true) {
+                Session::flash('flash-message', [
+                    'message' => 'Data pengurus Berhasil Disimpan',
+                    'alert-class' => 'alert-success',
+                ]);
+                return redirect()->route('pengurus.role');
+            } else {
+                Session::flash('flash-message', [
+                    'message' => 'Gagal Menyimpan Data',
+                    'alert-class' => 'alert-warning',
+                ]);
+                return redirect()->route('addPengurus');
+            }
+        
+        } catch (\Exception $e) {
+            Session::flash('flash-message', [
+                'message' => 'Gagal Mengirim Data',
+                'alert-class' => 'alert-danger',
+            ]);
+            return redirect()->route('addPengurus');
+        }
 
         
 
