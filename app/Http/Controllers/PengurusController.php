@@ -40,7 +40,8 @@ class PengurusController extends Controller
 
     public function pengurus_warga()
     {
-        $people_false = $this->getWargaFalse(); 
+        $people_false = $this->getWargaFalse();
+        //dd($people_false); 
         $people_true = $this->getWargaTrue();
         return view('pengurus.warga.listwarga', compact('people_false', 'people_true'));
     }
