@@ -1,6 +1,7 @@
 #!/bin/bash
 cd /var/www/pewaca_fe
 git pull origin main
+chmod +x /var/www/pewaca_fe/deploy.sh
 composer install --no-dev --optimize-autoloader
 php artisan cache:clear
 php artisan config:clear
