@@ -19,7 +19,7 @@
 
             <form action="{{ route('pengurus.warga.approved') }}" method="POST" class="flex items-center border border-gray-300 rounded-lg overflow-hidden w-full max-w-6xl">
                 @csrf
-                <input type="text" name="filter" placeholder=" Search..." class="py-2 w-full focus:outline-none">
+                <input type="text" name="filter" placeholder=" Search..." class="py-2 pl-3 w-full focus:outline-none">
                 <button type="submit" class="bg-green-500 text-white px-3 py-3 flex items-center justify-center">
                     <i class="fas fa-search"></i>
                 </button>
