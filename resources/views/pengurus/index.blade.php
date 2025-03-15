@@ -21,11 +21,11 @@
                 <li class="nav-item">
                     <a href="{{ route('pengurus.role') }}" class="nav-link custom-nav-button active">
                         <i class="fa fa-id-card fa-2x"></i> <!-- Ikon History -->
-                        <span class="d-block">Role</span>
+                        <span class="d-block">Peran</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('pengurus.warga') }}" class="nav-link custom-nav-button active">
+                    <a href="{{ route('pengurus.warga.waiting') }}" class="nav-link custom-nav-button active">
                         <i class="fa fa-users fa-2x"></i> <!-- Ikon Warga -->
                         <span class="d-block">Warga</span>
                     </a>

@@ -67,15 +67,19 @@ Route::group(['middleware' => 'auth'], function () {
     // Rute khusus untuk pengurus
     Route::group(['middleware' => 'role:pengurus'], function () {
         Route::get('/pengurus', [PengurusController::class, 'index'])->name('pengurus');
-        Route::get('/warga-detail/{id}', [PengurusController::class, 'detail_warga'])->name('detail_warga');
-        Route::get('/warga-reject/{id}', [PengurusController::class, 'reject_warga'])->name('reject_warga');
-        Route::post('/post-reject', [PengurusController::class, 'post_reject'])->name('post_reject');
+        Route::get('/pengurus/warga/warga-detail/{id}', [PengurusController::class, 'detail_warga'])->name('detail_warga');
+        Route::get('/pengurus/warga/warga-reject/{id}', [PengurusController::class, 'reject_warga'])->name('reject_warga');
+        Route::post('/pengurus/warga/post-reject', [PengurusController::class, 'post_reject'])->name('post_reject');
                 
         Route::get('/pengurus/tagihan', [PengurusController::class, 'pengurus_tagihan'])->name('pengurus.tagihan');
-        Route::get('/pengurus/role', [PengurusController::class, 'pengurus_role'])->name('pengurus.role');
-        Route::get('/pengurus/role/add', [PengurusController::class, 'addPengurus'])->name('addPengurus');
-        Route::get('/pengurus/warga', [PengurusController::class, 'pengurus_warga'])->name('pengurus.warga');
-        Route::post('/pengurus/role/postrole', [PengurusController::class, 'postRole'])->name('pengurus.postrole');
+        Route::get('/pengurus/peran', [PengurusController::class, 'pengurus_role'])->name('pengurus.role');
+        Route::get('/pengurus/peran/add', [PengurusController::class, 'addPengurus'])->name('addPengurus');
+        //Route::get('/pengurus/warga', [PengurusController::class, 'pengurus_warga'])->name('pengurus.warga');
+
+        Route::match(['get', 'post'], '/pengurus/warga/waitingapproval', [PengurusController::class, 'waiting_approval_warga'])->name('pengurus.warga.waiting');
+        Route::match(['get', 'post'], '/pengurus/warga/approved', [PengurusController::class, 'approved_warga'])->name('pengurus.warga.approved');
+
+        Route::post('/pengurus/peran/postrole', [PengurusController::class, 'postRole'])->name('pengurus.postrole');
 
         Route::get('/pengurus/tagihan/list', [TagihanController::class, 'list'])->name('pengurus.tagihan.list');
         Route::get('/pengurus/tagihan/add', [TagihanController::class, 'addTagihan'])->name('tagihan.add');

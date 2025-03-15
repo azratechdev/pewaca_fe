@@ -6,7 +6,7 @@
         <!-- Header -->
         <div class="p-6 border-b">
             <h1 class="text-xl font-semibold text-gray-800">
-                <a href="{{ route('pengurus') }}" class="text-dark">
+                <a href="{{ session('origin_page', route('pengurus')) }}" class="text-dark">
                     <i class="fas fa-arrow-left"></i>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;Info Warga
             </h1>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="flex items-center">
                     <span class="text-gray-600">No Unit <br>
-                       belum ada</span>
+                       {{ $warga['unit_id']['unit_name'] }}</span>
                 </div>
                 <div class="flex items-center">
                     <span class="text-gray-600">NIK <br>

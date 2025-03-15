@@ -38,11 +38,12 @@ $(document).ready(function () {
         const targetOther = $('.waiting-full');
        
         if (targetDiv.css("display") === "none") {
-            targetDiv.css("display", "block");
-            targetOther.css("display", "none"); // Sembunyikan like
+           targetDiv.css("display", "block");
+           targetOther.css("display", "none"); // Sembunyikan like
         } 
         else {
             targetDiv.css("display", "block");
+           
         }
 
     });
@@ -53,9 +54,11 @@ $(document).ready(function () {
        
         if (targetDiv.css("display") === "none") {
             targetDiv.css("display", "block");
+           
             targetOther.css("display", "none"); // Sembunyikan comment
         } else {
             targetDiv.css("display", "block");
+            
         }
 
     });

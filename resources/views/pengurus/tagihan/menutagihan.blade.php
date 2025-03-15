@@ -18,10 +18,10 @@
     @include('pengurus.tagihan.approval')
 </div>
 <div class="col-md-12 col-sm-12 tagihan-approved" style="display:none;padding-left:10px;padding-right:10px;">
-    approved
+    @include('pengurus.tagihan.approved')
 </div>
 <div class="col-md-12 col-sm-12 tagihan-tunggakan" style="display:none;padding-left:10px;padding-right:10px;">
-    tunggakan
+    @include('pengurus.tagihan.tunggakan')
 </div>
 <script>
     $(document).ready(function () {

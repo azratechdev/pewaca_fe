@@ -18,6 +18,7 @@ class PengurusController extends Controller
         $data_tagihan = $this->getTagihan();
         $data_confirm = $this->list_confirm();
         $data_approved = $this->list_approved();
+        //dd($data_confirm);
         return view('pengurus.tagihan.tagihan_menu', compact('data_tagihan', 'data_confirm', 'data_approved'));
     }
 
@@ -51,10 +52,113 @@ class PengurusController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/warga/?page=1&is_checker=false&isreject=');
+        ])->get('https://api.pewaca.id/api/warga/?page=1&is_checker=false');
         $warga_response = json_decode($response->body(), true);
         return  $warga_response['results'];
        
+    }
+
+    public function waiting_approval_warga(Request $request)
+    {
+
+        $filter = $request->input('filter');
+        $page = $request->input('page', 1); // Default page = 1 jika tidak ada  
+
+        if (!empty($filter)) {
+            $page = 1;
+        }
+
+        $apiUrl = 'https://api.pewaca.id/api/warga/?is_checker=false&page='.$page;
+
+        if (!empty($filter)) {
+            $apiUrl .= '&search=' . urlencode($filter);
+        }
+      
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Token ' . Session::get('token'),
+        ])->get($apiUrl);
+        $warga_response = json_decode($response->body(), true);
+        //dd($warga_response);
+      
+        $waiting = $warga_response['results'] ?? [];
+        $next_page = $warga_response['next'] ?? null;
+        $previous_page = $warga_response['previous'] ?? null;
+
+        $total_pages = (int) ceil($warga_response['count'] / 10);
+       
+        $next=null;
+        if($next_page != null){
+            $p = explode('page=', $next_page);
+            $next=$p[1];
+        }
+
+        $current = $page;
+
+        $prev=null;
+        if($previous_page != null){
+            if($page == 2){
+                $prev = 1;
+            }else{
+                $p = explode('page=', $previous_page);
+                $prev=$p[1];
+            }
+            
+        }
+       
+        return view('pengurus.warga.waiting_approval', compact('waiting','current','next','prev','next_page','previous_page', 'total_pages'));
+
+    }
+
+    public function approved_warga(Request $request)
+    {
+        $filter = $request->input('filter');
+        $page = $request->input('page', 1); // Default page = 1 jika tidak ada  
+
+        if (!empty($filter)) {
+            $page = 1;
+        }
+
+        $apiUrl = 'https://api.pewaca.id/api/warga/?is_checker=true&isreject=false&page='.$page;
+
+        if (!empty($filter)) {
+            $apiUrl .= '&search=' . urlencode($filter);
+        }
+      
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Token ' . Session::get('token'),
+        ])->get($apiUrl);
+        $warga_response = json_decode($response->body(), true);
+        //dd($warga_response);
+      
+        $approved = $warga_response['results'] ?? [];
+        $next_page = $warga_response['next'] ?? null;
+        $previous_page = $warga_response['previous'] ?? null;
+
+        $total_pages = (int) ceil($warga_response['count'] / 10);
+       
+        $next=null;
+        if($next_page != null){
+            $p = explode('page=', $next_page);
+            $next=$p[1];
+        }
+
+        $current = $page;
+
+        $prev=null;
+        if($previous_page != null){
+            if($page == 2){
+                $prev = 1;
+            }else{
+                $p = explode('page=', $previous_page);
+                $prev=$p[1];
+            }
+            
+        }
+        //dd($next);
+        
+        return view('pengurus.warga.approved', compact('approved','current','next','prev','next_page','previous_page', 'total_pages'));
     }
 
     public function getWargaTrue()
