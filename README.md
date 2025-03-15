@@ -1,1 +1,2 @@
-# pewaca_fe
+# residence-frontend
+Aplikasi pengurus dan warga residence.
