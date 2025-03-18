@@ -58,7 +58,7 @@ class PembayaranController extends Controller
             $count = $tagihan_response['count'];
         }
         else{
-            $count = 10;
+            $count = 5;
         }
 
         $total_pages = (int) ceil($count / 10);
