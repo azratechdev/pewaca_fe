@@ -6,9 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" sizes="16x16" href="{{ url('assets/plugins/images/logo.png') }}">
   <title>Pewaca</title>
-  
-  <!-- JS -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script src="{{ url('assets/js/jquery.min.js') }}"></script>
   
   <!-- CSS -->
   <link href="{{ url('assets/bootstrap/dist/css/bootstrap-5.min.css') }}" rel="stylesheet">

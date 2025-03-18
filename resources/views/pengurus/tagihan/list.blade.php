@@ -77,6 +77,7 @@
 </div>
 <hr class="mt-3 mb-2">
 @endforeach
+
 <div class="p-0 mt-2">
     <a href="{{ route('tagihan.add') }}" 
         class="btn btn-success w-full bg-green-600 text-white py-2 px-4 rounded-lg">

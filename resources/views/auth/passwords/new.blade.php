@@ -7,11 +7,9 @@
   <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/plugins/images/logo.png') }}">
   <title>Pewaca</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-   <!-- CSS Select2 -->
-   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
   <style>
     .navbar-custom {
@@ -109,7 +107,7 @@
 
                         <div class="form-floating mb-3">
                             <input type="password" class="form-control"  @error('confirm_password') is-invalid @enderror" value="{{ old('confirm_password') }}" name="confirm_password" id="confirm_password" placeholder="Password">
-                            <label for="floatingPassword">Kofirmasi Kata Sandi Baru</label>
+                            <label for="floatingPassword">Konfirmasi Kata Sandi Baru</label>
                             @error('confirm_password')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -142,7 +140,7 @@
 
   <!-- Bootstrap JS -->
  
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="{{ url('assets/js/jquery.min.js') }}"></script>
     
   <!-- JS Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

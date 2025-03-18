@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/plugins/images/logo.png') }}">
   <title>Pewaca</title>
+  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
@@ -98,23 +99,23 @@
         </div>
     </div>
   </div>
-{{-- 
-  <div class="fixed-bottom bg-white py-2 border-t border-gray-200">
-    <div class="flex justify-center items-center py-2">
-        <i class="fas fa-lock text-gray-500"></i>
-        <span class="ml-2 text-gray-700">lingka.id</span>
-    </div>
-    <div class="flex justify-center">
-        <div class="w-25 h-1 bg-black rounded-full"></div>
-    </div>
-  </div> --}}
-
-  <!-- Bootstrap JS -->
-     
-  <!-- JS Bootstrap -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
   
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url('assets/js/jquery.min.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    $('#loginform').on('submit', function(e) {
+        Swal.fire({
+            text: 'Loading...',
+            allowOutsideClick: false, 
+            allowEscapeKey: false,  
+            didOpen: () => {
+                Swal.showLoading(); 
+            }
+        });
+      });
+  </script>
   <script>
     function togglePasswordVisibility() {
         const passwordInput = document.getElementById('password');

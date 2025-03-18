@@ -72,12 +72,22 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/pengurus/warga/post-reject', [PengurusController::class, 'post_reject'])->name('post_reject');
                 
         Route::get('/pengurus/tagihan', [PengurusController::class, 'pengurus_tagihan'])->name('pengurus.tagihan');
-        Route::get('/pengurus/peran', [PengurusController::class, 'pengurus_role'])->name('pengurus.role');
+        
+        //new route pengurus biaya
+        Route::match(['get', 'post'], '/pengurus/biaya/list', [PengurusController::class, 'list_biaya'])->name('pengurus.biaya.list');
+        Route::match(['get', 'post'], '/pengurus/biaya/konfirmasi', [PengurusController::class, 'list_konfirmasi'])->name('pengurus.biaya.konfirmasi');
+        Route::match(['get', 'post'], '/pengurus/biaya/disetujui', [PengurusController::class, 'list_disetujui'])->name('pengurus.biaya.disetujui');
+        Route::match(['get', 'post'], '/pengurus/biaya/tunggakan', [PengurusController::class, 'list_tunggakan'])->name('pengurus.biaya.tunggakan');
+        //
+
+        Route::match(['get', 'post'], '/pengurus/peran', [PengurusController::class, 'pengurus_role'])->name('pengurus.role');
         Route::get('/pengurus/peran/add', [PengurusController::class, 'addPengurus'])->name('addPengurus');
         //Route::get('/pengurus/warga', [PengurusController::class, 'pengurus_warga'])->name('pengurus.warga');
 
+        //new route pengurus warga
         Route::match(['get', 'post'], '/pengurus/warga/waitingapproval', [PengurusController::class, 'waiting_approval_warga'])->name('pengurus.warga.waiting');
         Route::match(['get', 'post'], '/pengurus/warga/approved', [PengurusController::class, 'approved_warga'])->name('pengurus.warga.approved');
+        //
 
         Route::post('/pengurus/peran/postrole', [PengurusController::class, 'postRole'])->name('pengurus.postrole');
 

@@ -23,80 +23,78 @@
 }
 
 </style>
-<div class="container">
-  <div class="container mx-auto px-4">
-    <div class="flex justify-between items-center" style="padding-top: 10px;">
-      <div class="flex items-center">
-        <h1 class="text-xl font-semibold text-gray-800">
-          <a href="{{ route('pengurus') }}" class="text-dark">
-              <i class="fas fa-arrow-left"></i>
-          </a>&nbsp;Add Pengurus
-      </h1>
-      </div>
-    </div>
-    <br>
-    <div class="mb-3">
-        @include('layouts.elements.flash')
-    </div>
-    <form id="pengurus_role_add" method="post" action="{{ route('pengurus.postrole') }}" enctype="multipart/form-data">
-      @csrf
-        <div>
-            <div class="form-floating mt-2">
-              <select class="form-control form-select" id="nama_pengurus" name="warga_id" required>
-                <option>-Pilih Warga-</option>
-                @foreach ($wargas as $key => $warga)
-                    <option value="{{ $warga['id'] }}">{{ $warga['full_name'] }}</option>
-                @endforeach
-              </select>
-              <label for="nama_bank">Nama Pengurus</label>
-            </div>
 
-            <div class="form-floating mt-4">
-                <select class="form-control" id="role" name="role_id" required>
-                    <option value="" disabled selected hidden>- Pilih Role -</option>
-                    @foreach($roles as $key => $role)
-                    <option value="{{ $role['id'] }}">{{ $role['name'] }}</option>
-                    @endforeach
-                </select>
-                <label for="role">Role</label>
-            </div>
+<div class="flex justify-center items-center">
+    <div class="bg-white w-full max-w-6xl">
+        <div class="p-6 border-b">
+            <h1 class="text-xl font-semibold text-gray-800">
+                <a href="{{ route('pengurus.role') }}" class="text-dark">
+                    <i class="fas fa-arrow-left"></i>
+                </a>&nbsp;Add Pengurus
+            </h1>
+            <br>
+            @include('layouts.elements.flash')
         </div>
         <br>
-        <div class="row">
-            <div class="col-md-12">
+        <div class="col-md-12 col-sm-12" style="padding-left:10px;padding-right:10px;">
+            <form id="pengurus_role_add" method="post" action="{{ route('pengurus.postrole') }}" enctype="multipart/form-data">
+                @csrf
+                <div>
+                    <div class="form-floating mt-2">
+                    <select class="form-control form-select select2" id="nama_pengurus" name="warga_id" required>
+                        <option>-Pilih Warga-</option>
+                        @foreach ($wargas as $key => $warga)
+                            <option value="{{ $warga['id'] }}">{{ $warga['full_name'] }}</option>
+                        @endforeach
+                    </select>
+                    <label for="nama_bank">Nama Pengurus</label>
+                    </div>
+        
+                    <div class="form-floating mt-4">
+                        <select class="form-control" id="role" name="role_id" required>
+                            <option value="" disabled selected hidden>- Pilih Role -</option>
+                            @foreach($roles as $key => $role)
+                            <option value="{{ $role['id'] }}">{{ $role['name'] }}</option>
+                            @endforeach
+                        </select>
+                        <label for="role">Role</label>
+                    </div>
+                </div>
+                <br>
                 <button type="submit" id="submitBtn" class="btn btn-success form-control" disabled>Submit</button>
-            </div>
+            </form>
         </div>
-    </form>
-  </div>
+    </div>
 </div>
 <script>
-  $(document).ready(function() {
-      $('#nama_pengurus').select2({
-          placeholder: " ",
-          allowClear: true
-      });
-  });
+$(document).ready(function() {
+        setTimeout(function() {
+            $('#nama_pengurus, #role').select2({
+                placeholder: "Pilih salah satu",
+                allowClear: true
+            });
+        }, 500);
+});
 </script>    
 <script>
-     
-     const form = document.getElementById('pengurus_role_add');
-     const submitBtn = document.getElementById('submitBtn');
-     
-   
-     function checkFormValidity() {
+    
+    const form = document.getElementById('pengurus_role_add');
+    const submitBtn = document.getElementById('submitBtn');
+    
+    
+    function checkFormValidity() {
         
-         const isValid = [...form.querySelectorAll('input[required], select[required]')].every(input => {
-             return input.value.trim() !== '';
-         });
-      
-         submitBtn.disabled = !isValid;
-     }
+        const isValid = [...form.querySelectorAll('input[required], select[required]')].every(input => {
+            return input.value.trim() !== '';
+        });
+    
+        submitBtn.disabled = !isValid;
+    }
 
-     form.addEventListener('input', checkFormValidity);
+    form.addEventListener('input', checkFormValidity);
 
-     checkFormValidity();
- 
+    checkFormValidity();
+
 </script>
 
-@endsection 
+@endsection

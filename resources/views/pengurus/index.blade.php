@@ -13,7 +13,7 @@
         <div class="p-2">
             <ul class="nav nav-tabs" role="tablist" style="border:none;">
                 <li class="nav-item">
-                    <a href="{{ route('pengurus.tagihan') }}" class="nav-link custom-nav-button active">
+                    <a href="{{ route('pengurus.biaya.list') }}" class="nav-link custom-nav-button active">
                         <i class="fa fa-check-circle fa-2x"></i> <!-- Ikon Approval -->
                         <span class="d-block">Biaya</span>
                     </a>

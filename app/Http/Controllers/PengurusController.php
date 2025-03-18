@@ -22,22 +22,66 @@ class PengurusController extends Controller
         return view('pengurus.tagihan.tagihan_menu', compact('data_tagihan', 'data_confirm', 'data_approved'));
     }
 
-    public function pengurus_role()
+    public function pengurus_role(Request $request)
     {
-        $data_pengurus = $this->getPengurus(); 
-        //dd($data_pengurus);
-        return view('pengurus.role.listrole', compact('data_pengurus'));
-    }
 
-    public function getPengurus()
-    {
+        $filter = $request->input('filter');
+        $page = $request->input('page', 1); // Default page = 1 jika tidak ada  
+
+        if (!empty($filter)) {
+            $page = 1;
+        }
+
+        $apiUrl = 'https://api.pewaca.id/api/residence-commite/?page='.$page;
+
+        if (!empty($filter)) {
+            $apiUrl .= '&search=' . urlencode($filter);
+        }
+      
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/residence-commite/');
+            'Authorization' => 'Token ' . Session::get('token'),
+        ])->get($apiUrl);
         $warga_response = json_decode($response->body(), true);
-        return  $warga_response;
+        //dd($warga_response);
+      
+        $pengurus = $warga_response['results'] ?? [];
+        $next_page = $warga_response['next'] ?? null;
+        $previous_page = $warga_response['previous'] ?? null;
+
+        $total_pages = (int) ceil($warga_response['count'] / 10);
+       
+        $next=null;
+        if($next_page != null){
+            $p = explode('page=', $next_page);
+            $next=$p[1];
+        }
+
+        $current = $page;
+
+        $prev=null;
+        if($previous_page != null){
+            if($page == 2){
+                $prev = 1;
+            }else{
+                $p = explode('page=', $previous_page);
+                $prev=$p[1];
+            }
+            
+        }
+       
+        return view('pengurus.role.list_role', compact('pengurus','current','next','prev','next_page','previous_page', 'total_pages'));
     }
+
+    // public function getPengurus()
+    // {
+    //     $response = Http::withHeaders([
+    //         'Accept' => 'application/json',
+    //         'Authorization' => 'Token '.Session::get('token'),
+    //     ])->get('https://api.pewaca.id/api/residence-commite/');
+    //     $warga_response = json_decode($response->body(), true);
+    //     return  $warga_response;
+    // }
 
     public function pengurus_warga()
     {
@@ -235,6 +279,228 @@ class PengurusController extends Controller
             return redirect()->route('pengurus');
         }
  
+    }
+
+    public function list_biaya(Request $request)
+    {
+        
+        $filter = $request->input('filter');
+        $page = $request->input('page', 1); // Default page = 1 jika tidak ada  
+
+        if (!empty($filter)) {
+            $page = 1;
+        }
+
+        $apiUrl = 'https://api.pewaca.id/api/tagihan/?page='.$page;
+
+        if (!empty($filter)) {
+            $apiUrl .= '&search=' . urlencode($filter);
+        }
+      
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Token ' . Session::get('token'),
+        ])->get($apiUrl);
+        $biaya_response = json_decode($response->body(), true);
+        //dd($warga_response);
+      
+        $biaya = $biaya_response['results'] ?? [];
+        $next_page = $biaya_response['next'] ?? null;
+        $previous_page = $biaya_response['previous'] ?? null;
+
+        $total_pages = (int) ceil($biaya_response['count'] / 10);
+       
+        $next=null;
+        if($next_page != null){
+            $p = explode('page=', $next_page);
+            $next=$p[1];
+        }
+
+        $current = $page;
+
+        $prev=null;
+        if($previous_page != null){
+            if($page == 2){
+                $prev = 1;
+            }else{
+                $p = explode('page=', $previous_page);
+                $prev=$p[1];
+            }
+            
+        }
+        //dd($next);
+        
+        return view('pengurus.tagihan.list_biaya', compact('biaya','current','next','prev','next_page','previous_page', 'total_pages'));
+    }
+
+    public function list_konfirmasi(Request $request)
+    {
+        
+        $filter = $request->input('filter');
+        $page = $request->input('page', 1); // Default page = 1 jika tidak ada  
+
+        if (!empty($filter)) {
+            $page = 1;
+        }
+
+        $apiUrl = 'https://api.pewaca.id/api/tagihan-warga/self-list/?status=process&page='.$page;
+
+        if (!empty($filter)) {
+            $apiUrl .= '&search=' . urlencode($filter);
+        }
+      
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Token ' . Session::get('token'),
+        ])->get($apiUrl);
+        $konfirmasi_response = json_decode($response->body(), true);
+        //dd($warga_response);
+      
+        $konfirmasi = $konfirmasi_response['data'] ?? [];
+        $next_page = $konfirmasi_response['next'] ?? null;
+        $previous_page = $konfirmasi_response['previous'] ?? null;
+         
+        if(isset($konfirmasi_response['count'])){
+            $count = $konfirmasi_response['count'];
+        }
+        else{
+            $count = 10;
+        }
+        $total_pages = (int) ceil($count / 10);
+       
+        $next=null;
+        if($next_page != null){
+            $p = explode('page=', $next_page);
+            $next=$p[1];
+        }
+
+        $current = $page;
+
+        $prev=null;
+        if($previous_page != null){
+            if($page == 2){
+                $prev = 1;
+            }else{
+                $p = explode('page=', $previous_page);
+                $prev=$p[1];
+            }
+            
+        }
+        //dd($next);
+        
+        return view('pengurus.tagihan.list_konfirmasi', compact('konfirmasi','current','next','prev','next_page','previous_page', 'total_pages'));
+    }
+
+    public function list_disetujui(Request $request)
+    {
+        $filter = $request->input('filter');
+        $page = $request->input('page', 1); // Default page = 1 jika tidak ada  
+
+        if (!empty($filter)) {
+            $page = 1;
+        }
+
+        $apiUrl = 'https://api.pewaca.id/api/tagihan-warga/self-list/?status=paid&page='.$page;
+
+        if (!empty($filter)) {
+            $apiUrl .= '&search=' . urlencode($filter);
+        }
+      
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Token ' . Session::get('token'),
+        ])->get($apiUrl);
+        $disetujui_response = json_decode($response->body(), true);
+        //dd($warga_response);
+      
+        $disetujui = $disetujui_response['data'] ?? [];
+        $next_page = $disetujui_response['next'] ?? null;
+        $previous_page = $disetujui_response['previous'] ?? null;
+         
+        if(isset($disetujui_response['count'])){
+            $count = $disetujui_response['count'];
+        }
+        else{
+            $count = 10;
+        }
+        $total_pages = (int) ceil($count / 10);
+       
+        $next=null;
+        if($next_page != null){
+            $p = explode('page=', $next_page);
+            $next=$p[1];
+        }
+
+        $current = $page;
+
+        $prev=null;
+        if($previous_page != null){
+            if($page == 2){
+                $prev = 1;
+            }else{
+                $p = explode('page=', $previous_page);
+                $prev=$p[1];
+            }
+            
+        }
+
+        return view('pengurus.tagihan.list_disetujui', compact('disetujui','current','next','prev','next_page','previous_page', 'total_pages'));
+    }
+
+    public function list_tunggakan(Request $request)
+    {
+        $filter = $request->input('filter');
+        $page = $request->input('page', 1); // Default page = 1 jika tidak ada  
+
+        if (!empty($filter)) {
+            $page = 1;
+        }
+
+        $apiUrl = 'https://api.pewaca.id/api/tagihan-warga/self-list/?status=unpaid&end_due_date=2025-03-18&page='.$page;
+
+        if (!empty($filter)) {
+            $apiUrl .= '&search=' . urlencode($filter);
+        }
+      
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Token ' . Session::get('token'),
+        ])->get($apiUrl);
+        $tunggakan_response = json_decode($response->body(), true);
+        //dd($warga_response);
+      
+        $tunggakan = $tunggakan_response['data'] ?? [];
+        $next_page = $tunggakan_response['next'] ?? null;
+        $previous_page = $tunggakan_response['previous'] ?? null;
+         
+        if(isset($tunggakan_response['count'])){
+            $count = $tunggakan_response['count'];
+        }
+        else{
+            $count = 10;
+        }
+        $total_pages = (int) ceil($count / 10);
+       
+        $next=null;
+        if($next_page != null){
+            $p = explode('page=', $next_page);
+            $next=$p[1];
+        }
+
+        $current = $page;
+
+        $prev=null;
+        if($previous_page != null){
+            if($page == 2){
+                $prev = 1;
+            }else{
+                $p = explode('page=', $previous_page);
+                $prev=$p[1];
+            }
+            
+        }
+
+        return view('pengurus.tagihan.list_tunggakan', compact('tunggakan','current','next','prev','next_page','previous_page', 'total_pages'));
     }
 
     public function getTagihan()
