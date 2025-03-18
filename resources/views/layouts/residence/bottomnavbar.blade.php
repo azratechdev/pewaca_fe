@@ -27,7 +27,7 @@
       @endif
 
       <li class="nav-item">
-        <a href="{{ route('pembayaran') }}" class="nav-link text-center {{ Request::is('pembayaran') ? 'active' : '' }}" @if (!$isPengurus && !$isChecker) cursor-not-allowed text-gray-400 @endif" 
+        <a href="{{ route('pembayaran.list') }}" class="nav-link text-center {{ Request::is('pembayaran,list') ? 'active' : '' }}" @if (!$isPengurus && !$isChecker) cursor-not-allowed text-gray-400 @endif" 
         style="@if (!$isPengurus && !$isChecker) pointer-events: none; @endif">
           <i class="fa fa-receipt menu-icon"></i> <!-- Ikon Purchase Order -->
           <span class="small d-block menu-text">Cashout</span>

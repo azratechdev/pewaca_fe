@@ -28,7 +28,7 @@
         <!-- Header -->
         <div class="p-6 border-b">
             <h1 class="text-xl font-semibold text-gray-800">
-                <a href="{{ route('pengurus') }}" class="text-dark">
+                <a href="{{ session('origin_page', route('pengurus')) }}" class="text-dark">
                     <i class="fas fa-arrow-left"></i>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;Detail Pembayaran Tagihan
             </h1>

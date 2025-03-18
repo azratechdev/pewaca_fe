@@ -104,7 +104,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/pembayaran', [PembayaranController::class, 'index'])->name('pembayaran');
     Route::post('/pembayaran/postpembayaran', [PembayaranController::class, 'postPembayaran'])->name('postPembayaran');
     Route::post('/pembayaran/postnote', [PembayaranController::class, 'postNote'])->name('postNote');
-    Route::get('/pembayaran/list', [PembayaranController::class, 'list'])->name('pembayaran.list');
+
+    Route::match(['get', 'post'], '/pembayaran/list', [PembayaranController::class, 'list_tagihan'])->name('pembayaran.list');
+    Route::match(['get', 'post'], '/pembayaran/history', [PembayaranController::class, 'list_history'])->name('pembayaran.history');
+    Route::match(['get', 'post'], '/pembayaran/psotingan', [PembayaranController::class, 'list_postingan'])->name('postingan');
+
     Route::get('/pembayaran/{id}/add', [PembayaranController::class, 'addpembayaran'])->name('pembayaran.add');
     Route::get('/pembayaran/{id}/upload', [PembayaranController::class, 'uploadbukti'])->name('pembayaran.upload_bukti');
     Route::get('/pembayaran/{id}/detail', [PembayaranController::class, 'detailPembayaran'])->name('pembayaran.detail_bukti');

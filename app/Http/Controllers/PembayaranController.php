@@ -28,32 +28,131 @@ class PembayaranController extends Controller
         return $tagihan_response;
     }
   
-    // public function list()
-    // {
-    //     try {
-    //         $response = Http::withHeaders([
-    //             'Accept' => 'application/json',
-    //             'Content-Type' => 'application/json',
-    //             'Authorization' => 'Token ' . Session::get('token'),
-    //         ])->get('https://api.pewaca.id/api/tagihan-warga/?status=unpaid');
-    
-    //         $data_response = json_decode($response->body(), true);
-    //         $data_tagihan = $data_response;
-    //         if ($response->successful()) {
-    //             return view('pembayaran.listpembayaran', compact('data_tagihan'));
-    //         } else {
-    //             \Log::warning('Response Error', [
-    //                 'status' => $response->status(),
-    //                 'body' => $response->body(),
-    //             ]);
-    //         }
-    //     } catch (\Exception $e) {
-    //         \Log::error('Gagal mendapatkan data tagihan', [
-    //             'error' => $e->getMessage(),
-    //             'trace' => $e->getTraceAsString(),
-    //         ]);
-    //     }
-    // }
+    public function list_tagihan(Request $request)
+    {
+        $filter = $request->input('filter');
+        $page = $request->input('page', 1); // Default page = 1 jika tidak ada  
+
+        if (!empty($filter)) {
+            $page = 1;
+        }
+
+        $apiUrl = 'https://api.pewaca.id/api/tagihan-warga/?status=unpaid&page='.$page;
+
+        if (!empty($filter)) {
+            $apiUrl .= '&search=' . urlencode($filter);
+        }
+      
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Token ' . Session::get('token'),
+        ])->get($apiUrl);
+        $tagihan_response = json_decode($response->body(), true);
+        //dd($tagihan_response);
+      
+        $data_tagihan = $tagihan_response['data'] ?? [];
+        $next_page = $tagihan_response['next'] ?? null;
+        $previous_page = $tagihan_response['previous'] ?? null;
+
+        if(isset($tagihan_response['count'])){
+            $count = $tagihan_response['count'];
+        }
+        else{
+            $count = 10;
+        }
+
+        $total_pages = (int) ceil($count / 10);
+       
+        $next=null;
+        if($next_page != null){
+            $p = explode('page=', $next_page);
+            $next=explode('&', $p[1]);
+            $next=$next[0];
+        }
+
+        $current = $page;
+
+        $prev=null;
+        if($previous_page != null){
+            if($page == 2){
+                $prev = 1;
+            }else{
+                $p = explode('page=', $previous_page);
+                $prev=explode('&', $p[1]);
+                $prev=$prev[0];
+            }
+            
+        }
+        
+        
+        return view('pembayaran.list_pembayaran', compact('data_tagihan','current','next','prev','next_page','previous_page', 'total_pages'));
+       
+    }
+
+    public function list_history (Request $request)
+    {
+        $filter = $request->input('filter');
+        $page = $request->input('page', 1); // Default page = 1 jika tidak ada  
+
+        if (!empty($filter)) {
+            $page = 1;
+        }
+
+        $apiUrl = 'https://api.pewaca.id/api/tagihan-warga/self-list/?status=paid&page='.$page;
+
+        if (!empty($filter)) {
+            $apiUrl .= '&search=' . urlencode($filter);
+        }
+      
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Token ' . Session::get('token'),
+        ])->get($apiUrl);
+        $tagihan_response = json_decode($response->body(), true);
+        //dd($tagihan_response);
+      
+        $data_tagihan = $tagihan_response['data'] ?? [];
+        $next_page = $tagihan_response['next'] ?? null;
+        $previous_page = $tagihan_response['previous'] ?? null;
+
+        if(isset($tagihan_response['count'])){
+            $count = $tagihan_response['count'];
+        }
+        else{
+            $count = 5;
+        }
+
+        $total_pages = (int) ceil($count / 10);
+       
+        $next=null;
+        if($next_page != null){
+            $p = explode('page=', $next_page);
+            $next=explode('&', $p[1]);
+            $next=$next[0];
+        }
+
+        $current = $page;
+
+        $prev=null;
+        if($previous_page != null){
+            if($page == 2){
+                $prev = 1;
+            }else{
+                $p = explode('page=', $previous_page);
+                $prev=explode('&', $p[1]);
+                $prev=$prev[0];
+            }
+            
+        }
+        $warga_id = session::get('cred')['residence_commites'][0]['warga'];
+
+        return view('pembayaran.list_history', compact('warga_id','data_tagihan','current','next','prev','next_page','previous_page', 'total_pages'));
+    }
+
+    public function list_postingan(Request $request)
+    {
+         return view('pembayaran.list_postingan');
+    }
 
     
     public function addpembayaran($id)

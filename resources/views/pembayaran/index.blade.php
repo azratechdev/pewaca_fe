@@ -22,7 +22,7 @@
         </div>  
 
         <div class="col-md-12 col-sm-12 pembayaran-list" style="display:block;padding-left:15px;padding-right:15px;">
-            @include('pembayaran.listpembayaran')
+            @include('pembayaran.list')
         </div>
         <div class="col-md-12 col-sm-12 pembayaran-riwayat" style="display:none;padding-left:15px;padding-right:15px;">
             @include('pembayaran.history')
