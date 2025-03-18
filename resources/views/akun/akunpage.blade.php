@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="flex justify-center items-center">
-    <div class="bg-white w-full max-w-6xl rounded-lg shadow-lg">
+    <div class="bg-white w-full max-w-6xl">
         <div class="p-4 border-b">
             <h1 class="text-lg font-semibold">
             Akun

@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="{{ url('assets/plugins/images/logo.png') }}">
   <title>Pewaca</title>
 
-  <script src="{{ url('assets/js/jquery.min.js') }}"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   
   <!-- CSS -->
   <link href="{{ url('assets/bootstrap/dist/css/bootstrap-5.min.css') }}" rel="stylesheet">

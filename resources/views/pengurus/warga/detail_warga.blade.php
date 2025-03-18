@@ -43,6 +43,10 @@
                     /></span>
                 </div>
                 <div class="flex items-center">
+                    <span class="text-gray-600">Nama<br>
+                       {{ $warga['full_name'] }}</span>
+                </div>
+                <div class="flex items-center">
                     <span class="text-gray-600">No Unit <br>
                        {{ $warga['unit_id']['unit_name'] }}</span>
                 </div>
@@ -56,7 +60,8 @@
                 </div>
                 <div class="flex items-center">
                     <span class="text-gray-600">Tanggal Lahir <br>
-                       belum ada</span>
+                        {{ \Carbon\Carbon::parse($warga['date_of_birth'])->locale('id')->translatedFormat('d F Y') }}
+                    </span>
                 </div>
                 <div class="flex items-center">
                     <span class="text-gray-600">Agama <br>
@@ -64,13 +69,14 @@
                 </div>
                 <div class="flex items-center">
                     <span class="text-gray-600">Tempat Lahir <br>
-                       belum ada</span>
+                       {{ $warga['place_of_birth'] }}</span>
                 </div>
                 <hr>
                 <div class="flex items-center">
                     <span class="text-gray-600">Status <br>
                         {{ $warga['marital_status']['name'] }}</span>
                 </div>
+                @if($warga['marital_status']['name'] == "Kawin")
                 <div class="flex items-center">
                     <span class="text-gray-600">Buku Nikah <br>
                         <img 
@@ -79,14 +85,15 @@
                         src="https://storage.googleapis.com/a1aa/image/ZoAiGzvASA4pG9oiGwu50UAjrOG21IrMhFOGfFnKGy1xU85JA.jpg"
                     /></span>
                 </div>
+                @endif
                 <hr>
                 <div class="flex items-center">
                     <span class="text-gray-600">Pekerjaan <br>
-                        Belum Ada</span>
+                        {{ $warga['occupation']['name'] }}</span>
                 </div>
                 <div class="flex items-center">
                     <span class="text-gray-600">Pendidikan <br>
-                        Belum Ada</span>
+                        {{ $warga['education']['name'] }}</span>
                 </div>
             </div>
         </div>
