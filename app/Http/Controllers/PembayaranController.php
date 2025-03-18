@@ -37,7 +37,7 @@ class PembayaranController extends Controller
             $page = 1;
         }
 
-        $apiUrl = 'https://api.pewaca.id/api/tagihan-warga/?status=unpaid&page='.$page;
+        $apiUrl = 'https://api.pewaca.id/api/tagihan-warga/?status=unpaid,process&page='.$page;
 
         if (!empty($filter)) {
             $apiUrl .= '&search=' . urlencode($filter);
