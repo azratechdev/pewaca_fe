@@ -9,7 +9,7 @@
             </h1>
         </div>
         <div class="p-4 flex items-center border-b">
-            <img alt="User profile picture" class="w-12 h-12 rounded-full" height="50" src="https://storage.googleapis.com/a1aa/image/2QGMMarsNI53Bxy48yTm22JJOwlxwcOo3GvxZ9rngfsIgl6JA.jpg" width="50"/>
+            <img alt="User profile picture" class="w-12 h-12 rounded-full" height="50" src="{{ $warga['profile_photo'] }}" width="50"/>
             <div class="ml-4">
                 <p class="font-semibold">
                     {{ $user['username'] }}

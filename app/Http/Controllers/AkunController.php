@@ -14,7 +14,7 @@ class AkunController extends Controller
     {
         $user = Session::get('cred');
         $warga = Session::get('warga');
-        //dd($user);
+        //dd($warga);
         return view('akun.akunpage', compact('user', 'warga'));
     }
 
