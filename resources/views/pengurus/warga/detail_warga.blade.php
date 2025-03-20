@@ -82,7 +82,7 @@
                         <img 
                         alt="Belum ada" 
                         class="profile-picture rounded w-32 h-24" 
-                        src="https://storage.googleapis.com/a1aa/image/ZoAiGzvASA4pG9oiGwu50UAjrOG21IrMhFOGfFnKGy1xU85JA.jpg"
+                        src="{{ $warga['marriagePhoto'] }}"
                     /></span>
                 </div>
                 @endif
