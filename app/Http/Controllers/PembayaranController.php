@@ -144,6 +144,7 @@ class PembayaranController extends Controller
             }
             
         }
+        dd(session::get('warga'));
         $warga_id = session::get('cred')['residence_commites'][0]['warga'];
 
         return view('pembayaran.list_history', compact('warga_id','data_tagihan','current','next','prev','next_page','previous_page', 'total_pages'));

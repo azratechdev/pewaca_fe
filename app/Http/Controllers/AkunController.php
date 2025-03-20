@@ -237,7 +237,7 @@ class AkunController extends Controller
         
         $request->validate([
             'unit_id' => 'required|integer',
-            'nik' => 'required|numeric',
+            'nik' => 'required|regex:/^\d{16}$/',
             'full_name' => 'required|string|max:255',
             'phone_no' => 'required|string|min:8|max:13',
             'gender_id' => 'required|integer',

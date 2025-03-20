@@ -176,8 +176,9 @@
                             </div>
                         
                             <div class="form-floating mb-3">
-                                <input type="number" pattern="[0-9]*" class="form-control @error('nik') is-invalid @enderror" value="{{ old('nik') }}" id="nik" name="nik" placeholder=" " required>
+                                <input type="number" pattern="\d{16}" minlength="16" maxlength="16" class="form-control @error('nik') is-invalid @enderror" value="{{ old('nik') }}" id="nik" name="nik" placeholder=" " required>
                                 <label for="nik">NIK</label>
+                                <small class="text-danger d-none" id="nik-error">NIK harus 16 digit angka</small>
                                 @error('nik')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -495,6 +496,19 @@
             }
         });
     </script>
+<script>
+    document.getElementById('nik').addEventListener('input', function (e) {
+        let value = e.target.value.replace(/\D/g, ''); // Hanya angka
+        if (value.length > 16) {
+            value = value.substring(0, 16); // Batasi 16 digit
+        }
+        e.target.value = value;
+
+        // Tampilkan pesan error jika kurang dari 16 digit
+        document.getElementById('nik-error').classList.toggle('d-none', value.length === 16);
+    });
+
+</script>
 </body>
 </html>
 

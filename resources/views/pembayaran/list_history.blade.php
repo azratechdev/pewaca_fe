@@ -81,11 +81,12 @@
                     </div>
                 </div>
             </div>
-            @if($tagihan['status'] == 'paid')
-            <div class="flex justify-between items-center mt-2">
-                @include('layouts.elements.approved')
-            </div>
-            @endif
+           
+                @if($tagihan['status'] == 'paid')
+                <div class="flex justify-between items-center mt-2">
+                    @include('layouts.elements.approved')
+                </div>
+                @endif
 
             <div class="flex justify-between items-center mt-2">
                 <div class="flex items-center">

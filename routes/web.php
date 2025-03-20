@@ -107,7 +107,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::match(['get', 'post'], '/pembayaran/list', [PembayaranController::class, 'list_tagihan'])->name('pembayaran.list');
     Route::match(['get', 'post'], '/pembayaran/history', [PembayaranController::class, 'list_history'])->name('pembayaran.history');
-    Route::match(['get', 'post'], '/pembayaran/psotingan', [PembayaranController::class, 'list_postingan'])->name('postingan');
+    Route::match(['get', 'post'], '/pembayaran/postingan', [PembayaranController::class, 'list_postingan'])->name('postingan');
 
     Route::get('/pembayaran/{id}/add', [PembayaranController::class, 'addpembayaran'])->name('pembayaran.add');
     Route::get('/pembayaran/{id}/upload', [PembayaranController::class, 'uploadbukti'])->name('pembayaran.upload_bukti');
