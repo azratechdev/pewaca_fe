@@ -27,7 +27,7 @@
 
             @include('layouts.elements.flash')
 
-            <h2>No Data Available</h2>
+            <h2 align="center">Belum ada Postingan</h2>
 
             
             

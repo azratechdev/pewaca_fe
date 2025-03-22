@@ -9,6 +9,7 @@
                 <a href="{{ session('origin_page', route('pengurus')) }}" class="text-dark">
                     <i class="fas fa-arrow-left"></i>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;Info Warga
+                @include('layouts.elements.flash')
             </h1>
             <br>
             <div class="flex justify-between items-center mt-2">
@@ -138,11 +139,19 @@
                             "warga_id": wargaId
                         }),
                         success: function(data) {
-                            Swal.fire('Success!', 'Warga successfully verified.', 'success');
+                            Swal.fire('Success!', 'Warga successfully verified.', 'success')
+                                .then(() => {
+                                    window.location.href = '/pengurus/warga/approved';
+                                });
                         },
                         error: function(xhr, status, error) {
                             Swal.fire('Error!', 'Something went wrong, please try again.', 'error');
+                            // Swal.fire('Error!', 'Something went wrong, please try again.', 'error')
+                            //     .then(() => {
+                            //         window.location.href = '/pengurus/warga/waitingapproval';
+                            //     });
                         }
+                       
                     });
                 }
             });

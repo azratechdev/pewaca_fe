@@ -118,7 +118,7 @@
                 </div>
             
                 <div class="form-floating mb-3">
-                    <input type="number" pattern="[0-9]*" class="form-control @error('nik') is-invalid @enderror no-spinner" value="{{ str_replace(' ', '', $data['warga']['nik']) }}" id="nik" name="nik" placeholder=" " required>
+                    <input type="text" pattern="\d{16}" minlength="16" maxlength="16" inputmode="numeric" class="form-control @error('nik') is-invalid @enderror no-spinner" value="{{ str_replace(' ', '', $data['warga']['nik']) }}" id="nik" name="nik" placeholder=" " required>
                     <label for="nik">NIK</label>
                     @error('nik')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -134,7 +134,7 @@
                 </div>
                                     
                 <div class="form-floating mb-3">
-                    <input type="number" class="form-control @error('phone_no') is-invalid @enderror no-spinner" pattern="[0-9]{8,13}" value="{{ $data['warga']['phone_no']}}" id="phone_no" name="phone_no" placeholder=" " required>
+                    <input type="text" pattern="\d{8,13}" minlength="8" maxlength="13" inputmode="numeric"  class="form-control @error('phone_no') is-invalid @enderror no-spinner" pattern="[0-9]{8,13}" value="{{ $data['warga']['phone_no']}}" id="phone_no" name="phone_no" placeholder=" " required>
                     <label for="phone_no ">Nomor Telepon</label>
                     @error('phone_no')
                         <div class="invalid-feedback">{{ $message }}</div>

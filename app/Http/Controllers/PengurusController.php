@@ -267,16 +267,16 @@ class PengurusController extends Controller
             if ($response->successful()) {
                 session()->flash('status', 'success');
                 session()->flash('message', $data_response['data']['message']);
-                return redirect()->route('pengurus');
+                return redirect()->route('pengurus.warga.waiting');
             } else {
                 session()->flash('message', $data_response['data']['message']);
-                return redirect()->route('pengurus');
+                return redirect()->route('pengurus.warga.waiting');
             }
         
         } catch (\Exception $e) {
             session()->flash('status', 'error');
-            session()->flash('message', 'Gagal Mengirim Komentar');
-            return redirect()->route('pengurus');
+            session()->flash('message', 'Gagal Mengirim Data');
+            return redirect()->route('pengurus.warga.waiting');
         }
  
     }

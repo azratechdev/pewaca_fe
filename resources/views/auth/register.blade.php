@@ -176,7 +176,7 @@
                             </div>
                         
                             <div class="form-floating mb-3">
-                                <input type="number" pattern="\d{16}" minlength="16" maxlength="16" class="form-control @error('nik') is-invalid @enderror" value="{{ old('nik') }}" id="nik" name="nik" placeholder=" " required>
+                                <input type="text" pattern="\d{16}" minlength="16" maxlength="16" inputmode="numeric" class="form-control @error('nik') is-invalid @enderror" value="{{ old('nik') }}" id="nik" name="nik" placeholder=" " required>
                                 <label for="nik">NIK</label>
                                 <small class="text-danger d-none" id="nik-error">NIK harus 16 digit angka</small>
                                 @error('nik')
@@ -193,7 +193,7 @@
                             </div>
                                                 
                             <div class="form-floating mb-3">
-                                <input type="number" class="form-control @error('phone_no') is-invalid @enderror" pattern="[0-9]{8,13}" value="{{ old('phone_no') }}" id="phone_no" name="phone_no" placeholder=" " required>
+                                <input type="text" pattern="\d{8,13}" minlength="8" maxlength="13" inputmode="numeric" class="form-control @error('phone_no') is-invalid @enderror"  value="{{ old('phone_no') }}" id="phone_no" name="phone_no" placeholder=" " required>
                                 <label for="phone_no ">Nomor Telepon</label>
                                 @error('phone_no')
                                     <div class="invalid-feedback">{{ $message }}</div>

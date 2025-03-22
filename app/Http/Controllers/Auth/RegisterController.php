@@ -113,7 +113,7 @@ class RegisterController extends Controller
             'unit_id' => 'required|integer',
             'nik' => 'required|regex:/^\d{16}$/',
             'full_name' => 'required|string|max:255',
-            'phone_no' => 'required|string|min:8|max:13',
+            'phone_no' => 'required|regex:/^\d{8,13}$/',
             'gender_id' => 'required|integer',
             'date_of_birth' => 'required|date',
             'religion' => 'required|integer',
@@ -127,6 +127,61 @@ class RegisterController extends Controller
             'code' => 'required|uuid',
             'email' => 'required|email',
             'password' => 'required|string'
+        ], [
+            'unit_id.required' => 'Unit wajib diisi.',
+            'unit_id.integer' => 'Unit harus berupa angka.',
+        
+            'nik.required' => 'NIK wajib diisi.',
+            'nik.regex' => 'NIK harus terdiri dari 16 digit angka.',
+        
+            'full_name.required' => 'Nama lengkap wajib diisi.',
+            'full_name.string' => 'Nama lengkap harus berupa teks.',
+            'full_name.max' => 'Nama lengkap maksimal 255 karakter.',
+        
+            'phone_no.required' => 'Nomor HP / Telephon wajib diisi.',
+            'phone_no.regex' => 'Nomor telepon harus terdiri dari 8 hingga 13 digit angka.',
+        
+            'gender_id.required' => 'Jenis kelamin wajib dipilih.',
+            'gender_id.integer' => 'Jenis kelamin tidak valid.',
+        
+            'date_of_birth.required' => 'Tanggal lahir wajib diisi.',
+            'date_of_birth.date' => 'Tanggal lahir tidak valid.',
+        
+            'religion.required' => 'Agama wajib dipilih.',
+            'religion.integer' => 'Agama tidak valid.',
+        
+            'place_of_birth.required' => 'Tempat lahir wajib diisi.',
+            'place_of_birth.string' => 'Tempat lahir harus berupa teks.',
+            'place_of_birth.max' => 'Tempat lahir maksimal 255 karakter.',
+        
+            'marital_status.required' => 'Status pernikahan wajib dipilih.',
+            'marital_status.integer' => 'Status pernikahan tidak valid.',
+        
+            'marriagePhoto.image' => 'Foto pernikahan harus berupa gambar.',
+            'marriagePhoto.mimes' => 'Format foto pernikahan harus jpeg atau jpg.',
+            'marriagePhoto.max' => 'Ukuran foto pernikahan maksimal 2MB.',
+        
+            'occupation.required' => 'Pekerjaan wajib dipilih.',
+            'occupation.integer' => 'Pekerjaan tidak valid.',
+        
+            'education.required' => 'Pendidikan wajib dipilih.',
+            'education.integer' => 'Pendidikan tidak valid.',
+        
+            'family_as.required' => 'Status dalam keluarga wajib dipilih.',
+            'family_as.integer' => 'Status dalam keluarga tidak valid.',
+        
+            'profile_photo.image' => 'Foto profil harus berupa gambar.',
+            'profile_photo.mimes' => 'Format foto profil harus jpeg atau jpg.',
+            'profile_photo.max' => 'Ukuran foto profil maksimal 2MB.',
+        
+            'code.required' => 'Kode tidak boleh kosong.',
+            'code.uuid' => 'Kode tidak valid.',
+        
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+        
+            'password.required' => 'Password wajib diisi.',
+            'password.string' => 'Password tidak valid.',
         ]);
 
         $data = [

@@ -11,6 +11,7 @@
                     <i class="fas fa-arrow-left"></i>
                 </a>&nbsp;Warga
             </h1>
+            @include('layouts.elements.flash')
         </div>
 
         @include('pengurus.warga.menu_warga')
