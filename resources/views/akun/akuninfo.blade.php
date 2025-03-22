@@ -82,6 +82,11 @@
                         </span>
                     </div>
                     <div class="flex items-center">
+                        <span class="text-gray-600">Tempat Lahir <br>
+                        <strong>{{ $data['warga']['place_of_birth'] ?? 'Anonim'}}</strong>
+                        </span>
+                    </div>
+                    <div class="flex items-center">
                         <span class="text-gray-600">Agama <br>
                             <strong>{{ $data['warga']['religion']['name']}}</strong>
                         </span>
@@ -92,7 +97,7 @@
                         </span>
                     </div>
 
-                    @if( $data['warga']['marital_status']['id'] != '2')
+                    @if( $data['warga']['marital_status']['id'] == '1')
                         <div class="flex items-center">
                             <span class="text-gray-600">Buku Nikah <br>
                                 <img 
