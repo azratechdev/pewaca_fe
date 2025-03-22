@@ -33,8 +33,26 @@
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;Detail Pembayaran Tagihan
             </h1>
         </div>
-                
+
         <div class="p-6 mt-2 space-y-2">
+            @if($data['status'] == 'process')
+            <div class="flex justify-between items-center">
+                @include('layouts.elements.pengurus_confirm')
+            </div>
+            @endif
+
+            @if($data['status'] == 'unpaid' && $data['date_due'] <= date('Y-m-d'))
+            <div class="flex justify-between items-center">
+                @include('layouts.elements.pengurus_tempo')
+            </div>
+            @endif
+
+            @if($data['status'] == 'paid')
+                <div class="flex justify-between items-center">
+                    @include('layouts.elements.approved')
+                </div>
+            @endif
+            
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
                     <p class="d-flex align-items-center">
@@ -44,7 +62,7 @@
                 
                 <div class="flex items-center">
                     <p class="td-flex align-items-center">
-                        <strong>{{ $data['warga'] }}</strong>
+                        <strong>{{ $data['warga'] ?? 'Anonim' }}</strong>
                     </p>
                 </div>
             </div>
@@ -119,7 +137,6 @@
                     @endif
                 </div>
             </div>
-           
         </div>
 
         <div class="p-6 mt-2">
@@ -133,7 +150,7 @@
             </div>
         </div>
 
-        @if ($data['status'] != 'paid')
+        @if ($data['status'] == 'process')
             <div class="p-6 mt-2">
                 <a class="btn btn-success approved-tagihan-warga w-full bg-green-600 text-white py-2 px-4 rounded-lg"
                 data-id="{{ $data['id'] }}" data-warga_id="{{ $data['warga'] }}">

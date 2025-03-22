@@ -31,7 +31,7 @@
                     <div class="flex items-left max-w-full mb-2">
                         <div class="ml-0">
                             <div class="text-gray-900 font-bold" style="font-size: 14px;">
-                                <strong>{{ $tagihan['warga'] }}</strong>
+                                <strong>{{ $tagihan['warga']['full_name'] ?? 'Anonim' }}</strong>
                             </div>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                         
                         <div class="flex items-center">
                             <p class="d-flex align-items-center">
-                                <strong>{{ $tagihan['unit_id']}} - A78FG</strong>
+                                <strong>{{ $tagihan['unit_id']['unit_name'] }} - {{ $tagihan['no_tagihan'] }}</strong>
                             </p>
                         </div>
                     </div> 
@@ -76,6 +76,7 @@
                     </div>
                 </div>
             </div>
+
             @if($tagihan['status'] == 'paid')
             <div class="flex justify-between items-center mt-2">
                 @include('layouts.elements.approved')

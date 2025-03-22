@@ -343,7 +343,7 @@ class PengurusController extends Controller
             $page = 1;
         }
 
-        $apiUrl = 'https://api.pewaca.id/api/tagihan-warga/self-list/?status=process&page='.$page;
+        $apiUrl = 'https://api.pewaca.id/api/tagihan-warga/?page='.$page.'&status=process';
 
         if (!empty($filter)) {
             $apiUrl .= '&search=' . urlencode($filter);
@@ -354,7 +354,7 @@ class PengurusController extends Controller
             'Authorization' => 'Token ' . Session::get('token'),
         ])->get($apiUrl);
         $konfirmasi_response = json_decode($response->body(), true);
-        //dd($warga_response);
+        //dd($konfirmasi_response);
       
         $konfirmasi = $konfirmasi_response['data'] ?? [];
         $next_page = $konfirmasi_response['next'] ?? null;
@@ -400,7 +400,8 @@ class PengurusController extends Controller
             $page = 1;
         }
 
-        $apiUrl = 'https://api.pewaca.id/api/tagihan-warga/self-list/?status=paid&page='.$page;
+        // $apiUrl = 'https://api.pewaca.id/api/tagihan-warga/self-list/?status=paid&page='.$page;
+        $apiUrl = 'https://api.pewaca.id/api/tagihan-warga/?page='.$page.'&status=paid';
 
         if (!empty($filter)) {
             $apiUrl .= '&search=' . urlencode($filter);
@@ -411,7 +412,7 @@ class PengurusController extends Controller
             'Authorization' => 'Token ' . Session::get('token'),
         ])->get($apiUrl);
         $disetujui_response = json_decode($response->body(), true);
-        //dd($warga_response);
+        //dd($disetujui_response);
       
         $disetujui = $disetujui_response['data'] ?? [];
         $next_page = $disetujui_response['next'] ?? null;
@@ -456,8 +457,11 @@ class PengurusController extends Controller
             $page = 1;
         }
 
-        $apiUrl = 'https://api.pewaca.id/api/tagihan-warga/self-list/?status=unpaid&end_due_date=2025-03-18&page='.$page;
+        $today = date('Y-m-d');
 
+        //$apiUrl = 'https://api.pewaca.id/api/tagihan-warga/self-list/?status=unpaid&end_due_date=' . $today . '&page=' . $page;
+        $apiUrl =   'https://api.pewaca.id/api/tagihan-warga/?page=1&status=unpaid&end_due_date=2025-03-22';
+       
         if (!empty($filter)) {
             $apiUrl .= '&search=' . urlencode($filter);
         }
