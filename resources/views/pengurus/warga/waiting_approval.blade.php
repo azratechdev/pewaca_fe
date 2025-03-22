@@ -30,7 +30,7 @@
                 <img 
                     alt="User profile picture" 
                     class="w-16 h-16 rounded-full border-2 border-gray-300" 
-                    src="https://storage.googleapis.com/a1aa/image/ZoAiGzvASA4pG9oiGwu50UAjrOG21IrMhFOGfFnKGy1xU85JA.jpg" 
+                    src="{{ $warga['profile_photo'] }}" 
                 />
                 <div class="ml-4">
                     <p class="font-semibold text-lg text-gray-800">

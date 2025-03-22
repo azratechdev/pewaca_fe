@@ -31,7 +31,7 @@ $isChecker = $warga['is_checker'] ?? false;
 
 <div class="container">
     <div class="container mx-auto">
-        <div class="flex justify-between items-center" style="padding-top: 10px;">
+        <div class="flex justify-between items-center" style="padding-top: 25px;">
             <div class="flex items-center">
                 <img alt="Waca Logo" height="120"  width="170" src="{{ asset('assets/plugins/images/mainlogo.png') }}"/>
             </div>

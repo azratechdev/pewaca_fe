@@ -112,5 +112,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/pembayaran/{id}/add', [PembayaranController::class, 'addpembayaran'])->name('pembayaran.add');
     Route::get('/pembayaran/{id}/upload', [PembayaranController::class, 'uploadbukti'])->name('pembayaran.upload_bukti');
     Route::get('/pembayaran/{id}/detail', [PembayaranController::class, 'detailPembayaran'])->name('pembayaran.detail_bukti');
+
+    Route::view('/offline', 'vendor.laravelpwa.offline')->name('offline');
 });
 

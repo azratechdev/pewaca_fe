@@ -8,11 +8,11 @@
   <title>Pewaca</title>
 
     <!-- Meta untuk PWA -->
-    <meta name="debug-check" content="PWA Test">
+    <meta name="debug-check" content="Pewaca">
     <meta name="theme-color" content="#317EFB">
     <link rel="manifest" href="{{ url('assets/manifest.json') }}">
-    <link rel="icon" sizes="192x192" href="{{ asset('images/icons/icon-192x192.png') }}">
-    <link rel="icon" sizes="512x512" href="{{ asset('images/icons/icon-512x512.png') }}">
+    <link rel="icon" sizes="192x192" href="{{ asset('images/icons/192.png') }}">
+    <link rel="icon" sizes="512x512" href="{{ asset('images/icons/512.png') }}">
 
     <!-- PWA Service Worker -->
     <script>
