@@ -60,11 +60,11 @@
                         @csrf
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
-                            <label for="floatingInput">Email address</label>
+                            <label for="email">Email address</label>
                         </div>
                         <div class="form-floating">
                             <input type="password" class="form-control" name="password" id="password" placeholder="Password">
-                            <label for="floatingPassword">Password</label>
+                            <label for="password">Password</label>
                         </div>
                         <br>
                         <div class="row">

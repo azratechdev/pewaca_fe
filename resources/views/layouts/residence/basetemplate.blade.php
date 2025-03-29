@@ -4,30 +4,10 @@
   <meta charset="UTF-8">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" sizes="16x16" href="{{ url('assets/plugins/images/logo.png') }}">
+  <link rel="icon" type="image/png" sizes="72x72" href="{{ url('images/icons/icon-72x72.png') }}">
+  <link rel="manifest" href="{{ url('assets/manifest.json') }}">
   <title>Pewaca</title>
-
-    <!-- Meta untuk PWA -->
-    <meta name="debug-check" content="Pewaca">
-    <meta name="theme-color" content="#317EFB">
-    <link rel="manifest" href="{{ url('assets/manifest.json') }}">
-    <link rel="icon" sizes="192x192" href="{{ asset('images/icons/icon-192x192.png') }}">
-    <link rel="icon" sizes="512x512" href="{{ asset('images/icons/icon-512x512.png') }}">
-
-    <!-- PWA Service Worker -->
-    <script>
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register("{{ url('assets/serviceworker.js') }}")
-            .then(function(registration) {
-                console.log('Service Worker registered with scope:', registration.scope);
-            })
-            .catch(function(error) {
-                console.log('Service Worker registration failed:', error);
-            });
-    }
-    </script>
-
-
+  
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   
   <!-- CSS -->
@@ -222,5 +202,17 @@
     <!-- Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register("{{ url('assets/serviceworker.js') }}")
+                .then(function(registration) {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                })
+                .catch(function(error) {
+                    console.log('Service Worker registration failed:', error);
+                });
+        }
+    </script>
 </body>
 </html>
