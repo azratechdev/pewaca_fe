@@ -1,6 +1,18 @@
 {
     "packageId": "com.pewaca.app",
     "host": "pewaca.id",
+    "icons": [
+        {
+            "src": "https://pewaca.id/assets/images/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "https://pewaca.id/assets/images/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
     "name": "Pewaca App",
     "short_name": "Pewaca",
     "launcherName": "Pewaca",
@@ -10,15 +22,15 @@
     "start_url": "https://pewaca.id/",
     "orientation": "portrait",
     "description": "Pewaca is an app for reading and exploring content.",
-    "icons": [
+    "images": [
         {
-            "src": "https://pewaca.id/assets/icons/icon_192.png",
+            "src": "https://pewaca.id/assets/images/icon-192x192.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "any"
         },
         {
-            "src": "https://pewaca.id/assets/icons/icon_512.png",
+            "src": "https://pewaca.id/assets/images/icon-512x512.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "maskable"
@@ -26,12 +38,12 @@
     ],
     "screenshots": [
         {
-            "src": "https://www.example.com/screenshot1.png",
+            "src": "https://pewaca.id/assets/screenshots/home-desktop.png",
             "sizes": "1080x1920",
             "type": "image/png"
         },
         {
-            "src": "https://www.example.com/screenshot2.png",
+            "src": "https://pewaca.id/assets/screenshots/home-mobile.png",
             "sizes": "1080x1920",
             "type": "image/png"
         }
@@ -42,9 +54,9 @@
             "short_name": "Articles",
             "description": "Quick access to articles",
             "url": "/articles",
-            "icons": [
+            "images": [
                 {
-                    "src": "https://www.example.com/icons/article-icon.png",
+                    "src": "https://pewaca.id/assets/images/article-icon.png",
                     "sizes": "192x192",
                     "type": "image/png"
                 }
