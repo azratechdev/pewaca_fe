@@ -1,0 +1,17 @@
+{
+    "packageId": "com.pewaca.app",
+    "host": "pewaca_fe.test",
+    "name": "Pewaca App",
+    "launcherName": "Pewaca",
+    "display": "standalone",
+    "themeColor": "#ffffff",
+    "backgroundColor": "#ffffff",
+    "startUrl": "/",
+    "iconUrl": "https://pewaca_fe.test/images/icons/icon-512x512.png",
+    "maskableIconUrl": "https://pewaca_fe.test/images/icons/icon-512x512.png",
+    "signingKey": {
+      "alias": "pewaca-key",
+      "path": "keystore.jks"
+    }
+  }
+  
