@@ -8,6 +8,8 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="manifest" href="{{ url('manifest.json') }}">
+
    
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/plugins/images/logo.png') }}">
     <title>Cubic Admin Template</title>
