@@ -5,7 +5,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" sizes="72x72" href="{{ url('images/icons/icon-72x72.png') }}">
-  <link rel="manifest" href="{{ url('assets/manifest.json') }}">
+  <link rel="manifest" href="{{ url('manifest.json') }}">
   <title>Pewaca</title>
   
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
