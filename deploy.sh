@@ -8,3 +8,5 @@ php artisan config:clear
 php artisan view:clear
 php artisan route:clear
 chown -R www-data:www-data /var/www/pewaca_fe
+sudo systemctl restart nginx
+sudo systemctl restart gunicorn.service
