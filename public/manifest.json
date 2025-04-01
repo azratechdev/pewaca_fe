@@ -34,9 +34,6 @@
           "type": "image/png"
       }
   ],
-  "shortcuts": [
-      
-  ],
   "protocol_handlers": [
       {
           "protocol": "web+pewaca",
