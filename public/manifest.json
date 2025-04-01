@@ -35,19 +35,7 @@
       }
   ],
   "shortcuts": [
-      {
-          "name": "Open Articles",
-          "short_name": "Articles",
-          "description": "Quick access to articles",
-          "url": "/articles",
-          "icons": [
-              {
-                  "src": "/images/article-icon.png",
-                  "sizes": "192x192",
-                  "type": "image/png"
-              }
-          ]
-      }
+      
   ],
   "protocol_handlers": [
       {
