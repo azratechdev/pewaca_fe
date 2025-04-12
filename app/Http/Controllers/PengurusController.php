@@ -386,8 +386,7 @@ class PengurusController extends Controller
             }
             
         }
-        //dd($next);
-        
+               
         return view('pengurus.tagihan.list_konfirmasi', compact('konfirmasi','current','next','prev','next_page','previous_page', 'total_pages'));
     }
 

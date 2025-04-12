@@ -301,8 +301,7 @@ class PembayaranController extends Controller
             'tagihan_warga_id' => 'required|string',
             'warga_id' => 'required|string'
         ]);
-    
-        
+            
         try {
                    
             $http = Http::withHeaders([
@@ -326,31 +325,34 @@ class PembayaranController extends Controller
               
             ];
         
-            $response = $http->patch(
+            $response = $http->post(
                 'https://api.pewaca.id/api/tagihan-note/create-note/', $data
             );
         
             $data_response = json_decode($response->body(), true);
+
+            //dd($data_response);
           
             if ($response['success'] == true) {
                 Session::flash('flash-message', [
                     'message' => 'Catatan berhasil dikirim',
                     'alert-class' => 'alert-success',
                 ]);
-                return redirect()->route('pembayaran.detail_bukti', ['id' => $request->tagihan_id]);
+                return redirect()->route('pembayaran.detail_bukti', ['id' => $request->tagihan_warga_id]);
             } else {
                 Session::flash('flash-message', [
                     'message' => 'Catatan gagal dikirim',
                     'alert-class' => 'alert-warning',
                 ]);
-                return redirect()->route('pembayaran.upload_bukti', ['id' => $request->tagihan_id]);
+                return redirect()->route('pembayaran.upload_bukti', ['id' => $request->tagihan_warga_id]);
             }
+            
         } catch (\Exception $e) {
             Session::flash('flash-message', [
                 'message' => 'Gagal Mengirim Data',
                 'alert-class' => 'alert-danger',
             ]);
-            return redirect()->route('pembayaran.upload_bukti', ['id' => $request->tagihan_id]);
+            return redirect()->route('pembayaran.upload_bukti', ['id' => $request->tagihan_warga_id]);
         }
     }
 

@@ -44,7 +44,7 @@
                         
                         <div class="flex items-center">
                             <p class="d-flex align-items-center">
-                                <strong>{{ $tagihan['unit_id']['unit_name'] }} - {{ $tagihan['no_tagihan'] }}</strong>
+                                <strong>{{ $tagihan['no_tagihan'] }}</strong>
                             </p>
                         </div>
                     </div> 
