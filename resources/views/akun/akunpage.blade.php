@@ -57,6 +57,36 @@
                 <i class="fas fa-chevron-right ml-auto text-gray-500"></i>
             </a>
 
+            <a class="flex items-center p-4 border-b hover:bg-gray-100 @if (!$isPengurus && !$isChecker) cursor-not-allowed text-gray-400 @endif" 
+                href="{{ (!$isPengurus && !$isChecker) ? '#' : '/faq' }}" 
+                style="@if (!$isPengurus && !$isChecker) pointer-events: none; @endif">
+                <i class="fas fa-comments text-gray-500"></i>
+                <span class="ml-4">
+                    FAQ
+                </span>
+                <i class="fas fa-chevron-right ml-auto text-gray-500"></i>
+            </a>
+
+            <a class="flex active items-center p-4 border-b hover:bg-gray-100 @if (!$isPengurus && !$isChecker) cursor-not-allowed text-gray-400 @endif" 
+                href="{{ (!$isPengurus && !$isChecker) ? '#' : '/policy' }}" 
+                style="@if (!$isPengurus && !$isChecker) pointer-events: none; @endif">
+                <i class="fas fa-solid fa-gavel text-gray-500"></i>
+                <span class="ml-4">
+                    Kebijakan Privasi
+                </span>
+                <i class="fas fa-chevron-right ml-auto text-gray-500"></i>
+            </a>
+
+            <a class="flex items-center p-4 border-b hover:bg-gray-100 @if (!$isPengurus && !$isChecker) cursor-not-allowed text-gray-400 @endif" 
+                href="{{ (!$isPengurus && !$isChecker) ? '#' : '/kontak' }}" 
+                style="@if (!$isPengurus && !$isChecker) pointer-events: none; @endif">
+                <i class="fas fa-solid fa-headset text-gray-500"></i>
+                <span class="ml-4">
+                    Hubungi Kami
+                </span>
+                <i class="fas fa-chevron-right ml-auto text-gray-500"></i>
+            </a>
+
             <a class="flex items-center p-4 hover:bg-gray-100" href="{{ route('log_out') }}">
                 <i class="fas fa-sign-out-alt text-gray-500">
                 </i>

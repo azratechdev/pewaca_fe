@@ -53,6 +53,24 @@ class AkunController extends Controller
         return view('akun.familyinfo', compact('user', 'warga', 'residence'));
     }
 
+    public function faq()
+    {   
+        
+        return view('akun.faq');
+    }
+
+    public function policy()
+    {   
+        
+        return view('akun.policy');
+    }
+
+    public function kontak()
+    {   
+        
+        return view('akun.kontak');
+    }
+
     public function addKeluarga()
     {
         $response = Http::withHeaders([

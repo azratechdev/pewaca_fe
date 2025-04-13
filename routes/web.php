@@ -60,7 +60,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/postkeluarga', [AkunController::class, 'postKeluarga'])->name('postkeluarga');
     Route::get('/edit', [AkunController::class, 'edit'])->name('edit');
     Route::get('/registrasi', [AkunController::class, 'registrasi'])->name('registrasi');
-    
+    Route::get('/kontak', [AkunController::class, 'kontak'])->name('kontak');
+    Route::get('/policy', [AkunController::class, 'policy'])->name('policy');
+    Route::get('/faq', [AkunController::class, 'faq'])->name('faq');
     Route::get('/logout', [LoginController::class, 'logout'])->name('log_out');
 
        
