@@ -379,7 +379,7 @@ class PembayaranController extends Controller
                 $list = $data_response['data'];
                 $id = $id;
                 $status = $data_tagihan['data']['status'];
-                //dd($status);
+                //dd($list);
                 return view('pembayaran.detailpembayaran', compact('list', 'id', 'status'));
             }
         } catch (\Exception $e) {

@@ -23,12 +23,17 @@
             @if($note['is_pengurus'] == true)
             <div class="card border !border-red-500 rounded-lg">
                 <div class="flex items-start">
-                    <img 
-                        alt="" 
-                        class="rounded w-32 h-32" 
-                        src="https://admin.pewaca.id/media/tagihan_images/envelope.jpg" 
-                    />
-                    
+
+                    @if (!empty($note['images']))
+                        <img 
+                            alt="" 
+                            class="rounded w-32 h-32" 
+                            src="{{ $note['images'][0]['image'] }}" 
+                        />
+                    @else
+                        <p>No image</p>
+                    @endif
+                                      
                     <div class="ml-2 pt-2 flex flex-col justify-start">
                         <div class="text-gray-900 font-bold">
                             Pengurus
