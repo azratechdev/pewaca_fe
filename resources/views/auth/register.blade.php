@@ -8,9 +8,8 @@
   <title>Pewaca</title>
   <link rel="manifest" href="{{ url('manifest.json') }}">
 
-  
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-   
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <style>
     .navbar-custom {
       background-color:  #198754; /* Tosca color */
@@ -33,6 +32,41 @@
         border:0px;
     }
 
+    /* Style untuk input file */
+      
+        .form-control[type="file"] {
+            padding: 1.625rem 0.75rem 0.5rem;
+        }
+
+        .form-control[type="file"]::file-selector-button {
+            display: none;
+        }
+
+        .form-control[type="file"]::-webkit-file-upload-button {
+            display: none;
+        }
+
+        /* Style untuk preview container setengah lebar */
+        #imagePreviewContainer {
+            transition: all 0.3s ease;
+        }
+
+        /* Style untuk tombol remove */
+        #removeImageButton {
+            background-color: #dc3545;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        #removeImageButton:hover {
+            background-color: #c82333;
+        } 
+  
   </style>
 
 <style>
@@ -295,10 +329,26 @@
                                 </select>
                                 <label for="family_as">Family As</label>
                             </div>
-                        
+
                             <div class="form-floating mb-3">
-                                <input type="file" class="form-control @error('profile_photo') is-invalid @enderror" id="profile_photo" name="profile_photo" accept="image/jpeg,image/jpg">
+                                <input 
+                                    type="file" 
+                                    class="form-control @error('profile_photo') is-invalid @enderror" 
+                                    id="profile_photo" 
+                                    name="profile_photo" 
+                                    accept="image/jpeg,image/jpg"
+                                    style="padding-top: 1.625rem;"
+                                >
                                 <label for="profile_photo">Upload Foto Profil</label>
+                                
+                                <!-- Preview Container (lebar 50%) -->
+                                <div id="imagePreviewContainer" class="mt-3 mx-auto" style="display: none; position: relative; width: 50%;">
+                                    <img id="imagePreview" src="" alt="Preview" style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd;">
+                                    <button id="removeImageButton" class="btn btn-sm btn-danger" style="position: absolute; top: 5px; right: 5px; padding: 0.15rem 0.3rem;">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                
                                 @error('profile_photo')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -327,7 +377,37 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+   document.addEventListener('DOMContentLoaded', function() {
+    const profilePhotoInput = document.getElementById('profile_photo');
+    const imagePreview = document.getElementById('imagePreview');
+    const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+    const removeImageButton = document.getElementById('removeImageButton');
 
+    if (profilePhotoInput) {
+        profilePhotoInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                    imagePreviewContainer.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        removeImageButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            profilePhotoInput.value = '';
+            imagePreview.src = '';
+            imagePreviewContainer.style.display = 'none';
+            // Reset error state jika ada
+            profilePhotoInput.classList.remove('is-invalid');
+        });
+    }
+});
+</script>
     <script>
    
         $('#registrasi').on('submit', function(e) {

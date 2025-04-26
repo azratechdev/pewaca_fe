@@ -65,7 +65,7 @@
   </div>
 </div>
 
-    <script>
+<script>
      const imageUpload = document.getElementById('imageUpload');
      const imagePreview = document.getElementById('imagePreview');
      const removeImageButton = document.getElementById('removeImageButton');
@@ -90,7 +90,7 @@
        removeImageButton.classList.add('hidden');
        imagePreview.classList.add('hidden');
      });
-    </script>
+</script>
 
 <script>
   
