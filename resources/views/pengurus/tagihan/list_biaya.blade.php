@@ -98,7 +98,7 @@
                 </div>
                 @else
                 <div class="flex items-right">
-                <a class="btn btn-sm btn-primary w-20" style="color: white;border-radius:8px;">Published</a>
+                    <a class="btn btn-sm btn-primary w-20" style="color: white;border-radius:8px;">Published</a>
                 </div>
                 @endif
             </div>

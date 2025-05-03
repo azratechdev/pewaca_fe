@@ -53,7 +53,7 @@
                     <img 
                         alt="" 
                         class="rounded w-32 h-32" 
-                        src="https://admin.pewaca.id/media/tagihan_images/envelope.jpg" 
+                        src="{{ $note['images'][0]['image'] }}" 
                     />
                     
                     <div class="ml-2 pt-2 flex flex-col justify-start">
