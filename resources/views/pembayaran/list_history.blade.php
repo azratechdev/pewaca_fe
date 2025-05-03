@@ -2,12 +2,14 @@
 @section('content')
 @php
     session(['origin_page' => url()->current()]);
+    $cred = session('cred');
+    $backRoute = isset($cred['is_pengurus']) && $cred['is_pengurus'] ? route('pengurus') : route('home');
 @endphp
 <div class="flex justify-center items-center">
     <div class="bg-white w-full max-w-6xl">
         <div class="p-6 border-b">
             <h1 class="text-xl font-semibold text-gray-800">
-                <a href="{{ route('pengurus') }}" class="text-dark">
+                <a href="{{ $backRoute }}" class="text-dark">
                     <i class="fas fa-arrow-left"></i>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;Cashout
             </h1>

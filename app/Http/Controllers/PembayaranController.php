@@ -30,6 +30,7 @@ class PembayaranController extends Controller
   
     public function list_tagihan(Request $request)
     {
+        
         $filter = $request->input('filter');
         $page = $request->input('page', 1); // Default page = 1 jika tidak ada  
 

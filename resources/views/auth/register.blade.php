@@ -183,7 +183,11 @@
                         </div>     
                         <div class="mb-3">
                             <p class="text-left" style="font-size: 1.2em;">Pendaftaran Warga</p>
-                            <p  style="font-size: 1.0em;">Teras Country Residence</p>
+                            <div class="d-flex align-items-center" style="font-size: 1.0em;">
+                                <img src="{{ $resdetail['image'] }}" alt="Icon Perumahan" style="width: 24px; height: 24px; margin-right: 8px;">
+                                <span>{{ $resdetail['name'] }}</span>
+                            </div><br>
+                            {{-- <p  style="font-size: 1.0em;">{{ $resdetail['name'] }}</p> --}}
                             <p style="font-size:0.8em;">Mohon lengkapi data untuk persyaratan menjadi warga<p>
                         </div>
               

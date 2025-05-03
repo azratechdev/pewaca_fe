@@ -29,9 +29,20 @@ class RegisterController extends Controller
         $jobs = $this->getJobs();
         $educations = $this->getEducations();
         $families = $this->getFamilies();
+        $resdetail = $this->getResdetail($uuid);
+        //dd($resdetail);
         //dd($status);
-        return view('auth.register', compact('units', 'genders', 'religions', 'cities', 'statuses', 
+        return view('auth.register', compact('resdetail', 'units', 'genders', 'religions', 'cities', 'statuses', 
         'jobs', 'educations', 'families'));
+    }
+
+    public function getResdetail($uuid)
+    {
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+        ])->get('https://api.pewaca.id/api/residence-by-code/'.$uuid."/");
+        $res_detail_response = json_decode($response->body(), true);
+        return $res_detail_response['data'];
     }
 
     public function getFamilies()

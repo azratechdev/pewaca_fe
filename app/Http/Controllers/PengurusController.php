@@ -123,7 +123,7 @@ class PengurusController extends Controller
             'Authorization' => 'Token ' . Session::get('token'),
         ])->get($apiUrl);
         $warga_response = json_decode($response->body(), true);
-        dd($warga_response);
+        //dd($warga_response);
       
         $waiting = $warga_response['results'] ?? [];
         $next_page = $warga_response['next'] ?? null;
