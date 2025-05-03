@@ -112,7 +112,7 @@ class PengurusController extends Controller
             $page = 1;
         }
 
-        $apiUrl = 'https://api.pewaca.id/api/warga/?is_checker=false&page='.$page;
+        $apiUrl = 'https://api.pewaca.id/api/warga/?is_checker=false&isreject=false&page='.$page;
 
         if (!empty($filter)) {
             $apiUrl .= '&search=' . urlencode($filter);
