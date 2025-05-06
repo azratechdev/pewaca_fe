@@ -34,7 +34,18 @@
         border:0px;
     }
 
+    .password-container {
+      position: relative;
+    }
     
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #6b7280;
+    }
   </style>
 </head>
 <body>
@@ -64,18 +75,19 @@
                             <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
                             <label for="email">Email address</label>
                         </div>
-                        <div class="form-floating">
+                        <div class="form-floating position-relative">
                             <input type="password" class="form-control" name="password" id="password" placeholder="Password">
                             <label for="password">Password</label>
+                            <i class="fas fa-eye-slash toggle-password" id="togglePassword"></i>
                         </div>
                         <br>
                         <div class="row">
                           <div class="col-md-12 col-sm-12">
                             <div class="d-flex justify-content-between align-items-center">
                               <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="showPasswordCheckbox" onclick="togglePasswordVisibility()">
-                                <label class="form-check-label" for="showPasswordCheckbox">
-                                  Lihat Password
+                                <input class="form-check-input" type="checkbox" id="remember" name="remember">
+                                <label class="form-check-label" for="remember">
+                                  Remember me
                                 </label>
                               </div>
                               <div>
@@ -116,29 +128,25 @@
                 Swal.showLoading(); 
             }
         });
-      });
-  </script>
-  <script>
-    function togglePasswordVisibility() {
-        const passwordInput = document.getElementById('password');
-        const showPasswordCheckbox = document.getElementById('showPasswordCheckbox');
+    });
 
-        // Ubah tipe input antara 'password' dan 'text' berdasarkan checkbox
-        if (showPasswordCheckbox.checked) {
-            passwordInput.type = 'text';
-        } else {
-            passwordInput.type = 'password';
-        }
-    }
-  </script>
+    // Password toggle functionality
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#password');
 
-  <script>
+    togglePassword.addEventListener('click', function (e) {
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        this.classList.toggle('fa-eye');
+        this.classList.toggle('fa-eye-slash');
+    });
+
+    // Email and password validation
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
     const submitBtn = document.getElementById('submitBtn');
 
     function toggleSubmitButton() {
-        // Aktifkan tombol jika kedua input terisi, jika tidak nonaktifkan
         if (emailInput.value.trim() && passwordInput.value.trim()) {
             submitBtn.disabled = false;
         } else {
@@ -146,7 +154,6 @@
         }
     }
 
-    // Pasang event listener untuk memantau perubahan pada kedua input
     emailInput.addEventListener('input', toggleSubmitButton);
     passwordInput.addEventListener('input', toggleSubmitButton);
   </script>

@@ -17,26 +17,17 @@
             @include('layouts.elements.flash')
         </div>
         @foreach ($list as $note)
-            
         
         <div class="w-full max-w-full bg-white overflow-hidden">
-            @if($note['is_pengurus'] == true)
-            <div class="card border !border-red-500 rounded-lg">
-                <div class="flex items-start">
-
-                    @if (!empty($note['images']))
-                        <img 
-                            alt="" 
-                            class="rounded w-32 h-32" 
-                            src="{{ $note['images'][0]['image'] }}" 
-                        />
-                    @else
-                        <p>No image</p>
-                    @endif
-                                      
-                    <div class="ml-2 pt-2 flex flex-col justify-start">
+            <div class="card border rounded-lg p-2 {{ $note['is_pengurus'] ? '!border-red-500' : 'border-gray-900' }}">
+                <div class="flex items-start justify-between">
+                    <div class="pt-2 flex flex-col justify-start flex-grow">
                         <div class="text-gray-900 font-bold">
-                            Pengurus
+                            @if($note['is_pengurus'] == true)
+                                Pengurus
+                            @else
+                                Warga
+                            @endif
                         </div>
                         <br>
                         <div class="text-sm">
@@ -44,35 +35,19 @@
                             {{ $note['note'] }}
                         </div>
                     </div>
-                </div>
-            </div>
-            @else
 
-            <div class="card border !border-grey-500 rounded-lg">
-                <div class="flex items-start">
-                    <img 
-                        alt="" 
-                        class="rounded w-32 h-32" 
-                        src="{{ $note['images'][0]['image'] }}" 
-                    />
-                    
-                    <div class="ml-2 pt-2 flex flex-col justify-start">
-                        <div class="text-gray-900 font-bold">
-                            Warga
-                        </div>
-                        <br>
-                        <div class="text-sm">
-                            <p class="text-gray-400">Note:</p>
-                            {{ $note['note'] }}
-                        </div>
+                    <div class="ml-4">
+                        @if (!empty($note['images']))
+                            <img 
+                                alt="" 
+                                class="rounded w-32 h-32" 
+                                src="{{ $note['images'][0]['image'] }}" 
+                            />
+                        @endif
                         
-                        {{-- <div class="text-sm">
-                            <p class="text-gray-400">Nominal: <span class="text-black">Rp250.000</span></p>
-                        </div> --}}
-                    </div>
                 </div>
             </div>
-            @endif
+            
         </div>
         @endforeach
         <br>
@@ -87,4 +62,4 @@
     </div>
 </div>
 
-@endsection 
+@endsection

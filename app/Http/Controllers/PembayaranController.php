@@ -378,7 +378,7 @@ class PembayaranController extends Controller
                 
             if ($response->successful()) {
                 $list = $data_response['data'];
-                //d($list);
+                //dd($list);
                 $id = $id;
                 $status = $data_tagihan['data']['status'];
                 //dd($list);

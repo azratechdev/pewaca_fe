@@ -62,7 +62,7 @@
                 
                 <div class="flex items-center">
                     <p class="td-flex align-items-center">
-                        <strong>{{ $data['warga'] ?? 'Anonim' }}</strong>
+                        <strong>{{ $data['warga']['full_name'] ?? 'Anonim' }}</strong>
                     </p>
                 </div>
             </div>
@@ -88,7 +88,7 @@
                 
                 <div class="flex items-center">
                     <p class="td-flex align-items-center">
-                        <strong>{{ $data['unit_id'] }} - A78FG</strong>
+                        <strong>{{ $data['unit_id']['unit_name']}}</strong>
                     </p>
                 </div>
             </div>
@@ -114,7 +114,7 @@
                 
                 <div class="flex items-center">
                     <p class="td-flex align-items-center">
-                        <strong>Rp {{ $data['tagihan']['amount'] }}</strong>
+                        <strong>Rp {{ number_format($data['tagihan']['amount'], 0, ',', '.') }}</strong>
                     </p>
                 </div>
             </div>
@@ -153,7 +153,7 @@
         @if ($data['status'] == 'process')
             <div class="p-6 mt-2">
                 <a class="btn btn-success approved-tagihan-warga w-full bg-green-600 text-white py-2 px-4 rounded-lg"
-                data-id="{{ $data['id'] }}" data-warga_id="{{ $data['warga'] }}">
+                data-id="{{ $data['id'] }}" data-warga_id="{{ $data['warga']['id'] }}">
                     Approve
                 </a>
             </div>
