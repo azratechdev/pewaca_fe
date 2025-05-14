@@ -68,33 +68,29 @@
 </div>
 <script>
 $(document).ready(function() {
-        setTimeout(function() {
-            $('#nama_pengurus, #role').select2({
-                placeholder: "Pilih salah satu",
-                allowClear: true
-            });
-        }, 500);
-});
-</script>    
-<script>
-    
-    const form = document.getElementById('pengurus_role_add');
-    const submitBtn = document.getElementById('submitBtn');
-    
-    
-    function checkFormValidity() {
-        
-        const isValid = [...form.querySelectorAll('input[required], select[required]')].every(input => {
-            return input.value.trim() !== '';
+    setTimeout(function() {
+        $('#nama_pengurus, #role').select2({
+            placeholder: "Pilih salah satu",
+            allowClear: true
+        }).on('change', function() {
+            checkFormValidity();
         });
+    }, 500);
+});
+
+const form = document.getElementById('pengurus_role_add');
+const submitBtn = document.getElementById('submitBtn');
+
+function checkFormValidity() {
+    const namaPengurus = $('#nama_pengurus').val();
+    const role = $('#role').val();
     
-        submitBtn.disabled = !isValid;
-    }
+    // Enable submit button only if both select fields have values
+    submitBtn.disabled = !namaPengurus || !role || namaPengurus === '-Pilih Warga-';
+}
 
-    form.addEventListener('input', checkFormValidity);
-
-    checkFormValidity();
-
+// Initial check
+setTimeout(checkFormValidity, 600);
 </script>
 
 @endsection

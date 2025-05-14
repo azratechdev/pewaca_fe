@@ -97,42 +97,56 @@ class HomeController extends Controller
             'description' => 'required|string'
         ]);
 
-        //dd($request->all());
-
-        $data = [
-            'story' => $request->description
-        ];
-        //dd($data);
         try {
-            //dd('here');
             $http = Http::withHeaders([
-                'Accept' => 'application/json',
-                'Authorization' => 'Token '.Session::get('token'),
+                'Authorization' => 'Token ' . Session::get('token') // atau coba ganti ke 'Bearer '
             ]);
+            // Siapkan multipart data
+            $multipart = [
+                [
+                    'name' => 'story',
+                    'contents' => $request->description
+                ]
+            ];
 
-            if (isset($request->post_picture) && $request->hasFile('post_picture')) {
+            // Tambahkan file jika ada
+            if ($request->hasFile('post_picture')) {
                 $file = $request->file('post_picture');
-                $http->attach('image', file_get_contents($file->getRealPath()), $file->getClientOriginalName());
+                $multipart[] = [
+                    'name' => 'image',
+                    'contents' => fopen($file->getRealPath(), 'r'),
+                    'filename' => $file->getClientOriginalName()
+                ];
             }
-           
-            $response = $http->post('https://api.pewaca.id/api/stories/', $data);
+
+            // Kirim request dengan multipart
+            $response = $http->asMultipart()->post('https://api.pewaca.id/api/stories/', $multipart);
 
             $data_response = json_decode($response->body(), true);
 
             //dd($data_response);
 
-            if ($response->successful()) {
-                session()->flash('status', 'success');
-                session()->flash('message', $data_response['data']['message']);
+            if ($data_response['success'] == true) {
+                Session::flash('flash-message', [
+                    'message' => 'Story berhasil dikirim',
+                    'alert-class' => 'alert-success',
+                ]);
                 return redirect()->route('home');
             } else {
-                session()->flash('message', $data_response['data']['message']);
+                Session::flash('flash-message', [
+                    'message' => 'Gagal mengirim story',
+                    'alert-class' => 'alert-warning',
+                ]);
                 return redirect()->route('home');
             }
-        
+
         } catch (\Exception $e) {
             session()->flash('status', 'error');
-            session()->flash('message', 'Gagal Mengirim Story');
+            session()->flash('message', 'Terjadi kesalahan: ' . $e->getMessage());
+            Session::flash('flash-message', [
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage(),
+                'alert-class' => 'alert-danger',
+            ]);
             return redirect()->route('home');
         }
     }
