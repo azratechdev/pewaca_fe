@@ -75,13 +75,13 @@
                 if ($bank['isactive'] == true) {
                     $alert_class = "alert-success";
                     $message = '<p style="color: green; margin: 0; font-weight: bold;">Utama<br>
-                        <small>Sebagai Rekening Bank Utama</small></p>';
+                        <small>Rekening Bank Utama</small></p>';
                   
                     
                 } else {
                     $alert_class = "alert-secondary";
                     $message = '<p style="color: rgb(97, 101, 97); margin: 0; font-weight: bold;">
-                        Tambahkan sebagai Rekening Bank Utama
+                        Jadikan sebagai rekening bank utama
                     </p>';
                    
                 }
@@ -183,7 +183,7 @@
                 if (this.checked) {
                     Swal.fire({
                         title: "Konfirmasi",
-                        text: "Aktifkan rekening bank ini?",
+                        text: "Aktifkan rekening bank ini sebagai rekening utama?",
                         icon: "warning",
                         showCancelButton: true,
                         confirmButtonColor: "#3085d6",
@@ -206,7 +206,7 @@
                                 if (data.id == bankId && data.isactive === true) {
                                     Swal.fire({
                                         title: "Sukses!",
-                                        text: "Rekening berhasil diaktifkan.",
+                                        text: "Rekening berhasil diaktifkan sebagai rekening utama.",
                                         icon: "success",
                                         confirmButtonText: "OK"
                                     }).then(() => {

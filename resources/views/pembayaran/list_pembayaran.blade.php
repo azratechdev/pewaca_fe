@@ -71,9 +71,9 @@
                         <div class="flex items-center">
                             <p class="d-flex align-items-center">
                                 @php
-                                    $formattedAmount = number_format((int) $tagihan['tagihan']['amount'], 0, ',', '.');
+                                    $formattedAmount = 'Rp ' . number_format($tagihan['tagihan']['amount'], 0, ',', '.');
                                 @endphp
-                                Rp {{ $formattedAmount }}
+                                {{ $formattedAmount }}
                             </p>
                         </div>
                     </div> 

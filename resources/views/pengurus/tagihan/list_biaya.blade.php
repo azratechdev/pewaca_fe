@@ -52,7 +52,7 @@
                         
                         <div class="flex items-center">
                             <p class="d-flex align-items-center">
-                                Rp {{ $tagihan['amount'] }}
+                                Rp {{ number_format($tagihan['amount'], 0, ',', '.') }}
                             </p>
                         </div>
                     </div> 
@@ -84,7 +84,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex justify-between items-center mt-2">
+            {{-- <div class="flex justify-between items-center mt-2">
                 <div class="flex items-center">
                     <p class="text-warning d-flex align-items-center">
                         
@@ -92,13 +92,38 @@
                 </div>
                 @if($tagihan['is_publish'] == false)
                 <div class="flex items-right">
-                    <a href="{{ route('pengurus.tagihan.edit', ['id' => $tagihan['id']]) }}" class="btn btn-sm btn-light w-20" style="border-radius:8px;">Edit</a>
+                    <a href="{{ route('pengurus.tagihan.edit', ['id' => $tagihan['id']]) }}" class="btn btn-sm btn-default w-20" style="border-radius:8px;">Edit</a>
                     &nbsp;&nbsp;
                     <a data-id="{{ $tagihan['id'] }}" class="btn btn-sm btn-success w-20 btn-publish" style="color: white;border-radius:8px;">Publish</a>
                 </div>
                 @else
                 <div class="flex items-right">
                     <a class="btn btn-sm btn-primary w-20" style="color: white;border-radius:8px;">Published</a>
+                </div>
+                @endif
+            </div> --}}
+            <div class="flex justify-between items-center mt-2">
+                @if($tagihan['is_publish'] == true)
+                <div class="flex items-left">
+                    <div class="btn btn-sm btn-success" style="color: white;border-radius:8px;"> 
+                        <i class="fas fa-check-circle text-white mr-2"></i> Published</div>
+                    </div>
+                @else
+                <div class="flex items-left">
+                    {{-- <div class="btn btn-sm btn-danger" style="color: white;border-radius:8px;"> 
+                        <i class="fas fa-times-circle text-white mr-2"></i> Unpublished</div>
+                    </div> --}}
+                </div>
+                @endif
+                @if($tagihan['is_publish'] == false)
+                <div class="flex items-right">
+                    <a href="{{ route('pengurus.tagihan.edit', ['id' => $tagihan['id']]) }}" class="btn btn-sm btn-light w-20" style="border-radius:8px;">Edit</a>
+                    &nbsp;&nbsp;
+                    <a href="#" data-id="{{ $tagihan['id'] }}" class="btn btn-sm btn-success w-20 btn-publish" style="color: white;border-radius:8px;">Publish</a>
+                </div>
+                @else
+                <div class="flex items-right">
+                    <a href="#" data-id="{{ $tagihan['id'] }}" class="btn btn-sm btn-warning w-20 btn-unpublish" style="color: white;border-radius:8px;">Unpublish</a>
                 </div>
                 @endif
             </div>
@@ -145,4 +170,123 @@
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+$(document).on('click', '.btn-publish', function (e) {
+    e.preventDefault();
+    let tagihan_id = $(this).data('id');
+    const publishUrl = @json(route('tagihan.publish'));
+
+    Swal.fire({
+        title: 'Yakin ingin mempublish tagihan ini?' ,
+        text: "Harap periksa data tagihan terlebih dahulu!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Publish!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch(`https://api.pewaca.id/api/tagihan/publish-tagihan/${tagihan_id}/`, {
+                method: "POST",
+                headers: {
+                    "Accept": "application/json",
+                    "Authorization": "Token {{ Session::get('token') }}",
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": "2EsSjVgOlsklgxbXyjSOfitDc5NQkoiBnejF5k63EViTw1LQP2p52nhkVCoTLqmu"
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    Swal.fire({
+                        title: "Sukses!",
+                        text: "Tagihan Berhasil dipublish.",
+                        icon: "success",
+                        confirmButtonText: "OK"
+                    }).then(() => {
+                        location.reload(); // Refresh halaman setelah sukses
+                    });
+                } else {
+                    Swal.fire("Error", "Terjadi kesalahan, coba lagi.", "error");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                Swal.fire("Error", "Gagal menghubungi server.", "error");
+            });
+        }
+    });
+});
+
+$(document).on('click', '.btn-unpublish', function (e) {
+    e.preventDefault();
+    let tagihan_id = $(this).data('id');
+   
+    Swal.fire({
+        title: 'Yakin ingin unpublish tagihan ini?',
+        html: `
+            <p class="mb-3">Tindakan ini akan menghapus data tagihan dari daftar!</p>
+            <div class="form-group">
+                <textarea id="unpublish-note" class="form-control" 
+                    placeholder="Masukkan catatan unpublish..." 
+                    style="width: 100%; margin-top: 10px; border: 1px solid #ddd; border-radius: 4px; padding: 8px;"
+                    rows="3"
+                ></textarea>
+            </div>
+        `,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Unpublish!',
+        didOpen: () => {
+            const confirmButton = Swal.getConfirmButton();
+            confirmButton.disabled = true;
+            
+            document.getElementById('unpublish-note').addEventListener('input', function(e) {
+                confirmButton.disabled = !e.target.value.trim();
+            });
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const note = document.getElementById('unpublish-note').value.trim();
+            
+            fetch(`https://api.pewaca.id/api/unpublish-tagihan/${tagihan_id}/`, {
+                method: "POST",
+                headers: {
+                    "Accept": "application/json",
+                    "Authorization": "Token {{ Session::get('token') }}",
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": "2EsSjVgOlsklgxbXyjSOfitDc5NQkoiBnejF5k63EViTw1LQP2p52nhkVCoTLqmu"
+                },
+                body: JSON.stringify({
+                    note: note
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    Swal.fire({
+                        title: "Sukses!",
+                        text: "Tagihan Berhasil diunpublish.",
+                        icon: "success",
+                        confirmButtonText: "OK"
+                    }).then(() => {
+                        location.reload(); // Refresh halaman setelah sukses
+                    });
+                } else {
+                    Swal.fire("Error", "Terjadi kesalahan, coba lagi.", "error");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                Swal.fire("Error", "Gagal menghubungi server.", "error");
+            });
+        }
+    });
+});
+
+</script>
 @endsection

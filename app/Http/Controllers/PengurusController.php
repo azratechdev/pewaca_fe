@@ -302,7 +302,7 @@ class PengurusController extends Controller
             'Authorization' => 'Token ' . Session::get('token'),
         ])->get($apiUrl);
         $biaya_response = json_decode($response->body(), true);
-        //dd($warga_response);
+        //dd($biaya_response);
       
         $biaya = $biaya_response['results'] ?? [];
         $next_page = $biaya_response['next'] ?? null;

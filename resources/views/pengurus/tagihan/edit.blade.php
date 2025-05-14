@@ -70,10 +70,10 @@
                 <label for="type_iuran">Type Iuran</label>
             </div>
 
-            <div class="form-floating mt-4">
+            {{-- <div class="form-floating mt-4">
                 <input type="date" class="form-control" id="from_date" name="from_date" value=""  placeholder=" " required>
                 <label for="from_date">From Date</label>
-            </div>
+            </div> --}}
 
             <div class="form-floating mt-4">
                 <input type="date" class="form-control" id="due_date" name="due_date" value="{{ $tagihan['date_due'] }}"  placeholder=" " required>
@@ -171,23 +171,35 @@
 <script>
     // Script to format input dynamically
     const paymentInput = document.getElementById('nominal');
+    
+    // Format initial value when page loads
+    window.addEventListener('load', function() {
+        let initialValue = paymentInput.value;
+        if (initialValue) {
+            // Remove 'Rp. ' if it exists and any dots
+            initialValue = initialValue.replace('Rp. ', '').replace(/\./g, '');
+            // Format the value
+            const formattedValue = `Rp. ${parseInt(initialValue).toLocaleString('id-ID')}`;
+            paymentInput.value = formattedValue;
+        }
+    });
 
     paymentInput.addEventListener('input', function (e) {
-      let value = this.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
-      if (value) {
-        value = parseInt(value, 10).toLocaleString('id-ID'); // Format to Rupiah locale
-        this.value = `Rp. ${value}`;
-      } else {
-        this.value = '';
-      }
+        let value = this.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+        if (value) {
+            value = parseInt(value).toLocaleString('id-ID'); // Format to Rupiah locale
+            this.value = `Rp. ${value}`;
+        } else {
+            this.value = '';
+        }
     });
 
     paymentInput.addEventListener('blur', function () {
-      if (!this.value.startsWith('Rp.')) {
-        this.value = `Rp. 0`; // Default value if input is cleared
-      }
+        if (!this.value) {
+            this.value = 'Rp. 0'; // Default value if input is cleared
+        }
     });
-  </script>
+</script>
 </div>
 
-@endsection 
+@endsection
