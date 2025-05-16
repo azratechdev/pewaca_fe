@@ -35,15 +35,8 @@ $isChecker = $warga['is_checker'] ?? false;
             <div class="flex items-center">
                 <img alt="Waca Logo" height="120"  width="170" src="{{ asset('assets/plugins/images/mainlogo.png') }}"/>
             </div>
-            <a href="{{ route('addpost') }}">
-                <div class="flex items-center">
-                    <span class="text-xl text-black mr-2">
-                    Posting
-                    </span>
-                    <div class="flex items-center justify-center w-5 h-5 border border-black square-full">
-                        <i class="fas fa-plus text-black"></i>
-                    </div>
-                </div>
+            <a href="{{ route('addpost') }}" class="rounded-full border border-green-600 bg-green-600 w-10 h-10 flex items-center justify-center">
+                <i class="fas fa-plus text-white"></i>
             </a>
         </div>
         <br>
