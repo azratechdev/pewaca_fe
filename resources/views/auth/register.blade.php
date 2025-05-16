@@ -214,14 +214,14 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                        
+                            {{-- pattern="\d{16}" minlength="16" maxlength="16" @error('nik') is-invalid @enderror" --}}
                             <div class="form-floating mb-3">
-                                <input type="text" pattern="\d{16}" minlength="16" maxlength="16" inputmode="numeric" class="form-control @error('nik') is-invalid @enderror" value="{{ old('nik') }}" id="nik" name="nik" placeholder=" " required>
+                                <input type="text" inputmode="numeric" class="form-control" value="{{ old('nik') }}" id="nik" name="nik" placeholder=" ">
                                 <label for="nik">NIK</label>
                                 <small class="text-danger d-none" id="nik-error">NIK harus 16 digit angka</small>
-                                @error('nik')
+                                {{-- @error('nik')
                                     <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                @enderror --}}
                             </div>
                         
                             <div class="form-floating mb-3">
@@ -279,11 +279,12 @@
                                 </select>
                                 <label for="marital_status">Status</label>
                             </div>
-                        
-                            <div class="form-floating mb-3" id="marriagePhotoGroup" style="display: none;">
-                                <input type="file" class="form-control @error('marriagePhoto') is-invalid @enderror" id="marriagePhoto" name="marriagePhoto" accept="image/jpeg,image/jpg">
-                                <label for="marriagePhoto">Upload Foto Buku Nikah</label>
-                                @error('marriagePhoto')
+                            
+                            {{-- @error('marital_photo') is-invalid @enderror --}}
+                            <div class="form-floating mb-3" id="marital_photoGroup" style="display: none;">
+                                <input type="file" class="form-control" id="marital_photo" name="marital_photo" accept="image/jpeg,image/jpg">
+                                <label for="marital_photo">Upload Foto Buku Nikah</label>
+                                @error('marital_photo')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -375,8 +376,8 @@
    
 
   <!-- Tambahkan jQuery -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+  {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
   <!-- JS Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -560,29 +561,29 @@
         $( document ).ready(function() {
          
             const statusSelect = document.getElementById('marital_status');
-            const marriagePhotoGroup = document.getElementById('marriagePhotoGroup');
-            const marriagePhotoInput = document.getElementById('marriagePhoto');
+            const marital_photoGroup = document.getElementById('marital_photoGroup');
+            const marital_photoInput = document.getElementById('marital_photo');
 
             if (statusSelect) {
-                function toggleMarriagePhotoInput() {
+                function togglemarital_photoInput() {
                     const selectedStatus = statusSelect.value;
                     if (selectedStatus === '1') {
-                        marriagePhotoGroup.style.display = 'block';
-                        marriagePhotoInput.setAttribute('required', 'required');
+                        marital_photoGroup.style.display = 'block';
+                        // marital_photoInput.setAttribute('required', 'required');
                     } else {
-                        marriagePhotoGroup.style.display = 'none';
-                        marriagePhotoInput.removeAttribute('required');
+                        marital_photoGroup.style.display = 'none';
+                        // marital_photoInput.removeAttribute('required');
                     }
                 }
 
-                statusSelect.addEventListener('change', toggleMarriagePhotoInput);
-                toggleMarriagePhotoInput();
+                statusSelect.addEventListener('change', togglemarital_photoInput);
+                togglemarital_photoInput();
             } else {
                 console.error("Element with ID 'marital_status' not found.");
             }
         });
     </script>
-<script>
+{{-- <script>
     document.getElementById('nik').addEventListener('input', function (e) {
         let value = e.target.value.replace(/\D/g, ''); // Hanya angka
         if (value.length > 16) {
@@ -594,7 +595,7 @@
         document.getElementById('nik-error').classList.toggle('d-none', value.length === 16);
     });
 
-</script>
+</script> --}}
 </body>
 </html>
 

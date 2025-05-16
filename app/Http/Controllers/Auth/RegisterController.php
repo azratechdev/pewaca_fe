@@ -61,7 +61,12 @@ class RegisterController extends Controller
         ])->get('https://api.pewaca.id/api/units/code/'.$uuid."/");
         $unit_response = json_decode($response->body(), true);
         //dd($unit_response);
-        return $unit_response['data'];
+        if($unit_response['data']){
+            return $unit_response['data'];
+        }
+        else{
+            return [];
+        }
     }
 
     public function getGenders()
@@ -122,7 +127,8 @@ class RegisterController extends Controller
     {   
         $request->validate([
             'unit_id' => 'required|integer',
-            'nik' => 'required|regex:/^\d{16}$/',
+            'nik' => 'nullable',
+            // 'nik' => 'nullable|regex:/^\d{16}$/',
             'full_name' => 'required|string|max:255',
             'phone_no' => 'required|regex:/^\d{8,13}$/',
             'gender_id' => 'required|integer',
@@ -130,7 +136,7 @@ class RegisterController extends Controller
             'religion' => 'required|integer',
             'place_of_birth' => 'required|string|max:255',
             'marital_status' => 'required|integer',
-            'marriagePhoto' => 'nullable|image|mimes:jpeg,jpg|max:2048',
+            'marital_photo' => 'nullable|image|mimes:jpeg,jpg|max:2048',
             'occupation' => 'required|integer',
             'education' => 'required|integer',
             'family_as' => 'required|integer',
@@ -142,8 +148,8 @@ class RegisterController extends Controller
             'unit_id.required' => 'Unit wajib diisi.',
             'unit_id.integer' => 'Unit harus berupa angka.',
         
-            'nik.required' => 'NIK wajib diisi.',
-            'nik.regex' => 'NIK harus terdiri dari 16 digit angka.',
+            // 'nik.required' => 'NIK wajib diisi.',
+            // 'nik.regex' => 'NIK harus terdiri dari 16 digit angka.',
         
             'full_name.required' => 'Nama lengkap wajib diisi.',
             'full_name.string' => 'Nama lengkap harus berupa teks.',
@@ -168,9 +174,9 @@ class RegisterController extends Controller
             'marital_status.required' => 'Status pernikahan wajib dipilih.',
             'marital_status.integer' => 'Status pernikahan tidak valid.',
         
-            'marriagePhoto.image' => 'Foto pernikahan harus berupa gambar.',
-            'marriagePhoto.mimes' => 'Format foto pernikahan harus jpeg atau jpg.',
-            'marriagePhoto.max' => 'Ukuran foto pernikahan maksimal 2MB.',
+            'marital_photo.image' => 'Foto pernikahan harus berupa gambar.',
+            'marital_photo.mimes' => 'Format foto pernikahan harus jpeg atau jpg.',
+            'marital_photo.max' => 'Ukuran foto pernikahan maksimal 2MB.',
         
             'occupation.required' => 'Pekerjaan wajib dipilih.',
             'occupation.integer' => 'Pekerjaan tidak valid.',
@@ -213,9 +219,9 @@ class RegisterController extends Controller
             'code' => $request->code
            
         ];
-        //dd($data);
+        //'dd($data);
         try {
-
+            //dd("here");
             $http = Http::withHeaders([
                 'Accept' => 'application/json',
             ]);
@@ -224,10 +230,17 @@ class RegisterController extends Controller
                 $file = $request->file('profile_photo');
                 $http->attach('profile_photo', file_get_contents($file->getRealPath()), $file->getClientOriginalName());
             }
+
+            if (isset($request->marital_photo) && $request->hasFile('marital_photo')) {
+                $file = $request->file('marital_photo');
+                $http->attach('marriagePhoto', file_get_contents($file->getRealPath()), $file->getClientOriginalName());
+            }
            
             $response = $http->post('https://api.pewaca.id/api/auth/sign-up/'.$request->code."/", $data);
-                            
+  
             $data_response = json_decode($response->body(), true);
+
+            //dd($data_response);
 
             if ($response->successful()) {
                 session()->flash('status', 'success');
@@ -274,7 +287,7 @@ class RegisterController extends Controller
         ])->get('https://api.pewaca.id/api/auth/verify/'.$request->code."/".$request->token."/");
         $verify_response = json_decode($response->body(), true);
         
-        dd($verify_response);
+        //dd($verify_response);
         
     }
     

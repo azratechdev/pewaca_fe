@@ -27,7 +27,7 @@
                 
                 <div class="flex items-center">
                     <p class="text-dark d-flex align-items-center">
-                        <i class="far fa-calendar"></i>&nbsp; 12 Agustus 2024
+                        <i class="far fa-calendar"></i>&nbsp; 12 Agustus 2025
                     </p>
                 </div>
             </div>

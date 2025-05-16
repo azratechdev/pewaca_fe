@@ -56,11 +56,15 @@
         <div class="pl-6">
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
-                    <h1 class="text-xl font-semibold">
-                        <span class="text-dark">
+                    {{-- <h1 class="text-xl font-semibold"> --}}
+                        {{-- <span class="text-dark">
                             <i class="fas fa-home" style="color:lightgreen;"></i>
-                        </span>&nbsp;&nbsp;&nbsp;&nbsp;{{ $data['residence']['name'] }}
-                    </h1>
+                        </span>&nbsp;&nbsp;&nbsp;&nbsp;{{ $data['residence']['name'] }} --}}
+                        <div class="d-flex align-items-center text-xl font-semibold" style="font-size: 1.0em;">
+                            <img src="{{ $data['residence']['image'] }}" alt="Icon Perumahan" style="width: 24px; height: 24px; margin-right: 8px;">
+                            <span>{{ $data['residence']['name'] }}</span>
+                        </div>
+                    {{-- </h1> --}}
                 </div>
             </div>
         </div>

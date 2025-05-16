@@ -104,10 +104,14 @@
             </div> --}}
             <div class="flex justify-between items-center mt-2">
                 @if($tagihan['is_publish'] == true)
-                <div class="flex items-left">
+                <p class="text-success d-flex align-items-center">
+                    <i class="fa fa-check"></i>&nbsp; Published
+                </p>
+                {{-- <div class="flex items-left">
                     <div class="btn btn-sm btn-success" style="color: white;border-radius:8px;"> 
-                        <i class="fas fa-check-circle text-white mr-2"></i> Published</div>
+                        <i class="fas fa-check-circle text-white mr-2"></i> Published
                     </div>
+                </div> --}}
                 @else
                 <div class="flex items-left">
                     {{-- <div class="btn btn-sm btn-danger" style="color: white;border-radius:8px;"> 
@@ -162,7 +166,7 @@
             <br>
             <div class="p-0 mt-2">
                 <a href="{{ route('tagihan.add') }}" 
-                    class="btn btn-success w-full bg-green-600 text-white py-2 px-4 rounded-lg">
+                    class="btn btn-success w-full bg-green-600 text-white py-2 px-4 rounded-lg btn-add">
                     ADD
                 </a>
             </div>
@@ -287,6 +291,62 @@ $(document).on('click', '.btn-unpublish', function (e) {
         }
     });
 });
+
+$(document).on('click', '.btn-add', function(e) {
+    e.preventDefault();
+    const residence_id = {{ Session::get('warga')['residence'] }};
+
+    fetch(`https://api.pewaca.id/api/residence-banks/list_banks/?residence_id=${residence_id}`, {
+        method: "GET",
+        headers: {
+            "Accept": "application/json",
+            "Authorization": "Token {{ Session::get('token') }}",
+            "Content-Type": "application/json"
+        }
+    })
+    .then(response => response.json())
+    .then(response => {
+        const banks = response.data || [];
+
+        if (banks.length === 0) {
+            // ⛔ Data kosong
+            Swal.fire({
+                title: "Peringatan!",
+                text: "Harap isikan data bank terlebih dahulu",
+                icon: "warning",
+                confirmButtonText: "OK",
+                confirmButtonColor: "#3085d6"
+            }).then(() => {
+                window.location.href = "{{ route('inforekening') }}";
+            });
+
+        } else {
+            // ✅ Data ada, cek apakah ada yang isactive === true
+            const hasActiveBank = banks.some(bank => bank.isactive === true);
+
+            if (!hasActiveBank) {
+                // ⛔ Tidak ada rekening aktif
+                Swal.fire({
+                    title: "Peringatan!",
+                    text: "Belum ada rekening utama yang dipilih, harap pilih rekening utama",
+                    icon: "warning",
+                    confirmButtonText: "OK",
+                    confirmButtonColor: "#3085d6"
+                }).then(() => {
+                    window.location.href = "{{ route('inforekening') }}";
+                });
+            } else {
+                // ✅ Semua OK, lanjut
+                window.location.href = "{{ route('tagihan.add') }}";
+            }
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        Swal.fire("Error", "Gagal menghubungi server.", "error");
+    });
+});
+
 
 </script>
 @endsection

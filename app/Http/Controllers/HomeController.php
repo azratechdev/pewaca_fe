@@ -141,8 +141,6 @@ class HomeController extends Controller
             }
 
         } catch (\Exception $e) {
-            session()->flash('status', 'error');
-            session()->flash('message', 'Terjadi kesalahan: ' . $e->getMessage());
             Session::flash('flash-message', [
                 'message' => 'Terjadi kesalahan: ' . $e->getMessage(),
                 'alert-class' => 'alert-danger',

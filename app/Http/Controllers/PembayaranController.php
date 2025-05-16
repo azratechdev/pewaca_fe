@@ -30,7 +30,7 @@ class PembayaranController extends Controller
   
     public function list_tagihan(Request $request)
     {
-        
+        //dd(session::all());
         $filter = $request->input('filter');
         $page = $request->input('page', 1); // Default page = 1 jika tidak ada  
 
@@ -91,7 +91,7 @@ class PembayaranController extends Controller
     }
 
     public function list_history (Request $request)
-    {
+    { //dd(session::get('warga')['id']);
         $filter = $request->input('filter');
         $page = $request->input('page', 1); // Default page = 1 jika tidak ada  
 
@@ -99,7 +99,7 @@ class PembayaranController extends Controller
             $page = 1;
         }
 
-        $apiUrl = 'https://api.pewaca.id/api/tagihan-warga/self-list/?status=paid&page='.$page;
+        $apiUrl = 'https://api.pewaca.id/api/tagihan-warga/self-list/?status=paid&page='.$page.'&warga_id='.session::get('warga')['id'];
 
         if (!empty($filter)) {
             $apiUrl .= '&search=' . urlencode($filter);
@@ -207,11 +207,21 @@ class PembayaranController extends Controller
     
             $data_response = json_decode($response->body(), true);
 
-            //dd($data_response);
+            $getnote = Http::withHeaders([
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Token ' . Session::get('token'),
+            ])->get('https://api.pewaca.id/api/tagihan-note/list/'.$id.'/');
+    
+            $data_note = json_decode($getnote->body(), true);
     
             if ($response->successful()) {
                 $tagihan = $data_response;
-                return view('pembayaran.uploadbuktipage', compact('tagihan'));
+                $ceknote = false;
+                if (!empty($data_note['data']) && count($data_note['data']) === 1) {
+                    $ceknote = true;
+                }
+                return view('pembayaran.uploadbuktipage', compact('tagihan','ceknote'));
             } else {
                 Session::flash('flash-message', [
                     'message' => 'Data tidak ditemukan',

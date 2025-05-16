@@ -32,6 +32,7 @@
                         id="imageUpload" 
                         type="file" 
                         name="image"
+                        @if(!$ceknote) required @endif
                       />
                       
                       <label class="cursor-pointer relative" for="imageUpload">
@@ -45,7 +46,9 @@
                               <div class="text-center">
                                   <i class="fas fa-plus text-white text-4xl mb-2"></i><br>
                                   <span class="text-white text-lg">Upload Foto</span>
-                                  {{-- <span class="text-white text-sm block">(Wajib Disertakan)</span> --}}
+                                  @if(!$ceknote)
+                                  <span class="text-red-500 block mt-1">*Wajib</span>
+                                  @endif
                               </div>
                               <button 
                                 class="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hidden" 
@@ -83,21 +86,21 @@
   <script>
     const form = document.getElementById('upload_note_tagihan');
     const submitBtn = document.getElementById('submitBtn');
-    
+    const imageUpload = document.getElementById('imageUpload');
+    const noteInput = document.getElementById('note');
+    const ceknote = @json($ceknote);
   
     function checkFormValidity() {
-       
-       const isValid = [...form.querySelectorAll('input[required]')].every(input => {
-           return input.value.trim() !== '';
-       });
-     
-        submitBtn.disabled = !isValid;
+        const noteValid = noteInput.value.trim() !== '';
+        const imageValid = ceknote ? true : imageUpload.files.length > 0;
+        
+        submitBtn.disabled = !(noteValid && imageValid);
     }
   
     form.addEventListener('input', checkFormValidity);
+    imageUpload.addEventListener('change', checkFormValidity);
   
     checkFormValidity();
-  
   </script>
   
   

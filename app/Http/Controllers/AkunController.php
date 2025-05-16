@@ -33,6 +33,7 @@ class AkunController extends Controller
 
     public function inforekening()
     {   
+       // dd(Session::all());
         $residence = Session::get('warga');
         $residence_id = $residence['residence'];
         $response = Http::withHeaders([
