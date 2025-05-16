@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\HomeController;
 
 
 class LoginController extends Controller
@@ -50,10 +51,15 @@ class LoginController extends Controller
                 Session::put('token', $token); // Simpan token ke dalam session
                 $res = $this->authenticate($data['email']);
 
-                Session::flash('flash-message', [
-                    'message' => $res['message'],
-                    'alert-class' => $res['alert'],
-                ]);
+                $cekstroy = new HomeController();
+                $stories = $cekstroy->getStories();
+
+                if(empty($stories)){
+                    Session::flash('flash-message', [
+                        'message' => $res['message'],
+                        'alert-class' => $res['alert'],
+                    ]);
+                }
                 return redirect()->route($res['redirectTo']);
             } else {
                 if($data_response['message'] == 'User is inactive'){

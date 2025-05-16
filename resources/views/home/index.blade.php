@@ -47,7 +47,10 @@ $isChecker = $warga['is_checker'] ?? false;
             </a>
         </div>
         <br>
-        @include('layouts.elements.flash')
+
+        {{-- @if(empty($stories)) --}}
+            @include('layouts.elements.flash')
+        {{-- @endif --}}
               
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
             @foreach($stories as $story)
@@ -93,9 +96,9 @@ $isChecker = $warga['is_checker'] ?? false;
                         <div class="flex items-center">
                             <a href="javascript:void(0)" class="toggle-comment text-green-500" data-id="{{ $story['id'] }}">Comment</a> 
                         </div>
-                        <div class="flex items-center">
+                        {{-- <div class="flex items-center">
                             <a href="javascript:void(0)" class="toggle-like text-green-500" data-id="{{ $story['id'] }}"> Like {{ $story['total_like'] }}</a>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 
