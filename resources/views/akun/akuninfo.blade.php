@@ -100,11 +100,16 @@
                     @if( $data['warga']['marital_status']['id'] == '1')
                         <div class="flex items-center">
                             <span class="text-gray-600">Buku Nikah <br>
+                                @if($data['warga']['marriagePhoto'] != null)
                                 <img 
                                 alt="Belum ada" 
                                 class="profile-picture rounded w-32 h-24" 
-                                src="https://storage.googleapis.com/a1aa/image/ZoAiGzvASA4pG9oiGwu50UAjrOG21IrMhFOGfFnKGy1xU85JA.jpg"
-                            /></span>
+                                src="{{ $data['warga']['marriagePhoto'] }}"
+                                />
+                                @else
+                                <strong>Tidak ada unggahan</strong>
+                                @endif
+                            </span>
                         </div>
                     @endif
 
