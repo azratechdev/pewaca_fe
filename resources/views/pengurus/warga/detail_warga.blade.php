@@ -27,7 +27,12 @@
                 
                 <div class="flex items-center">
                     <p class="text-dark d-flex align-items-center">
-                        <i class="far fa-calendar"></i>&nbsp; 12 Agustus 2025
+                        <i class="far fa-calendar"></i>&nbsp; 
+                        @if($warga['is_checker'] == false && $warga['isreject'] == false)
+                        {{ \Carbon\Carbon::parse($warga['created_on'])->locale('id')->format('d F Y') }}
+                        @else
+                        {{ \Carbon\Carbon::parse($warga['checked_on'])->locale('id')->format('d F Y') }}
+                        @endif
                     </p>
                 </div>
             </div>
