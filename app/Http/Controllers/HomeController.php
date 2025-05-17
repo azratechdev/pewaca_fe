@@ -93,7 +93,7 @@ class HomeController extends Controller
     public function postStory(Request $request)
     {
         $request->validate([
-            'post_picture' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
+            'post_picture' => 'nullable|image|mimes:jpeg,jpg,png',
             'description' => 'required|string'
         ]);
 
