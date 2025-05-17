@@ -58,7 +58,7 @@
                     <div class="flex justify-between items-center mt-2">
                         <div class="flex items-center">
                             <p class="d-flex align-items-center">
-                                <strong>Rp {{ $tagihan['tagihan']['amount'] }}</strong>
+                                <strong>Rp {{ number_format($tagihan['amount'], 0, ',', '.') }}</strong>
                             </p>
                         </div>
                         

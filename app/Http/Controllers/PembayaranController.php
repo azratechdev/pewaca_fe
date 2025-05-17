@@ -110,6 +110,7 @@ class PembayaranController extends Controller
             'Authorization' => 'Token ' . Session::get('token'),
         ])->get($apiUrl);
         $tagihan_response = json_decode($response->body(), true);
+        
         //dd($tagihan_response);
       
         $data_tagihan = $tagihan_response['data'] ?? [];
@@ -146,15 +147,17 @@ class PembayaranController extends Controller
             
         }
         //dd(session::get('warga'));
-        if(!empty(session::get('cred')['residence_commites'])){
-            $warga_id = session::get('cred')['residence_commites'][0]['warga'];
-        }
-        else{
-            $warga_id = session::get('warga')['id'];
-        }
+        // if(!empty(session::get('cred')['residence_commites'])){
+        //     $warga_id = session::get('cred')['residence_commites'][0]['warga'];
+        // }
+        // else{
+        //     $warga_id = session::get('warga')['id'];
+        // }
+
+        //dd($data_tagihan);
        
 
-        return view('pembayaran.list_history', compact('warga_id','data_tagihan','current','next','prev','next_page','previous_page', 'total_pages'));
+        return view('pembayaran.list_history', compact('data_tagihan','current','next','prev','next_page','previous_page', 'total_pages'));
     }
 
     public function list_postingan(Request $request)
@@ -217,11 +220,15 @@ class PembayaranController extends Controller
     
             if ($response->successful()) {
                 $tagihan = $data_response;
+                //dd($tagihan);
                 $ceknote = false;
                 if (!empty($data_note['data']) && count($data_note['data']) === 1) {
                     $ceknote = true;
                 }
-                return view('pembayaran.uploadbuktipage', compact('tagihan','ceknote'));
+              
+                return view('pembayaran.uploadbuktipage', compact('tagihan', 'ceknote'));
+                
+                
             } else {
                 Session::flash('flash-message', [
                     'message' => 'Data tidak ditemukan',
@@ -306,7 +313,6 @@ class PembayaranController extends Controller
 
     public function postNote(Request $request)
     {
-        //dd($request->all());
         $request->validate([
             'image' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
             'tagihan_warga_id' => 'required|string',
@@ -314,9 +320,8 @@ class PembayaranController extends Controller
         ]);
             
         try {
-                   
             $http = Http::withHeaders([
-                'Accept' => 'application/json', // Header untuk menerima JSON
+                'Accept' => 'application/json',
                 'Authorization' => 'Token ' . session::get('token'),
             ]);
         
@@ -329,22 +334,22 @@ class PembayaranController extends Controller
                 );
             }
         
-            $data = [
-                'note' => $request->note,
-                'tagihan_warga' => $request->tagihan_warga_id,
-                'warga' => $request->warga_id
-              
-            ];
-        
-            $response = $http->post(
-                'https://api.pewaca.id/api/tagihan-note/create-note/', $data
+            $http->attach(
+                'note', 
+                $request->note
+            )->attach(
+                'tagihan_warga',
+                $request->tagihan_warga_id
+            )->attach(
+                'warga',
+                $request->warga_id
             );
         
+            $response = $http->post('https://api.pewaca.id/api/tagihan-note/create-note/');
             $data_response = json_decode($response->body(), true);
-
             //dd($data_response);
           
-            if ($response['success'] == true) {
+            if ($data_response['success'] == true) {
                 Session::flash('flash-message', [
                     'message' => 'Catatan berhasil dikirim',
                     'alert-class' => 'alert-success',
@@ -360,7 +365,7 @@ class PembayaranController extends Controller
             
         } catch (\Exception $e) {
             Session::flash('flash-message', [
-                'message' => 'Gagal Mengirim Data',
+                'message' => 'Gagal Mengirim Data niiihh',
                 'alert-class' => 'alert-danger',
             ]);
             return redirect()->route('pembayaran.upload_bukti', ['id' => $request->tagihan_warga_id]);
@@ -376,7 +381,7 @@ class PembayaranController extends Controller
                 'Authorization' => 'Token ' . Session::get('token'),
             ])->get('https://api.pewaca.id/api/tagihan-note/list/'.$id.'/');
     
-            $data_response = json_decode($response->body(), true);
+            $data_note = json_decode($response->body(), true);
 
             $res = Http::withHeaders([
                 'Accept' => 'application/json',
@@ -387,7 +392,7 @@ class PembayaranController extends Controller
             $data_tagihan = json_decode($res->body(), true);
                 
             if ($response->successful()) {
-                $list = $data_response['data'];
+                $list = $data_note['data'];
                 //dd($list);
                 $id = $id;
                 $status = $data_tagihan['data']['status'];

@@ -44,10 +44,9 @@
                                 src="{{ $note['images'][0]['image'] }}" 
                             />
                         @endif
-                        
+                    </div>    
                 </div>
             </div>
-            
         </div>
         @endforeach
         <br>

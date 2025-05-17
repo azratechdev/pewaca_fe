@@ -5,7 +5,7 @@
           <h1 class="text-xl font-semibold text-gray-800">
             <a href="{{ route('pembayaran.add', ['id' => $tagihan['data']['id']]) }}" class="text-dark">
                 <i class="fas fa-arrow-left"></i>
-            </a>&nbsp;&nbsp;Bukti Pembayaran
+            </a>&nbsp;&nbsp;Catatan Bukti Pembayaran
         </h1>
         </div>
       </div>
@@ -32,7 +32,7 @@
                         id="imageUpload" 
                         type="file" 
                         name="image"
-                        @if(!$ceknote) required @endif
+                        {{-- @if(!$ceknote) required @endif --}}
                       />
                       
                       <label class="cursor-pointer relative" for="imageUpload">
@@ -46,9 +46,9 @@
                               <div class="text-center">
                                   <i class="fas fa-plus text-white text-4xl mb-2"></i><br>
                                   <span class="text-white text-lg">Upload Foto</span>
-                                  @if(!$ceknote)
+                                  {{-- @if(!$ceknote)
                                   <span class="text-red-500 block mt-1">*Wajib</span>
-                                  @endif
+                                  @endif --}}
                               </div>
                               <button 
                                 class="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hidden" 
@@ -64,7 +64,7 @@
          
             <div>
                 <div class="form-floating mt-4">
-                    <input type="hidden" name="warga_id" value="{{ $tagihan['data']['warga'] }}" required/>
+                    <input type="hidden" name="warga_id" value="{{ $tagihan['data']['warga']['id'] }}" required/>
                     <input type="hidden" name="tagihan_warga_id" value="{{ $tagihan['data']['id'] }}" required/>
                 </div>
   
@@ -86,15 +86,14 @@
   <script>
     const form = document.getElementById('upload_note_tagihan');
     const submitBtn = document.getElementById('submitBtn');
-    const imageUpload = document.getElementById('imageUpload');
+    //const imageUpload = document.getElementById('imageUpload');
     const noteInput = document.getElementById('note');
-    const ceknote = @json($ceknote);
+ 
   
     function checkFormValidity() {
         const noteValid = noteInput.value.trim() !== '';
-        const imageValid = ceknote ? true : imageUpload.files.length > 0;
-        
-        submitBtn.disabled = !(noteValid && imageValid);
+             
+        submitBtn.disabled = !(noteValid);
     }
   
     form.addEventListener('input', checkFormValidity);

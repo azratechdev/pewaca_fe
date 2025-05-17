@@ -65,7 +65,6 @@
                   <input type="text" class="form-control rupiah-input @error('nominal') is-invalid @enderror" value="" id="nominal" name="nominal"
                   placeholder="Rp. 0" pattern="^Rp\.\s?(\d{1,3}(\.\d{3})*|\d+)$" required>
                   <label for="nominal">Nominal</label>
-                 
                   <input type="hidden" name="residence_bank" value="{{ $tagihan['data']['residence_bank']['id'] }}" required/>
                   <input type="hidden" name="tagihan_id" value="{{ $tagihan['data']['id'] }}" required/>
                   <input type="hidden" id="tipe" value="{{ $tagihan['data']['tagihan']['tipe'] }}" required/>

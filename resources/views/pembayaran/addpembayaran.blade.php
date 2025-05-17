@@ -30,7 +30,7 @@
         <div class="flex justify-between items-center" style="padding-top: 20px;">
         <div class="flex items-center">
             <h1 class="text-xl font-semibold text-gray-800">
-            <a href="{{ route('pembayaran') }}" class="text-dark">
+            <a href="{{ route('pembayaran.list') }}" class="text-dark">
                 <i class="fas fa-arrow-left"></i>
             </a>&nbsp;&nbsp;Pembayaran Tagihan
         </h1>

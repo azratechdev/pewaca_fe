@@ -107,7 +107,7 @@
                 </div>
                 @endif
             
-                @if($tagihan['tagihan']['date_due'] >= date('Y-m-d')) 
+                @if($tagihan['tagihan']['date_due'] >= date('Y-m-d') && $tagihan['status']== 'unpaid') 
                     @include('layouts.elements.tempo')
                 @endif
             
