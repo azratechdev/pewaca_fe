@@ -282,7 +282,7 @@
                             
                             {{-- @error('marital_photo') is-invalid @enderror --}}
                             <div class="form-floating mb-3" id="marital_photoGroup" style="display: none;">
-                                <input type="file" class="form-control" id="marital_photo" name="marital_photo" accept="image/jpeg,image/jpg">
+                                <input type="file" class="form-control" id="marital_photo" name="marital_photo" accept="image/jpeg,image/jpg,image/png">
                                 <label for="marital_photo">Upload Foto Buku Nikah</label>
                                 @error('marital_photo')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -341,7 +341,7 @@
                                     class="form-control @error('profile_photo') is-invalid @enderror" 
                                     id="profile_photo" 
                                     name="profile_photo" 
-                                    accept="image/jpeg,image/jpg"
+                                    accept="image/jpeg,image/jpg,image/png"
                                     style="padding-top: 1.625rem;"
                                 >
                                 <label for="profile_photo">Upload Foto Profil</label>

@@ -248,9 +248,10 @@ class PengurusController extends Controller
 
         $data = [
             'warga_id' => $request->warga_id,
-            'reason' => $request->alasan
+            'reason' => $request->reason
         ];
         //dd($data);
+
         try {
             //dd('here');
             $http = Http::withHeaders([

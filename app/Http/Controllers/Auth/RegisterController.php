@@ -136,11 +136,11 @@ class RegisterController extends Controller
             'religion' => 'required|integer',
             'place_of_birth' => 'required|string|max:255',
             'marital_status' => 'required|integer',
-            'marital_photo' => 'nullable|image|mimes:jpeg,jpg|max:2048',
+            'marital_photo' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
             'occupation' => 'required|integer',
             'education' => 'required|integer',
             'family_as' => 'required|integer',
-            'profile_photo' => 'nullable|image|mimes:jpeg,jpg|max:2048',
+            'profile_photo' => 'required|image|mimes:jpeg,jpg,png|max:2048',
             'code' => 'required|uuid',
             'email' => 'required|email',
             'password' => 'required|string'

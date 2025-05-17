@@ -45,7 +45,7 @@
                     </div>
                     <div class="flex items-center">
                         <span class="text-gray-600">No Unit <br>
-                            <strong>{{ $data['warga']['unit_id']['unit_size'] }}</strong></span>
+                            <strong>{{ $data['warga']['unit_id']['unit_name'] }}</strong></span>
                     </div>
                     <div class="flex items-center">
                         <span class="text-gray-600">NIK <br>
