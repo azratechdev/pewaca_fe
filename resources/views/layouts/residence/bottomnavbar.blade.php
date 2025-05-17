@@ -20,7 +20,7 @@
         })) --}}
       @if(Session::has('cred') && collect(Session::get('cred')['residence_commites'])->contains(function ($commite) {
           return isset($commite['role']['id']);
-          }))
+        }))
         <li class="nav-item">
             <a href="{{ route('pengurus') }}" class="nav-link text-center {{ Request::is('pengurus') ? 'active' : '' }}">
                 <i class="fa fa-id-card menu-icon"></i>

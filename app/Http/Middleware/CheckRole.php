@@ -17,7 +17,7 @@ class CheckRole
             // $hasRole = collect($userData['residence_commites'])->contains('role', $this->getRoleId($role));
             // Cek apakah ada role yang sesuai di residence_commites
             foreach ($userData['residence_commites'] as $commite) {
-                if (isset($commite['role']['id']) && $commite['role']['id'] === $this->getRoleId($role)) {
+                if (isset($commite['role']['id'])) {
                     // Role sesuai, lanjutkan request
                     return $next($request);
                 }
