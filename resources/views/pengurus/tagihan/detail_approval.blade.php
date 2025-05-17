@@ -201,7 +201,9 @@
                             "warga_id": wargaId
                         }),
                         success: function(data) {
-                            Swal.fire('Success!', 'Tagihan berhasil disetujui.', 'success');
+                            Swal.fire('Success!', 'Tagihan berhasil disetujui.', 'success').then((result) => {
+                                window.location.reload();
+                            });
                         },
                         error: function(xhr, status, error) {
                             Swal.fire('Error!', 'Something went wrong, please try again.', 'error');
