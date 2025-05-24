@@ -256,7 +256,8 @@ class AkunController extends Controller
         
         $request->validate([
             'unit_id' => 'required|integer',
-            'nik' => 'required|regex:/^\d{16}$/',
+            'nik' => 'nullable',
+            // 'nik' => 'required|regex:/^\d{16}$/',
             'full_name' => 'required|string|max:255',
             'phone_no' => 'required|regex:/^\d{8,13}$/',
             'gender_id' => 'required|integer',
@@ -273,8 +274,8 @@ class AkunController extends Controller
             'unit_id.required' => 'Unit wajib diisi.',
             'unit_id.integer' => 'Unit harus berupa angka.',
         
-            'nik.required' => 'NIK wajib diisi.',
-            'nik.regex' => 'NIK harus terdiri dari 16 digit angka.',
+            // 'nik.required' => 'NIK wajib diisi.',
+            // 'nik.regex' => 'NIK harus terdiri dari 16 digit angka.',
         
             'full_name.required' => 'Nama lengkap wajib diisi.',
             'full_name.string' => 'Nama lengkap harus berupa teks.',

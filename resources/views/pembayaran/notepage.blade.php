@@ -64,7 +64,7 @@
          
             <div>
                 <div class="form-floating mt-4">
-                    <input type="hidden" name="warga_id" value="{{ $tagihan['data']['warga']['id'] }}" required/>
+                    <input type="hidden" name="warga_id" value="{{ $warga_id }}" required/>
                     <input type="hidden" name="tagihan_warga_id" value="{{ $tagihan['data']['id'] }}" required/>
                 </div>
   

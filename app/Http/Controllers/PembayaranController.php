@@ -200,7 +200,9 @@ class PembayaranController extends Controller
     }
 
     public function uploadbukti($id)
-    {
+    {   //dd('HEREEE');
+        //dd($id);
+       
         try {
             $response = Http::withHeaders([
                 'Accept' => 'application/json',
@@ -220,13 +222,13 @@ class PembayaranController extends Controller
     
             if ($response->successful()) {
                 $tagihan = $data_response;
-                //dd($tagihan);
+                $warga_id =session::get('warga')['id'];
                 $ceknote = false;
                 if (!empty($data_note['data']) && count($data_note['data']) === 1) {
                     $ceknote = true;
                 }
               
-                return view('pembayaran.uploadbuktipage', compact('tagihan', 'ceknote'));
+                return view('pembayaran.uploadbuktipage', compact('warga_id', 'tagihan', 'ceknote'));
                 
                 
             } else {

@@ -260,6 +260,19 @@ function getDefaultDates() {
       }
     });
   </script>
-</div>
+
+<script>
+  // Cek apakah flash message success muncul
+  document.addEventListener("DOMContentLoaded", function () {
+    const flashSuccess = document.querySelector('.alert.alert-success');
+    if (flashSuccess) {
+      // Tunggu 2.5 detik, lalu redirect
+      setTimeout(() => {
+        window.location.href = "{{ route('pengurus.biaya.list') }}";
+      }, 2500);
+    }
+  });
+</script>
+
 
 @endsection 

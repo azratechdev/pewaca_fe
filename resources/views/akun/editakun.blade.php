@@ -122,11 +122,15 @@
                 </div>
             
                 <div class="form-floating mb-3">
-                    <input type="text" pattern="\d{16}" minlength="16" maxlength="16" inputmode="numeric" class="form-control @error('nik') is-invalid @enderror no-spinner" value="{{ str_replace(' ', '', $data['warga']['nik']) }}" id="nik" name="nik" placeholder=" " required>
+                    <input type="text" pattern="\d{16}" maxlength="16" inputmode="numeric" class="form-control @error('nik') is-invalid @enderror no-spinner" value="{{ str_replace(' ', '', $data['warga']['nik']) }}" id="nik" name="nik" placeholder=" " oninput="updateNikCounter()">
                     <label for="nik">NIK</label>
-                    @error('nik')
+                    <small class="text-danger d-none" id="nik-error">NIK harus 16 digit angka</small>
+                    {{-- @error('nik')
                         <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+                    @enderror --}}
+                     <span id="nik-counter" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); font-size: 0.875rem; color: #6c757d;">
+                        0/16
+                    </span>
                 </div>
             
                 <div class="form-floating mb-3">
@@ -340,5 +344,41 @@
         }
     });
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const nikInput = document.getElementById('nik');
+    const counterEl = document.getElementById('nik-counter');
+    const errorEl = document.getElementById('nik-error');
+    const maxLength = 16;
+
+    function updateNik() {
+        let value = nikInput.value.replace(/\D/g, ''); // Hanya angka
+
+        if (value.length > maxLength) {
+            value = value.substring(0, maxLength);
+        }
+
+        nikInput.value = value;
+
+        // Update counter
+        if (counterEl) {
+            counterEl.textContent = `${value.length}/${maxLength}`;
+        }
+
+        // Tampilkan/hilangkan error
+        if (value.length > 0 && value.length < maxLength) {
+            errorEl.classList.remove('d-none');
+            nikInput.classList.add('is-invalid');
+        } else {
+            errorEl.classList.add('d-none');
+            nikInput.classList.remove('is-invalid');
+        }
+    }
+
+    nikInput.addEventListener('input', updateNik);
+    updateNik(); // Jalankan saat pertama kali halaman dimuat
+});
+</script>
+
 
 @endsection 

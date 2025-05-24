@@ -24,9 +24,9 @@
                     <div class="pt-2 flex flex-col justify-start flex-grow">
                         <div class="text-gray-900 font-bold">
                             @if($note['is_pengurus'] == true)
-                                Pengurus
+                                <p>{{ $note['warga']['nama'] }} (Pengurus)<p>
                             @else
-                                Warga
+                                <p>{{ $note['warga']['nama'] }} (Warga)</p>
                             @endif
                         </div>
                         <br>

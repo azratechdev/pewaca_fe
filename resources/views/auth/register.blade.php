@@ -184,7 +184,7 @@
                         <div class="mb-3">
                             <p class="text-left" style="font-size: 1.2em;">Pendaftaran Warga</p>
                             <div class="d-flex align-items-center" style="font-size: 1.0em;">
-                                <img src="{{ $resdetail['image'] }}" alt="Icon Perumahan" style="width: 24px; height: 24px; margin-right: 8px;">
+                                <img src="{{ asset('assets/plugins/images/house-2.png') }}" alt="Icon Perumahan" style="width: 24px; height: 24px; margin-right: 8px;">
                                 <span>{{ $resdetail['name'] }}</span>
                             </div><br>
                             {{-- <p  style="font-size: 1.0em;">{{ $resdetail['name'] }}</p> --}}
@@ -216,12 +216,15 @@
                             </div>
                             {{-- pattern="\d{16}" minlength="16" maxlength="16" @error('nik') is-invalid @enderror" --}}
                             <div class="form-floating mb-3">
-                                <input type="text" inputmode="numeric" class="form-control" value="{{ old('nik') }}" id="nik" name="nik" placeholder=" ">
+                                <input type="text" pattern="\d{16}" maxlength="16" inputmode="numeric" class="form-control" value="{{ old('nik') }}" id="nik" name="nik" placeholder=" " oninput="updateNikCounter()">
                                 <label for="nik">NIK</label>
                                 <small class="text-danger d-none" id="nik-error">NIK harus 16 digit angka</small>
                                 {{-- @error('nik')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror --}}
+                                <span id="nik-counter" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); font-size: 0.875rem; color: #6c757d;">
+                                    0/16
+                                </span>
                             </div>
                         
                             <div class="form-floating mb-3">
@@ -583,6 +586,53 @@
             }
         });
     </script>
+<script>
+    document.getElementById('nik').addEventListener('input', function (e) {
+    let value = e.target.value.replace(/\D/g, ''); // Hanya angka
+
+    if (value.length > 16) {
+        value = value.substring(0, 16); // Batasi 16 digit
+    }
+
+    e.target.value = value;
+
+    const errorEl = document.getElementById('nik-error');
+    const counterEl = document.getElementById('nik-counter');
+
+    // Tampilkan error jika tidak kosong dan < 16
+    if (value.length > 0 && value.length < 16) {
+        errorEl.classList.remove('d-none');
+        e.target.classList.add('is-invalid'); // Jika pakai Bootstrap
+    } else {
+        errorEl.classList.add('d-none');
+        e.target.classList.remove('is-invalid');
+    }
+
+    // Update counter jika ada
+    if (counterEl) {
+        counterEl.textContent = `${value.length}/16`;
+    }
+});
+</script>
+
+    {{-- <script>
+        function updateNikCounter() {
+            const nikInput = document.getElementById('nik');
+            const counter = document.getElementById('nik-counter');
+            const errorMsg = document.getElementById('nik-error');
+            const maxLength = 16;
+
+            // Ambil hanya angka
+            nikInput.value = nikInput.value.replace(/\D/g, '');
+
+            const length = nikInput.value.length;
+            counter.textContent = `${length}/${maxLength}`;
+            
+        }
+
+        // Jalankan saat pertama kali halaman dimuat jika ada value
+        document.addEventListener('DOMContentLoaded', updateNikCounter);
+    </script> --}}
 {{-- <script>
     document.getElementById('nik').addEventListener('input', function (e) {
         let value = e.target.value.replace(/\D/g, ''); // Hanya angka

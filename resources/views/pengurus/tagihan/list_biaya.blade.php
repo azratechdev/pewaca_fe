@@ -25,6 +25,10 @@
                 </button>
             </form><br>
 
+            <div class="mb-3">
+                @include('layouts.elements.flash')
+            </div>
+
             @foreach($biaya as $tagihan)
             <div class="flex justify-center items-center" style="height: 100%;">
                 <div class="bg-white w-full max-w-6xl">
