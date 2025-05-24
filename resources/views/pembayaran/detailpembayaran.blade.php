@@ -29,6 +29,9 @@
                                 <p>{{ $note['warga']['nama'] }} (Warga)</p>
                             @endif
                         </div>
+                        <div class="text-sm">
+                            <p class="text-gray-400">{{ \Carbon\Carbon::parse($note['timestamp'])->addHours(12)->format('d-m-Y H.i') }}</p>
+                        </div>
                         <br>
                         <div class="text-sm">
                             <p class="text-gray-400">Note:</p>

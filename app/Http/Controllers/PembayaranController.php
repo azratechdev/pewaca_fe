@@ -252,7 +252,7 @@ class PembayaranController extends Controller
     {
         //dd($request->all());
         $request->validate([
-            'bukti_pembayaran' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+            'bukti_pembayaran' => 'required|image|mimes:jpeg,jpg,png',
             'nominal' => 'required|string',
             'residence_bank' => 'required|string',
             'tagihan_id' => 'required|string'
@@ -316,7 +316,7 @@ class PembayaranController extends Controller
     public function postNote(Request $request)
     {
         $request->validate([
-            'image' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,jpg,png',
             'tagihan_warga_id' => 'required|string',
             'warga_id' => 'required|string'
         ]);

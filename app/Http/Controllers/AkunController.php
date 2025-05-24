@@ -265,11 +265,11 @@ class AkunController extends Controller
             'religion' => 'required|integer',
             'place_of_birth' => 'required|string|max:255',
             'marital_status' => 'required|integer',
-            'marriagePhoto' => 'nullable|image|mimes:jpeg,jpg|max:2048',
+            'marriagePhoto' => 'nullable|image|mimes:jpeg,jpg',
             'occupation' => 'required|integer',
             'education' => 'required|integer',
             'family_as' => 'required|integer',
-            'profile_photo' => 'nullable|image|mimes:jpeg,jpg|max:2048',
+            'profile_photo' => 'nullable|image|mimes:jpeg,jpg',
         ], [
             'unit_id.required' => 'Unit wajib diisi.',
             'unit_id.integer' => 'Unit harus berupa angka.',
@@ -302,7 +302,7 @@ class AkunController extends Controller
         
             'marriagePhoto.image' => 'Foto pernikahan harus berupa gambar.',
             'marriagePhoto.mimes' => 'Format foto pernikahan harus jpeg atau jpg.',
-            'marriagePhoto.max' => 'Ukuran foto pernikahan maksimal 2MB.',
+            
         
             'occupation.required' => 'Pekerjaan wajib dipilih.',
             'occupation.integer' => 'Pekerjaan tidak valid.',
@@ -315,7 +315,7 @@ class AkunController extends Controller
         
             'profile_photo.image' => 'Foto profil harus berupa gambar.',
             'profile_photo.mimes' => 'Format foto profil harus jpeg atau jpg.',
-            'profile_photo.max' => 'Ukuran foto profil maksimal 2MB.',
+            
         ]);
 
         $data = [

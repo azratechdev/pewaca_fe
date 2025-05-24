@@ -47,7 +47,7 @@
                 <i class="fas fa-chevron-right ml-auto text-gray-500"></i>
             </a>
         
-            <a class="flex items-center p-4 border-b hover:bg-gray-100 @if (!$isPengurus && !$isChecker) cursor-not-allowed text-gray-400 @endif" 
+            {{-- <a class="flex items-center p-4 border-b hover:bg-gray-100 @if (!$isPengurus && !$isChecker) cursor-not-allowed text-gray-400 @endif" 
                 href="{{ (!$isPengurus && !$isChecker) ? '#' : '/infokeluarga' }}" 
                 style="@if (!$isPengurus && !$isChecker) pointer-events: none; @endif">
                 <i class="fas fa-users text-gray-500"></i>
@@ -55,7 +55,7 @@
                     Keluarga
                 </span>
                 <i class="fas fa-chevron-right ml-auto text-gray-500"></i>
-            </a>
+            </a> --}}
 
             <a class="flex items-center p-4 border-b hover:bg-gray-100 @if (!$isPengurus && !$isChecker) cursor-not-allowed text-gray-400 @endif" 
                 href="{{ (!$isPengurus && !$isChecker) ? '#' : '/faq' }}" 
