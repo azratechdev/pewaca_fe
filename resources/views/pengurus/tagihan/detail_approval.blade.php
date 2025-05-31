@@ -52,7 +52,22 @@
                     @include('layouts.elements.approved')
                 </div>
             @endif
-            
+           
+            @if(empty($data['paydate']))
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <div class="text-black-900" style="font-size: 16px;">
+                        <p>Tanggal Pembayaran</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center">
+                    <div class="text-black-900" style="font-size: 16px;">
+                        <strong>{{ \Carbon\Carbon::parse($data['update_date'])->addHours(12)->locale('id')->translatedFormat('d F Y (H:i)') }}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
                     <div class="text-black-900" style="font-size: 16px;">
@@ -64,9 +79,6 @@
                     <div class="text-black-900" style="font-size: 16px;">
                         <strong>{{ $data['warga']['full_name'] ?? 'Anonim' }}</strong>
                     </div>
-                    {{-- <p class="td-flex align-items-center">
-                        <strong>{{ $data['warga']['full_name'] ?? 'Anonim' }}</strong>
-                    </p> --}}
                 </div>
             </div>
             <div class="flex justify-between items-center">
@@ -86,7 +98,7 @@
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
                     <div class="text-black-900" style="font-size: 16px;">
-                        <p>Kategory Iuran</p>
+                        <p>Nama Tagihan</p>
                     </div>
                 </div>
                 
@@ -132,7 +144,7 @@
                 <div class="flex justify-between items-center">
                     <div class="flex items-center">
                         <div class="text-black-900" style="font-size: 16px;">
-                            <p>Disetujui</p>
+                            <p>Tanggal Disetujui</p>
                         </div>
                     </div>
                     

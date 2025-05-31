@@ -133,7 +133,7 @@
                 @else
                     <div class="flex items-right">
                         &nbsp;&nbsp;
-                        <a href="{{ route('pembayaran.add', ['id' => $tagihan['id']]) }}" class="btn btn-sm btn-success w-20 btn-publish" style="color: white;border-radius:8px;">Detail</a>
+                        <a href="{{ route('pembayaran.detail_bukti', ['id' => $tagihan['id']]) }}" class="btn btn-sm btn-success w-20 btn-publish" style="color: white;border-radius:8px;">Detail</a>
                     </div>
                 @endif
             </div>
