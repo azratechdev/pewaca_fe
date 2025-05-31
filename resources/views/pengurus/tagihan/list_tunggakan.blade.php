@@ -77,7 +77,7 @@
                 </div>
             </div>
 
-            @if($tagihan['status'] == 'unpaid' && $tagihan['date_due'] <= date('Y-m-d'))
+            @if($tagihan['status'] == 'unpaid' && date('Y-m-d') > $tagihan['date_due'])
             <div class="flex justify-between items-center mt-2">
                 @include('layouts.elements.pengurus_tempo')
             </div>

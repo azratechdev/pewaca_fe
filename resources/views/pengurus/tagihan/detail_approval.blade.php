@@ -41,7 +41,7 @@
             </div>
             @endif
 
-            @if($data['status'] == 'unpaid' && $data['date_due'] <= date('Y-m-d'))
+            @if($data['status'] == 'unpaid' && date('Y-m-d') > $data['date_due'])
             <div class="flex justify-between items-center">
                 @include('layouts.elements.pengurus_tempo')
             </div>
@@ -55,67 +55,70 @@
             
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
-                    <p class="d-flex align-items-center">
-                       Nama Warga
-                    </p>
+                    <div class="text-black-900" style="font-size: 16px;">
+                        <p>Nama Warga</p>
+                    </div>
                 </div>
                 
                 <div class="flex items-center">
-                    <p class="td-flex align-items-center">
+                    <div class="text-black-900" style="font-size: 16px;">
                         <strong>{{ $data['warga']['full_name'] ?? 'Anonim' }}</strong>
-                    </p>
+                    </div>
+                    {{-- <p class="td-flex align-items-center">
+                        <strong>{{ $data['warga']['full_name'] ?? 'Anonim' }}</strong>
+                    </p> --}}
                 </div>
             </div>
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
-                    <p class="d-flex align-items-center">
-                       Nama Unit
-                    </p>
+                    <div class="text-black-900" style="font-size: 16px;">
+                        <p>Nama Unit</p>
+                    </div>
                 </div>
                 
                 <div class="flex items-center">
-                    <p class="td-flex align-items-center">
+                   <div class="text-black-900" style="font-size: 16px;">
                         <strong>{{ $data['tagihan']['residence'] }}</strong>
-                    </p>
+                   </div>
                 </div>
             </div>
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
-                    <p class="d-flex align-items-center">
-                       Kode Unit
-                    </p>
+                    <div class="text-black-900" style="font-size: 16px;">
+                        <p>Kode Unit</p>
+                    </div>
                 </div>
                 
                 <div class="flex items-center">
-                    <p class="td-flex align-items-center">
+                    <div class="text-black-900" style="font-size: 16px;">
                         <strong>{{ $data['unit_id']['unit_name']}}</strong>
-                    </p>
+                    </div>
                 </div>
             </div>
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
-                    <p class="d-flex align-items-center">
-                       Kategori Iuran
-                    </p>
+                    <div class="text-black-900" style="font-size: 16px;">
+                        <p>Kategory Iuran</p>
+                    </div>
                 </div>
                 
                 <div class="flex items-center">
-                    <p class="td-flex align-items-center">
+                    <div class="text-black-900" style="font-size: 16px;">
                         <strong>{{ $data['tagihan']['name'] }}</strong>
-                    </p>
+                    </div>
                 </div>
             </div>
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
-                    <p class="d-flex align-items-center">
-                       Nominal
-                    </p>
+                     <div class="text-black-900" style="font-size: 16px;">
+                        <p>Nominal</p>
+                    </div>
                 </div>
                 
                 <div class="flex items-center">
-                    <p class="td-flex align-items-center">
+                    <div class="text-black-900" style="font-size: 16px;">
                         <strong>Rp {{ number_format($data['tagihan']['amount'], 0, ',', '.') }}</strong>
-                    </p>
+                    </div>
                 </div>
             </div>
             <div class="flex justify-between items-center">
@@ -127,16 +130,31 @@
                 
                 <div class="flex items-center">
                     @if($data['status'] == "paid")
-                        <p class="td-flex align-items-center" style="color:lightgreen;">
-                            <strong>Lunas</strong>
-                        </p>
+                        <div class="td-flex align-items-center font-semibold" style="font-size:16px;color:lightgreen;">
+                            <p>Lunas</p>
+                        </div>
                     @else
-                        <p class="td-flex align-items-center" style="color:orange;"
-                            <strong>{{ $data['status'] }}</strong>
-                        </p>
+                        <div class="td-flex align-items-center font-semibold" style="font-size:16px;color:orange;"
+                            <p>{{ $data['status'] }}</p>
+                        </div>
                     @endif
                 </div>
             </div>
+            @if(!empty($data['paydate']))
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center">
+                        <div class="text-black-900" style="font-size: 16px;">
+                            <p>Disetujui</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <div class="text-black-900" style="font-size: 16px;">
+                            <strong>{{ \Carbon\Carbon::parse($data['paydate'])->addHours(12)->locale('id')->translatedFormat('d F Y (H:i)') }}</strong>
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
 
         <div class="p-6 mt-2">

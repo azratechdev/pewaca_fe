@@ -243,6 +243,7 @@ class TagihanController extends Controller
         ])->get('https://api.pewaca.id/api/tagihan-warga/'.$id.'/');
         $tagihan_response = json_decode($response->body(), true);
         $data =  $tagihan_response['data'];
+        
         //dd($data);
 
         return view('pengurus.tagihan.detail_approval', compact('data'));

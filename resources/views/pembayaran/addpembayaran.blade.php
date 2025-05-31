@@ -48,7 +48,7 @@
                 @include('layouts.elements.confirm')
             @endif
 
-            @if($tagihan['data']['tagihan']['date_due'] >= date('Y-m-d')) 
+            @if(date('Y-m-d') > $tagihan['data']['tagihan']['date_due'] && $tagihan['data']['status']== 'unpaid') 
                 @include('layouts.elements.tempo')
             @endif
         </div>

@@ -26,53 +26,59 @@
             </form><br>
 
             @foreach($disetujui as $key => $tagihan)
-            <div class="flex justify-center items-center" style="height: 100%;">
-                <div class="bg-white w-full max-w-6xl">
-                    <div class="flex items-left max-w-full mb-2">
-                        <div class="ml-0">
-                            <div class="text-gray-900 font-bold" style="font-size: 14px;">
-                                <strong>{{ $tagihan['warga']['full_name'] ?? 'Anonim' }}</strong>
-                            </div>
+            <div class="bg-white w-full max-w-6xl">
+                <div class="flex items-left max-w-full mb-2">
+                    <div class="ml-0">
+                        <div class="text-gray-900 font-semibold" style="font-size: 16px;">
+                            <p>{{ $tagihan['warga']['full_name'] ?? 'Anonim'}}</p>
                         </div>
                     </div>
-                    <div class="flex justify-between items-center mt-1">
-                        <div class="flex items-center">
-                            <p class="d-flex align-items-center">
-                                <strong>{{ $tagihan['tagihan']['residence'] }}</strong>
-                            </p>
+                </div>
+                
+                <div class="flex justify-between items-center mt-1">
+                    <div class="flex items-center">
+                            <div class="text-gray-900 font-semibold" style="font-size: 16px;">
+                            <p>{{ $tagihan['tagihan']['name'] }}</p>
                         </div>
-                        
-                        <div class="flex items-center">
-                            <p class="d-flex align-items-center">
-                                <strong>{{ $tagihan['no_tagihan'] }}</strong>
-                            </p>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <div class="text-gray-900 font-semibold" style="font-size: 16px;">
+                            <p>{{ $tagihan['no_tagihan'] ?? '12345' }}</p>
                         </div>
-                    </div> 
-                    <div class="flex justify-between items-center mt-1">
-                        <div class="flex items-center">
-                            <p class="d-flex align-items-center" style="font-size:10px;color:lightgrey">
-                                <strong>Type: {{ $tagihan['tagihan']['name'] }}</strong>
-                            </p>
+                    </div>
+                </div> 
+                <div class="flex justify-between items-center mt-1">
+                    <div class="flex items-center">
+                        <div class="d-flex align-items-center font-semibold" style="font-size:16px;color:grey">
+                            <p>Type : {{ $tagihan['tagihan']['tipe'] }}</p>
                         </div>
-                    </div> 
-                    <div class="flex justify-between items-center mt-2">
-                        <div class="flex items-center">
-                            <p class="d-flex align-items-center">
-                                <strong>Rp {{ number_format($tagihan['amount'], 0, ',', '.') }}</strong>
-                            </p>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center mt-1">
+                    <div class="flex items-center">
+                        <div class="d-flex align-items-center font-semibold" style="font-size:16px;color:grey">
+                            <p> {{ \Carbon\Carbon::parse($tagihan['update_date'])->addHours(12)->locale('id')->translatedFormat('d F Y (H:i)') }}</p>
                         </div>
-                        
-                        <div class="flex items-center">
-                            @if($tagihan['status'] == "paid")
-                                <p class="td-flex align-items-center" style="color:lightgreen;">
-                                    <strong>Lunas</strong>
-                                </p>
-                            @else
-                                <p class="td-flex align-items-center" style="color:orange;"
-                                    <strong>{{ $tagihan['status'] }}</strong>
-                                </p>
-                            @endif
+                    </div>
+                </div>  
+                <div class="flex justify-between items-center mt-2">
+                    <div class="flex items-center">
+                        <div class="d-flex align-items-center font-semibold" style="font-size:16px;">
+                            <p>Rp {{ number_format($tagihan['amount'], 0, ',', '.') }}</p>
                         </div>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        @if($tagihan['status'] == "paid")
+                            <div class="td-flex align-items-center font-semibold" style="font-size:16px;color:lightgreen;">
+                                <p>Lunas</p>
+                            </div>
+                        @else
+                            <div class="td-flex align-items-center font-semibold" style="font-size:16px;color:orange;"
+                                <p>{{ $tagihan['status'] }}</p>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

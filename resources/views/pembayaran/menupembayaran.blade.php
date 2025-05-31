@@ -12,11 +12,11 @@
                    data-id="">
                     Riwayat
                 </a>
-                <a href="{{ route('postingan') }}" 
+                {{-- <a href="{{ route('postingan') }}" 
                     class="btn btn-default {{ request()->routeIs('postingan') ? 'text-green-500 font-bold' : '' }}" 
                     data-id="">
                     Postingan
-                </a>
+                </a> --}}
             </div>
         </div>
     </div>   

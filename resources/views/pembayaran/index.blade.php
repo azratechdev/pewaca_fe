@@ -15,7 +15,7 @@
                     <div class="flex items-left">
                         <a href="javascript:void(0)" class="btn btn-default toggle-pembayaran">Pembayaran</a> 
                         <a href="javascript:void(0)" class="btn btn-default toggle-riwayat">Riwayat</a>
-                        <a href="javascript:void(0)" class="btn btn-default toggle-postingan">Postingan</a>
+                        {{-- <a href="javascript:void(0)" class="btn btn-default toggle-postingan">Postingan</a> --}}
                     </div>
                 </div>
             </div>   

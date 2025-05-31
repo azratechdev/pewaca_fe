@@ -99,7 +99,7 @@ class PembayaranController extends Controller
             $page = 1;
         }
 
-        $apiUrl = 'https://api.pewaca.id/api/tagihan-warga/self-list/?status=paid&page='.$page.'&warga_id='.session::get('warga')['id'];
+        $apiUrl = 'https://api.pewaca.id/api/tagihan-warga/self-list/?status=paid&page='.$page;
 
         if (!empty($filter)) {
             $apiUrl .= '&search=' . urlencode($filter);
@@ -201,7 +201,7 @@ class PembayaranController extends Controller
 
     public function uploadbukti($id)
     {   //dd('HEREEE');
-        //dd($id);
+        //dd(session::get('warga')['id']);
        
         try {
             $response = Http::withHeaders([
@@ -222,8 +222,9 @@ class PembayaranController extends Controller
     
             if ($response->successful()) {
                 $tagihan = $data_response;
-                $warga_id =session::get('warga')['id'];
+                $warga_id = session::get('warga')['id'];
                 $ceknote = false;
+
                 if (!empty($data_note['data']) && count($data_note['data']) === 1) {
                     $ceknote = true;
                 }

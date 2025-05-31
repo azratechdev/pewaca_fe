@@ -39,48 +39,62 @@
                     <div class="bg-white w-full max-w-6xl">
                         <div class="flex items-left max-w-full mb-2">
                             <div class="ml-0">
-                                <div class="text-gray-900 font-bold" style="font-size: 14px;">
-                                    <strong>{{ $tagihan['warga']['full_name'] }}</strong>
+                                <div class="text-gray-900 font-bold" style="font-size: 17px;">
+                                    <strong>{{ $tagihan['tagihan']['name'] }}</strong>
                                 </div>
                             </div>
                         </div>
-                        <div class="flex justify-between items-center mt-1">
-                            <div class="flex items-center">
-                                <p class="d-flex align-items-center">
-                                    <strong>{{ $tagihan['tagihan']['residence'] }}</strong>
-                                </p>
-                            </div>
-                            
-                            <div class="flex items-center">
-                                <p class="d-flex align-items-center">
-                                    <strong>{{ $tagihan['unit_id']['unit_name']}}</strong>
-                                </p>
-                            </div>
-                        </div> 
-                        <div class="flex justify-between items-center mt-1">
-                            <div class="flex items-center">
-                                <p class="d-flex align-items-center" style="font-size:10px;color:lightgrey">
-                                    <strong>Type: {{ $tagihan['tagihan']['name'] }}</strong>
-                                </p>
-                            </div>
-                        </div> 
+
                         <div class="flex justify-between items-center mt-2">
                             <div class="flex items-center">
-                                <p class="d-flex align-items-center">
-                                    <strong>Rp {{ $tagihan['tagihan']['amount'] }}</strong>
-                                </p>
+                                <div class="text-black-900 font-semibold" style="font-size: 15px;color:lightgrey;">
+                                    <p>Deskripsi</p>
+                                </div>
+                            </div>
+                        </div> 
+                                           
+                        <div class="flex justify-between items-center mt-2">
+                            <div class="flex items-center">
+                                <div class="text-black-900 font-semibold" style="font-size: 16px;">
+                                    <p>Nominal</p>
+                                </div>
                             </div>
                             
                             <div class="flex items-center">
-                                @if($tagihan['status'] == "paid")
-                                    <p class="td-flex align-items-center" style="color:lightgreen;">
-                                        <strong>Lunas</strong>
-                                    </p>
-                                @else
-                                    <p class="td-flex align-items-center" style="color:orange;"
-                                        <strong>{{ $tagihan['status'] }}</strong>
-                                    </p>
-                                @endif
+                                <div class="text-black-900 font-semibold" style="font-size: 16px;">
+                                    @php
+                                        $formattedAmount = number_format((int) $tagihan['tagihan']['amount'], 0, ',', '.');
+                                    @endphp
+                                    <p>Rp {{ $formattedAmount }}</p>
+                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-center mt-2">
+                            <div class="flex items-center">
+                                <div class="text-black-900 font-semibold" style="font-size: 16px;">
+                                    <p>Terakhir Pembayaran</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center">
+                                <div class="text-black-900 font-semibold" style="font-size: 16px;">
+                                    {{ \Carbon\Carbon::parse($tagihan['tagihan']['date_due'])->addHours(12)->locale('id')->translatedFormat('d F Y') }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-center mt-2">
+                            <div class="flex items-center">
+                                <div class="text-black-900 font-semibold" style="font-size: 16px;">
+                                    <p>Disetujui</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="text-black-900 font-semibold" style="font-size: 16px;">
+                                    {{ \Carbon\Carbon::parse($tagihan['paydate'])->addHours(12)->locale('id')->translatedFormat('d F Y (H:i)') }}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -97,7 +111,7 @@
                         <p class="text-warning d-flex align-items-center"></p>
                     </div>
                     <div class="flex items-right">
-                        <a href="{{ route('pengurus.approval.detail', ['id' => $tagihan['id']]) }}" class="btn btn-sm btn-success w-20 btn-detail" style="color: white;border-radius:8px;">Detail</a>
+                        <a href="{{ route('pembayaran.detail_bukti', ['id' => $tagihan['id']]) }}" class="btn btn-sm btn-success w-20 btn-detail" style="color: white;border-radius:8px;">Detail</a>
                     </div>
                 </div>
                 <hr class="mt-3 mb-2">

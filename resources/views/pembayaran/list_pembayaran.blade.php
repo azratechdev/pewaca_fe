@@ -35,10 +35,8 @@
             <div class="flex justify-center items-center" style="height: 100%;">
                 <div class="bg-white w-full max-w-6xl">
                     <div class="flex justify-between items-center">
-                        <div class="flex items-center">
-                            <p class="d-flex align-items-center">
-                              <strong>{{ $tagihan['tagihan']['name'] }}</strong>
-                            </p>
+                        <div class="text-gray-900 font-bold" style="font-size: 17px;">
+                            <strong>{{ $tagihan['tagihan']['name'] }}</strong>
                         </div>
             
                         <div class="flex items-center">
@@ -52,43 +50,52 @@
                               <strong>{{ $tagihan['tagihan']['tipe'] }}</strong>
                             </p>
                         </div>
-                    </div>  
+                    </div>
+
+                    <div class="flex justify-between items-center mt-2">
+                        <div class="flex items-center">
+                            <div class="text-black-900 font-semibold" style="font-size: 15px;color:lightgrey;">
+                                <p>Deskripsi</p>
+                            </div>
+                        </div>
+                    </div> 
                    
                     <div class="flex justify-between items-center mt-2">
                         <div class="flex items-center">
-                            <p class="d-flex align-items-center">
-                                {{ $tagihan['tagihan']['description'] }}
-                            </p>
+                            <div class="text-black-900 font-semibold" style="font-size: 16px;">
+                                <p>{{ $tagihan['tagihan']['description'] }}</p>
+                            </div>
                         </div>
                     </div> 
+
                     <div class="flex justify-between items-center mt-1">
                         <div class="flex items-center">
-                            <p class="d-flex align-items-center">
-                            Nominal
-                            </p>
+                             <div class="text-black-900 font-semibold" style="font-size: 16px;">
+                                <p>Nominal</p>
+                            </div>
                         </div>
                         
                         <div class="flex items-center">
-                            <p class="d-flex align-items-center">
+                            <div class="text-black-900 font-semibold" style="font-size: 16px;">
                                 @php
-                                    $formattedAmount = 'Rp ' . number_format($tagihan['tagihan']['amount'], 0, ',', '.');
+                                    $formattedAmount = number_format((int) $tagihan['tagihan']['amount'], 0, ',', '.');
                                 @endphp
-                                {{ $formattedAmount }}
-                            </p>
+                                <p>Rp {{ $formattedAmount }}</p>
+                            </div>
                         </div>
                     </div> 
-                   
+
                     <div class="flex justify-between items-center mt-2">
                         <div class="flex items-center">
-                            <p class="d-flex align-items-center">
-                            Terakhir Pembayaran
-                            </p>
+                            <div class="text-black-900 font-semibold" style="font-size: 16px;">
+                                <p>Terakhir Pembayaran</p>
+                            </div>
                         </div>
-                        
+
                         <div class="flex items-center">
-                            <p class="d-flex align-items-center">
-                               {{ \Carbon\Carbon::parse($tagihan['tagihan']['date_due'])->translatedFormat('d F Y') }}
-                            </p>
+                            <div class="text-black-900 font-semibold" style="font-size: 16px;">
+                                {{ \Carbon\Carbon::parse($tagihan['tagihan']['date_due'])->addHours(12)->locale('id')->translatedFormat('d F Y') }}
+                            </div>
                         </div>
                     </div>
                 </div>
