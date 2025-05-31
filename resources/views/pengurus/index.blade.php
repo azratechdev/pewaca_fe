@@ -16,7 +16,7 @@
     <!-- Menu List -->
     <div class="w-full max-w-5xl space-y-4 p-6">
         <!-- Report -->
-        <a href="#" class="flex items-center bg-white p-6 rounded-lg shadow hover:bg-gray-50">
+        <a href="{{ route('pengurus.report') }}" class="flex items-center bg-white p-6 rounded-lg shadow hover:bg-gray-50">
             <div class="bg-green-100 text-green-600 p-4 rounded-full">
                 <i class="fas fa-chart-bar fa-lg"></i>
             </div>

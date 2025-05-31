@@ -10,6 +10,7 @@ use App\Http\Controllers\AkunController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\TagihanController;
+use App\Http\Controllers\ReportController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -100,6 +101,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/pengurus/tagihan/update', [TagihanController::class, 'postEditTagihan'])->name('pengurus.tagihan.postEdit');
         Route::get('/pengurus/tagihan/approval/{id}/detail', [TagihanController::class, 'approvalDetail'])->name('pengurus.approval.detail');
         Route::post('/pengurus/tagihan/publish', [TagihanController::class, 'publish'])->name('tagihan.publish');
+        
+        //report route
+        Route::get('/pengurus/report', [ReportController::class, 'index'])->name('pengurus.report');
+        //end report route
     });
     
     //cashout route

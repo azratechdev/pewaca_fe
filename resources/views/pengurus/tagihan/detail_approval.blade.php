@@ -78,23 +78,11 @@
                 
                 <div class="flex items-center">
                    <div class="text-black-900" style="font-size: 16px;">
-                        <strong>{{ $data['tagihan']['residence'] }}</strong>
+                        <strong>{{ $data['unit_id']['unit_name']}}</strong>
                    </div>
                 </div>
             </div>
-            <div class="flex justify-between items-center">
-                <div class="flex items-center">
-                    <div class="text-black-900" style="font-size: 16px;">
-                        <p>Kode Unit</p>
-                    </div>
-                </div>
-                
-                <div class="flex items-center">
-                    <div class="text-black-900" style="font-size: 16px;">
-                        <strong>{{ $data['unit_id']['unit_name']}}</strong>
-                    </div>
-                </div>
-            </div>
+            
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
                     <div class="text-black-900" style="font-size: 16px;">
