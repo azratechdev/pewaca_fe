@@ -87,7 +87,7 @@
                         <div class="flex justify-between items-center mt-2">
                             <div class="flex items-center">
                                 <div class="text-black-900 font-semibold" style="font-size: 16px;">
-                                    <p>Disetujui</p>
+                                    <p>Tanggal Disetujui</p>
                                 </div>
                             </div>
                             
@@ -111,7 +111,7 @@
                         <p class="text-warning d-flex align-items-center"></p>
                     </div>
                     <div class="flex items-right">
-                        <a href="{{ route('pembayaran.detail_bukti', ['id' => $tagihan['id']]) }}" class="btn btn-sm btn-success w-20 btn-detail" style="color: white;border-radius:8px;">Detail</a>
+                        <a href="{{ route('pembayaran.detail_bukti', ['id' => $tagihan['id']]) }}" class="btn btn-sm btn-success w-30 btn-detail" style="color: white;border-radius:8px;">Bukti Pembayaran</a>
                     </div>
                 </div>
                 <hr class="mt-3 mb-2">

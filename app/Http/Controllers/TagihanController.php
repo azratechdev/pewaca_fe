@@ -23,16 +23,19 @@ class TagihanController extends Controller
             if ($response->successful()) {
                 return view('pengurus.tagihan.list', compact('data'));
             } else {
-                \Log::warning('Response Error', [
-                    'status' => $response->status(),
-                    'body' => $response->body(),
+               
+                Session::flash('flash-message', [
+                    'message' => 'Data tidak ditemukan',
+                    'alert-class' => 'alert-warning',
                 ]);
             }
         } catch (\Exception $e) {
-            \Log::error('Gagal mengirim data tagihan', [
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString(),
+          
+            Session::flash('flash-message', [
+                'message' => 'Gagal mengambil data tagihan',
+                'alert-class' => 'alert-error',
             ]);
+            
         }
     }
 
@@ -103,10 +106,7 @@ class TagihanController extends Controller
                 //dd($tagihan);
                 return view('pengurus.tagihan.edit', compact('tagihan'));
             } else {
-                \Log::warning('Response Error', [
-                    'status' => $response->status(),
-                    'body' => $response->body(),
-                ]);
+               
                 Session::flash('flash-message', [
                     'message' => 'Data tidak ditemukan',
                     'alert-class' => 'alert-warning',
@@ -114,11 +114,7 @@ class TagihanController extends Controller
                 return redirect()->route('tagihan.edit', ['id' => $id]);
             }
         } catch (\Exception $e) {
-            \Log::error('Gagal mengambil data tagihan', [
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString(),
-            ]);
-    
+           
             Session::flash('flash-message', [
                 'message' => 'Gagal mengambil data tagihan',
                 'alert-class' => 'alert-danger',
