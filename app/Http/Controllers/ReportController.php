@@ -16,4 +16,23 @@ class ReportController extends Controller
         $belumBayar = 20;
         return view('pengurus.report.index', compact('periode', 'totalUangMasuk', 'jumlahWarga', 'sudahBayar', 'belumBayar'));
     }
+
+    public function detail_report(Request $request)
+    {
+       
+        return view('pengurus.report.detail_by_cashout');
+    }
+
+     public function detail_by_type(Request $request)
+    {
+        
+        return view('pengurus.report.detail_by_type');
+    }
+
+    public function detail_tunggakan(Request $request)
+    {
+        return view('pengurus.report.detail_tunggakan');
+    }
+
+   
 }
