@@ -111,13 +111,13 @@
 
     /*CSS content dan body*/
     #content {
-        flex: 1; /* Membuat area konten fleksibel untuk scroll */
-        overflow-y: auto; /* Mengaktifkan scroll jika konten melebihi layar */
+        flex: 1; 
+        overflow-y: auto; 
         margin-bottom: 100px;
     }
-    body {
-        padding-bottom: 100px; /* Sesuaikan tinggi navbar */
-    }
+    /* body {
+        padding-bottom: 100px;
+    } */
     /*samapai sini*/
 
     /* css image story*/

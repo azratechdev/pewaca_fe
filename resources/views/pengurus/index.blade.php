@@ -11,7 +11,7 @@
         </div>
     </div>
 </div>
-<div class="bg-gray-100 min-h-screen flex flex-col items-center py-8">
+<div class="flex flex-col items-center py-8">
    
     <!-- Menu List -->
     <div class="w-full max-w-5xl space-y-4 p-6">
