@@ -16,7 +16,7 @@
                 <div class="relative w-full">
                     <form method="GET" action="" class="flex items-center space-x-3">
                         <label for="periode" class="text-sm font-medium text-gray-700">Periode</label>
-                        <input type="month" name="periode" id="periode" class="w-full border rounded px-6 py-2" value="{{ request('periode', date('Y-m')) }}" />
+                        <input type="month" name="periode" id="periode" class="w-full border rounded px-6 py-2" value="{{ $periode }}" />
                         {{-- <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">
                             <span class="fas fa-search"></span>
                         </button> --}}
@@ -37,41 +37,111 @@
             <div class="rounded-xl bg-gray-100 p-2 mb-4">
                 <div class="flex justify-between items-center text-sm mb-1">
                     <span class="font-semibold">Total unit</span>
-                    <span class="font-semibold">10</span>
+                    <span class="font-semibold" id="total_unit">-</span>
                 </div>
                 <hr class="my-1 border-black-200">
                 <div class="flex justify-between items-center text-sm">
                     <span class="font-semibold">Total nominal</span>
-                    <span class="font-semibold">Rp 15.000.000</span>
+                    <span class="font-semibold" id="total_nominal">-</span>
                 </div>
             </div>
             <!-- List Tunggakan -->
-            <div class="divide-y divide-gray-200">
-                @for($i=0; $i<5; $i++)
-                <div class="py-4">
-                    <div class="flex justify-between">
-                        <div>
-                            <div class="text-gray-500">Nama Unit</div>
-                            <div class="text-gray-500">Periode</div>
-                            <div class="text-gray-500">Tahun</div>
-                        </div>
-                        <div class="text-right">
-                            
-                            <div class="font-semibold">C44</div>
-                            <div class="font-semibold">April,Mei</div>
-                            <div class="font-semibold">2025</div>
-                        </div>
-                    </div>
-                    <div class="flex justify-between mt-2">
-                        <div class="text-gray-500">Total Nominal</div>
-                        <div class="font-semibold">IDR {{ $i % 2 == 0 ? '300.000' : '150.000' }}</div>
-                    </div>
-                </div>
-                @endfor
-                
-            </div>
+            <div id="list-tunggakan" class="divide-y divide-gray-200 overflow-y-auto" style="max-height:500px;-ms-overflow-style: none;scrollbar-width: none;"></div>
         </div>
     </div>
 </div>
 
+<script>
+function getPrevMonth() {
+    const now = new Date();
+    now.setMonth(now.getMonth() - 1);
+    return now.toISOString().slice(0, 7);
+}
+function setMaxMonth(input) {
+    input.max = getPrevMonth();
+}
+document.addEventListener('DOMContentLoaded', function () {
+    const periodeInput = document.getElementById('periode');
+    const unitInput = document.querySelector('input[placeholder="Search Unit"]');
+    setMaxMonth(periodeInput);
+    // Prevent clearing
+    periodeInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Backspace' || e.key === 'Delete') {
+            e.preventDefault();
+        }
+    });
+    periodeInput.addEventListener('paste', function(e) {
+        e.preventDefault();
+    });
+    let periode = periodeInput.value;
+    let cachedUnits = [];
+    let shown = 10;
+    const listDiv = document.getElementById('list-tunggakan');
+    function renderList() {
+        let html = '';
+        let filtered = cachedUnits;
+        const search = unitInput.value.trim().toLowerCase();
+        if (search) {
+            filtered = cachedUnits.filter(u => u.nama_unit.toLowerCase().includes(search));
+        }
+        if (filtered.length === 0) {
+            html = '<div class="text-center text-gray-400 py-8">Tidak ada data</div>';
+        } else {
+            html = filtered.slice(0, shown).map(item => `
+                <div class=\"py-4\">
+                    <div class=\"flex justify-between\">
+                        <div>
+                            <div class=\"text-gray-500\">Nama Unit</div>
+                            <div class=\"text-gray-500\">Periode</div>
+                            <div class=\"text-gray-500\">Tahun</div>
+                        </div>
+                        <div class=\"text-right\">
+                            <div class=\"font-semibold\">${item.nama_unit}</div>
+                            <div class=\"font-semibold\">${item.periode.join(',')}</div>
+                            <div class=\"font-semibold\">${item.tahun}</div>
+                        </div>
+                    </div>
+                    <div class=\"flex justify-between mt-2\">
+                        <div class=\"text-gray-500\">Total Nominal</div>
+                        <div class=\"font-semibold\">IDR ${item.total_nominal.toLocaleString('id-ID')}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        listDiv.innerHTML = html;
+    }
+    function fetchAndRender() {
+        const periodeVal = periodeInput.value;
+        const unitVal = unitInput.value.trim();
+        let apiUrl = `https://api.pewaca.id/api/report/tunggakan/?periode=${periodeVal}`;
+        if (unitVal) apiUrl += `&unit_no=${encodeURIComponent(unitVal)}`;
+        fetch(apiUrl)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('total_unit').textContent = data.total_unit;
+                document.getElementById('total_nominal').textContent = 'Rp ' + data.total_nominal.toLocaleString('id-ID');
+                cachedUnits = data.units || [];
+                shown = 10;
+                renderList();
+            });
+    }
+    // Initial fetch
+    fetchAndRender();
+    // On change
+    periodeInput.addEventListener('change', fetchAndRender);
+    unitInput.addEventListener('input', function() {
+        shown = 10;
+        renderList();
+    });
+    // Infinite scroll
+    listDiv.addEventListener('scroll', function() {
+        if (listDiv.scrollTop + listDiv.clientHeight >= listDiv.scrollHeight - 10) {
+            if (shown < cachedUnits.length) {
+                shown += 10;
+                renderList();
+            }
+        }
+    });
+});
+</script>
 @endsection

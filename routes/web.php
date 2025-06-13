@@ -104,9 +104,9 @@ Route::group(['middleware' => 'auth'], function () {
         
         //report route
         Route::get('/pengurus/report', [ReportController::class, 'index'])->name('pengurus.report');
-        Route::get('/pengurus/detail-report', [ReportController::class, 'detail_report'])->name('pengurus.detail.report');
-        Route::get('/pengurus/detail-tunggakan', [ReportController::class, 'detail_tunggakan'])->name('pengurus.detail.tunggakan');
-        Route::get('/pengurus/detail-by-type', [ReportController::class, 'detail_by_type'])->name('pengurus.detail.bytype');
+        Route::get('/pengurus/detail-by-chasout/{periode}/{unit?}', [ReportController::class, 'detail_report'])->name('pengurus.detail.report');
+        Route::get('/pengurus/detail-tunggakan/{periode}/{unit?}', [ReportController::class, 'detail_tunggakan'])->name('pengurus.detail.tunggakan');
+        Route::get('/pengurus/detail-by-type/{periode}/{unit?}', [ReportController::class, 'detail_by_type'])->name('pengurus.detail.bytype');
         //end report route
     });
     

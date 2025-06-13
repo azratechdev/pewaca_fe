@@ -16,7 +16,7 @@
                 <div class="relative w-full">
                     <form method="GET" action="" class="flex items-center space-x-3">
                         <label for="periode" class="text-sm font-medium text-gray-700">Periode</label>
-                        <input type="month" name="periode" id="periode" class="w-full border rounded px-6 py-2" value="{{ request('periode', date('Y-m')) }}" />
+                        <input type="month" name="periode" id="periode" class="w-full border rounded px-6 py-2" value="{{ $periode }}" />
                         {{-- <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">
                             <span class="fas fa-search"></span>
                         </button> --}}
@@ -127,60 +127,127 @@
 </div>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script>
+function getPrevMonth() {
+    const now = new Date();
+    now.setMonth(now.getMonth() - 1);
+    return now.toISOString().slice(0, 7);
+}
+function setMaxMonth(input) {
+    input.max = getPrevMonth();
+}
 document.addEventListener('DOMContentLoaded', function () {
-    Highcharts.chart('bytype', {
-        chart: {
-            type: 'pie'
-        },
-        title: {
-            text: ''
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        accessibility: {
-            point: {
-                valueSuffix: '%'
-            }
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    distance: -60, // nilai negatif agar label masuk ke dalam irisan
-                    formatter: function () {
-                        var total = 20000000; // total uang masuk
-                        var nominal = (this.percentage / 100) * total;
-                        var nominalJuta = nominal / 1000000;
-                        return 'Rp' + Highcharts.numberFormat(nominalJuta, 2, ',', '.') + 'Jt<br>(' + Highcharts.numberFormat(this.percentage, 1) + '%)';
-                    },
-                    style: {
-                        color: 'white',
-                        textOutline: 'none',
-                        fontWeight: 'bold',
-                        fontSize: '13px'
-                    }
-                }
-            }
-        },
-        series: [{
-            name: 'Jenis Pembayaran',
-            colorByPoint: true,
-            data: [{
-                name: 'Wajib',
-                y: 60,
-                color: '#128C7E' // green-500
-            }, {
-                name: 'Sukarela',
-                y: 40,
-                color: '#F58220' // red-500
-            }]
-        }]
+    const periodeInput = document.getElementById('periode');
+    const unitInput = document.querySelector('input[placeholder="Search Unit"]');
+    setMaxMonth(periodeInput);
+    // Prevent clearing
+    periodeInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Backspace' || e.key === 'Delete') {
+            e.preventDefault();
+        }
     });
-});
-document.addEventListener('DOMContentLoaded', function () {
+    periodeInput.addEventListener('paste', function(e) {
+        e.preventDefault();
+    });
+    // Ambil default value dari variabel controller
+    let periode = periodeInput.value;
+    // Fetch and render data
+    let cachedData = { wajib: [], sukarela: [] };
+    let shown = { wajib: 10, sukarela: 10 };
+    function renderTabContent(tabId, items, type) {
+        const tab = document.getElementById(tabId);
+        const container = tab.querySelector('.divide-y');
+        let html = '';
+        if (items.length === 0) {
+            html = '<div class="text-center text-gray-400 py-8">Tidak ada data</div>';
+        } else {
+            html = items.slice(0, shown[type]).map(item => `
+                <div class=\"py-4\">
+                    <div class=\"flex justify-between\">
+                        <div>
+                            <div class=\"text-gray-500\">Nama Unit</div>
+                            <div class=\"text-gray-500\">Tanggal</div>
+                            <div class=\"text-gray-500\">Nominal</div>
+                        </div>
+                        <div class=\"text-right\">
+                            <div class=\"font-semibold\">${item.unit}</div>
+                            <div class=\"font-semibold\">${item.tanggal}</div>
+                            <div class=\"font-semibold\">IDR ${item.nominal.toLocaleString('id-ID')}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        container.innerHTML = html;
+    }
+    function fetchAndRender() {
+        const periodeVal = periodeInput.value;
+        const unitVal = unitInput.value.trim();
+        let apiUrl = `https://api.pewaca.id/api/report/bytype/?periode=${periodeVal}`;
+        if (unitVal) apiUrl += `&unit_no=${encodeURIComponent(unitVal)}`;
+        fetch(apiUrl)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('total_by_type').textContent = 'Rp' + data.total_uang_masuk.toLocaleString('id-ID');
+                // Chart
+                Highcharts.chart('bytype', {
+                    chart: { type: 'pie' },
+                    title: { text: '' },
+                    tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' },
+                    accessibility: { point: { valueSuffix: '%' } },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                distance: -60,
+                                formatter: function () {
+                                    var total = data.total_uang_masuk;
+                                    var nominalJuta = Math.round(this.y / 1000000);
+                                    return 'Rp' + nominalJuta + 'Jt<br>(' + Math.round(this.percentage) + '%)';
+                                },
+                                style: {
+                                    color: 'white', textOutline: 'none', fontWeight: 'bold', fontSize: '13px'
+                                }
+                            }
+                        }
+                    },
+                    series: [{
+                        name: 'Jenis Pembayaran',
+                        colorByPoint: true,
+                        data: data.bytype_chart.map((item, idx) => ({
+                            name: item.name,
+                            y: item.nominal,
+                            color: idx === 0 ? '#128C7E' : '#F58220'
+                        }))
+                    }]
+                });
+                // Tab data
+                cachedData.wajib = data.wajib.data || [];
+                cachedData.sukarela = data.sukarela.data || [];
+                shown.wajib = 10;
+                shown.sukarela = 10;
+                // Total box
+                document.querySelector('#tab-content-wajib .font-semibold:last-child').textContent = 'Rp ' + (data.wajib.total || 0).toLocaleString('id-ID');
+                document.querySelector('#tab-content-sukarela .font-semibold:last-child').textContent = 'Rp ' + (data.sukarela.total || 0).toLocaleString('id-ID');
+                renderTabContent('tab-content-wajib', cachedData.wajib, 'wajib');
+                renderTabContent('tab-content-sukarela', cachedData.sukarela, 'sukarela');
+            });
+    }
+    // Initial fetch
+    fetchAndRender();
+    // On change
+    periodeInput.addEventListener('change', fetchAndRender);
+    unitInput.addEventListener('input', fetchAndRender);
+    // More button logic
+    document.querySelectorAll('#tab-content-wajib .btn-more, #tab-content-sukarela .btn-more').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const type = btn.closest('.p-4').id.replace('tab-content-', '');
+            shown[type] += 10;
+            renderTabContent(`tab-content-${type}`, cachedData[type], type);
+        });
+    });
+    // Tabs logic (unchanged)
     const tabWajib = document.getElementById('tab-wajib');
     const tabSukarela = document.getElementById('tab-sukarela');
     const contentWajib = document.getElementById('tab-content-wajib');

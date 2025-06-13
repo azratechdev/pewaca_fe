@@ -8,30 +8,27 @@ class ReportController extends Controller
 {
     public function index(Request $request)
     {
-        // Dummy data, replace with real data from database or API as needed
-        $periode = $request->get('periode', 'mei-2025');
-        $totalUangMasuk = 20000000;
-        $jumlahWarga = 100;
-        $sudahBayar = 80;
-        $belumBayar = 20;
-        return view('pengurus.report.index', compact('periode', 'totalUangMasuk', 'jumlahWarga', 'sudahBayar', 'belumBayar'));
-    }
-
-    public function detail_report(Request $request)
-    {
-       
-        return view('pengurus.report.detail_by_cashout');
-    }
-
-     public function detail_by_type(Request $request)
-    {
         
-        return view('pengurus.report.detail_by_type');
+        return view('pengurus.report.index');
     }
 
-    public function detail_tunggakan(Request $request)
+    public function detail_report($periode=null)
     {
-        return view('pengurus.report.detail_tunggakan');
+        $periode = $periode ?? '';
+      
+        return view('pengurus.report.detail_by_cashout', compact('periode'));
+    }
+
+     public function detail_by_type($periode=null)
+    {
+        $periode = $periode ?? '';
+        return view('pengurus.report.detail_by_type', compact('periode'));
+    }
+
+    public function detail_tunggakan($periode=null)
+    {
+        $periode = $periode ?? '';
+        return view('pengurus.report.detail_tunggakan', compact('periode'));
     }
 
    
