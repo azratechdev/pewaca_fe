@@ -13,7 +13,8 @@ use App\Http\Controllers\HomeController;
 class LoginController extends Controller
 {
     public function showLoginForm()
-    {
+    { 
+        //dd(session()->all());
         return view('auth.loginwarga');
     }
 
@@ -48,9 +49,16 @@ class LoginController extends Controller
 
             if ($data_response['success'] == true) {
                 $token = $data_response['data']['token'];
-                Session::put('token', $token); // Simpan token ke dalam session
-                $res = $this->authenticate($data['email']);
+                $refresh_token = $data_response['data']['token_refresh'];
 
+                Session::put('token', $token); // ✅ access token
+                Session::put('refresh_token', $refresh_token); // ✅ refresh token
+                Session::put('token_created_at', now()); // ✅ timestamp simpan token
+
+                //dd(session()->all());
+              
+                $res = $this->authenticate($data['email']);
+                //dd($res);
                 $cekstroy = new HomeController();
                 $stories = $cekstroy->getStories();
 
@@ -68,6 +76,7 @@ class LoginController extends Controller
                     return redirect()->route('activated');
                 }
                 else{
+                    //dd($data_response['message']);
                     Session::flash('flash-message', [
                         'message' => $data_response['message'],
                         'alert-class' => 'alert-danger',
