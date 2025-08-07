@@ -148,9 +148,10 @@ class TagihanController extends Controller
         'deskripsi' => 'required|string',
         'type_iuran' => 'required|string',
         'jatuh_tempo' => 'nullable|string',
-        'periode' => 'nullable|string', // Bisa berupa rentang tanggal
+        //'periode' => 'nullable|string', // Bisa berupa rentang tanggal
         'nominal' => 'required|string',
-        'repeat' => 'nullable|string', // Tidak wajib, karena hanya muncul saat repeat_button aktif
+        'durasi_tagihan' => 'required|string',
+        //'repeat' => 'nullable|string', // Tidak wajib, karena hanya muncul saat repeat_button aktif
         ]);
         
         $nominal_original_format = $this->formatNominal($request->nominal);
@@ -170,6 +171,15 @@ class TagihanController extends Controller
         if ($request->filled('jatuh_tempo')) {
             $due_date = $request->jatuh_tempo;
         }
+
+        $data = [
+            'name' => $request->nama_tagihan,
+            'description' => $request->deskripsi,
+            'tipe' => $request->type_iuran,
+            'tempo' => $request->jatuh_tempo,
+            'amount' => $nominal_original_format,
+            'duration' => $request->durasi_tagihan,
+        ];
                              
         $data = [
             'jenis_tagihan' => $request->repeat,

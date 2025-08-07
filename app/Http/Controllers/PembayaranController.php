@@ -146,15 +146,7 @@ class PembayaranController extends Controller
             }
             
         }
-        //dd(session::get('warga'));
-        // if(!empty(session::get('cred')['residence_commites'])){
-        //     $warga_id = session::get('cred')['residence_commites'][0]['warga'];
-        // }
-        // else{
-        //     $warga_id = session::get('warga')['id'];
-        // }
-
-        //dd($data_tagihan);
+      
        
 
         return view('pembayaran.list_history', compact('data_tagihan','current','next','prev','next_page','previous_page', 'total_pages'));
@@ -427,6 +419,16 @@ class PembayaranController extends Controller
         $formatted = preg_replace('/[^\d]/', '', $nominal);
         // Kembalikan nilai sebagai integer
         return (int) $formatted;
+    }
+
+    public function pembayaran_periode()
+    {
+        return view('pembayaran.pembayaran_periode');
+    }
+
+    public function periode()
+    {
+        return view('pembayaran.periode');
     }
 
 }

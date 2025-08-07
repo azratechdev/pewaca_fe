@@ -18,21 +18,20 @@
         @include('pembayaran.menupembayaran')
 
         <div class="col-md-12 col-sm-12" style="padding-left:10px;padding-right:10px;">
-            @if(empty($data_tagihan))
-                <h2 align="center">Belum ada Riwayat</h2>
-            @else
-                <form action="{{ route('pembayaran.list') }}" method="POST" class="flex items-center border border-gray-300 rounded-lg overflow-hidden w-full max-w-6xl">
-                    @csrf
-                    <input type="text" name="filter" placeholder=" Search..." class="py-2 pl-3 w-full focus:outline-none">
-                    <button type="submit" class="bg-green-500 text-white px-3 py-3 flex items-center justify-center">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </form><br>
+            
+            <form action="{{ route('pembayaran.list') }}" method="POST" class="flex items-center border border-gray-300 rounded-lg overflow-hidden w-full max-w-6xl">
+                @csrf
+                <input type="text" name="filter" placeholder=" Search..." class="py-2 pl-3 w-full focus:outline-none">
+                <button type="submit" class="bg-green-500 text-white px-3 py-3 flex items-center justify-center">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form><br>
 
-                <div class="mb-3">
-                    @include('layouts.elements.flash')
-                </div>
-           
+            <div class="mb-3">
+                @include('layouts.elements.flash')
+            </div>
+            
+            @if(!empty($data_tagihan) && count($data_tagihan) > 0)
                 @foreach($data_tagihan as $key => $tagihan)
                 
                 <div class="flex justify-center items-center" style="height: 100%;">
@@ -52,7 +51,7 @@
                                 </div>
                             </div>
                         </div> 
-                                           
+                                            
                         <div class="flex justify-between items-center mt-2">
                             <div class="flex items-center">
                                 <div class="text-black-900 font-semibold" style="font-size: 16px;">
@@ -66,7 +65,7 @@
                                         $formattedAmount = number_format((int) $tagihan['tagihan']['amount'], 0, ',', '.');
                                     @endphp
                                     <p>Rp {{ $formattedAmount }}</p>
-                                 </div>
+                                    </div>
                             </div>
                         </div>
 
@@ -115,7 +114,7 @@
                     </div>
                 </div>
                 <hr class="mt-3 mb-2">
-               
+                
                 @endforeach
 
                 <div class="flex justify-between items-center @if($previous_page == null || $next_page == null) justify-end @else justify-between @endif">
@@ -147,6 +146,17 @@
                     </div>
                     @endif
                 </div>
+            @else
+                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: auto; text-align: center;">
+                    <div>
+                        <img src="{{ asset('assets/plugins/images/konfirmasi-empty.png') }}" alt="Biaya kosong" style="max-width: 200px; height: auto;" />
+                    </div>
+                    <div style="font-size: 14px; margin-top: 10px;">
+                        <h2 style="font-size: 16px; font-weight: bold;">
+                            Belum ada riwayat iuran
+                        </h2>
+                    </div>
+                </div><br>
             @endif
         </div>
     </div>

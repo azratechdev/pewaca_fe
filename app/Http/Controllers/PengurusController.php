@@ -49,7 +49,13 @@ class PengurusController extends Controller
         $next_page = $warga_response['next'] ?? null;
         $previous_page = $warga_response['previous'] ?? null;
 
-        $total_pages = (int) ceil($warga_response['count'] / 10);
+        if($warga_response){
+            $total_pages = (int) ceil($warga_response['count'] / 10);
+        }
+        else {
+            $total_pages = (int) 1;
+        }
+       
        
         $next=null;
         if($next_page != null){
@@ -291,8 +297,8 @@ class PengurusController extends Controller
         if (!empty($filter)) {
             $page = 1;
         }
-
-        $apiUrl = 'https://api.pewaca.id/api/tagihan/?page='.$page;
+        //dd(env('API_URL'));
+        $apiUrl = env('API_URL') . '/api/tagihan/?page='.$page;
 
         if (!empty($filter)) {
             $apiUrl .= '&search=' . urlencode($filter);
@@ -303,13 +309,20 @@ class PengurusController extends Controller
             'Authorization' => 'Token ' . Session::get('token'),
         ])->get($apiUrl);
         $biaya_response = json_decode($response->body(), true);
+        
         //dd($biaya_response);
       
         $biaya = $biaya_response['results'] ?? [];
         $next_page = $biaya_response['next'] ?? null;
         $previous_page = $biaya_response['previous'] ?? null;
 
-        $total_pages = (int) ceil($biaya_response['count'] / 10);
+        if($biaya_response){
+            $total_pages = (int) ceil($biaya_response['count'] / 10);
+        }
+        else {
+            $total_pages = (int) 1;
+        }
+       
        
         $next=null;
         if($next_page != null){

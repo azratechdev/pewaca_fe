@@ -1,6 +1,6 @@
 @extends('layouts.residence.basetemplate')
 @section('content')
-<style>
+
    <style>
     /* Custom Switch Styles */
     .custom-switch .form-check-input {
@@ -24,7 +24,90 @@
     }
     
   </style>
+  <style>
+    .popup-date-input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+    }
+
+    .calendar-overlay {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .calendar-popup {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 360px;
+        width: 100%;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .calendar-title {
+        text-align: center;
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .calendar-grid button {
+        padding: 10px;
+        border: none;
+        background: #f0f0f0;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.2s;
+    }
+
+    .calendar-grid button.selected {
+        background: #5cb85c;
+        color: white;
+    }
+
+    .calendar-actions {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .calendar-actions button {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .btn-cancel {
+        background-color: #ccc;
+        color: #333;
+    }
+
+    .btn-confirm {
+        background-color: #5cb85c;
+        color: white;
+    }
 </style>
+
 <div class="container">
   <div class="container mx-auto px-4">
     <div class="flex justify-between items-center" style="padding-top: 10px;">
@@ -32,7 +115,7 @@
         <h1 class="text-xl font-semibold text-gray-800">
           <a href="{{ route('pengurus') }}" class="text-dark">
               <i class="fas fa-arrow-left"></i>
-          </a>&nbsp;Add Tagihan
+          </a>&nbsp;Add Daftar Biaya
       </h1>
       </div>
     </div>
@@ -43,7 +126,7 @@
     <form id="pengurus_tagihan_add" method="post" action="{{ route('tagihan.post') }}" enctype="multipart/form-data">
       @csrf
         <div>
-            <div class="flex justify-between items-center mt-4">
+            <!-- <div class="flex justify-between items-center mt-4">
               <div class="flex items-center">
                   <p class="d-flex align-items-center">
                     <strong>Repeat</strong>
@@ -61,9 +144,9 @@
                       </div>
                   </div>
               </div>
-            </div>
+            </div> -->
 
-            <div id="repeat-container" class="form-floating mt-4">
+            <!-- <div id="repeat-container" class="form-floating mt-4">
                 <select class="form-control" id="repeat" name="repeat">
                     <option value="one_time" selected hidden>Select</option>
                     <option value="weekly" {{ old('repeat') == "weekly" ? 'selected' : '' }}>Weekly</option>
@@ -72,11 +155,11 @@
                 </select>
                 <label for="repeat">Type Iuran</label>
             </div>
-            <hr class="mt-2 mb-2">
+            <hr class="mt-2 mb-2"> -->
 
             <div class="form-floating mt-2">
                 <input type="text" class="form-control @error('nama_tagihan') is-invalid @enderror" value="{{ old('nama_tagihan') }}" id="nama_tagihan" name="nama_tagihan" placeholder=" " required>
-                <label for="nama_tagihan">Nama Tagihan</label>
+                <label for="nama_tagihan">Nama Biaya</label>
                 @error('nama_tagihan')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -93,21 +176,40 @@
             <div class="form-floating mt-4">
                 <select class="form-control" id="type_iuran" name="type_iuran" required>
                     <option value="" disabled selected hidden>- Pilih Type Iuran -</option>
-                    <option value="wajib" {{ old('type_iuran') == "wajib" ? 'selected' : '' }}>Wajib</option>
-                    <option value="tidak wajib" {{ old('type_iuran') == "tidak wajib"? 'selected' : '' }}>Tidak Wajib</option>
+                    <option value="wajib" {{ old('type_iuran') == "wajib" ? 'selected' : '' }}>WAJIB</option>
+                    <option value="tidak wajib" {{ old('type_iuran') == "tidak wajib"? 'selected' : '' }}>SUKARELA</option>
                 </select>
                 <label for="type_iuran">Type Iuran</label>
             </div>
 
-            <div id="tempo" class="form-floating mt-4">
+            <!-- <div id="tempo" class="form-floating mt-4">
                 <input type="date" class="form-control" id="jatuh_tempo" name="jatuh_tempo" value="{{ old('from_date') }}"  placeholder=" " required>
-                <label for="jatuh_tempo">Jatuh Tempo</label>
+                <label for="jatuh_tempo">Tanggal Jatuh Tempo</label>
+            </div> -->
+
+            <div class="form-floating mt-4">
+                <input type="text" id="jatuh_tempo" name="jatuh_tempo" class="form-control popup-date-input" placeholder=" " readonly required>
+                <label for="jatuh_tempo">Tanggal Jatuh Tempo</label>
             </div>
 
-            <div id="periode" class="form-floating mt-4" style="display:none;">
+            <!-- Popup kalender -->
+            <div id="calendarOverlay" class="calendar-overlay">
+                <div class="calendar-popup">
+                    <div class="calendar-title">Tanggal Jatuh Tempo</div>
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- Tombol tanggal di-generate via JS -->
+                    </div>
+                    <div class="calendar-actions">
+                        <button type="button" class="btn-cancel" onclick="cancelCalendar()">Batal</button>
+                        <button type="button" class="btn-confirm" onclick="confirmCalendar()">Pilih</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div id="periode" class="form-floating mt-4" style="display:none;">
               <input type="date" class="form-control" id="periode" name="periode" value="{{ old('from_date') }}"  placeholder=" ">
               <label for="periode">Periode</label>
-            </div>
+            </div> -->
 
             {{-- <div class="form-floating mt-4">
                 <input type="date" class="form-control" id="from_date" name="from_date" value="{{ old('from_date') }}"  placeholder=" " required>
@@ -126,6 +228,16 @@
                 @error('nominal')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
+            </div>
+
+            <div class="form-floating mt-4">
+                <select class="form-control" id="durasi_tagihan" name="durasi_tagihan" required>
+                    <option value="" disabled selected hidden>- Pilih Durasi Tagihan -</option>
+                    <option value="3" {{ old('durasi_tagihan') == "3" ? 'selected' : '' }}>3 Bulan</option>
+                    <option value="6" {{ old('durasi_tagihan') == "6"? 'selected' : '' }}>6 Bulan</option>
+                    <option value="12" {{ old('durasi_tagihan') == "12"? 'selected' : '' }}>12 Bulan</option>
+                </select>
+                <label for="durasi_tagihan">Durasi Tagihan</label>
             </div>
 
             
@@ -272,6 +384,52 @@ function getDefaultDates() {
       }, 2500);
     }
   });
+</script>
+
+<script>
+    const input = document.getElementById('jatuh_tempo');
+    const overlay = document.getElementById('calendarOverlay');
+    const grid = document.getElementById('calendarGrid');
+
+    let selectedDate = null;
+
+    // Buat tombol tanggal 1–31 dengan type="button"
+    for (let i = 1; i <= 31; i++) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = i;
+        btn.dataset.value = i;
+        btn.addEventListener('click', function () {
+            document.querySelectorAll('.calendar-grid button').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            selectedDate = i;
+        });
+        grid.appendChild(btn);
+    }
+
+    input.addEventListener('click', () => {
+        overlay.style.display = 'flex';
+        selectedDate = null;
+        document.querySelectorAll('.calendar-grid button').forEach(b => b.classList.remove('selected'));
+    });
+
+    function confirmCalendar() {
+        if (selectedDate) {
+            input.value = selectedDate;
+        }
+        overlay.style.display = 'none';
+    }
+
+    function cancelCalendar() {
+        overlay.style.display = 'none';
+        selectedDate = null;
+    }
+
+    overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) {
+            cancelCalendar();
+        }
+    });
 </script>
 
 
