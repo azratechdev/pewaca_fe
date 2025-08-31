@@ -29,14 +29,15 @@
                 @include('layouts.elements.flash')
             </div>
 
-            @if(!empty($biaya) && count($biaya) > 0)
+            @if(isset($biaya) && is_array($biaya) && count($biaya) > 0)
                 @foreach($biaya as $tagihan)
-                <div class="flex justify-center items-center" style="height: 100%;">
-                    <div class="bg-white w-full max-w-6xl">
+                    @if(is_array($tagihan))
+                    <div class="flex justify-center items-center" style="height: 100%;">
+                        <div class="bg-white w-full max-w-6xl">
                         <div class="flex justify-between items-center">
                             <div class="flex items-center">
                                 <p class="d-flex align-items-center">
-                                <strong>{{ $tagihan['name'] ?? '-' }}</strong>
+                                <strong>{{ isset($tagihan['name']) ? $tagihan['name'] : '-' }}</strong>
                                 </p>
                             </div>
                         </div>  
@@ -44,7 +45,7 @@
                         <div class="flex justify-between items-center mt-2">
                             <div class="flex items-center">
                                 <p class="d-flex align-items-center">
-                                    {{ $tagihan['description'] ?? '-' }}
+                                    {{ isset($tagihan['description']) ? $tagihan['description'] : '-' }}
                                 </p>
                             </div>
                         </div> 
@@ -57,7 +58,11 @@
                             
                             <div class="flex items-center">
                                 <p class="d-flex align-items-center">
-                                    Rp {{ isset($tagihan['amount']) ? number_format($tagihan['amount'], 0, ',', '.') : '-' }}
+                                    @if(isset($tagihan['amount']) && is_numeric($tagihan['amount']))
+                                        Rp {{ number_format($tagihan['amount'], 0, ',', '.') }}
+                                    @else
+                                        Rp -
+                                    @endif
                                 </p>
                             </div>
                         </div> 
@@ -70,10 +75,10 @@
                             
                             <div class="flex items-center">
                                 <p class="d-flex align-items-center" style="color: red;">
-                                    {{ $tagihan['tipe'] ?? '-' }}
+                                    {{ isset($tagihan['tipe']) ? $tagihan['tipe'] : '-' }}
                                 </p>
                             </div>
-                        </div> 
+                        </div>
                         <div class="flex justify-between items-center mt-2">
                             <div class="flex items-center">
                                 <p class="d-flex align-items-center">
@@ -124,27 +129,28 @@
                         </div> --}}
                     </div>
                     @endif
-                    @if(($tagihan['is_publish'] ?? false) == false)
+                    @if(!isset($tagihan['is_publish']) || $tagihan['is_publish'] == false)
                     <div class="flex items-right">
-                        <a href="{{ route('pengurus.tagihan.edit', ['id' => $tagihan['id'] ?? '']) }}" class="btn btn-sm btn-light w-20" style="border-radius:8px;">Edit</a>
+                        <a href="{{ route('pengurus.tagihan.edit', ['id' => isset($tagihan['id']) ? $tagihan['id'] : '']) }}" class="btn btn-sm btn-light w-20" style="border-radius:8px;">Edit</a>
                         &nbsp;&nbsp;
-                        <a href="#" data-id="{{ $tagihan['id'] ?? '' }}" class="btn btn-sm btn-success w-20 btn-publish" style="color: white;border-radius:8px;">Publish</a>
+                        <a href="#" data-id="{{ isset($tagihan['id']) ? $tagihan['id'] : '' }}" class="btn btn-sm btn-success w-20 btn-publish" style="color: white;border-radius:8px;">Publish</a>
                     </div>
                     @else
                     <div class="flex items-right">
-                        <a href="#" data-id="{{ $tagihan['id'] ?? '' }}" class="btn btn-sm btn-warning w-20 btn-unpublish" style="color: white;border-radius:8px;">Unpublish</a>
+                        <a href="#" data-id="{{ isset($tagihan['id']) ? $tagihan['id'] : '' }}" class="btn btn-sm btn-warning w-20 btn-unpublish" style="color: white;border-radius:8px;">Unpublish</a>
                     </div>
                     @endif
                 </div>
                 <hr class="mt-3 mb-2">
+                    @endif
                 @endforeach
 
-                <div class="flex justify-between items-center @if(($previous_page ?? null) == null || ($next_page ?? null) == null) justify-end @else justify-between @endif">
-                    @if($previous_page ?? false)
+                <div class="flex items-center justify-between">
+                    @if(isset($previous_page) && $previous_page)
                     <div class="flex items-center">
                         <form action="{{ route('pengurus.biaya.list') }}" method="POST">
                             @csrf
-                            <input type="hidden" name="page" value="{{ $prev ?? 1 }}">
+                            <input type="hidden" name="page" value="{{ isset($prev) ? $prev : 1 }}">
                             <button type="submit" class="btn btn-sm btn-info text-white">
                                 < Previous
                             </button>
@@ -153,14 +159,14 @@
                     @endif
 
                     <div class="flex-grow text-center">
-                        Page {{ $current ?? 1 }} of {{ $total_pages ?? 1 }}
+                        Page {{ isset($current) ? $current : 1 }} of {{ isset($total_pages) ? $total_pages : 1 }}
                     </div>
                 
-                    @if($next_page ?? false)
+                    @if(isset($next_page) && $next_page)
                     <div class="flex items-center ml-auto">
                         <form action="{{ route('pengurus.biaya.list') }}" method="POST">
                             @csrf
-                            <input type="hidden" name="page" value="{{ $next ?? 1 }}">
+                            <input type="hidden" name="page" value="{{ isset($next) ? $next : 1 }}">
                             <button type="submit" class="btn btn-sm btn-info text-white">
                                 Next Page >
                             </button>
