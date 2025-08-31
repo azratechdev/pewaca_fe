@@ -172,14 +172,14 @@ class TagihanController extends Controller
             $due_date = $request->jatuh_tempo;
         }
 
-        $data = [
-            'name' => $request->nama_tagihan,
-            'description' => $request->deskripsi,
-            'tipe' => $request->type_iuran,
-            'tempo' => $request->jatuh_tempo,
-            'amount' => $nominal_original_format,
-            'duration' => $request->durasi_tagihan,
-        ];
+        // $data = [
+        //     'name' => $request->nama_tagihan,
+        //     'description' => $request->deskripsi,
+        //     'tipe' => $request->type_iuran,
+        //     'tempo' => $request->jatuh_tempo,
+        //     'amount' => $nominal_original_format,
+        //     'duration' => $request->durasi_tagihan,
+        // ];
                              
         $data = [
             'jenis_tagihan' => $request->repeat,

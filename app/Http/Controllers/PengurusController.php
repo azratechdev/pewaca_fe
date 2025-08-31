@@ -290,7 +290,7 @@ class PengurusController extends Controller
 
     public function list_biaya(Request $request)
     {
-        
+        //dd("here");
         $filter = $request->input('filter');
         $page = $request->input('page', 1); // Default page = 1 jika tidak ada  
 
@@ -315,6 +315,7 @@ class PengurusController extends Controller
         $biaya = $biaya_response['results'] ?? [];
         $next_page = $biaya_response['next'] ?? null;
         $previous_page = $biaya_response['previous'] ?? null;
+
 
         if($biaya_response){
             $total_pages = (int) ceil($biaya_response['count'] / 10);
@@ -342,7 +343,17 @@ class PengurusController extends Controller
             }
             
         }
-        //dd($next);
+        
+        $datadump = [
+            'biaya' => $biaya,
+            'current' => $current,
+            'next' => $next,
+            'prev' => $prev,
+            'next_page' => $next_page,
+            'previous_page' => $previous_page,
+            'total_pages' => $total_pages
+        ];
+        //dd($data);
         
         return view('pengurus.tagihan.list_biaya', compact('biaya','current','next','prev','next_page','previous_page', 'total_pages'));
     }

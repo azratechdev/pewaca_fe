@@ -83,7 +83,7 @@
                             
                             <div class="flex items-center">
                                 <p class="d-flex align-items-center">
-                                {{ \Carbon\Carbon::parse($tagihan['date_due'])->translatedFormat('d F Y') }}
+                                {{ !empty($tagihan['date_due']) ? \Carbon\Carbon::parse($tagihan['date_due'])->translatedFormat('d F Y') : '-' }}
                                 </p>
                             </div>
                         </div>
@@ -181,7 +181,6 @@
                         <p>Klik tombol dibawah untuk <br>menambahkan daftar biaya</p>
                     </div>
                 </div><br>
-          
             @endif
 
             <br>
