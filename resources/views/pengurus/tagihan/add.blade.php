@@ -126,7 +126,7 @@
     <form id="pengurus_tagihan_add" method="post" action="{{ route('tagihan.post') }}" enctype="multipart/form-data">
       @csrf
         <div>
-            <!-- <div class="flex justify-between items-center mt-4">
+            <div class="flex justify-between items-center mt-4">
               <div class="flex items-center">
                   <p class="d-flex align-items-center">
                     <strong>Repeat</strong>
@@ -144,9 +144,9 @@
                       </div>
                   </div>
               </div>
-            </div> -->
+            </div>
 
-            <!-- <div id="repeat-container" class="form-floating mt-4">
+            <div id="repeat-container" class="form-floating mt-4">
                 <select class="form-control" id="repeat" name="repeat">
                     <option value="one_time" selected hidden>Select</option>
                     <option value="weekly" {{ old('repeat') == "weekly" ? 'selected' : '' }}>Weekly</option>
@@ -155,7 +155,7 @@
                 </select>
                 <label for="repeat">Type Iuran</label>
             </div>
-            <hr class="mt-2 mb-2"> -->
+            <hr class="mt-2 mb-2">
 
             <div class="form-floating mt-2">
                 <input type="text" class="form-control @error('nama_tagihan') is-invalid @enderror" value="{{ old('nama_tagihan') }}" id="nama_tagihan" name="nama_tagihan" placeholder=" " required>
@@ -182,36 +182,36 @@
                 <label for="type_iuran">Type Iuran</label>
             </div>
 
-            <!-- <div id="tempo" class="form-floating mt-4">
+            <div id="tempo" class="form-floating mt-4">
                 <input type="date" class="form-control" id="jatuh_tempo" name="jatuh_tempo" value="{{ old('from_date') }}"  placeholder=" " required>
-                <label for="jatuh_tempo">Tanggal Jatuh Tempo</label>
-            </div> -->
-
-            <div class="form-floating mt-4">
-                <input type="text" id="jatuh_tempo" name="jatuh_tempo" class="form-control popup-date-input" placeholder=" " readonly required>
                 <label for="jatuh_tempo">Tanggal Jatuh Tempo</label>
             </div>
 
+            {{-- <div class="form-floating mt-4">
+                <input type="text" id="jatuh_tempo" name="jatuh_tempo" class="form-control popup-date-input" placeholder=" " readonly required>
+                <label for="jatuh_tempo">Tanggal Jatuh Tempo</label>
+            </div> --}}
+
             <!-- Popup kalender -->
-            <div id="calendarOverlay" class="calendar-overlay">
+            {{-- <div id="calendarOverlay" class="calendar-overlay">
                 <div class="calendar-popup">
                     <div class="calendar-title">Tanggal Jatuh Tempo</div>
                     <div class="calendar-grid" id="calendarGrid">
-                        <!-- Tombol tanggal di-generate via JS -->
+                     
                     </div>
                     <div class="calendar-actions">
                         <button type="button" class="btn-cancel" onclick="cancelCalendar()">Batal</button>
                         <button type="button" class="btn-confirm" onclick="confirmCalendar()">Pilih</button>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
-            <!-- <div id="periode" class="form-floating mt-4" style="display:none;">
+            <div id="periode" class="form-floating mt-4" style="display:none;">
               <input type="date" class="form-control" id="periode" name="periode" value="{{ old('from_date') }}"  placeholder=" ">
               <label for="periode">Periode</label>
-            </div> -->
+            </div>
 
-            {{-- <div class="form-floating mt-4">
+            <div class="form-floating mt-4">
                 <input type="date" class="form-control" id="from_date" name="from_date" value="{{ old('from_date') }}"  placeholder=" " required>
                 <label for="from_date">From Date</label>
             </div>
@@ -219,7 +219,7 @@
             <div class="form-floating mt-4">
                 <input type="date" class="form-control" id="due_date" name="due_date" value="{{ old('due_date') }}"  placeholder=" " required>
                 <label for="due_date">Tanggal Terakhir Bayar</label>
-            </div> --}}
+            </div>
           
             <div class="form-floating mt-4">
                 <input type="text" class="form-control rupiah-input @error('nominal') is-invalid @enderror" value="{{ old('nominal') }}" id="nominal" name="nominal"
@@ -230,7 +230,7 @@
                 @enderror
             </div>
 
-            <div class="form-floating mt-4">
+            {{-- <div class="form-floating mt-4">
                 <select class="form-control" id="durasi_tagihan" name="durasi_tagihan" required>
                     <option value="" disabled selected hidden>- Pilih Durasi Tagihan -</option>
                     <option value="3" {{ old('durasi_tagihan') == "3" ? 'selected' : '' }}>3 Bulan</option>
@@ -238,9 +238,8 @@
                     <option value="12" {{ old('durasi_tagihan') == "12"? 'selected' : '' }}>12 Bulan</option>
                 </select>
                 <label for="durasi_tagihan">Durasi Tagihan</label>
-            </div>
-
-            
+            </div> --}}
+           
           
         </div>
         <br>

@@ -144,21 +144,27 @@ class TagihanController extends Controller
     {
       // dd($request->all());
        $request->validate([
-        'nama_tagihan' => 'required|string',
-        'deskripsi' => 'required|string',
-        'type_iuran' => 'required|string',
-        'jatuh_tempo' => 'nullable|string',
-        //'periode' => 'nullable|string', // Bisa berupa rentang tanggal
+        'repeat' => 'nullable|string',
         'nominal' => 'required|string',
-        'durasi_tagihan' => 'required|string',
-        //'repeat' => 'nullable|string', // Tidak wajib, karena hanya muncul saat repeat_button aktif
+        'nama_tagihan' => 'required|string',
+        'type_iuran' => 'required|string',
+        'deskripsi' => 'required|string',
+        'periode' => 'nullable|string', // Bisa berupa rentang tanggal
+        // 'jatuh_tempo' => 'nullable|string',
+        // 'durasi_tagihan' => 'required|string',
+         
         ]);
         
         $nominal_original_format = $this->formatNominal($request->nominal);
-        
+       
+
         $from_date = null;
         $due_date = null;
         
+         
+        if ($request->filled('from_date')) {
+            $from_date = $request->from_date;
+        }
         
         // Jika repeat diaktifkan, gunakan periode
         if ($request->filled('periode')) {
@@ -170,7 +176,7 @@ class TagihanController extends Controller
        
         if ($request->filled('jatuh_tempo')) {
             $due_date = $request->jatuh_tempo;
-        }
+        } 
 
         // $data = [
         //     'name' => $request->nama_tagihan,
@@ -190,6 +196,8 @@ class TagihanController extends Controller
             'description' => $request->deskripsi,
             'from_date' => $from_date,
         ];
+
+        //dd($data);
 
         if (!Session::has('token')) {
             Session::flash('flash-message', [
