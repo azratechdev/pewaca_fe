@@ -15,9 +15,16 @@ class CheckAccessToken
         $refreshToken = Session::get('refresh_token');
         $createdAt = Session::get('token_created_at');
 
-        // Hitung durasi access token, misal 3 hari
+        // kalau token ada & belum expired → langsung redirect ke home
+        if ($token && $createdAt && !Carbon::parse($createdAt)->addDays(3)->isPast()) {
+            // cek apakah user sedang akses halaman login
+            if ($request->is('/') || $request->routeIs('showLoginForm')) {
+                return redirect()->route('home');
+            }
+        }
+
+        // kalau token expired → coba refresh
         if ($token && $createdAt && Carbon::parse($createdAt)->addDays(3)->isPast()) {
-            // Token expired → refresh
             $response = Http::withHeaders([
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
@@ -29,8 +36,12 @@ class CheckAccessToken
                 $newToken = $response->json()['access'];
                 Session::put('token', $newToken);
                 Session::put('token_created_at', now());
+
+                // kalau user lagi buka login, setelah refresh juga langsung ke home
+                if ($request->is('/') || $request->routeIs('showLoginForm')) {
+                    return redirect()->route('home');
+                }
             } else {
-                // Refresh gagal → paksa logout
                 Session::flush();
                 return redirect()->route('showLoginForm')->withErrors(['Session expired. Please login again.']);
             }
@@ -38,4 +49,5 @@ class CheckAccessToken
 
         return $next($request);
     }
+
 }

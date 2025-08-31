@@ -22,7 +22,10 @@ use App\Http\Controllers\ReportController;
 |
 */
 
-Route::get('/', [LoginController::class, 'showLoginForm'])->name('showLoginForm');
+Route::get('/', [LoginController::class, 'showLoginForm'])
+    ->middleware('check.token')
+    ->name('showLoginForm');
+
 Route::post('/', [LoginController::class, 'postlogin'])->name('postlogin');
 Route::get('/registration/{uuid?}', [RegisterController::class, 'showRegister'])->name('showRegister');
 Route::post('/postregistration', [RegisterController::class, 'postRegister'])->name('postRegister');
@@ -37,7 +40,7 @@ Route::post('/sendnewpassword', [ForgotPasswordController::class, 'sendNewpasswo
 Auth::routes();
 
 // Rute yang membutuhkan autentikasi
-Route::group(['middleware' => ['check.token']], function () {
+Route::group(['middleware' => ['auth', 'check.token']], function () {
    
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     // Route::post('/postActivated', [LoginController::class, 'postActivated'])->name('postActivated');
