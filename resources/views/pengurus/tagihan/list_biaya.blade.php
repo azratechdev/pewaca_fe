@@ -36,7 +36,7 @@
                         <div class="flex justify-between items-center">
                             <div class="flex items-center">
                                 <p class="d-flex align-items-center">
-                                <strong>{{ $tagihan['name'] }}</strong>
+                                <strong>{{ $tagihan['name'] ?? '-' }}</strong>
                                 </p>
                             </div>
                         </div>  
@@ -44,7 +44,7 @@
                         <div class="flex justify-between items-center mt-2">
                             <div class="flex items-center">
                                 <p class="d-flex align-items-center">
-                                    {{ $tagihan['description'] }}
+                                    {{ $tagihan['description'] ?? '-' }}
                                 </p>
                             </div>
                         </div> 
@@ -57,7 +57,7 @@
                             
                             <div class="flex items-center">
                                 <p class="d-flex align-items-center">
-                                    Rp {{ number_format($tagihan['amount'], 0, ',', '.') }}
+                                    Rp {{ isset($tagihan['amount']) ? number_format($tagihan['amount'], 0, ',', '.') : '-' }}
                                 </p>
                             </div>
                         </div> 
@@ -70,7 +70,7 @@
                             
                             <div class="flex items-center">
                                 <p class="d-flex align-items-center" style="color: red;">
-                                    {{ $tagihan['tipe'] }}
+                                    {{ $tagihan['tipe'] ?? '-' }}
                                 </p>
                             </div>
                         </div> 
@@ -83,7 +83,7 @@
                             
                             <div class="flex items-center">
                                 <p class="d-flex align-items-center">
-                                {{ !empty($tagihan['date_due']) ? \Carbon\Carbon::parse($tagihan['date_due'])->translatedFormat('d F Y') : '-' }}
+                                {{ isset($tagihan['date_due']) && $tagihan['date_due'] ? \Carbon\Carbon::parse($tagihan['date_due'])->translatedFormat('d F Y') : '-' }}
                                 </p>
                             </div>
                         </div>
@@ -124,27 +124,27 @@
                         </div> --}}
                     </div>
                     @endif
-                    @if($tagihan['is_publish'] == false)
+                    @if(($tagihan['is_publish'] ?? false) == false)
                     <div class="flex items-right">
-                        <a href="{{ route('pengurus.tagihan.edit', ['id' => $tagihan['id']]) }}" class="btn btn-sm btn-light w-20" style="border-radius:8px;">Edit</a>
+                        <a href="{{ route('pengurus.tagihan.edit', ['id' => $tagihan['id'] ?? '']) }}" class="btn btn-sm btn-light w-20" style="border-radius:8px;">Edit</a>
                         &nbsp;&nbsp;
-                        <a href="#" data-id="{{ $tagihan['id'] }}" class="btn btn-sm btn-success w-20 btn-publish" style="color: white;border-radius:8px;">Publish</a>
+                        <a href="#" data-id="{{ $tagihan['id'] ?? '' }}" class="btn btn-sm btn-success w-20 btn-publish" style="color: white;border-radius:8px;">Publish</a>
                     </div>
                     @else
                     <div class="flex items-right">
-                        <a href="#" data-id="{{ $tagihan['id'] }}" class="btn btn-sm btn-warning w-20 btn-unpublish" style="color: white;border-radius:8px;">Unpublish</a>
+                        <a href="#" data-id="{{ $tagihan['id'] ?? '' }}" class="btn btn-sm btn-warning w-20 btn-unpublish" style="color: white;border-radius:8px;">Unpublish</a>
                     </div>
                     @endif
                 </div>
                 <hr class="mt-3 mb-2">
                 @endforeach
 
-                <div class="flex justify-between items-center @if($previous_page == null || $next_page == null) justify-end @else justify-between @endif">
-                    @if($previous_page)
+                <div class="flex justify-between items-center @if(($previous_page ?? null) == null || ($next_page ?? null) == null) justify-end @else justify-between @endif">
+                    @if($previous_page ?? false)
                     <div class="flex items-center">
                         <form action="{{ route('pengurus.biaya.list') }}" method="POST">
                             @csrf
-                            <input type="hidden" name="page" value="{{ $prev }}">
+                            <input type="hidden" name="page" value="{{ $prev ?? 1 }}">
                             <button type="submit" class="btn btn-sm btn-info text-white">
                                 < Previous
                             </button>
@@ -153,14 +153,14 @@
                     @endif
 
                     <div class="flex-grow text-center">
-                        Page {{ $current }} of {{ $total_pages }}
+                        Page {{ $current ?? 1 }} of {{ $total_pages ?? 1 }}
                     </div>
                 
-                    @if($next_page)
+                    @if($next_page ?? false)
                     <div class="flex items-center ml-auto">
                         <form action="{{ route('pengurus.biaya.list') }}" method="POST">
                             @csrf
-                            <input type="hidden" name="page" value="{{ $next }}">
+                            <input type="hidden" name="page" value="{{ $next ?? 1 }}">
                             <button type="submit" class="btn btn-sm btn-info text-white">
                                 Next Page >
                             </button>

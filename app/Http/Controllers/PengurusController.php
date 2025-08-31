@@ -343,7 +343,7 @@ class PengurusController extends Controller
             }
             
         }
-        
+
         $datadump = [
             'biaya' => $biaya,
             'current' => $current,
@@ -353,7 +353,7 @@ class PengurusController extends Controller
             'previous_page' => $previous_page,
             'total_pages' => $total_pages
         ];
-        //dd($data);
+        //dd($datadump);
         
         return view('pengurus.tagihan.list_biaya', compact('biaya','current','next','prev','next_page','previous_page', 'total_pages'));
     }
