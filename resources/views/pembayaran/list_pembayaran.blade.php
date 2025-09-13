@@ -172,10 +172,10 @@
                     @endif
                 </div>
             @else
-                @include('pembayaran.pembayaran_view')
+                {{-- @include('pembayaran.pembayaran_view') --}}
 
                 {{-- Uncomment if you want to show a message when there are no payments --}}
-                {{-- <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: auto; text-align: center;">
+               <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: auto; text-align: center;">
                     <div>
                         <img src="{{ asset('assets/plugins/images/konfirmasi-empty.png') }}" alt="Biaya kosong" style="max-width: 200px; height: auto;" />
                     </div>
@@ -184,7 +184,7 @@
                             Tagihan belum tersedia
                         </h2>
                     </div>
-                </div><br> --}}
+                </div><br>
 
 
             @endif

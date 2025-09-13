@@ -298,7 +298,8 @@ class PengurusController extends Controller
             $page = 1;
         }
         //dd(env('API_URL'));
-        $apiUrl = env('API_URL') . '/api/tagihan/?page='.$page;
+        // $apiUrl = env('API_URL') . '/api/tagihan/?page='.$page;
+        $apiUrl = 'https://api.pewaca.id//api/tagihan/?page='.$page;
 
         if (!empty($filter)) {
             $apiUrl .= '&search=' . urlencode($filter);

@@ -84,7 +84,7 @@ class PembayaranController extends Controller
             }
             
         }
-        
+        //dd('here');
         
         return view('pembayaran.list_pembayaran', compact('data_tagihan','current','next','prev','next_page','previous_page', 'total_pages'));
        
@@ -421,14 +421,14 @@ class PembayaranController extends Controller
         return (int) $formatted;
     }
 
-    public function pembayaran_periode()
-    {
-        return view('pembayaran.pembayaran_periode');
-    }
+    // public function pembayaran_periode()
+    // {
+    //     return view('pembayaran.pembayaran_periode');
+    // }
 
-    public function periode()
-    {
-        return view('pembayaran.periode');
-    }
+    // public function periode()
+    // {
+    //     return view('pembayaran.periode');
+    // }
 
 }
