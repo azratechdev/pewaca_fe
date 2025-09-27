@@ -35,12 +35,13 @@ class RegisterController extends Controller
         return view('auth.register', compact('resdetail', 'units', 'genders', 'religions', 'cities', 'statuses', 
         'jobs', 'educations', 'families'));
     }
-
+    
+    // http://43.156.75.206:8000
     public function getResdetail($uuid)
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('https://api.pewaca.id/api/residence-by-code/'.$uuid."/");
+        ])->get('http://43.156.75.206:8000/api/residence-by-code/'.$uuid."/");
         $res_detail_response = json_decode($response->body(), true);
         return $res_detail_response['data'];
     }
@@ -49,7 +50,7 @@ class RegisterController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('https://api.pewaca.id/api/family-as/');
+        ])->get('http://43.156.75.206:8000/api/family-as/');
         $gender_response = json_decode($response->body(), true);
         return $gender_response['data'];
     }
@@ -58,7 +59,7 @@ class RegisterController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('https://api.pewaca.id/api/units/code/'.$uuid."/");
+        ])->get('http://43.156.75.206:8000/api/units/code/'.$uuid."/");
         $unit_response = json_decode($response->body(), true);
         //dd($unit_response);
         if($unit_response['data']){
@@ -73,7 +74,7 @@ class RegisterController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('https://api.pewaca.id/api/gender/');
+        ])->get('http://43.156.75.206:8000/api/gender/');
         $gender_response = json_decode($response->body(), true);
         return $gender_response['data'];
     }
@@ -82,7 +83,7 @@ class RegisterController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('https://api.pewaca.id/api/religions/');
+        ])->get('http://43.156.75.206:8000/api/religions/');
         $religion_response = json_decode($response->body(), true);
         return $religion_response['data'];
     }
@@ -91,7 +92,7 @@ class RegisterController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('https://api.pewaca.id/api/cities/');
+        ])->get('http://43.156.75.206:8000/api/cities/');
         $cities_response = json_decode($response->body(), true);
         return $cities_response['data'];
     }
@@ -100,7 +101,7 @@ class RegisterController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('https://api.pewaca.id/api/marital-statuses/');
+        ])->get('http://43.156.75.206:8000/api/marital-statuses/');
         $status_response = json_decode($response->body(), true);
         return $status_response['data'];
     }
@@ -109,7 +110,7 @@ class RegisterController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('https://api.pewaca.id/api/ocupation/');
+        ])->get('http://43.156.75.206:8000/api/ocupation/');
         $job_response = json_decode($response->body(), true);
         return $job_response['data'];
     }
@@ -118,7 +119,7 @@ class RegisterController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('https://api.pewaca.id/api/education/');
+        ])->get('http://43.156.75.206:8000/api/education/');
         $education_response = json_decode($response->body(), true);
         return $education_response['data'];
     }
@@ -284,7 +285,7 @@ class RegisterController extends Controller
 
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('https://api.pewaca.id/api/auth/verify/'.$request->code."/".$request->token."/");
+        ])->get('http://43.156.75.206:8000/api/auth/verify/'.$request->code."/".$request->token."/");
         $verify_response = json_decode($response->body(), true);
         
         //dd($verify_response);
