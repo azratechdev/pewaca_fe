@@ -299,7 +299,7 @@ class PengurusController extends Controller
         }
         //dd(env('API_URL'));
         // $apiUrl = env('API_URL') . '/api/tagihan/?page='.$page;
-        $apiUrl = 'https://api.pewaca.id//api/tagihan/?page='.$page;
+        $apiUrl = 'https://api.pewaca.id/api/tagihan/?page='.$page;
 
         if (!empty($filter)) {
             $apiUrl .= '&search=' . urlencode($filter);
@@ -309,6 +309,7 @@ class PengurusController extends Controller
             'Accept' => 'application/json',
             'Authorization' => 'Token ' . Session::get('token'),
         ])->get($apiUrl);
+        //dd($response);
         $biaya_response = json_decode($response->body(), true);
         
         //dd($biaya_response);

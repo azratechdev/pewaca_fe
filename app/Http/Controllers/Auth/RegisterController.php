@@ -236,7 +236,7 @@ class RegisterController extends Controller
                 $http->attach('marriagePhoto', file_get_contents($file->getRealPath()), $file->getClientOriginalName());
             }
            
-            $response = $http->post('https://api.pewaca.id/api/auth/sign-up/'.$request->code."/", $data);
+            $response = $http->post('http://43.156.75.206:8000/api/auth/sign-up/'.$request->code."/", $data);
   
             $data_response = json_decode($response->body(), true);
 
