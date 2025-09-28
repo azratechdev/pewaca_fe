@@ -36,12 +36,18 @@ class RegisterController extends Controller
         'jobs', 'educations', 'families'));
     }
     
-    // http://43.156.75.206
+    // API base URL from config/services.php
+    protected $apiBaseUrl;
+
+    public function __construct()
+    {
+        $this->apiBaseUrl = config('services.api_base_url');
+    }
     public function getResdetail($uuid)
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('http://43.156.75.206/api/residence-by-code/'.$uuid."/");
+        ])->get($this->apiBaseUrl.'/api/residence-by-code/'.$uuid."/");
         $res_detail_response = json_decode($response->body(), true);
         return $res_detail_response['data'];
     }
@@ -50,7 +56,7 @@ class RegisterController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('http://43.156.75.206/api/family-as/');
+        ])->get($this->apiBaseUrl.'/api/family-as/');
         $gender_response = json_decode($response->body(), true);
         return $gender_response['data'];
     }
@@ -59,7 +65,7 @@ class RegisterController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('http://43.156.75.206/api/units/code/'.$uuid."/");
+        ])->get($this->apiBaseUrl.'/api/units/code/'.$uuid."/");
         $unit_response = json_decode($response->body(), true);
         //dd($unit_response);
         if($unit_response['data']){
@@ -74,7 +80,7 @@ class RegisterController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('http://43.156.75.206/api/gender/');
+        ])->get($this->apiBaseUrl.'/api/gender/');
         $gender_response = json_decode($response->body(), true);
         return $gender_response['data'];
     }
@@ -83,7 +89,7 @@ class RegisterController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('http://43.156.75.206/api/religions/');
+        ])->get($this->apiBaseUrl.'/api/religions/');
         $religion_response = json_decode($response->body(), true);
         return $religion_response['data'];
     }
@@ -92,7 +98,7 @@ class RegisterController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('http://43.156.75.206/api/cities/');
+        ])->get($this->apiBaseUrl.'/api/cities/');
         $cities_response = json_decode($response->body(), true);
         return $cities_response['data'];
     }
@@ -101,7 +107,7 @@ class RegisterController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('http://43.156.75.206/api/marital-statuses/');
+        ])->get($this->apiBaseUrl.'/api/marital-statuses/');
         $status_response = json_decode($response->body(), true);
         return $status_response['data'];
     }
@@ -110,7 +116,7 @@ class RegisterController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('http://43.156.75.206/api/ocupation/');
+        ])->get($this->apiBaseUrl.'/api/ocupation/');
         $job_response = json_decode($response->body(), true);
         return $job_response['data'];
     }
@@ -119,7 +125,7 @@ class RegisterController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('http://43.156.75.206/api/education/');
+        ])->get($this->apiBaseUrl.'/api/education/');
         $education_response = json_decode($response->body(), true);
         return $education_response['data'];
     }
@@ -237,7 +243,7 @@ class RegisterController extends Controller
                 $http->attach('marriagePhoto', file_get_contents($file->getRealPath()), $file->getClientOriginalName());
             }
            
-            $response = $http->post('http://43.156.75.206/api/auth/sign-up/'.$request->code."/", $data);
+            $response = $http->post($this->apiBaseUrl.'/api/auth/sign-up/'.$request->code."/", $data);
   
             $data_response = json_decode($response->body(), true);
 
@@ -285,7 +291,7 @@ class RegisterController extends Controller
 
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('http://43.156.75.206/api/auth/verify/'.$request->code."/".$request->token."/");
+        ])->get($this->apiBaseUrl.'/api/auth/verify/'.$request->code."/".$request->token."/");
         $verify_response = json_decode($response->body(), true);
         
         //dd($verify_response);
