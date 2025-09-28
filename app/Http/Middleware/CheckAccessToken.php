@@ -11,7 +11,7 @@ class CheckAccessToken
 {
     public function handle($request, Closure $next)
     {
-        $token = Session::get('token');
+        $token = Session::get('api_token');
         $refreshToken = Session::get('refresh_token');
         $createdAt = Session::get('token_created_at');
 
@@ -68,7 +68,7 @@ class CheckAccessToken
 // {
 //     public function handle($request, Closure $next)
 //     {
-//         $token = Session::get('token');
+//         $token = Session::get('api_token');
 //         $refreshToken = Session::get('refresh_token');
 //         $createdAt = Session::get('token_created_at');
 

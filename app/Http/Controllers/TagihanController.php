@@ -15,7 +15,7 @@ class TagihanController extends Controller
             $response = Http::withHeaders([
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
-                'Authorization' => 'Token ' . Session::get('token'),
+                'Authorization' => 'Token ' . Session::get('api_token'),
             ])->get('http://43.156.75.206/api/tagihan/');
     
             $data_response = json_decode($response->body(), true);
@@ -60,7 +60,7 @@ class TagihanController extends Controller
         try {
             $response = Http::withHeaders([
                 'Accept' => 'application/json',
-                'Authorization' => 'Token ' . Session::get('token'),
+                'Authorization' => 'Token ' . Session::get('api_token'),
             ])->post('http://43.156.75.206/api/tagihan/publish-tagihan/' . $id . '/');
 
             $data_response = json_decode($response->body(), true);
@@ -94,7 +94,7 @@ class TagihanController extends Controller
             $response = Http::withHeaders([
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
-                'Authorization' => 'Token ' . Session::get('token'),
+                'Authorization' => 'Token ' . Session::get('api_token'),
             ])->get('http://43.156.75.206/api/tagihan/'.$id.'/');
     
             $data_response = json_decode($response->body(), true);
@@ -211,7 +211,7 @@ class TagihanController extends Controller
             $response = Http::withHeaders([
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
-                'Authorization' => 'Token ' . Session::get('token'),
+                'Authorization' => 'Token ' . Session::get('api_token'),
             ])->post('http://43.156.75.206/api/tagihan/', $data);
     
             $data_response = json_decode($response->body(), true);
@@ -253,7 +253,7 @@ class TagihanController extends Controller
         
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token '.Session::get('token'),
+            'Authorization' => 'Token '.Session::get('api_token'),
         ])->get('http://43.156.75.206/api/tagihan-warga/'.$id.'/');
         $tagihan_response = json_decode($response->body(), true);
         $data =  $tagihan_response['data'];

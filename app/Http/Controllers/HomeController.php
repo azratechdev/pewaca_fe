@@ -42,7 +42,7 @@ class HomeController extends Controller
 
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token '.Session::get('token'),
+            'Authorization' => 'Token '.Session::get('api_token'),
         ])->get('http://43.156.75.206/api/story-replays/?page=1&story_id='.$request->story_id);
         
         $replay_response = json_decode($response->body(), true);
@@ -72,7 +72,7 @@ class HomeController extends Controller
         //dd($url);
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token '.Session::get('token'),
+            'Authorization' => 'Token '.Session::get('api_token'),
         ])->get($url);
                
         $replay_response = json_decode($response->body(), true);
@@ -99,7 +99,7 @@ class HomeController extends Controller
 
         try {
             $http = Http::withHeaders([
-                'Authorization' => 'Token ' . Session::get('token') // atau coba ganti ke 'Bearer '
+                'Authorization' => 'Token ' . Session::get('api_token') // atau coba ganti ke 'Bearer '
             ]);
             // Siapkan multipart data
             $multipart = [

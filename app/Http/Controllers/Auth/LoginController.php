@@ -98,7 +98,7 @@ class LoginController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token '.Session::get('token'),
+            'Authorization' => 'Token '.Session::get('api_token'),
         ])->get('http://43.156.75.206/api/auth/profil/');
 
         $auth_response = json_decode($response->body(), true);

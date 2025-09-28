@@ -22,7 +22,7 @@ class PembayaranController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token '.Session::get('token'),
+            'Authorization' => 'Token '.Session::get('api_token'),
         ])->get('http://43.156.75.206/api/tagihan-warga/self-list/?status=unpaid,process');
         $tagihan_response = json_decode($response->body(), true);
         return $tagihan_response;
@@ -46,7 +46,7 @@ class PembayaranController extends Controller
       
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token ' . Session::get('token'),
+            'Authorization' => 'Token ' . Session::get('api_token'),
         ])->get($apiUrl);
         $tagihan_response = json_decode($response->body(), true);
         //dd($tagihan_response);
@@ -107,7 +107,7 @@ class PembayaranController extends Controller
       
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token ' . Session::get('token'),
+            'Authorization' => 'Token ' . Session::get('api_token'),
         ])->get($apiUrl);
         $tagihan_response = json_decode($response->body(), true);
         
@@ -165,7 +165,7 @@ class PembayaranController extends Controller
             $response = Http::withHeaders([
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
-                'Authorization' => 'Token ' . Session::get('token'),
+                'Authorization' => 'Token ' . Session::get('api_token'),
             ])->get('http://43.156.75.206/api/tagihan-warga/'.$id.'/');
     
             $data_response = json_decode($response->body(), true);
@@ -199,7 +199,7 @@ class PembayaranController extends Controller
             $response = Http::withHeaders([
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
-                'Authorization' => 'Token ' . Session::get('token'),
+                'Authorization' => 'Token ' . Session::get('api_token'),
             ])->get('http://43.156.75.206/api/tagihan-warga/'.$id.'/');
     
             $data_response = json_decode($response->body(), true);
@@ -207,7 +207,7 @@ class PembayaranController extends Controller
             $getnote = Http::withHeaders([
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
-                'Authorization' => 'Token ' . Session::get('token'),
+                'Authorization' => 'Token ' . Session::get('api_token'),
             ])->get('http://43.156.75.206/api/tagihan-note/list/'.$id.'/');
     
             $data_note = json_decode($getnote->body(), true);
@@ -257,7 +257,7 @@ class PembayaranController extends Controller
                    
             $http = Http::withHeaders([
                 'Accept' => 'application/json', // Header untuk menerima JSON
-                'Authorization' => 'Token ' . session::get('token'),
+                'Authorization' => 'Token ' . Session::get('api_token'),
             ]);
         
             if ($request->hasFile('bukti_pembayaran')) {
@@ -317,7 +317,7 @@ class PembayaranController extends Controller
         try {
             $http = Http::withHeaders([
                 'Accept' => 'application/json',
-                'Authorization' => 'Token ' . session::get('token'),
+                'Authorization' => 'Token ' . Session::get('api_token'),
             ]);
         
             if ($request->hasFile('image')) {
@@ -373,7 +373,7 @@ class PembayaranController extends Controller
             $response = Http::withHeaders([
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
-                'Authorization' => 'Token ' . Session::get('token'),
+                'Authorization' => 'Token ' . Session::get('api_token'),
             ])->get('http://43.156.75.206/api/tagihan-note/list/'.$id.'/');
     
             $data_note = json_decode($response->body(), true);
@@ -381,7 +381,7 @@ class PembayaranController extends Controller
             $res = Http::withHeaders([
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
-                'Authorization' => 'Token ' . Session::get('token'),
+                'Authorization' => 'Token ' . Session::get('api_token'),
             ])->get('http://43.156.75.206/api/tagihan-warga/'.$id.'/');
     
             $data_tagihan = json_decode($res->body(), true);
@@ -407,7 +407,7 @@ class PembayaranController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token '.Session::get('token'),
+            'Authorization' => 'Token '.Session::get('api_token'),
         ])->get('http://43.156.75.206/api/tagihan-warga/self-list/?status=paid');
         $tagihan_response = json_decode($response->body(), true);
         return $tagihan_response;

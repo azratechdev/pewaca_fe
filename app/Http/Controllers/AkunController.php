@@ -23,7 +23,7 @@ class AkunController extends Controller
        
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token '.Session::get('token'),
+            'Authorization' => 'Token '.Session::get('api_token'),
         ])->get('http://43.156.75.206/api/auth/profil/');
         $warga_response = json_decode($response->body(), true);
         $data = $warga_response['data'];
@@ -38,7 +38,7 @@ class AkunController extends Controller
         $residence_id = $residence['residence'];
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token '.Session::get('token'),
+            'Authorization' => 'Token '.Session::get('api_token'),
         ])->get('http://43.156.75.206/api/residence-banks/list_banks/?residence_id='.$residence_id.'');
         $bank_response = json_decode($response->body(), true);
         $bank_list = $bank_response['data'];
@@ -76,7 +76,7 @@ class AkunController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token '.Session::get('token'),
+            'Authorization' => 'Token '.Session::get('api_token'),
         ])->get('http://43.156.75.206/api/family-as/');
         $warga_response = json_decode($response->body(), true);
         $families = $warga_response['data'];
@@ -93,7 +93,7 @@ class AkunController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token '.Session::get('token'),
+            'Authorization' => 'Token '.Session::get('api_token'),
         ])->get('http://43.156.75.206/api/auth/profil/');
         $warga_response = json_decode($response->body(), true);
         $data = $warga_response['data'];
@@ -127,7 +127,7 @@ class AkunController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token '.Session::get('token'),
+            'Authorization' => 'Token '.Session::get('api_token'),
         ])->get('http://43.156.75.206/api/units/');
         $unit_response = json_decode($response->body(), true);
         return $unit_response['data'];
@@ -191,7 +191,7 @@ class AkunController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token '.Session::get('token'),
+            'Authorization' => 'Token '.Session::get('api_token'),
         ])->get('http://43.156.75.206/api/banks/');
         $bank_response = json_decode($response->body(), true);
         $banks =  $bank_response['data'];
@@ -223,7 +223,7 @@ class AkunController extends Controller
         try {
             $response = Http::withHeaders([
                 'Accept' => 'application/json',
-                'Authorization' => 'Token '.Session::get('token'),
+                'Authorization' => 'Token '.Session::get('api_token'),
             ])->post('http://43.156.75.206/api/residence-banks/', $data);
             $data_response = json_decode($response->body(), true);
             
@@ -342,7 +342,7 @@ class AkunController extends Controller
             $http = Http::asMultipart()
             ->withHeaders([
                 'Accept' => 'application/json',
-                'Authorization' => 'Token ' . Session::get('token'), // Sesuai dengan curl Swagger
+                'Authorization' => 'Token ' . Session::get('api_token'), // Sesuai dengan curl Swagger
             ]);
         
             if (isset($request->profile_photo) && $request->hasFile('profile_photo')) {

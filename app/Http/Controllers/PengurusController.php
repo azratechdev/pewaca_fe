@@ -40,7 +40,7 @@ class PengurusController extends Controller
       
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token ' . Session::get('token'),
+            'Authorization' => 'Token ' . Session::get('api_token'),
         ])->get($apiUrl);
         $warga_response = json_decode($response->body(), true);
         //dd($warga_response);
@@ -83,7 +83,7 @@ class PengurusController extends Controller
     // {
     //     $response = Http::withHeaders([
     //         'Accept' => 'application/json',
-    //         'Authorization' => 'Token '.Session::get('token'),
+    //         'Authorization' => 'Token '.Session::get('api_token'),
     //     ])->get('http://43.156.75.206/api/residence-commite/');
     //     $warga_response = json_decode($response->body(), true);
     //     return  $warga_response;
@@ -101,7 +101,7 @@ class PengurusController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token '.Session::get('token'),
+            'Authorization' => 'Token '.Session::get('api_token'),
         ])->get('http://43.156.75.206/api/warga/?page=1&is_checker=false');
         $warga_response = json_decode($response->body(), true);
         return  $warga_response['results'];
@@ -126,7 +126,7 @@ class PengurusController extends Controller
       
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token ' . Session::get('token'),
+            'Authorization' => 'Token ' . Session::get('api_token'),
         ])->get($apiUrl);
         $warga_response = json_decode($response->body(), true);
         //dd($warga_response);
@@ -177,7 +177,7 @@ class PengurusController extends Controller
       
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token ' . Session::get('token'),
+            'Authorization' => 'Token ' . Session::get('api_token'),
         ])->get($apiUrl);
         $warga_response = json_decode($response->body(), true);
         //dd($warga_response);
@@ -215,7 +215,7 @@ class PengurusController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token '.Session::get('token'),
+            'Authorization' => 'Token '.Session::get('api_token'),
         ])->get('http://43.156.75.206/api/warga/?page=1&is_checker=true&isreject=false');
         $warga_response = json_decode($response->body(), true);
         return  $warga_response['results'];
@@ -225,7 +225,7 @@ class PengurusController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token '.Session::get('token'),
+            'Authorization' => 'Token '.Session::get('api_token'),
         ])->get('http://43.156.75.206/api/warga/'.$id.'/');
         $warga_response = json_decode($response->body(), true);
         $warga = $warga_response['data'];
@@ -262,7 +262,7 @@ class PengurusController extends Controller
             //dd('here');
             $http = Http::withHeaders([
                 'Accept' => 'application/json',
-                'Authorization' => 'Token '.Session::get('token'),
+                'Authorization' => 'Token '.Session::get('api_token'),
             ]);
                        
             $response = $http->post('http://43.156.75.206/api/warga/reject/', $data);
@@ -307,7 +307,7 @@ class PengurusController extends Controller
       
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token ' . Session::get('token'),
+            'Authorization' => 'Token ' . Session::get('api_token'),
         ])->get($apiUrl);
         //dd($response);
         $biaya_response = json_decode($response->body(), true);
@@ -378,7 +378,7 @@ class PengurusController extends Controller
       
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token ' . Session::get('token'),
+            'Authorization' => 'Token ' . Session::get('api_token'),
         ])->get($apiUrl);
         $konfirmasi_response = json_decode($response->body(), true);
         //dd($konfirmasi_response);
@@ -435,7 +435,7 @@ class PengurusController extends Controller
       
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token ' . Session::get('token'),
+            'Authorization' => 'Token ' . Session::get('api_token'),
         ])->get($apiUrl);
         $disetujui_response = json_decode($response->body(), true);
         //dd($disetujui_response);
@@ -494,7 +494,7 @@ class PengurusController extends Controller
       
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token ' . Session::get('token'),
+            'Authorization' => 'Token ' . Session::get('api_token'),
         ])->get($apiUrl);
         $tunggakan_response = json_decode($response->body(), true);
         //dd($warga_response);
@@ -538,7 +538,7 @@ class PengurusController extends Controller
 
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token '.Session::get('token'),
+            'Authorization' => 'Token '.Session::get('api_token'),
         ])->get('http://43.156.75.206/api/tagihan/');
         $tagihan_response = json_decode($response->body(), true);
         return $tagihan_response;
@@ -548,7 +548,7 @@ class PengurusController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token '.Session::get('token'),
+            'Authorization' => 'Token '.Session::get('api_token'),
         ])->get('http://43.156.75.206/api/tagihan-warga/self-list/?status=process');
         $tagihan_response = json_decode($response->body(), true);
         return $tagihan_response;
@@ -558,7 +558,7 @@ class PengurusController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token '.Session::get('token'),
+            'Authorization' => 'Token '.Session::get('api_token'),
         ])->get('http://43.156.75.206/api/tagihan-warga/self-list/?status=paid');
         $tagihan_response = json_decode($response->body(), true);
         return $tagihan_response;
@@ -568,7 +568,7 @@ class PengurusController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token '.Session::get('token'),
+            'Authorization' => 'Token '.Session::get('api_token'),
         ])->get('http://43.156.75.206/api/roles/');
         $role_response = json_decode($response->body(), true);
         return  $role_response['results'];
@@ -578,7 +578,7 @@ class PengurusController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token '.Session::get('token'),
+            'Authorization' => 'Token '.Session::get('api_token'),
         ])->get('http://43.156.75.206/api/warga/?is_checker=true&isreject=false');
         $warga_response = json_decode($response->body(), true);
         return  $warga_response['results'];
@@ -610,7 +610,7 @@ class PengurusController extends Controller
             //dd('here');
             $http = Http::withHeaders([
                 'Accept' => 'application/json',
-                'Authorization' => 'Token '.Session::get('token'),
+                'Authorization' => 'Token '.Session::get('api_token'),
             ]);
                        
             $response = $http->post('http://43.156.75.206/api/residence-commite/', $data);
