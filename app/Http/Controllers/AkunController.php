@@ -24,7 +24,7 @@ class AkunController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/auth/profil/');
+        ])->get('http://43.156.75.206/api/auth/profil/');
         $warga_response = json_decode($response->body(), true);
         $data = $warga_response['data'];
         //dd($data);
@@ -39,7 +39,7 @@ class AkunController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/residence-banks/list_banks/?residence_id='.$residence_id.'');
+        ])->get('http://43.156.75.206/api/residence-banks/list_banks/?residence_id='.$residence_id.'');
         $bank_response = json_decode($response->body(), true);
         $bank_list = $bank_response['data'];
         //dd($bank_list);
@@ -77,7 +77,7 @@ class AkunController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/family-as/');
+        ])->get('http://43.156.75.206/api/family-as/');
         $warga_response = json_decode($response->body(), true);
         $families = $warga_response['data'];
         //dd($families);
@@ -94,7 +94,7 @@ class AkunController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/auth/profil/');
+        ])->get('http://43.156.75.206/api/auth/profil/');
         $warga_response = json_decode($response->body(), true);
         $data = $warga_response['data'];
 
@@ -118,7 +118,7 @@ class AkunController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('https://api.pewaca.id/api/family-as/');
+        ])->get('http://43.156.75.206/api/family-as/');
         $gender_response = json_decode($response->body(), true);
         return $gender_response['data'];
     }
@@ -128,7 +128,7 @@ class AkunController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/units/');
+        ])->get('http://43.156.75.206/api/units/');
         $unit_response = json_decode($response->body(), true);
         return $unit_response['data'];
     }
@@ -137,7 +137,7 @@ class AkunController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('https://api.pewaca.id/api/gender/');
+        ])->get('http://43.156.75.206/api/gender/');
         $gender_response = json_decode($response->body(), true);
         return $gender_response['data'];
     }
@@ -146,7 +146,7 @@ class AkunController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('https://api.pewaca.id/api/religions/');
+        ])->get('http://43.156.75.206/api/religions/');
         $religion_response = json_decode($response->body(), true);
         return $religion_response['data'];
     }
@@ -155,7 +155,7 @@ class AkunController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('https://api.pewaca.id/api/cities/');
+        ])->get('http://43.156.75.206/api/cities/');
         $cities_response = json_decode($response->body(), true);
         return $cities_response['data'];
     }
@@ -164,7 +164,7 @@ class AkunController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('https://api.pewaca.id/api/marital-statuses/');
+        ])->get('http://43.156.75.206/api/marital-statuses/');
         $status_response = json_decode($response->body(), true);
         return $status_response['data'];
     }
@@ -173,7 +173,7 @@ class AkunController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('https://api.pewaca.id/api/ocupation/');
+        ])->get('http://43.156.75.206/api/ocupation/');
         $job_response = json_decode($response->body(), true);
         return $job_response['data'];
     }
@@ -182,7 +182,7 @@ class AkunController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->get('https://api.pewaca.id/api/education/');
+        ])->get('http://43.156.75.206/api/education/');
         $education_response = json_decode($response->body(), true);
         return $education_response['data'];
     }
@@ -192,7 +192,7 @@ class AkunController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/banks/');
+        ])->get('http://43.156.75.206/api/banks/');
         $bank_response = json_decode($response->body(), true);
         $banks =  $bank_response['data'];
       
@@ -224,7 +224,7 @@ class AkunController extends Controller
             $response = Http::withHeaders([
                 'Accept' => 'application/json',
                 'Authorization' => 'Token '.Session::get('token'),
-            ])->post('https://api.pewaca.id/api/residence-banks/', $data);
+            ])->post('http://43.156.75.206/api/residence-banks/', $data);
             $data_response = json_decode($response->body(), true);
             
             if ($response->successful()) {
@@ -363,7 +363,7 @@ class AkunController extends Controller
                 );
             }
     
-            $response = $http->put('https://api.pewaca.id/api/auth/profil/update/', $data);
+            $response = $http->put('http://43.156.75.206/api/auth/profil/update/', $data);
             $response = json_decode($response->body(), true);
 
             //dd($response);

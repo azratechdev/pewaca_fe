@@ -218,7 +218,7 @@ $(document).on('click', '.btn-publish', function (e) {
         confirmButtonText: 'Ya, Publish!'
     }).then((result) => {
         if (result.isConfirmed) {
-            fetch(`https://api.pewaca.id/api/tagihan/publish-tagihan/${tagihan_id}/`, {
+            fetch(`http://43.156.75.206/api/tagihan/publish-tagihan/${tagihan_id}/`, {
                 method: "POST",
                 headers: {
                     "Accept": "application/json",
@@ -283,7 +283,7 @@ $(document).on('click', '.btn-unpublish', function (e) {
         if (result.isConfirmed) {
             const note = document.getElementById('unpublish-note').value.trim();
             
-            fetch(`https://api.pewaca.id/api/unpublish-tagihan/${tagihan_id}/`, {
+            fetch(`http://43.156.75.206/api/unpublish-tagihan/${tagihan_id}/`, {
                 method: "POST",
                 headers: {
                     "Accept": "application/json",
@@ -322,7 +322,7 @@ $(document).on('click', '.btn-add', function(e) {
     e.preventDefault();
     const residence_id = {{ Session::get('warga')['residence'] }};
 
-    fetch(`https://api.pewaca.id/api/residence-banks/list_banks/?residence_id=${residence_id}`, {
+    fetch(`http://43.156.75.206/api/residence-banks/list_banks/?residence_id=${residence_id}`, {
         method: "GET",
         headers: {
             "Accept": "application/json",

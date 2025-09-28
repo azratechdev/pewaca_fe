@@ -32,7 +32,7 @@ class CheckAccessToken
                 $response = Http::withHeaders([
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                ])->post('https://api.pewaca.id/api/auth/token/refresh/', [
+                ])->post('http://43.156.75.206/api/auth/token/refresh/', [
                     'refresh' => $refreshToken
                 ]);
 
@@ -85,7 +85,7 @@ class CheckAccessToken
 //             $response = Http::withHeaders([
 //                 'Accept' => 'application/json',
 //                 'Content-Type' => 'application/json',
-//             ])->post('https://api.pewaca.id/api/auth/token/refresh/', [
+//             ])->post('http://43.156.75.206/api/auth/token/refresh/', [
 //                 'refresh' => $refreshToken
 //             ]);
 

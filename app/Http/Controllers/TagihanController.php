@@ -16,7 +16,7 @@ class TagihanController extends Controller
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
                 'Authorization' => 'Token ' . Session::get('token'),
-            ])->get('https://api.pewaca.id/api/tagihan/');
+            ])->get('http://43.156.75.206/api/tagihan/');
     
             $data_response = json_decode($response->body(), true);
 
@@ -61,7 +61,7 @@ class TagihanController extends Controller
             $response = Http::withHeaders([
                 'Accept' => 'application/json',
                 'Authorization' => 'Token ' . Session::get('token'),
-            ])->post('https://api.pewaca.id/api/tagihan/publish-tagihan/' . $id . '/');
+            ])->post('http://43.156.75.206/api/tagihan/publish-tagihan/' . $id . '/');
 
             $data_response = json_decode($response->body(), true);
 
@@ -95,7 +95,7 @@ class TagihanController extends Controller
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
                 'Authorization' => 'Token ' . Session::get('token'),
-            ])->get('https://api.pewaca.id/api/tagihan/'.$id.'/');
+            ])->get('http://43.156.75.206/api/tagihan/'.$id.'/');
     
             $data_response = json_decode($response->body(), true);
 
@@ -212,7 +212,7 @@ class TagihanController extends Controller
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
                 'Authorization' => 'Token ' . Session::get('token'),
-            ])->post('https://api.pewaca.id/api/tagihan/', $data);
+            ])->post('http://43.156.75.206/api/tagihan/', $data);
     
             $data_response = json_decode($response->body(), true);
 
@@ -254,7 +254,7 @@ class TagihanController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/tagihan-warga/'.$id.'/');
+        ])->get('http://43.156.75.206/api/tagihan-warga/'.$id.'/');
         $tagihan_response = json_decode($response->body(), true);
         $data =  $tagihan_response['data'];
         

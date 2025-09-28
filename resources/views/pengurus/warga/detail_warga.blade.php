@@ -133,7 +133,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: 'https://api.pewaca.id/api/warga/verify/',
+                        url: 'http://43.156.75.206/api/warga/verify/',
                         type: 'POST',
                         headers: {
                             'Accept': 'application/json',

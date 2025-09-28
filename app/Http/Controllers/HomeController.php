@@ -28,7 +28,7 @@ class HomeController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('api_token'),
-        ])->get('https://api.pewaca.id/api/stories/');
+        ])->get('http://43.156.75.206/api/stories/');
         $stories_response = json_decode($response->body(), true);
         //dd($stories_response);
         return $stories_response['data'];
@@ -43,7 +43,7 @@ class HomeController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/story-replays/?page=1&story_id='.$request->story_id);
+        ])->get('http://43.156.75.206/api/story-replays/?page=1&story_id='.$request->story_id);
         
         $replay_response = json_decode($response->body(), true);
 
@@ -120,7 +120,7 @@ class HomeController extends Controller
             }
 
             // Kirim request dengan multipart
-            $response = $http->asMultipart()->post('https://api.pewaca.id/api/stories/', $multipart);
+            $response = $http->asMultipart()->post('http://43.156.75.206/api/stories/', $multipart);
 
             $data_response = json_decode($response->body(), true);
 

@@ -19,7 +19,12 @@ return [
 
     'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
 
-    'allowed_origins' => ['https://api.pewaca.id','https://pewaca.id','http://localhost'],
+    'allowed_origins' => [
+    'http://43.156.75.206',
+    'http://43.156.75.206:9001',
+    'https://pewaca.id',
+    'http://localhost',
+    'http://localhost:9000'],
 
     'allowed_origins_patterns' => [],
 

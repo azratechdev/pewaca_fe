@@ -132,7 +132,7 @@
         confirmButtonText: 'Ya, Hapus!'
     }).then((result) => {
         if (result.isConfirmed) {
-            fetch(`https://api.pewaca.id/api/residence-banks/${bank_id}/`, {
+            fetch(`http://43.156.75.206/api/residence-banks/${bank_id}/`, {
                 method: "DELETE",
                 headers: {
                     "Accept": "application/json",
@@ -191,7 +191,7 @@
                         confirmButtonText: "Ya, Aktifkan!"
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            fetch("https://api.pewaca.id/api/residence-banks/activate/", {
+                            fetch("http://43.156.75.206/api/residence-banks/activate/", {
                                 method: "POST",
                                 headers: {
                                     "Accept": "application/json",

@@ -85,7 +85,7 @@
 
       // Fungsi untuk memverifikasi API
         const verifyApi = () => {
-            return fetch(`https://api.pewaca.id/api/auth/verify/${uuid}/${token}/`, {
+            return fetch(`http://43.156.75.206/api/auth/verify/${uuid}/${token}/`, {
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json',

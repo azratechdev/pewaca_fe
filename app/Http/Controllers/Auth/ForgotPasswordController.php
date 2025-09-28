@@ -27,7 +27,7 @@ class ForgotPasswordController extends Controller
 
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->post('https://api.pewaca.id/api/auth/password-reset/', $data);
+        ])->post('http://43.156.75.206/api/auth/password-reset/', $data);
 
         $mail_response = json_decode($response->body(), true);
 
@@ -72,7 +72,7 @@ class ForgotPasswordController extends Controller
                 'Accept' => 'application/json',
             ]);
         
-            $response = $http->post('https://api.pewaca.id/api/auth/reset/'.$request->code."/".$request->token."/", $data);
+            $response = $http->post('http://43.156.75.206/api/auth/reset/'.$request->code."/".$request->token."/", $data);
             $reset_response = json_decode($response->body(), true);
             //dd($reset_response);
             if ($response->successful()) {

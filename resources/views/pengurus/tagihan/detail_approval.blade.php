@@ -208,7 +208,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: 'https://api.pewaca.id/api/tagihan-warga/'+tagihanId+'/approve/',
+                        url: 'http://43.156.75.206/api/tagihan-warga/'+tagihanId+'/approve/',
                         type: 'POST',
                         headers: {
                             'Accept': 'application/json',

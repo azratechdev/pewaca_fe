@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function fetchAndRender() {
         const periodeVal = periodeInput.value;
         const unitVal = unitInput.value.trim();
-        let apiUrl = `https://api.pewaca.id/api/report/cashout/?periode=${periodeVal}`;
+        let apiUrl = `http://43.156.75.206/api/report/cashout/?periode=${periodeVal}`;
         if (unitVal) apiUrl += `&unit_no=${encodeURIComponent(unitVal)}`;
         fetch(apiUrl)
             .then(res => res.json())
