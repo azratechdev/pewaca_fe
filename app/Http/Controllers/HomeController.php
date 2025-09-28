@@ -27,7 +27,7 @@ class HomeController extends Controller
         
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Token '.Session::get('token'),
+            'Authorization' => 'Token '.Session::get('api_token'),
         ])->get('https://api.pewaca.id/api/stories/');
         $stories_response = json_decode($response->body(), true);
         //dd($stories_response);
