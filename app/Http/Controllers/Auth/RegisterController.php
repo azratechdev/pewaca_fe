@@ -31,7 +31,7 @@ class RegisterController extends Controller
 
             if ($response->successful() && isset($data_response['data']['token'])) {
                 // Simpan token ke session
-                session(['api_token' => $data_response['data']['token']]);
+                session(['token' => $data_response['data']['token']]);
                 session(['api_refresh_token' => $data_response['data']['token_refresh']]);
                 session(['user_email' => $request->email]);
                 // Redirect ke /home
