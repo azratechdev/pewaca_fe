@@ -55,7 +55,7 @@ class LoginController extends Controller
                 Session::put('refresh_token', $refresh_token); // ✅ refresh token
                 Session::put('token_created_at', now()); // ✅ timestamp simpan token
 
-                dd(session()->all());
+                // dd(session()->all());
               
                 $res = $this->authenticate($data['email']);
                 //dd($res);

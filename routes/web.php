@@ -40,7 +40,7 @@ Route::post('/sendnewpassword', [ForgotPasswordController::class, 'sendNewpasswo
 Auth::routes();
 
 // Rute yang membutuhkan autentikasi
-Route::group(['middleware' => ['auth', 'check.token']], function () {
+Route::group(['middleware' => ['check.token']], function () {
    
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     // Route::post('/postActivated', [LoginController::class, 'postActivated'])->name('postActivated');
