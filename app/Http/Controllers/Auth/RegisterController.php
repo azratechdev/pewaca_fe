@@ -12,6 +12,39 @@ use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
+    public function postLogin(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string'
+        ]);
+
+        try {
+            $response = Http::withHeaders([
+                'Accept' => 'application/json',
+            ])->post($this->apiBaseUrl . '/api/auth/login/', [
+                'email' => $request->email,
+                'password' => $request->password
+            ]);
+
+            $data_response = json_decode($response->body(), true);
+
+            if ($response->successful() && isset($data_response['data']['token'])) {
+                // Simpan token ke session
+                session(['api_token' => $data_response['data']['token']]);
+                session(['api_refresh_token' => $data_response['data']['token_refresh']]);
+                session(['user_email' => $request->email]);
+                // Redirect ke /home
+                return redirect('/home');
+            } else {
+                // Login gagal
+                return redirect('/login')->withErrors(['login' => $data_response['data']['message'] ?? 'Login gagal']);
+            }
+        } catch (\Exception $e) {
+            return redirect('/login')->withErrors(['login' => 'Gagal login: ' . $e->getMessage()]);
+        }
+    }
+
    
     public function showRegister($uuid = null)
     {
