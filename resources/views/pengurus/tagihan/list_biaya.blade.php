@@ -222,7 +222,7 @@ $(document).on('click', '.btn-publish', function (e) {
                 method: "POST",
                 headers: {
                     "Accept": "application/json",
-                    "Authorization": "Token {{ Session::get('api_token') }}",
+                    "Authorization": "Token {{ Session::get('token') }}",
                     "Content-Type": "application/json",
                     "X-CSRFToken": "2EsSjVgOlsklgxbXyjSOfitDc5NQkoiBnejF5k63EViTw1LQP2p52nhkVCoTLqmu"
                 }
@@ -287,7 +287,7 @@ $(document).on('click', '.btn-unpublish', function (e) {
                 method: "POST",
                 headers: {
                     "Accept": "application/json",
-                    "Authorization": "Token {{ Session::get('api_token') }}",
+                    "Authorization": "Token {{ Session::get('token') }}",
                     "Content-Type": "application/json",
                     "X-CSRFToken": "2EsSjVgOlsklgxbXyjSOfitDc5NQkoiBnejF5k63EViTw1LQP2p52nhkVCoTLqmu"
                 },
@@ -326,7 +326,7 @@ $(document).on('click', '.btn-add', function(e) {
         method: "GET",
         headers: {
             "Accept": "application/json",
-            "Authorization": "Token {{ Session::get('api_token') }}",
+            "Authorization": "Token {{ Session::get('token') }}",
             "Content-Type": "application/json"
         }
     })

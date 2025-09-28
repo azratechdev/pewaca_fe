@@ -117,7 +117,7 @@
     $(document).ready(function () {
         $(document).on("click", ".approved-warga", function() {
        
-            const token = "{{ Session::get('api_token') }}";
+            const token = "{{ Session::get('token') }}";
             const wargaId = $(this).data('id');
         
             //alert(token + ' ' + wargaId);return;

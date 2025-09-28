@@ -189,7 +189,7 @@
     $(document).ready(function () {
         $(document).on("click", "a.approved-tagihan-warga", function() {
        
-            const token = "{{ Session::get('api_token') }}";
+            const token = "{{ Session::get('token') }}";
             const tagihanId = $(this).data('id');
             const wargaId = $(this).data('warga_id');
         

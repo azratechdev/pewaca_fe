@@ -136,7 +136,7 @@
                 method: "DELETE",
                 headers: {
                     "Accept": "application/json",
-                    "Authorization": "Token {{ Session::get('api_token') }}",
+                    "Authorization": "Token {{ Session::get('token') }}",
                     "Content-Type": "application/json",
                     "X-CSRFToken": "ehbPFxLcdp440i5BmhZAq8c1wRQZuJVIzR2CrWBrwS2CgMFuD0wRdd0Ifor2VLZB"
                 }
@@ -195,7 +195,7 @@
                                 method: "POST",
                                 headers: {
                                     "Accept": "application/json",
-                                    "Authorization": "Token {{ Session::get('api_token') }}",
+                                    "Authorization": "Token {{ Session::get('token') }}",
                                     "Content-Type": "application/json",
                                     "X-CSRFToken": "ehbPFxLcdp440i5BmhZAq8c1wRQZuJVIzR2CrWBrwS2CgMFuD0wRdd0Ifor2VLZB"
                                 },

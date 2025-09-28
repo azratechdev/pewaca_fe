@@ -162,7 +162,7 @@ $(document).ready(function () {
             //alert('#form-comment'+formid);return;
             e.preventDefault();
             // Ambil data dari form
-            const token = '{{ Session::get('api_token') }}'; // Ambil token dari elemen HTML
+            const token = '{{ Session::get('token') }}'; // Ambil token dari elemen HTML
             const storyId = $('#storyid'+formid).val();
             const commentText = $('#story-comment'+formid).val();
         
