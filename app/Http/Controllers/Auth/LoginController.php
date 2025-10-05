@@ -41,7 +41,7 @@ class LoginController extends Controller
             $response = Http::withHeaders([
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
-            ])->post('https://api.pewaca.id/api/auth/login/', $data);
+            ])->post(env('API_URL') . '/api/auth/login/', $data);
 
             $data_response = json_decode($response->body(), true);
 
@@ -99,7 +99,7 @@ class LoginController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/auth/profil/');
+        ])->get(env('API_URL') . '/api/auth/profil/');
 
         $auth_response = json_decode($response->body(), true);
 

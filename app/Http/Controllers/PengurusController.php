@@ -32,7 +32,7 @@ class PengurusController extends Controller
             $page = 1;
         }
 
-        $apiUrl = 'https://api.pewaca.id/api/residence-commite/?page='.$page;
+        $apiUrl = env('API_URL') . '/api/residence-commite/?page='.$page;
 
         if (!empty($filter)) {
             $apiUrl .= '&search=' . urlencode($filter);
@@ -84,7 +84,7 @@ class PengurusController extends Controller
     //     $response = Http::withHeaders([
     //         'Accept' => 'application/json',
     //         'Authorization' => 'Token '.Session::get('token'),
-    //     ])->get('https://api.pewaca.id/api/residence-commite/');
+    //     ])->get(env('API_URL') . '/api/residence-commite/');
     //     $warga_response = json_decode($response->body(), true);
     //     return  $warga_response;
     // }
@@ -102,7 +102,7 @@ class PengurusController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/warga/?page=1&is_checker=false');
+        ])->get(env('API_URL') . '/api/warga/?page=1&is_checker=false');
         $warga_response = json_decode($response->body(), true);
         return  $warga_response['results'];
        
@@ -118,7 +118,7 @@ class PengurusController extends Controller
             $page = 1;
         }
 
-        $apiUrl = 'https://api.pewaca.id/api/warga/?is_checker=false&isreject=false&page='.$page;
+        $apiUrl = env('API_URL') . '/api/warga/?is_checker=false&isreject=false&page='.$page;
 
         if (!empty($filter)) {
             $apiUrl .= '&search=' . urlencode($filter);
@@ -169,7 +169,7 @@ class PengurusController extends Controller
             $page = 1;
         }
 
-        $apiUrl = 'https://api.pewaca.id/api/warga/?is_checker=true&isreject=false&page='.$page;
+        $apiUrl = env('API_URL') . '/api/warga/?is_checker=true&isreject=false&page='.$page;
 
         if (!empty($filter)) {
             $apiUrl .= '&search=' . urlencode($filter);
@@ -216,7 +216,7 @@ class PengurusController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/warga/?page=1&is_checker=true&isreject=false');
+        ])->get(env('API_URL') . '/api/warga/?page=1&is_checker=true&isreject=false');
         $warga_response = json_decode($response->body(), true);
         return  $warga_response['results'];
     }
@@ -226,7 +226,7 @@ class PengurusController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/warga/'.$id.'/');
+        ])->get(env('API_URL') . '/api/warga/'.$id.'/');
         $warga_response = json_decode($response->body(), true);
         $warga = $warga_response['data'];
 
@@ -265,7 +265,7 @@ class PengurusController extends Controller
                 'Authorization' => 'Token '.Session::get('token'),
             ]);
                        
-            $response = $http->post('https://api.pewaca.id/api/warga/reject/', $data);
+            $response = $http->post(env('API_URL') . '/api/warga/reject/', $data);
 
             $data_response = json_decode($response->body(), true);
 
@@ -299,7 +299,7 @@ class PengurusController extends Controller
         }
         //dd(env('API_URL'));
         // $apiUrl = env('API_URL') . '/api/tagihan/?page='.$page;
-        $apiUrl = 'https://api.pewaca.id/api/tagihan/?page='.$page;
+        $apiUrl = env('API_URL') . '/api/tagihan/?page='.$page;
 
         if (!empty($filter)) {
             $apiUrl .= '&search=' . urlencode($filter);
@@ -370,7 +370,7 @@ class PengurusController extends Controller
             $page = 1;
         }
 
-        $apiUrl = 'https://api.pewaca.id/api/tagihan-warga/?page='.$page.'&status=process';
+        $apiUrl = env('API_URL') . '/api/tagihan-warga/?page='.$page.'&status=process';
 
         if (!empty($filter)) {
             $apiUrl .= '&search=' . urlencode($filter);
@@ -426,8 +426,8 @@ class PengurusController extends Controller
             $page = 1;
         }
 
-        // $apiUrl = 'https://api.pewaca.id/api/tagihan-warga/self-list/?status=paid&page='.$page;
-        $apiUrl = 'https://api.pewaca.id/api/tagihan-warga/?page='.$page.'&status=paid';
+        // $apiUrl = env('API_URL') . '/api/tagihan-warga/self-list/?status=paid&page='.$page;
+        $apiUrl = env('API_URL') . '/api/tagihan-warga/?page='.$page.'&status=paid';
 
         if (!empty($filter)) {
             $apiUrl .= '&search=' . urlencode($filter);
@@ -485,8 +485,8 @@ class PengurusController extends Controller
 
         $today = date('Y-m-d');
 
-        //$apiUrl = 'https://api.pewaca.id/api/tagihan-warga/self-list/?status=unpaid&end_due_date=' . $today . '&page=' . $page;
-        $apiUrl =   'https://api.pewaca.id/api/tagihan-warga/?page=1&status=unpaid&end_due_date=2025-03-22';
+        //$apiUrl = env('API_URL') . '/api/tagihan-warga/self-list/?status=unpaid&end_due_date=' . $today . '&page=' . $page;
+        $apiUrl =   env('API_URL') . '/api/tagihan-warga/?page=1&status=unpaid&end_due_date=2025-03-22';
        
         if (!empty($filter)) {
             $apiUrl .= '&search=' . urlencode($filter);
@@ -539,7 +539,7 @@ class PengurusController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/tagihan/');
+        ])->get(env('API_URL') . '/api/tagihan/');
         $tagihan_response = json_decode($response->body(), true);
         return $tagihan_response;
     }
@@ -549,7 +549,7 @@ class PengurusController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/tagihan-warga/self-list/?status=process');
+        ])->get(env('API_URL') . '/api/tagihan-warga/self-list/?status=process');
         $tagihan_response = json_decode($response->body(), true);
         return $tagihan_response;
     }
@@ -559,7 +559,7 @@ class PengurusController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/tagihan-warga/self-list/?status=paid');
+        ])->get(env('API_URL') . '/api/tagihan-warga/self-list/?status=paid');
         $tagihan_response = json_decode($response->body(), true);
         return $tagihan_response;
     }
@@ -569,7 +569,7 @@ class PengurusController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/roles/');
+        ])->get(env('API_URL') . '/api/roles/');
         $role_response = json_decode($response->body(), true);
         return  $role_response['results'];
     }
@@ -579,7 +579,7 @@ class PengurusController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/warga/?is_checker=true&isreject=false');
+        ])->get(env('API_URL') . '/api/warga/?is_checker=true&isreject=false');
         $warga_response = json_decode($response->body(), true);
         return  $warga_response['results'];
     }
@@ -613,7 +613,7 @@ class PengurusController extends Controller
                 'Authorization' => 'Token '.Session::get('token'),
             ]);
                        
-            $response = $http->post('https://api.pewaca.id/api/residence-commite/', $data);
+            $response = $http->post(env('API_URL') . '/api/residence-commite/', $data);
 
             $data_response = json_decode($response->body(), true);
 

@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
     updateDetailLinks(); // set awal
     periodeInput.value = getDefaultPeriode();
     periodeInput.max = getDefaultPeriode(); // batasi max ke bulan default (tidak bisa pilih bulan depan)
-    const urlBase = 'https://api.pewaca.id/api/report/index/?periode=';
+    const urlBase = env('API_URL') . '/api/report/index/?periode=';
     fetchAndRender(periodeInput.value);
 
     periodeInput.addEventListener('change', function() {

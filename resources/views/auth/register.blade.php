@@ -66,6 +66,15 @@
         #removeImageButton:hover {
             background-color: #c82333;
         } 
+
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #6b7280;
+    }
   
   </style>
 
@@ -228,8 +237,9 @@
                             </div>
                         
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="full_name" name="full_name" placeholder=" " value="{{ old('full_name') }}" required>
+                                <input type="text" pattern="[A-Za-z\s]+" class="form-control" id="full_name" name="full_name" placeholder=" " value="{{ old('full_name') }}" required>
                                 <label for="full_name ">Nama Lengkap</label>
+                                
                                 @error('full_name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -238,9 +248,10 @@
                             <div class="form-floating mb-3">
                                 <input type="text" pattern="\d{8,13}" minlength="8" maxlength="13" inputmode="numeric" class="form-control @error('phone_no') is-invalid @enderror"  value="{{ old('phone_no') }}" id="phone_no" name="phone_no" placeholder=" " required>
                                 <label for="phone_no ">Nomor Telepon</label>
-                                @error('phone_no')
+                                <small class="text-danger d-none" id="phone_no-error">Nomor Telepon minimal 8 digit dan maksimal 13 digit</small>
+                                {{-- @error('phone_no')
                                     <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                @enderror --}}
                             </div>
                         
                             <div class="form-floating mb-3">
@@ -274,8 +285,8 @@
                             </div>
                         
                             <div class="form-floating mb-3">
-                                <select class="form-select" id="marital_status" name="marital_status" required>
-                                    <option value="" disabled selected hidden>-Pilih Status-</option>
+                                <select class="form-select" id="marital_status" name="marital_status">
+                                    <option value="">-Pilih Status-</option>
                                     @foreach ($statuses as $status )
                                     <option value="{{ $status['id'] }}" {{ old('marital_status') == $status['id'] ? 'selected' : '' }}>{{ $status['name'] }}</option>
                                     @endforeach
@@ -323,6 +334,7 @@
                             <div class="form-floating mb-3">
                                 <input type="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" id="password" name="password" placeholder=" " required>
                                 <label for="password">Buat Kata Sandi</label>
+                                <i class="fas fa-eye-slash toggle-password" id="togglePassword"></i>
                                 @error('password')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -414,6 +426,17 @@
             profilePhotoInput.classList.remove('is-invalid');
         });
     }
+
+     // Password toggle functionality
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#password');
+
+    togglePassword.addEventListener('click', function (e) {
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        this.classList.toggle('fa-eye');
+        this.classList.toggle('fa-eye-slash');
+    });
 });
 </script>
     <script>
@@ -611,6 +634,35 @@
     // Update counter jika ada
     if (counterEl) {
         counterEl.textContent = `${value.length}/16`;
+    }
+});
+</script>
+
+<script>
+    document.getElementById('phone_no').addEventListener('input', function (e) {
+    let value = e.target.value.replace(/\D/g, ''); // Hanya angka
+
+    if (value.length > 13) {
+        value = value.substring(0, 13); // Batasi 16 digit
+    }
+
+    e.target.value = value;
+
+    const errorEl = document.getElementById('phone_no-error');
+    const counterEl = document.getElementById('phone_no-counter');
+
+    // Tampilkan error jika tidak kosong dan < 8
+    if ((value.length > 0 && value.length < 8) || value.length > 13) {
+        errorEl.classList.remove('d-none');
+        e.target.classList.add('is-invalid');
+    } else {
+        errorEl.classList.add('d-none');
+        e.target.classList.remove('is-invalid');
+    }
+
+    // Update counter jika ada
+    if (counterEl) {
+        counterEl.textContent = `${value.length}/8`;
     }
 });
 </script>

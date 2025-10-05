@@ -23,7 +23,7 @@ class PembayaranController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/tagihan-warga/self-list/?status=unpaid,process');
+        ])->get(env('API_URL') . '/api/tagihan-warga/self-list/?status=unpaid,process');
         $tagihan_response = json_decode($response->body(), true);
         return $tagihan_response;
     }
@@ -38,7 +38,7 @@ class PembayaranController extends Controller
             $page = 1;
         }
 
-        $apiUrl = 'https://api.pewaca.id/api/tagihan-warga/self-list/?status=unpaid,process&page='.$page;
+        $apiUrl = env('API_URL') . '/api/tagihan-warga/self-list/?status=unpaid,process&page='.$page;
 
         if (!empty($filter)) {
             $apiUrl .= '&search=' . urlencode($filter);
@@ -99,7 +99,7 @@ class PembayaranController extends Controller
             $page = 1;
         }
 
-        $apiUrl = 'https://api.pewaca.id/api/tagihan-warga/self-list/?status=paid&page='.$page;
+        $apiUrl = env('API_URL') . '/api/tagihan-warga/self-list/?status=paid&page='.$page;
 
         if (!empty($filter)) {
             $apiUrl .= '&search=' . urlencode($filter);
@@ -166,7 +166,7 @@ class PembayaranController extends Controller
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
                 'Authorization' => 'Token ' . Session::get('token'),
-            ])->get('https://api.pewaca.id/api/tagihan-warga/'.$id.'/');
+            ])->get(env('API_URL') . '/api/tagihan-warga/'.$id.'/');
     
             $data_response = json_decode($response->body(), true);
 
@@ -200,7 +200,7 @@ class PembayaranController extends Controller
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
                 'Authorization' => 'Token ' . Session::get('token'),
-            ])->get('https://api.pewaca.id/api/tagihan-warga/'.$id.'/');
+            ])->get(env('API_URL') . '/api/tagihan-warga/'.$id.'/');
     
             $data_response = json_decode($response->body(), true);
 
@@ -208,7 +208,7 @@ class PembayaranController extends Controller
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
                 'Authorization' => 'Token ' . Session::get('token'),
-            ])->get('https://api.pewaca.id/api/tagihan-note/list/'.$id.'/');
+            ])->get(env('API_URL') . '/api/tagihan-note/list/'.$id.'/');
     
             $data_note = json_decode($getnote->body(), true);
     
@@ -277,7 +277,7 @@ class PembayaranController extends Controller
             ];
         
             $response = $http->patch(
-                'https://api.pewaca.id/api/tagihan-warga/bayar/' . $request->tagihan_id . '/',
+                env('API_URL') . '/api/tagihan-warga/bayar/' . $request->tagihan_id . '/',
                 $data
             );
         
@@ -340,7 +340,7 @@ class PembayaranController extends Controller
                 $request->warga_id
             );
         
-            $response = $http->post('https://api.pewaca.id/api/tagihan-note/create-note/');
+            $response = $http->post(env('API_URL') . '/api/tagihan-note/create-note/');
             $data_response = json_decode($response->body(), true);
             //dd($data_response);
           
@@ -374,7 +374,7 @@ class PembayaranController extends Controller
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
                 'Authorization' => 'Token ' . Session::get('token'),
-            ])->get('https://api.pewaca.id/api/tagihan-note/list/'.$id.'/');
+            ])->get(env('API_URL') . '/api/tagihan-note/list/'.$id.'/');
     
             $data_note = json_decode($response->body(), true);
 
@@ -382,7 +382,7 @@ class PembayaranController extends Controller
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
                 'Authorization' => 'Token ' . Session::get('token'),
-            ])->get('https://api.pewaca.id/api/tagihan-warga/'.$id.'/');
+            ])->get(env('API_URL') . '/api/tagihan-warga/'.$id.'/');
     
             $data_tagihan = json_decode($res->body(), true);
                 
@@ -408,7 +408,7 @@ class PembayaranController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get('https://api.pewaca.id/api/tagihan-warga/self-list/?status=paid');
+        ])->get(env('API_URL') . '/api/tagihan-warga/self-list/?status=paid');
         $tagihan_response = json_decode($response->body(), true);
         return $tagihan_response;
     }

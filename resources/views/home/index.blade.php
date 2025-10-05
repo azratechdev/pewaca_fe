@@ -180,7 +180,7 @@ $(document).ready(function () {
 
             // Kirim data ke API
             $.ajax({
-                url: 'https://api.pewaca.id/api/story-replays/',
+                url: env('API_URL') . '/api/story-replays/',
                 type: 'POST',
                 cache: false,
                 headers: {
