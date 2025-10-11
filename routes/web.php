@@ -2,15 +2,18 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\AkunController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\TagihanController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ImageProxyController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,6 +40,7 @@ Route::get('/forgotpassword', [ForgotPasswordController::class, 'showFormReset']
 Route::post('/sendmail', [ForgotPasswordController::class, 'sendMail'])->name('sendMail');
 Route::get('/reset/{uuid?}/{token?}', [ForgotPasswordController::class, 'newPassword'])->name('newPassword');
 Route::post('/sendnewpassword', [ForgotPasswordController::class, 'sendNewpassword'])->name('sendNewpassword');
+
 Auth::routes();
 
 // Rute yang membutuhkan autentikasi
@@ -48,6 +52,28 @@ Route::group(['middleware' => ['auth', 'check.token']], function () {
     Route::post('/storypost', [HomeController::class, 'postStory'])->name('addPost');
     Route::post('/fetch-html-comment', [HomeController::class, 'getReplays'])->name('getReplays');
     Route::post('/comment-more', [HomeController::class, 'getReplaysMore'])->name('getReplaysMore');
+    
+    // Image proxy routes  
+    Route::get('/proxy/{path}', [ImageProxyController::class, 'proxy'])
+        ->where('path', '.*')
+        ->name('image.proxy');
+        
+    // Test routes
+    Route::get('/test-tencent', function () {
+        $result = \App\Helpers\ImageHelper::testTencentConnection();
+        return response()->json($result);
+    })->name('test.tencent');
+    
+    Route::get('/test-image-proxy', function () {
+        $testApiUrl = 'http://127.0.0.1:8000//media/profile_photos/1000135983.jpg';
+        $proxyUrl = \App\Helpers\ImageHelper::getImageUrl($testApiUrl);
+        
+        return response()->json([
+            'original_api_url' => $testApiUrl,
+            'proxy_url' => $proxyUrl,
+            'test_access' => '<img src="' . $proxyUrl . '" alt="Test Image" style="max-width: 200px;">'
+        ]);
+    })->name('test.image.proxy');
    
     
     //AKun Route

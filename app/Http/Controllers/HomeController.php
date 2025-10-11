@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 
 class HomeController extends Controller
@@ -12,13 +13,21 @@ class HomeController extends Controller
   
     public function index()
     {
-      
+        Log::info('HomeController::index() called');
+        
         $user = Session::get('cred');
         $warga = Session::get('warga');
         $residence = Session::get('residence');
+        
+        Log::info('Session data check:');
+        Log::info('User: ' . ($user ? 'Found' : 'Not found'));
+        Log::info('Warga: ' . ($warga ? 'Found' : 'Not found'));
+        Log::info('Residence: ' . ($residence ? 'Found' : 'Not found'));
+        Log::info('Token: ' . (Session::get('token') ? 'Found' : 'Not found'));
+        
         $stories = $this->getStories();
        
-        //dd($replays);
+        Log::info('HomeController::index() rendering view');
         return view('home.index', compact('user', 'warga', 'residence', 'stories'));
     }
 

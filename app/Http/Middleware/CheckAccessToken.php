@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 
 class CheckAccessToken
@@ -14,16 +15,29 @@ class CheckAccessToken
         $token = Session::get('token');
         $refreshToken = Session::get('refresh_token');
         $createdAt = Session::get('token_created_at');
+        
+        Log::info('CheckAccessToken Middleware - Route: ' . $request->path());
+        Log::info('CheckAccessToken Middleware - Has token: ' . ($token ? 'Yes' : 'No'));
+        Log::info('CheckAccessToken Middleware - Created at: ' . $createdAt);
 
         // Jika token ada
         if ($token && $createdAt) {
             $expired = Carbon::parse($createdAt)->addDays(3)->isPast();
+            Log::info('CheckAccessToken Middleware - Token expired: ' . ($expired ? 'Yes' : 'No'));
 
             // ✅ Token masih berlaku
             if (! $expired) {
                 if ($request->is('/') || $request->routeIs('showLoginForm')) {
-                    return redirect()->route('home');
+                    // Only redirect to home if we also have cred data
+                    if (Session::has('cred')) {
+                        Log::info('CheckAccessToken Middleware - Redirecting to home from login page');
+                        return redirect()->route('home');
+                    } else {
+                        Log::info('CheckAccessToken Middleware - Token valid but no cred data yet, allowing request');
+                        return $next($request);
+                    }
                 }
+                Log::info('CheckAccessToken Middleware - Token valid, proceeding');
                 return $next($request);
             }
 
@@ -42,7 +56,12 @@ class CheckAccessToken
                     Session::put('token_created_at', now());
 
                     if ($request->is('/') || $request->routeIs('showLoginForm')) {
-                        return redirect()->route('home');
+                        // Only redirect to home if we also have cred data
+                        if (Session::has('cred')) {
+                            return redirect()->route('home');
+                        } else {
+                            return $next($request);
+                        }
                     }
                     return $next($request);
                 }

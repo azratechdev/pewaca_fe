@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\HomeController;
 
 
@@ -38,27 +39,39 @@ class LoginController extends Controller
         //dd($data);
         
         try {
+            $api_url = config('services.api_base_url', 'http://127.0.0.1:8000');
+            Log::info('API URL: ' . $api_url);
+            Log::info('Login data: ', $data);
+            
             $response = Http::withHeaders([
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
-            ])->post(env('API_URL') . '/api/auth/login/', $data);
+            ])->post($api_url . '/api/auth/login/', $data);
 
             $data_response = json_decode($response->body(), true);
+            
+            Log::info('API Response: ', $data_response);
+            Log::info('Response Status: ' . $response->status());
 
-            //dd($data_response);
-
-            if ($data_response['success'] == true) {
+            if (isset($data_response['success']) && $data_response['success'] == true) {
                 $token = $data_response['data']['token'];
                 $refresh_token = $data_response['data']['token_refresh'];
 
+                Log::info('Saving tokens to session');
                 Session::put('token', $token); // ✅ access token
                 Session::put('refresh_token', $refresh_token); // ✅ refresh token
                 Session::put('token_created_at', now()); // ✅ timestamp simpan token
 
-                //dd(session()->all());
+                Log::info('Session after saving token: ', session()->all());
               
                 $res = $this->authenticate($data['email']);
-                //dd($res);
+                Log::info('Authentication result: ', $res);
+                
+                // Force session save again after authenticate method
+                Session::save();
+                Log::info('Session saved after authenticate. All keys: ' . implode(', ', array_keys(Session::all())));
+                Log::info('Session cred check after authenticate: ' . (Session::has('cred') ? 'EXISTS' : 'MISSING'));
+                
                 $cekstroy = new HomeController();
                 $stories = $cekstroy->getStories();
 
@@ -68,6 +81,10 @@ class LoginController extends Controller
                         'alert-class' => $res['alert'],
                     ]);
                 }
+                
+                Log::info('Before redirect - Session keys: ' . implode(', ', array_keys(Session::all())));
+                Log::info('Before redirect - Cred check: ' . (Session::has('cred') ? 'EXISTS' : 'MISSING'));
+                Log::info('Redirecting to: ' . $res['redirectTo']);
                 return redirect()->route($res['redirectTo']);
             } else {
                 if($data_response['message'] == 'User is inactive'){
@@ -96,25 +113,36 @@ class LoginController extends Controller
 
     public function authenticate($email)
     {
+        $api_url = config('services.api_base_url', 'http://127.0.0.1:8000');
+        Log::info('Authenticate API URL: ' . $api_url);
+        Log::info('Using token: ' . Session::get('token'));
+        
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token '.Session::get('token'),
-        ])->get(env('API_URL') . '/api/auth/profil/');
+        ])->get($api_url . '/api/auth/profil/');
 
         $auth_response = json_decode($response->body(), true);
+        Log::info('Profile API Response: ', $auth_response);
 
-        //dd($auth_response)['data'];
-        
         if (isset($auth_response['data']['user'])) {
             $credentials = $auth_response['data']['user'];
             $warga_data = $auth_response['data']['warga'];
             $residence_data = $auth_response['data']['residence'];
             //$unit_data = $auth_response['data']['unit_id'];
            
-            Session::put(['cred' => $credentials]);
-            Session::put(['warga' => $warga_data]);
-            Session::put(['residence' => $residence_data]);
-            //Session::put(['unit' => $unit_data]);
+            Session::put('cred', $credentials);
+            Session::put('warga', $warga_data);
+            Session::put('residence', $residence_data);
+            
+            // Force session save to ensure data is persisted
+            Session::save();
+            
+            Log::info('Session data saved:');
+            Log::info('Session ID after save: ' . Session::getId());
+            Log::info('cred: ', $credentials);
+            Log::info('warga: ', $warga_data);
+            Log::info('residence: ', $residence_data);
            
            
             if ($credentials['email'] == $email && $credentials['is_active'] == true) {

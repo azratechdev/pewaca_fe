@@ -31,6 +31,6 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
-    'api_base_url' => env('API_BASE_URL', 'http://43.156.75.206'),
+    'api_base_url' => env('API_BASE_URL', 'http://127.0.0.1:8000'),
 
 ];
