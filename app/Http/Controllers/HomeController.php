@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Exception;
 
 
 class HomeController extends Controller
@@ -33,14 +34,32 @@ class HomeController extends Controller
 
     public function getStories()
     {
-        
-        $response = Http::withHeaders([
-            'Accept' => 'application/json',
-            'Authorization' => 'Token '.Session::get('token'),
-        ])->get(env('API_URL') . '/api/stories/');
-        $stories_response = json_decode($response->body(), true);
-        //dd($stories_response);
-        return $stories_response['data'];
+        try {
+            $response = Http::withHeaders([
+                'Accept' => 'application/json',
+                'Authorization' => 'Token '.Session::get('token'),
+            ])->get(env('API_URL') . '/api/stories/');
+            
+            $stories_response = json_decode($response->body(), true);
+            
+            // Log response untuk debugging
+            Log::info('Stories API Response: ' . $response->body());
+            Log::info('Stories Response Status: ' . $response->status());
+            
+            // Periksa apakah response berhasil dan memiliki data
+            if ($response->successful() && isset($stories_response['data'])) {
+                return $stories_response['data'];
+            } else {
+                Log::warning('Stories API response tidak sesuai format atau gagal', [
+                    'status' => $response->status(),
+                    'response' => $stories_response
+                ]);
+                return []; // Return array kosong jika gagal
+            }
+        } catch (Exception $e) {
+            Log::error('Error mengambil stories: ' . $e->getMessage());
+            return []; // Return array kosong jika ada exception
+        }
     }
 
     public function getReplays(Request $request)

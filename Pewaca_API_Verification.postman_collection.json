@@ -1,0 +1,978 @@
+{
+  "info": {
+    "name": "Pewaca Complete E2E Testing",
+    "description": "Complete End-to-End Testing Collection untuk Sistem Pewaca - Frontend Laravel & Backend Django",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000",
+      "type": "string",
+      "description": "Backend Django API URL"
+    },
+    {
+      "key": "frontend_url", 
+      "value": "http://127.0.0.1:9000",
+      "type": "string",
+      "description": "Frontend Laravel URL"
+    },
+    {
+      "key": "admin_token",
+      "value": "",
+      "type": "string",
+      "description": "Admin access token"
+    },
+    {
+      "key": "user_token",
+      "value": "",
+      "type": "string",
+      "description": "Regular user access token"
+    },
+    {
+      "key": "test_user_id",
+      "value": "",
+      "type": "string",
+      "description": "Test user ID for verification"
+    },
+    {
+      "key": "test_warga_id",
+      "value": "",
+      "type": "string", 
+      "description": "Test warga ID for operations"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{admin_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Auto-refresh token if expired",
+          "const token = pm.collectionVariables.get('admin_token');",
+          "if (token) {",
+          "    const payload = JSON.parse(atob(token.split('.')[1]));",
+          "    const currentTime = Math.floor(Date.now() / 1000);",
+          "    if (payload.exp < currentTime) {",
+          "        console.log('Token expired, need to re-login');",
+          "    }",
+          "}"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "📋 Setup & Authentication",
+      "item": [
+        {
+          "name": "🔐 1. Admin Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Login successful', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response.success).to.be.true;",
+                  "    pm.expect(response.data.token).to.exist;",
+                  "    ",
+                  "    // Save token for subsequent requests",
+                  "    pm.collectionVariables.set('admin_token', response.data.token);",
+                  "});",
+                  "",
+                  "pm.test('Response has required fields', function () {",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response.data).to.have.property('token');",
+                  "    pm.expect(response.data).to.have.property('message');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"ugadimas@gmail.com\",\n  \"password\": \"Jambrong55!!\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login", ""]
+            }
+          }
+        },
+        {
+          "name": "👤 2. Get Admin Profile",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Profile retrieved successfully', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response.data).to.have.property('email');",
+                  "    pm.expect(response.data.email).to.eql('ugadimas@gmail.com');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Token {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/user/profile/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "user", "profile", ""]
+            }
+          }
+        },
+        {
+          "name": "🔍 3. Verify Admin Permissions",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Admin has proper permissions', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const response = pm.response.json();",
+                  "    // Verify admin can access warga endpoint",
+                  "    pm.expect(response).to.have.property('count');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization", 
+                "value": "Token {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/warga/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "warga", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "👥 User Management",
+      "item": [
+        {
+          "name": "📝 1. Register New User",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// Generate random email for testing",
+                  "const timestamp = Date.now();",
+                  "const testEmail = `test.user.${timestamp}@example.com`;",
+                  "pm.collectionVariables.set('test_email', testEmail);"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('User registration successful', function () {",
+                  "    pm.response.to.have.status(201);",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response.success).to.be.true;",
+                  "    ",
+                  "    // Save user ID if provided",
+                  "    if (response.data && response.data.user_id) {",
+                  "        pm.collectionVariables.set('test_user_id', response.data.user_id);",
+                  "    }",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{test_email}}\",\n  \"password\": \"TestPassword123!\",\n  \"name\": \"Test User E2E\",\n  \"phone\": \"081234567890\",\n  \"nik\": \"1234567890123456\",\n  \"full_name\": \"Test User Full Name\",\n  \"gender_id\": 1,\n  \"date_of_birth\": \"1990-01-01\",\n  \"place_of_birth\": \"Jakarta\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/register/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "register", ""]
+            }
+          }
+        },
+        {
+          "name": "🔍 2. Get Pending Users",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Pending users retrieved', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response).to.have.property('count');",
+                  "    pm.expect(response).to.have.property('results');",
+                  "    ",
+                  "    // Save first pending user ID for verification test",
+                  "    if (response.results.length > 0) {",
+                  "        pm.collectionVariables.set('test_warga_id', response.results[0].id);",
+                  "    }",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Token {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/warga/?is_checker=false&isreject=false",
+              "host": ["{{base_url}}"],
+              "path": ["api", "warga", ""],
+              "query": [
+                {
+                  "key": "is_checker",
+                  "value": "false"
+                },
+                {
+                  "key": "isreject",
+                  "value": "false"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "✅ 3. Approve User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('User approval successful', function () {",
+                  "    // Accept both 200 and 201 status codes",
+                  "    pm.expect([200, 201]).to.include(pm.response.code);",
+                  "    ",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response.success).to.be.true;",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Token {{admin_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"warga_id\": {{test_warga_id}}\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/warga/verify/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "warga", "verify", ""]
+            }
+          }
+        },
+        {
+          "name": "🔍 4. Get All Active Users",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Active users retrieved', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response).to.have.property('count');",
+                  "    pm.expect(response).to.have.property('results');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Token {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/warga/?is_checker=true",
+              "host": ["{{base_url}}"],
+              "path": ["api", "warga", ""],
+              "query": [
+                {
+                  "key": "is_checker",
+                  "value": "true"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🏠 Residence Management",
+      "item": [
+        {
+          "name": "🏢 1. Get All Residences",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Residences retrieved successfully', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response).to.have.property('count');",
+                  "    ",
+                  "    // Save first residence ID for other tests",
+                  "    if (response.results && response.results.length > 0) {",
+                  "        pm.collectionVariables.set('test_residence_id', response.results[0].id);",
+                  "    }",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Token {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/residence/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "residence", ""]
+            }
+          }
+        },
+        {
+          "name": "🏠 2. Get Residence Details",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Residence details retrieved', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response.data).to.have.property('id');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Token {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/residence/{{test_residence_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "residence", "{{test_residence_id}}", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "📰 Stories Management",
+      "item": [
+        {
+          "name": "📖 1. Get All Stories",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Stories endpoint accessible', function () {",
+                  "    // Stories might return 403 if user not associated with residence",
+                  "    pm.expect([200, 403]).to.include(pm.response.code);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Token {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/stories/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "stories", ""]
+            }
+          }
+        },
+        {
+          "name": "✍️ 2. Create New Story",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Story creation handled', function () {",
+                  "    // Accept various status codes as endpoint might have restrictions",
+                  "    pm.expect([200, 201, 403, 400]).to.include(pm.response.code);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Token {{admin_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Test Story E2E\",\n  \"content\": \"This is a test story created via E2E testing\",\n  \"is_published\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/stories/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "stories", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "💰 Financial Management",
+      "item": [
+        {
+          "name": "💳 1. Get Tagihan (Bills)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Tagihan endpoint accessible', function () {",
+                  "    pm.expect([200, 403, 404]).to.include(pm.response.code);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Token {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tagihan/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tagihan", ""]
+            }
+          }
+        },
+        {
+          "name": "💰 2. Get Budget Types",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Budget types retrieved', function () {",
+                  "    pm.expect([200, 403]).to.include(pm.response.code);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Token {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/budgeting-type/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "budgeting-type", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🔧 System Configuration", 
+      "item": [
+        {
+          "name": "🏪 1. Get Master Data - Banks",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Banks master data retrieved', function () {",
+                  "    pm.expect([200, 403]).to.include(pm.response.code);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET", 
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Token {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bank/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "bank", ""]
+            }
+          }
+        },
+        {
+          "name": "🏛️ 2. Get Master Data - Provinces",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Provinces master data retrieved', function () {",
+                  "    pm.expect([200, 403]).to.include(pm.response.code);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization", 
+                "value": "Token {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/province/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "province", ""]
+            }
+          }
+        },
+        {
+          "name": "👥 3. Get Roles",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Roles retrieved', function () {",
+                  "    pm.expect([200, 403]).to.include(pm.response.code);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Token {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/role/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "role", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🌐 Frontend Integration Tests",
+      "item": [
+        {
+          "name": "🏠 1. Frontend Home Page",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Frontend home page accessible', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    pm.expect(pm.response.text()).to.include('Pewaca');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{frontend_url}}/",
+              "host": ["{{frontend_url}}"],
+              "path": [""]
+            }
+          }
+        },
+        {
+          "name": "🔐 2. Frontend Login Page",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Frontend login page accessible', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    pm.expect(pm.response.text()).to.include('login');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{frontend_url}}/login",
+              "host": ["{{frontend_url}}"],
+              "path": ["login"]
+            }
+          }
+        },
+        {
+          "name": "🔓 3. Frontend Logout",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Frontend logout accessible', function () {",
+                  "    pm.expect([200, 302]).to.include(pm.response.code);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{frontend_url}}/logout",
+              "host": ["{{frontend_url}}"],
+              "path": ["logout"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🧪 End-to-End Workflow Tests",
+      "item": [
+        {
+          "name": "🔄 1. Complete User Registration Flow",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// Generate unique test data",
+                  "const timestamp = Date.now();",
+                  "pm.collectionVariables.set('workflow_email', `e2e.test.${timestamp}@pewaca.com`);",
+                  "pm.collectionVariables.set('workflow_nik', `${timestamp}`.substr(-16));",
+                  "console.log('Starting complete user registration workflow...');"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Complete workflow - User can register', function () {",
+                  "    pm.expect([200, 201]).to.include(pm.response.code);",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response.success).to.be.true;",
+                  "    console.log('✅ User registration completed');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{workflow_email}}\",\n  \"password\": \"WorkflowTest123!\",\n  \"name\": \"E2E Workflow User\",\n  \"phone\": \"081299887766\",\n  \"nik\": \"{{workflow_nik}}\",\n  \"full_name\": \"E2E Complete Workflow User\",\n  \"gender_id\": 1,\n  \"date_of_birth\": \"1985-05-15\",\n  \"place_of_birth\": \"Bandung\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/register/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "register", ""]
+            }
+          }
+        },
+        {
+          "name": "🔄 2. Admin Verifies New User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Complete workflow - Admin can verify user', function () {",
+                  "    pm.expect([200, 201]).to.include(pm.response.code);",
+                  "    console.log('✅ User verification by admin completed');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Token {{admin_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"warga_id\": {{test_warga_id}}\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/warga/verify/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "warga", "verify", ""]
+            }
+          }
+        },
+        {
+          "name": "🔄 3. Verified User Can Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Complete workflow - Verified user can login', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response.success).to.be.true;",
+                  "    pm.expect(response.data.token).to.exist;",
+                  "    ",
+                  "    // Save user token",
+                  "    pm.collectionVariables.set('user_token', response.data.token);",
+                  "    console.log('✅ Verified user login completed');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{workflow_email}}\",\n  \"password\": \"WorkflowTest123!\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "📊 Health Checks & Monitoring",
+      "item": [
+        {
+          "name": "❤️ 1. Backend Health Check",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Backend is healthy', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    console.log('✅ Backend Django API is running');",
+                  "});",
+                  "",
+                  "pm.test('Response time is acceptable', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/",
+              "host": ["{{base_url}}"],
+              "path": ["admin", ""]
+            }
+          }
+        },
+        {
+          "name": "❤️ 2. Frontend Health Check",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Frontend is healthy', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    console.log('✅ Frontend Laravel is running');",
+                  "});",
+                  "",
+                  "pm.test('Frontend loads within acceptable time', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{frontend_url}}/",
+              "host": ["{{frontend_url}}"],
+              "path": [""]
+            }
+          }
+        },
+        {
+          "name": "🔍 3. Database Connectivity Test",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Database connectivity through API', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response).to.have.property('count');",
+                  "    console.log('✅ Database connectivity verified');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Token {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/warga/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "warga", ""]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

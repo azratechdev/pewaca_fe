@@ -69,8 +69,13 @@ class LoginController extends Controller
                 
                 // Force session save again after authenticate method
                 session()->save();
+                
+                // Add small delay to ensure session persistence across processes
+                usleep(100000); // 100ms delay
+                
                 Log::info('Session saved after authenticate. All keys: ' . implode(', ', array_keys(Session::all())));
                 Log::info('Session cred check after authenticate: ' . (Session::has('cred') ? 'EXISTS' : 'MISSING'));
+                Log::info('Before redirect - Final session state: ', Session::all());
                 
                 $cekstroy = new HomeController();
                 $stories = $cekstroy->getStories();
@@ -127,8 +132,8 @@ class LoginController extends Controller
 
         if (isset($auth_response['data']['user'])) {
             $credentials = $auth_response['data']['user'];
-            $warga_data = $auth_response['data']['warga'];
-            $residence_data = $auth_response['data']['residence'];
+            $warga_data = $auth_response['data']['warga'] ?? null;
+            $residence_data = $auth_response['data']['residence'] ?? null;
             //$unit_data = $auth_response['data']['unit_id'];
            
             Session::put('cred', $credentials);
@@ -139,10 +144,10 @@ class LoginController extends Controller
             session()->save();
             
             Log::info('Session data saved:');
-            Log::info('Session ID after save: ' . Session::getId());
-            Log::info('cred: ', $credentials);
-            Log::info('warga: ', $warga_data);
-            Log::info('residence: ', $residence_data);
+            Log::info('Session ID after save: ' . (Session::getId() ?? 'null'));
+            Log::info('cred: ', $credentials ?? []);
+            Log::info('warga: ', $warga_data ?? []);
+            Log::info('residence: ', $residence_data ?? []);
            
            
             if ($credentials['email'] == $email && $credentials['is_active'] == true) {
