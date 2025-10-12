@@ -68,7 +68,7 @@ class LoginController extends Controller
                 Log::info('Authentication result: ', $res);
                 
                 // Force session save again after authenticate method
-                Session::save();
+                session()->save();
                 Log::info('Session saved after authenticate. All keys: ' . implode(', ', array_keys(Session::all())));
                 Log::info('Session cred check after authenticate: ' . (Session::has('cred') ? 'EXISTS' : 'MISSING'));
                 
@@ -136,7 +136,7 @@ class LoginController extends Controller
             Session::put('residence', $residence_data);
             
             // Force session save to ensure data is persisted
-            Session::save();
+            session()->save();
             
             Log::info('Session data saved:');
             Log::info('Session ID after save: ' . Session::getId());
