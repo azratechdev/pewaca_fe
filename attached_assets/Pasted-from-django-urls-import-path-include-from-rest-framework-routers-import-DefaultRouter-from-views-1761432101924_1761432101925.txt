@@ -1,0 +1,78 @@
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import *
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
+router = DefaultRouter()
+router.register(r'provinces', MProvinceViewSet, basename='province')
+router.register(r'cities', CityViewSet, basename='city')
+router.register(r'roles', MRolelistView, basename='roles')
+
+router.register(r'districts', DistrictViewSet, basename='district')
+router.register(r'villages', MVillageViewSet, basename='village')
+router.register(r'religions', MReligionViewSet, basename='religion')
+router.register(r'marital-statuses', MaritalStatusViewSet, basename='marital-status')
+router.register(r'banks', BankListViewSet, basename='bank')
+router.register(r'ocupation', MOccupationListViewSet, basename='ocupation')
+router.register(r'education', MEducationViewSet, basename='education')
+router.register(r'family-as', MfamilyAsViewSet, basename='family-as')
+router.register(r'tagihan', TagihanViewSet, basename='tagihan')
+router.register(r'tagihan-warga', TagihanWargaViewSet, basename='tagihan-warga')
+router.register(r'tagihan-warga-reject-note', TagihanWargaRejectNoteViewSet, basename='tagihan-warga-reject-note')
+router.register(r'residence-banks', MResidenceBankViewSet)
+router.register(r'units', MUnitViewSet, basename='unit')
+router.register(r'corridor', MCorridorViewSet, basename='corridor')
+router.register(r'tagihan-note', NoteViewSet)
+router.register(r'residence-commite', MResidenceCommiteViewSet)
+
+urlpatterns = [
+    path('', include(router.urls)),
+    path('auth/login/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('auth/token/refresh/', CustomTokenRefreshView.as_view(), name='token_refresh'),
+    path('auth/profil/', UserProfileView.as_view(), name='user-profile'),
+    path('auth/profil/family', UserProfileFamilyView.as_view(), name='user-profile'),
+    path('auth/profil/update/', UserProfileUpdateView.as_view(), name='user-update-profile'),
+    
+    # path('auth/login/', UserLoginView.as_view(), name='user-login'), 
+    path('auth/sign-up/<str:code>/', UserRegisterView.as_view(), name='sign-up'), 
+    path('auth/verify/<uidb64>/<token>/', VerifyUserView.as_view(), name='verify_user'),
+    path('auth/verify/resend/', ResendEmailVerifyView.as_view(), name='verify_user'),
+    path('warga/', WargaListView.as_view(), name='warga-list'),
+    path('warga/<int:id>/', WargaDetailView.as_view(), name='warga-detail'),
+    path('warga/verify/', WargaVerifyView.as_view(), name='warga-verify'),
+    path('warga/reject/', WargaRejectView.as_view(), name='warga-reject'),
+    path('gender/', GenderChoiceAPIView.as_view(), name='gender-list'),
+    
+    path('corridor/<str:code>/', MCorridoListView.as_view(), name='corridor-list'),
+    
+    path('auth/password-reset/', PasswordResetRequestView.as_view(), name='password_reset_request'),
+    path('auth/reset/<uidb64>/<token>/', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('stories/', StoryListCreateView.as_view(), name='stories'),
+    path('stories/<int:pk>/', StoryDetailView.as_view(), name='stories-detail'),
+    path('story-replays/', StoryReplayListView.as_view(), name='story-replays'),
+    path('story-replays/<int:pk>/', StoryReplayDetailView.as_view(), name='story-replays'),
+    path('tagihan-warga/bayar/<int:pk>/', TagihanWargaBayarViewSet.as_view(), name='tagihan-warga-bayar'),
+    path('tagihan/publish-tagihan/<int:pk>/', PublishTagihanView.as_view(), name='publish-tagihan'),
+    path('unpublish-tagihan/<int:tagihan_id>/', UnpublishTagihanView.as_view(), name='unpublish-tagihan'),
+    path('tagihan-report/', generate_ipl_pdf, name='generate_ipl_pdf'),
+    path('residence-by-code/<str:code>/', retrieve_residence_by_code, name='settlement-by-code'),
+
+    # Report URLs
+    
+    path('report/index/', report_index_data, name='index_data'),
+    path('report/cashout/', report_cashout_data, name='cashout_data'),
+    path('report/bytype/', report_by_type_data, name='by_type_data'),
+    path('report/tunggakan/', report_tunggakan_data, name='tunggakan_data'),
+
+    # Admin
+    path('admin/residence/<int:pk>/', MResidenceRetrieveUpdateDestroyViewAdmin.as_view(), name='admin-settlement-detail'),
+    path('admin/corridor/', MCorridorCreateViewAdmin.as_view(), name='admin-corridor-api'),
+    path('admin/street/', MStreetCreateViewAdmin.as_view(), name='admin-unit-api'),
+    path('admin/unit/', MUnitCreateViewAdmin.as_view(), name='admin-unit-api'),
+    path('admin/warga/<int:pk>/', WargaAdminView.as_view(), name='admin-warga-detail'),
+    path('admin/user/<int:pk>/', UserAdminView.as_view(), name='admin-user-detail'),
+
+]
