@@ -93,7 +93,7 @@ class HomeController extends Controller
     public function postStory(Request $request)
     {
         $request->validate([
-            'post_picture' => 'nullable|image|mimes:jpeg,jpg,png',
+            'post_picture' => 'nullable|image|mimes:jpeg,jpg,png|max:5120', // max 5MB
             'description' => 'required|string'
         ]);
 
@@ -133,10 +133,18 @@ class HomeController extends Controller
 
             // Validasi response
             if (!$data_response) {
-                Session::flash('flash-message', [
-                    'message' => 'Gagal mengirim story: Response tidak valid dari server',
-                    'alert-class' => 'alert-danger',
-                ]);
+                // Cek apakah error 413 (file terlalu besar)
+                if ($response->status() == 413) {
+                    Session::flash('flash-message', [
+                        'message' => 'Gagal mengirim story: Gambar terlalu besar. Maksimal 5MB.',
+                        'alert-class' => 'alert-danger',
+                    ]);
+                } else {
+                    Session::flash('flash-message', [
+                        'message' => 'Gagal mengirim story: Response tidak valid dari server (Status: ' . $response->status() . ')',
+                        'alert-class' => 'alert-danger',
+                    ]);
+                }
                 return redirect()->route('home');
             }
 
