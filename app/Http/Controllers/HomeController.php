@@ -124,17 +124,40 @@ class HomeController extends Controller
 
             $data_response = json_decode($response->body(), true);
 
-            //dd($data_response);
+            // Log response untuk debugging
+            \Log::info('Post Story Response:', [
+                'status' => $response->status(),
+                'body' => $response->body(),
+                'parsed' => $data_response
+            ]);
 
-            if ($data_response['success'] == true) {
+            // Validasi response
+            if (!$data_response) {
+                Session::flash('flash-message', [
+                    'message' => 'Gagal mengirim story: Response tidak valid dari server',
+                    'alert-class' => 'alert-danger',
+                ]);
+                return redirect()->route('home');
+            }
+
+            // Cek apakah berhasil
+            if (isset($data_response['success']) && $data_response['success'] == true) {
                 Session::flash('flash-message', [
                     'message' => 'Story berhasil dikirim',
                     'alert-class' => 'alert-success',
                 ]);
                 return redirect()->route('home');
             } else {
+                // Ambil pesan error dari response jika ada
+                $errorMsg = 'Gagal mengirim story';
+                if (isset($data_response['error'])) {
+                    $errorMsg .= ': ' . $data_response['error'];
+                } elseif (isset($data_response['message'])) {
+                    $errorMsg .= ': ' . $data_response['message'];
+                }
+                
                 Session::flash('flash-message', [
-                    'message' => 'Gagal mengirim story',
+                    'message' => $errorMsg,
                     'alert-class' => 'alert-warning',
                 ]);
                 return redirect()->route('home');
