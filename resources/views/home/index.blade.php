@@ -224,14 +224,26 @@ $(document).ready(function () {
                                 }
                             },
                             error: function (xhr, status, error) {
-                                console.error(xhr.responseText);
+                                console.error('Error fetching comments:', xhr.responseText);
                             }
                         });
                         // Swal.fire('Success!', 'Warga successfully verified.', 'success');
                     }
                 },
-                error: function (error) {
-                    alert('Gagal mengirim komentar. Silakan coba lagi.');
+                error: function (xhr, status, error) {
+                    console.error('API Error:', xhr.status, xhr.responseText);
+                    let errorMsg = 'Gagal mengirim komentar. ';
+                    try {
+                        const errorData = JSON.parse(xhr.responseText);
+                        if (errorData.error) {
+                            errorMsg += errorData.error;
+                        } else {
+                            errorMsg += 'Silakan coba lagi.';
+                        }
+                    } catch (e) {
+                        errorMsg += xhr.status ? `Error ${xhr.status}` : 'Silakan coba lagi.';
+                    }
+                    alert(errorMsg);
                 }
             });
         });

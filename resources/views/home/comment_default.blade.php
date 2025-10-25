@@ -1,3 +1,7 @@
+@php
+    $storyId = !empty($data['results']) ? $data['results'][0]['story'] : 0;
+@endphp
+
 @foreach($data['results'] as $comment)
 <div id="all-comment{{ $comment['story'] }}" class="flex items-left max-w-full mb-2 comment-all">
     <img 
@@ -18,11 +22,11 @@
 </div>
 @endforeach
 
-<div class="comment-more{{ $comment['story'] }}"></div>
+<div class="comment-more{{ $storyId }}"></div>
 
 @if($data['next'] != null)
-<div id="load-more{{ $comment['story'] }}" class="flex items-left max-w-full mb-2">
-    <div class="text-green-500 load-more" data-id="{{ $comment['story'] }}" 
+<div id="load-more{{ $storyId }}" class="flex items-left max-w-full mb-2">
+    <div class="text-green-500 load-more" data-id="{{ $storyId }}" 
     data-next="{{ $data['next'] }}" style="font-size: 12px;">Load More</div>
 </div>
 @else
