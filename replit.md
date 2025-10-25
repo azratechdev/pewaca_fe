@@ -25,6 +25,12 @@ This is a Laravel 9 PHP web application called "Pewaca" - a residence management
     - Changed alt text from "No images uploaded" to descriptive text
     - Created placeholder message for unavailable story images
     - Generated 5 default avatars in public/placeholder_avatars/
+    - Generated 6 story images in public/placeholder_story_images/
+  - **Fixed posting story error handling**:
+    - Added response validation before accessing array keys
+    - Added detailed logging for debugging (status, body, parsed data)
+    - Improved error messages to show specific errors from backend
+    - Fixed "Trying to access array offset on value of type null" error
 
 ## Project Architecture
 
