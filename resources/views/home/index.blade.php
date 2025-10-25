@@ -180,7 +180,7 @@ $(document).ready(function () {
 
             // Kirim data ke API
             $.ajax({
-                url: env('API_URL') . '/api/story-replays/',
+                url: '{{ env('API_URL') }}/api/story-replays/',
                 type: 'POST',
                 cache: false,
                 headers: {

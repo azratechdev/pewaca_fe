@@ -11,6 +11,14 @@ This is a Laravel 9 PHP web application called "Pewaca" - a residence management
   - Created SQLite database file (as alternative to MySQL)
   - Configured Laravel development server to run on 0.0.0.0:5000
   - Set up workflow to automatically serve the application
+  - **Configured TrustProxies** to trust all proxies (required for Replit)
+  - **Connected to backend API** at https://admin.pewaca.id
+  - **Fixed JavaScript syntax errors** in 4 view files (env() → Blade syntax)
+  - Fixed API URL references in:
+    - home/index.blade.php
+    - pengurus/report/index.blade.php
+    - pengurus/warga/detail_warga.blade.php
+    - pengurus/tagihan/detail_approval.blade.php
 
 ## Project Architecture
 
