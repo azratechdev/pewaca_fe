@@ -1,0 +1,105 @@
+class StoryListCreateView(generics.ListCreateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [TokenJWTAuthentication]  
+    queryset = Story.objects.filter(isdelete=False)  
+    serializer_class = StoryListSerializer
+    parser_classes = [MultiPartParser, FormParser]
+
+    start_date_param = openapi.Parameter(
+        'start_date', openapi.IN_QUERY,
+        description="Start date for filtering stories (YYYY-MM-DD)",
+        type=openapi.TYPE_STRING,
+        required=False
+    )
+    end_date_param = openapi.Parameter(
+        'end_date', openapi.IN_QUERY,
+        description="End date for filtering stories (YYYY-MM-DD)",
+        type=openapi.TYPE_STRING,
+        required=False
+    )
+    search_param = openapi.Parameter(
+        'search', openapi.IN_QUERY,
+        description="Search term for finding stories by text",
+        type=openapi.TYPE_STRING,
+        required=False
+    )
+
+    @swagger_auto_schema(
+        operation_description="Retrieve a list of stories, with optional filtering by date and text search.",
+        manual_parameters=[start_date_param, end_date_param, search_param],
+        responses={200: StoryListSerializer, 400: "Bad Request - Invalid input data."}
+    )
+    def get(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serialized_data = self.get_serializer(page, many=True).data
+            page_number = int(request.query_params.get(self.paginator.page_query_param, 1))
+            return custom_response_pagination(data=serialized_data, page=page_number, status=200)
+
+        serialized_data = self.get_serializer(queryset, many=True).data
+        return custom_response(data=serialized_data)
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        
+        user = self.request.user
+        user_id = user.user_id
+        if not user_id:
+            raise exceptions.AuthenticationFailed("Invalid token or user ID.")
+
+        warga = Warga.objects.filter(user=user_id).first()
+        if not warga:
+            raise exceptions.PermissionDenied("User is not associated with any residence.")
+
+        queryset = queryset.filter(residence_id=warga.residence.id, isdelete=False)
+
+        start_date = self.request.query_params.get('start_date')
+        end_date = self.request.query_params.get('end_date')
+
+        if start_date:
+            start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
+            queryset = queryset.filter(created_on__gte=start_date)
+
+        if end_date:
+            end_date = datetime.strptime(end_date, '%Y-%m-%d').date()
+            queryset = queryset.filter(created_on__lte=end_date)
+
+        search_query = self.request.query_params.get('search')
+        if search_query:
+            queryset = queryset.filter(story__icontains=search_query)
+
+        return queryset.order_by('-created_on')
+
+    @swagger_auto_schema(
+        operation_description="Create a new story with optional image upload.",
+        request_body=StorySerializer,
+        responses={
+            201: openapi.Response(description="Story successfully created.", schema=StorySerializer),
+            400: "Bad Request - Invalid input data."
+        }
+    )
+    def post(self, request, *args, **kwargs):
+        serializer = StorySerializer(data=request.data)
+        # serializer.is_valid(raise_exception=True)
+        
+        if not serializer.is_valid():
+            return custom_error_response(message=serializer.errors, status_code=400)
+        self.perform_create(serializer)
+        return custom_response(data=serializer.data, status=status.HTTP_201_CREATED)
+
+    def perform_create(self, serializer):
+        print("perform_create")
+        user = self.request.user
+        user_id = getattr(user, 'user_id', None)
+        warga = Warga.objects.filter(user=user_id).first()
+        if not warga or not getattr(warga, 'residence', None):
+            raise exceptions.PermissionDenied("User is not associated with any residence.")
+
+        instance = serializer.save(
+            residence_id=warga.residence.id,
+            warga=warga,
+            created_by=user_id
+        )
+        if instance is None:
+            raise exceptions.ValidationError("Failed to create story instance.")
