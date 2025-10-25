@@ -31,6 +31,9 @@ This is a Laravel 9 PHP web application called "Pewaca" - a residence management
     - Added detailed logging for debugging (status, body, parsed data)
     - Improved error messages to show specific errors from backend
     - Fixed "Trying to access array offset on value of type null" error
+    - Added file size validation: max 5MB for story images
+    - Added specific error message for 413 (file too large) errors
+    - Improved error detection for non-JSON responses from backend
 
 ## Project Architecture
 
