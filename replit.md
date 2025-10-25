@@ -19,6 +19,12 @@ This is a Laravel 9 PHP web application called "Pewaca" - a residence management
     - pengurus/report/index.blade.php
     - pengurus/warga/detail_warga.blade.php
     - pengurus/tagihan/detail_approval.blade.php
+  - **Improved image handling**:
+    - Added fallback default avatar for broken profile images
+    - Added error handling with onerror attribute on all images
+    - Changed alt text from "No images uploaded" to descriptive text
+    - Created placeholder message for unavailable story images
+    - Generated 5 default avatars in public/placeholder_avatars/
 
 ## Project Architecture
 
