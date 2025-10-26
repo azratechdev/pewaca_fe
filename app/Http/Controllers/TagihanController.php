@@ -51,16 +51,20 @@ class TagihanController extends Controller
 
     public function publish(Request $request)
     {
+        error_log("=== PUBLISH TAGIHAN DEBUG (error_log) ===");
+        
         $request->validate([
             'tagihan_id' => 'required|string',
             '_token' => 'required|string',
         ]);
 
         $id = $request->tagihan_id;
+        
+        error_log("Tagihan ID: " . $id);
 
         try {
-            \Log::info('=== PUBLISH TAGIHAN DEBUG ===');
-            \Log::info('Tagihan ID:', ['id' => $id]);
+            Log::info('=== PUBLISH TAGIHAN DEBUG ===');
+            Log::info('Tagihan ID:', ['id' => $id]);
             
             $response = Http::withHeaders([
                 'Accept' => 'application/json',
