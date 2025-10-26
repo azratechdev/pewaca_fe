@@ -1,0 +1,17 @@
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Request META: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Token format detected, converting: eyJhbGciOiJIUzI1NiIs...
+Header after processing: b'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE'
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Request META: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE[25/Oct/2025 23:59:03] "GET /api/tagihan/?page=1 HTTP/1.0" 200 3532
+[26/Oct/2025 00:00:58] code 400, message Bad HTTP/0.9 request type ('\x03\x00\x00/*à\x00\x00\x00\x00\x00Cookie:')
+[26/Oct/2025 00:00:58] "/*àCookie: mstshash=Administr" 400 -
+[26/Oct/2025 00:09:53] "GET /api/stories/ HTTP/1.0" 200 4495
+[26/Oct/2025 00:18:13] "GET /api/tagihan-warga/self-list/?status=unpaid,process&page=1 HTTP/1.0" 200 2516
+Unauthorized: /api/report/index/
+[26/Oct/2025 00:18:20] "GET /api/report/index/?periode=2025-09 HTTP/1.0" 401 58
+[26/Oct/2025 00:18:26] "GET /api/tagihan-warga/self-list/?status=unpaid,process&page=1 HTTP/1.0" 200 2516
+[26/Oct/2025 00:18:46] "GET /api/tagihan/?page=1 HTTP/1.0" 200 3532
