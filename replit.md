@@ -139,3 +139,9 @@ Located in `/test/registration` - comprehensive testing suite for registration f
 - **413 Request Entity Too Large**: File upload > 2MB, compress images before upload
 - **400 Bad Request on sign-up**: Missing required fields or validation errors
 - **401 Unauthorized on login**: Wrong password, unverified email, or inactive account
+- **user_id doesn't have default value**: Backend Django database schema issue - see `docs/backend-registration-debug-guide.md` for full debugging guide
+
+## Backend Debugging
+For backend Django developers facing registration errors, see comprehensive debugging guide:
+- **File**: `docs/backend-registration-debug-guide.md`
+- **Covers**: user_id error, serializer fixes, migration issues, testing steps
