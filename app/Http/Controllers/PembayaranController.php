@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
 
 class PembayaranController extends Controller
 {
@@ -44,11 +45,20 @@ class PembayaranController extends Controller
             $apiUrl .= '&search=' . urlencode($filter);
         }
       
+        \Log::info('=== PEMBAYARAN LIST DEBUG ===');
+        \Log::info('API URL:', ['url' => $apiUrl]);
+        \Log::info('Token:', ['token' => substr(Session::get('token'), 0, 20) . '...']);
+        
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token ' . Session::get('token'),
         ])->get($apiUrl);
         $tagihan_response = json_decode($response->body(), true);
+        
+        \Log::info('Response Status:', ['status' => $response->status()]);
+        \Log::info('Response Body:', ['body' => $response->body()]);
+        \Log::info('Parsed Data Count:', ['count' => count($tagihan_response['data'] ?? [])]);
+        
         //dd($tagihan_response);
       
         $data_tagihan = $tagihan_response['data'] ?? [];
