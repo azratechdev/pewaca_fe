@@ -1,0 +1,374 @@
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Header after processing: None
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Authentication result: None
+DEBUG 2025-10-26 06:37:45,581 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:37:45,581 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:37:45,581 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:37:45,581 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:37:45,582 utils (0.000) SELECT `m_marital_status`.`id`, `m_marital_status`.`name`, `m_marital_status`.`created_by`, `m_marital_status`.`created_on` FROM `m_marital_status`; args=(); alias=default
+DEBUG 2025-10-26 06:37:45,582 utils (0.000) SELECT `m_marital_status`.`id`, `m_marital_status`.`name`, `m_marital_status`.`created_by`, `m_marital_status`.`created_on` FROM `m_marital_status`; args=(); alias=default
+INFO 2025-10-26 06:37:45,583 basehttp "GET /api/marital-statuses/ HTTP/1.0" 200 162
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Header after processing: None
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Authentication result: None
+INFO 2025-10-26 06:38:35,757 basehttp "GET /api/gender/ HTTP/1.0" 200 105
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Header after processing: None
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Authentication result: None
+DEBUG 2025-10-26 06:38:36,393 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:38:36,393 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:38:36,393 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:38:36,393 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:38:36,394 utils (0.000) SELECT `m_religion`.`id`, `m_religion`.`name`, `m_religion`.`desc`, `m_religion`.`icon`, `m_religion`.`created_by`, `m_religion`.`created_on`, `m_religion`.`modified_by`, `m_religion`.`modified_on`, `m_religion`.`isactive`, `m_religion`.`isdelete` FROM `m_religion` ORDER BY `m_religion`.`id` ASC; args=(); alias=default
+DEBUG 2025-10-26 06:38:36,394 utils (0.000) SELECT `m_religion`.`id`, `m_religion`.`name`, `m_religion`.`desc`, `m_religion`.`icon`, `m_religion`.`created_by`, `m_religion`.`created_on`, `m_religion`.`modified_by`, `m_religion`.`modified_on`, `m_religion`.`isactive`, `m_religion`.`isdelete` FROM `m_religion` ORDER BY `m_religion`.`id` ASC; args=(); alias=default
+INFO 2025-10-26 06:38:36,394 basehttp "GET /api/religions/ HTTP/1.0" 200 230
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Header after processing: None
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Authentication result: None
+DEBUG 2025-10-26 06:38:37,032 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:38:37,032 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:38:37,032 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:38:37,032 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:38:37,032 utils (0.000) SELECT `m_family_as`.`id`, `m_family_as`.`name`, `m_family_as`.`created_by`, `m_family_as`.`created_on` FROM `m_family_as`; args=(); alias=default
+DEBUG 2025-10-26 06:38:37,032 utils (0.000) SELECT `m_family_as`.`id`, `m_family_as`.`name`, `m_family_as`.`created_by`, `m_family_as`.`created_on` FROM `m_family_as`; args=(); alias=default
+INFO 2025-10-26 06:38:37,033 basehttp "GET /api/family-as/ HTTP/1.0" 200 232
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Header after processing: None
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Authentication result: None
+DEBUG 2025-10-26 06:38:37,672 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:38:37,672 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:38:37,673 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:38:37,673 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:38:37,673 utils (0.000) SELECT `m_education`.`id`, `m_education`.`code`, `m_education`.`name`, `m_education`.`created_by`, `m_education`.`created_on`, `m_education`.`isactive`, `m_education`.`isdelete` FROM `m_education`; args=(); alias=default
+DEBUG 2025-10-26 06:38:37,673 utils (0.000) SELECT `m_education`.`id`, `m_education`.`code`, `m_education`.`name`, `m_education`.`created_by`, `m_education`.`created_on`, `m_education`.`isactive`, `m_education`.`isdelete` FROM `m_education`; args=(); alias=default
+INFO 2025-10-26 06:38:37,674 basehttp "GET /api/education/ HTTP/1.0" 200 1270
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Header after processing: None
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Authentication result: None
+DEBUG 2025-10-26 06:38:38,310 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:38:38,310 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:38:38,311 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:38:38,311 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:38:38,311 utils (0.000) SELECT `m_occupation`.`id`, `m_occupation`.`code`, `m_occupation`.`name`, `m_occupation`.`created_by`, `m_occupation`.`created_on`, `m_occupation`.`isactive`, `m_occupation`.`isdelete` FROM `m_occupation`; args=(); alias=default
+DEBUG 2025-10-26 06:38:38,311 utils (0.000) SELECT `m_occupation`.`id`, `m_occupation`.`code`, `m_occupation`.`name`, `m_occupation`.`created_by`, `m_occupation`.`created_on`, `m_occupation`.`isactive`, `m_occupation`.`isdelete` FROM `m_occupation`; args=(); alias=default
+INFO 2025-10-26 06:38:38,313 basehttp "GET /api/ocupation/ HTTP/1.0" 200 5019
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Header after processing: None
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Authentication result: None
+DEBUG 2025-10-26 06:38:38,953 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:38:38,953 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:38:38,954 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:38:38,954 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:38:38,954 utils (0.000) SELECT `m_marital_status`.`id`, `m_marital_status`.`name`, `m_marital_status`.`created_by`, `m_marital_status`.`created_on` FROM `m_marital_status`; args=(); alias=default
+DEBUG 2025-10-26 06:38:38,954 utils (0.000) SELECT `m_marital_status`.`id`, `m_marital_status`.`name`, `m_marital_status`.`created_by`, `m_marital_status`.`created_on` FROM `m_marital_status`; args=(); alias=default
+INFO 2025-10-26 06:38:38,954 basehttp "GET /api/marital-statuses/ HTTP/1.0" 200 162
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Header after processing: None
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Authentication result: None
+INFO 2025-10-26 06:38:45,288 basehttp "GET /api/gender/ HTTP/1.0" 200 105
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Header after processing: None
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Authentication result: None
+DEBUG 2025-10-26 06:38:45,927 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:38:45,927 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:38:45,927 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:38:45,927 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:38:45,928 utils (0.000) SELECT `m_religion`.`id`, `m_religion`.`name`, `m_religion`.`desc`, `m_religion`.`icon`, `m_religion`.`created_by`, `m_religion`.`created_on`, `m_religion`.`modified_by`, `m_religion`.`modified_on`, `m_religion`.`isactive`, `m_religion`.`isdelete` FROM `m_religion` ORDER BY `m_religion`.`id` ASC; args=(); alias=default
+DEBUG 2025-10-26 06:38:45,928 utils (0.000) SELECT `m_religion`.`id`, `m_religion`.`name`, `m_religion`.`desc`, `m_religion`.`icon`, `m_religion`.`created_by`, `m_religion`.`created_on`, `m_religion`.`modified_by`, `m_religion`.`modified_on`, `m_religion`.`isactive`, `m_religion`.`isdelete` FROM `m_religion` ORDER BY `m_religion`.`id` ASC; args=(); alias=default
+INFO 2025-10-26 06:38:45,929 basehttp "GET /api/religions/ HTTP/1.0" 200 230
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Header after processing: None
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Authentication result: None
+DEBUG 2025-10-26 06:38:46,565 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:38:46,565 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:38:46,565 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:38:46,565 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:38:46,566 utils (0.000) SELECT `m_family_as`.`id`, `m_family_as`.`name`, `m_family_as`.`created_by`, `m_family_as`.`created_on` FROM `m_family_as`; args=(); alias=default
+DEBUG 2025-10-26 06:38:46,566 utils (0.000) SELECT `m_family_as`.`id`, `m_family_as`.`name`, `m_family_as`.`created_by`, `m_family_as`.`created_on` FROM `m_family_as`; args=(); alias=default
+INFO 2025-10-26 06:38:46,567 basehttp "GET /api/family-as/ HTTP/1.0" 200 232
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Header after processing: None
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Authentication result: None
+DEBUG 2025-10-26 06:38:47,206 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:38:47,206 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:38:47,206 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:38:47,206 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:38:47,207 utils (0.000) SELECT `m_education`.`id`, `m_education`.`code`, `m_education`.`name`, `m_education`.`created_by`, `m_education`.`created_on`, `m_education`.`isactive`, `m_education`.`isdelete` FROM `m_education`; args=(); alias=default
+DEBUG 2025-10-26 06:38:47,207 utils (0.000) SELECT `m_education`.`id`, `m_education`.`code`, `m_education`.`name`, `m_education`.`created_by`, `m_education`.`created_on`, `m_education`.`isactive`, `m_education`.`isdelete` FROM `m_education`; args=(); alias=default
+INFO 2025-10-26 06:38:47,208 basehttp "GET /api/education/ HTTP/1.0" 200 1270
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Header after processing: None
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Authentication result: None
+DEBUG 2025-10-26 06:38:47,846 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:38:47,846 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:38:47,846 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:38:47,846 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:38:47,846 utils (0.000) SELECT `m_occupation`.`id`, `m_occupation`.`code`, `m_occupation`.`name`, `m_occupation`.`created_by`, `m_occupation`.`created_on`, `m_occupation`.`isactive`, `m_occupation`.`isdelete` FROM `m_occupation`; args=(); alias=default
+DEBUG 2025-10-26 06:38:47,846 utils (0.000) SELECT `m_occupation`.`id`, `m_occupation`.`code`, `m_occupation`.`name`, `m_occupation`.`created_by`, `m_occupation`.`created_on`, `m_occupation`.`isactive`, `m_occupation`.`isdelete` FROM `m_occupation`; args=(); alias=default
+INFO 2025-10-26 06:38:47,848 basehttp "GET /api/ocupation/ HTTP/1.0" 200 5019
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Header after processing: None
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Authentication result: None
+DEBUG 2025-10-26 06:38:48,504 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:38:48,504 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:38:48,504 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:38:48,504 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:38:48,504 utils (0.000) SELECT `m_marital_status`.`id`, `m_marital_status`.`name`, `m_marital_status`.`created_by`, `m_marital_status`.`created_on` FROM `m_marital_status`; args=(); alias=default
+DEBUG 2025-10-26 06:38:48,504 utils (0.000) SELECT `m_marital_status`.`id`, `m_marital_status`.`name`, `m_marital_status`.`created_by`, `m_marital_status`.`created_on` FROM `m_marital_status`; args=(); alias=default
+INFO 2025-10-26 06:38:48,505 basehttp "GET /api/marital-statuses/ HTTP/1.0" 200 162
