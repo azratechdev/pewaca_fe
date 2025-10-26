@@ -142,7 +142,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function fetchAndRender(periode) {
-        fetch(urlBase + periode)
+        fetch(urlBase + periode, {
+            headers: {
+                'Authorization': 'Token {{ Session::get("token") }}',
+                'Content-Type': 'application/json'
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 // Update summary

@@ -152,7 +152,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const unitVal = unitInput.value.trim();
         let apiUrl = `https://admin.pewaca.id/api/report/cashout/?periode=${periodeVal}`;
         if (unitVal) apiUrl += `&unit_no=${encodeURIComponent(unitVal)}`;
-        fetch(apiUrl)
+        fetch(apiUrl, {
+            headers: {
+                'Authorization': 'Token {{ Session::get("token") }}',
+                'Content-Type': 'application/json'
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 document.getElementById('total_by_type').textContent = data.jumlah_warga;

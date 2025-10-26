@@ -69,6 +69,14 @@ This is a Laravel 9 PHP web application called "Pewaca" - a residence management
       - Page now uses standard HTML5 date inputs
       - Retained Flatpickr only for periode range field (used with repeat toggle)
     - Result: Page loads without JavaScript errors, cleaner codebase
+  - **October 26, 2025**: Fixed missing Authorization headers in report pages
+    - **Problem**: Report endpoints returned HTTP 401 Unauthorized errors
+    - **Root Cause**: Fetch calls to `/api/report/index/` and `/api/report/cashout/` did not include Authorization token
+    - **Fixed 2 endpoints**:
+      - `index.blade.php`: Added Authorization header to `/api/report/index/` fetch call
+      - `detail_by_cashout.blade.php`: Added Authorization header to `/api/report/cashout/` fetch call
+    - Both fetch calls now send `Authorization: Token {{ Session::get("token") }}` header
+    - Report pages now load data successfully instead of showing 401 errors
 
 ## Project Architecture
 
