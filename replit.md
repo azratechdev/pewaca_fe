@@ -59,6 +59,16 @@ This is a Laravel 9 PHP web application called "Pewaca" - a residence management
       - `detail_by_cashout.blade.php`: report/cashout endpoint
     - All JavaScript fetch calls now correctly use `https://admin.pewaca.id`
     - Fixed "Gagal menghubungi server" error when clicking ADD button on biaya page
+  - **October 26, 2025**: Fixed JavaScript errors in add tagihan page
+    - **Problem**: JavaScript tried to access calendar popup elements that were commented out in HTML
+    - **Error**: "Cannot read properties of null (reading 'appendChild')" on page load
+    - **Fixed**: 
+      - Commented out unused calendar popup JavaScript (lines 388-432)
+      - Removed dead CSS for calendar popup (83 lines)
+      - Removed commented-out calendar popup HTML
+      - Page now uses standard HTML5 date inputs
+      - Retained Flatpickr only for periode range field (used with repeat toggle)
+    - Result: Page loads without JavaScript errors, cleaner codebase
 
 ## Project Architecture
 

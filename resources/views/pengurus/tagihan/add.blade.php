@@ -24,89 +24,6 @@
     }
     
   </style>
-  <style>
-    .popup-date-input {
-        width: 100%;
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        cursor: pointer;
-    }
-
-    .calendar-overlay {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        display: none;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-    }
-
-    .calendar-popup {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        max-width: 360px;
-        width: 100%;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .calendar-title {
-        text-align: center;
-        font-weight: bold;
-        font-size: 18px;
-        margin-bottom: 15px;
-    }
-
-    .calendar-grid {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: 10px;
-        margin-bottom: 15px;
-    }
-
-    .calendar-grid button {
-        padding: 10px;
-        border: none;
-        background: #f0f0f0;
-        border-radius: 5px;
-        cursor: pointer;
-        font-weight: bold;
-        transition: background 0.2s;
-    }
-
-    .calendar-grid button.selected {
-        background: #5cb85c;
-        color: white;
-    }
-
-    .calendar-actions {
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
-    }
-
-    .calendar-actions button {
-        flex: 1;
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        font-weight: bold;
-        cursor: pointer;
-    }
-
-    .btn-cancel {
-        background-color: #ccc;
-        color: #333;
-    }
-
-    .btn-confirm {
-        background-color: #5cb85c;
-        color: white;
-    }
-</style>
 
 <div class="container">
   <div class="container mx-auto px-4">
@@ -186,25 +103,6 @@
                 <input type="date" class="form-control" id="jatuh_tempo" name="jatuh_tempo" value="{{ old('from_date') }}"  placeholder=" " required>
                 <label for="jatuh_tempo">Tanggal Jatuh Tempo</label>
             </div>
-
-            {{-- <div class="form-floating mt-4">
-                <input type="text" id="jatuh_tempo" name="jatuh_tempo" class="form-control popup-date-input" placeholder=" " readonly required>
-                <label for="jatuh_tempo">Tanggal Jatuh Tempo</label>
-            </div> --}}
-
-            <!-- Popup kalender -->
-            {{-- <div id="calendarOverlay" class="calendar-overlay">
-                <div class="calendar-popup">
-                    <div class="calendar-title">Tanggal Jatuh Tempo</div>
-                    <div class="calendar-grid" id="calendarGrid">
-                     
-                    </div>
-                    <div class="calendar-actions">
-                        <button type="button" class="btn-cancel" onclick="cancelCalendar()">Batal</button>
-                        <button type="button" class="btn-confirm" onclick="confirmCalendar()">Pilih</button>
-                    </div>
-                </div>
-            </div> --}}
 
             <div id="periode" class="form-floating mt-4" style="display:none;">
               <input type="date" class="form-control" id="periode" name="periode" value="{{ old('from_date') }}"  placeholder=" ">
@@ -385,7 +283,8 @@ function getDefaultDates() {
   });
 </script>
 
-<script>
+{{-- Calendar popup script (disabled - now using standard date input) --}}
+{{-- <script>
     const input = document.getElementById('jatuh_tempo');
     const overlay = document.getElementById('calendarOverlay');
     const grid = document.getElementById('calendarGrid');
@@ -429,7 +328,7 @@ function getDefaultDates() {
             cancelCalendar();
         }
     });
-</script>
+</script> --}}
 
 
 @endsection 
