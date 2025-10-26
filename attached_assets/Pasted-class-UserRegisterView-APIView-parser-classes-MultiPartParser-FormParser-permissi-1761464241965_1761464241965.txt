@@ -1,0 +1,129 @@
+class UserRegisterView(APIView):
+    parser_classes = (MultiPartParser, FormParser)
+
+    permission_classes = [permissions.AllowAny]
+    # Define each parameter explicitly
+    email_param = openapi.Parameter('email', openapi.IN_FORM, description="User email", type=openapi.TYPE_STRING, required=True)
+    password_param = openapi.Parameter('password', openapi.IN_FORM, description="User password", type=openapi.TYPE_STRING, required=True)
+    
+    warga_params = [
+        openapi.Parameter('unit_id', openapi.IN_FORM, description="Unit ID", type=openapi.TYPE_INTEGER, required=True),
+        openapi.Parameter('nik', openapi.IN_FORM, description="NIK", type=openapi.TYPE_STRING,required=False),
+        openapi.Parameter('full_name', openapi.IN_FORM, description="Full name", type=openapi.TYPE_STRING, required=True),
+        openapi.Parameter('phone_no', openapi.IN_FORM, description="Phone number", type=openapi.TYPE_STRING, required=True),
+        openapi.Parameter('gender_id', openapi.IN_FORM, description="Gender ID", type=openapi.TYPE_INTEGER, required=True),
+        openapi.Parameter('date_of_birth', openapi.IN_FORM, description="Date of Birth", type=openapi.TYPE_STRING, format=openapi.FORMAT_DATE, required=True),
+        openapi.Parameter('religion', openapi.IN_FORM, description="Religion", type=openapi.TYPE_INTEGER, required=True),
+        openapi.Parameter('place_of_birth', openapi.IN_FORM, description="Place of Birth", type=openapi.TYPE_STRING, required=True),
+        openapi.Parameter('marital_status', openapi.IN_FORM, description="Marital Status", type=openapi.TYPE_INTEGER, required=True),
+        openapi.Parameter('occupation', openapi.IN_FORM, description="Occupation", type=openapi.TYPE_INTEGER, required=True),
+        openapi.Parameter('education', openapi.IN_FORM, description="Education", type=openapi.TYPE_INTEGER, required=True),
+        openapi.Parameter('family_as', openapi.IN_FORM, description="Family_As", type=openapi.TYPE_INTEGER, required=True),
+        openapi.Parameter('profile_photo', openapi.IN_FORM, description="Profile photo file", type=openapi.TYPE_FILE, required=False),
+        openapi.Parameter('marital_photo', openapi.IN_FORM, description="Profile photo file", type=openapi.TYPE_FILE),
+    ]
+
+    @swagger_auto_schema(
+        operation_description="Register a new user with related Warga data, including file uploads",
+        manual_parameters=[email_param, password_param] + warga_params,
+        responses={
+            status.HTTP_201_CREATED: openapi.Response("Registration successful!"),
+            status.HTTP_400_BAD_REQUEST: openapi.Response("Validation failed."),
+        }
+    )
+    @csrf_exempt
+    def post(self, request,code, *args, **kwargs):
+        serializer = UserRegistrationSingleSerializer(data=request.data, context={'code': code})
+
+        if serializer.is_valid():
+            try:
+                with transaction.atomic():
+                    serializer.save()
+                    brevo_client = BrevoEmailCampaignClient()
+        
+                    # Generate token and UID
+                    user = User.objects.filter(email=request.data.get('email')).first()
+                    uid = urlsafe_base64_encode(force_bytes(user.pk))
+                    token = token_generator.make_token(user)
+                    
+                    # Send email
+                    verification_link = f"{settings.BASE_URL_FE}/verified/{uid}/{token}/"
+                    
+                    context = {
+                        'user_name': request.data.get('full_name'),
+                        'verification_link': verification_link
+                    }
+                    html_message = render_to_string('welcome_email.html', context)
+                    
+                    brevo_client.send_email(
+                        to_email = request.data.get('email'),
+                        subject="Selamat datang di Pewaca.id!",
+                        sender_name="Pewaca",
+                        sender_email="noreply@pewaca.id",
+                        html_content=html_message,
+                    )
+                    return custom_response(
+                        data={"message": "Registration successful!"},
+                        status=status.HTTP_201_CREATED
+                    )
+            except Exception as e:
+                # Roll back and return error if there is any exception
+                return custom_error_response(
+                    message="An error occurred while processing your request.",
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    errors=str(e)
+                )
+
+        # If validation fails, return error response
+        return custom_error_response(
+            message="Validation failed.",
+            status_code=status.HTTP_400_BAD_REQUEST,
+            errors=serializer.errors
+        )
+
+class VerifyUserView(APIView):
+    """
+    API endpoint to verify the user and activate their account.
+    """
+    permission_classes = [permissions.AllowAny]
+
+    def get(self, request, uidb64, token, *args, **kwargs):
+        try:
+            uid = force_str(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            return custom_error_response(
+                message="Invalid token or user ID",
+                status_code=status.HTTP_400_BAD_REQUEST
+            )
+
+        if token_generator.check_token(user, token):
+            user.is_active = True
+            user.save()
+            return custom_response(
+                data={"message": "User successfully verified and activated"},
+                status=status.HTTP_201_CREATED
+            )
+        else:
+            return custom_error_response(
+                message="Invalid or expired token.",
+                status_code=status.HTTP_400_BAD_REQUEST
+            )
+
+class ResendEmailVerifyView(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    @swagger_auto_schema(
+        operation_description="Resend the email verification link to the user",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            required=['email'],
+            properties={
+                'email': openapi.Schema(type=openapi.TYPE_STRING, description="User email")
+            }
+        ),
+        responses={
+            status.HTTP_200_OK: openapi.Response("Verification email sent successfully!"),
+            status.HTTP_400_BAD_REQUEST: openapi.Response("Validation failed."),
+            status.HTTP_404_NOT_FOUND: openapi.Response("User not found."),
+        }
