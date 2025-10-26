@@ -1,0 +1,1211 @@
+{
+	"info": {
+		"_postman_id": "pewaca-registration-2025",
+		"name": "Pewaca - Registration Flow",
+		"description": "Complete API collection for testing warga registration flow in Pewaca Residence system",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "pewaca-team"
+	},
+	"item": [
+		{
+			"name": "1. Pre-Registration",
+			"item": [
+				{
+					"name": "Get Residence by Code",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response has residence data\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.be.an('object');",
+									"    pm.expect(jsonData.data.residence_name).to.exist;",
+									"});",
+									"",
+									"// Save residence data",
+									"var jsonData = pm.response.json();",
+									"pm.environment.set(\"residence_name\", jsonData.data.residence_name);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/residence-by-code/{{registration_uuid}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"residence-by-code",
+								"{{registration_uuid}}",
+								""
+							]
+						},
+						"description": "Retrieve residence information using registration code (UUID)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Units by Code",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response has units array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.be.an('array');",
+									"    pm.expect(jsonData.data.length).to.be.above(0);",
+									"});",
+									"",
+									"// Save first unit ID for registration",
+									"var jsonData = pm.response.json();",
+									"if (jsonData.data && jsonData.data.length > 0) {",
+									"    pm.environment.set(\"unit_id\", jsonData.data[0].unit_id);",
+									"    pm.environment.set(\"unit_name\", jsonData.data[0].unit_name);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/units/code/{{registration_uuid}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"units",
+								"code",
+								"{{registration_uuid}}",
+								""
+							]
+						},
+						"description": "Get list of available units in the residence"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints for loading initial data before registration form"
+		},
+		{
+			"name": "2. Master Data",
+			"item": [
+				{
+					"name": "Get Gender List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Has gender data\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.be.an('array');",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"if (jsonData.data && jsonData.data.length > 0) {",
+									"    pm.environment.set(\"gender_id\", jsonData.data[0].gender_id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/gender/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"gender",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Religion List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.data && jsonData.data.length > 0) {",
+									"    pm.environment.set(\"religion_id\", jsonData.data[0].id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/religions/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"religions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Family Role List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.data && jsonData.data.length > 0) {",
+									"    pm.environment.set(\"family_as_id\", jsonData.data[0].id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/family-as/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"family-as",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Education List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.data && jsonData.data.length > 0) {",
+									"    pm.environment.set(\"education_id\", jsonData.data[0].id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/education/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"education",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Occupation List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.data && jsonData.data.length > 0) {",
+									"    pm.environment.set(\"occupation_id\", jsonData.data[0].id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/ocupation/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ocupation",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Marital Status List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.data && jsonData.data.length > 0) {",
+									"    pm.environment.set(\"marital_status_id\", jsonData.data[0].id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/marital-statuses/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"marital-statuses",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cities List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/cities/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"cities",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Master data endpoints for dropdown options in registration form"
+		},
+		{
+			"name": "3. Registration",
+			"item": [
+				{
+					"name": "Sign Up - New Warga",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Registration successful\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response has success flag\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"Response has user data\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.be.an('object');",
+									"    pm.expect(jsonData.data.email).to.exist;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Generate unique test data",
+									"const timestamp = Date.now();",
+									"pm.environment.set(\"test_email\", `test.warga.${timestamp}@example.com`);",
+									"pm.environment.set(\"test_nik\", `317401011290${timestamp.toString().slice(-4)}`);",
+									"pm.environment.set(\"test_phone\", `08123456${timestamp.toString().slice(-4)}`);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "{{test_email}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{test_password}}",
+									"type": "text"
+								},
+								{
+									"key": "unit_id",
+									"value": "{{unit_id}}",
+									"type": "text"
+								},
+								{
+									"key": "nik",
+									"value": "{{test_nik}}",
+									"type": "text"
+								},
+								{
+									"key": "full_name",
+									"value": "Test Warga Postman",
+									"type": "text"
+								},
+								{
+									"key": "phone_no",
+									"value": "{{test_phone}}",
+									"type": "text"
+								},
+								{
+									"key": "gender_id",
+									"value": "{{gender_id}}",
+									"type": "text"
+								},
+								{
+									"key": "date_of_birth",
+									"value": "1990-01-15",
+									"type": "text"
+								},
+								{
+									"key": "religion",
+									"value": "{{religion_id}}",
+									"type": "text"
+								},
+								{
+									"key": "place_of_birth",
+									"value": "Jakarta",
+									"type": "text"
+								},
+								{
+									"key": "marital_status",
+									"value": "{{marital_status_id}}",
+									"type": "text"
+								},
+								{
+									"key": "occupation",
+									"value": "{{occupation_id}}",
+									"type": "text"
+								},
+								{
+									"key": "education",
+									"value": "{{education_id}}",
+									"type": "text"
+								},
+								{
+									"key": "family_as",
+									"value": "{{family_as_id}}",
+									"type": "text"
+								},
+								{
+									"key": "code",
+									"value": "{{registration_uuid}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/sign-up/{{registration_uuid}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"sign-up",
+								"{{registration_uuid}}",
+								""
+							]
+						},
+						"description": "Register new warga with complete data"
+					},
+					"response": []
+				},
+				{
+					"name": "Sign Up - Duplicate Email (Expected to Fail)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Registration rejected with 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Error message about duplicate email\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.be.false;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "{{test_email}}",
+									"type": "text",
+									"description": "Same email as previous registration"
+								},
+								{
+									"key": "password",
+									"value": "DifferentPassword123",
+									"type": "text"
+								},
+								{
+									"key": "unit_id",
+									"value": "{{unit_id}}",
+									"type": "text"
+								},
+								{
+									"key": "nik",
+									"value": "3174010112900999",
+									"type": "text"
+								},
+								{
+									"key": "full_name",
+									"value": "Duplicate Test",
+									"type": "text"
+								},
+								{
+									"key": "phone_no",
+									"value": "08999999999",
+									"type": "text"
+								},
+								{
+									"key": "gender_id",
+									"value": "{{gender_id}}",
+									"type": "text"
+								},
+								{
+									"key": "date_of_birth",
+									"value": "1995-05-20",
+									"type": "text"
+								},
+								{
+									"key": "religion",
+									"value": "{{religion_id}}",
+									"type": "text"
+								},
+								{
+									"key": "place_of_birth",
+									"value": "Bandung",
+									"type": "text"
+								},
+								{
+									"key": "marital_status",
+									"value": "{{marital_status_id}}",
+									"type": "text"
+								},
+								{
+									"key": "occupation",
+									"value": "{{occupation_id}}",
+									"type": "text"
+								},
+								{
+									"key": "education",
+									"value": "{{education_id}}",
+									"type": "text"
+								},
+								{
+									"key": "family_as",
+									"value": "{{family_as_id}}",
+									"type": "text"
+								},
+								{
+									"key": "code",
+									"value": "{{registration_uuid}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/sign-up/{{registration_uuid}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"sign-up",
+								"{{registration_uuid}}",
+								""
+							]
+						},
+						"description": "Negative test: Try to register with duplicate email"
+					},
+					"response": []
+				}
+			],
+			"description": "Registration/Sign-up endpoints"
+		},
+		{
+			"name": "4. Verification",
+			"item": [
+				{
+					"name": "Verify Email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verification successful\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Success flag is true\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/auth/verify/{{uidb64}}/{{verification_token}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"verify",
+								"{{uidb64}}",
+								"{{verification_token}}",
+								""
+							]
+						},
+						"description": "Verify email using token from verification email (requires manual token from email)"
+					},
+					"response": []
+				},
+				{
+					"name": "Resend Verification Email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Success message received\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{test_email}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/verify/resend/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"verify",
+								"resend",
+								""
+							]
+						},
+						"description": "Resend verification email to registered email address"
+					},
+					"response": []
+				}
+			],
+			"description": "Email verification endpoints"
+		},
+		{
+			"name": "5. Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Login successful\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Token received\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.token).to.exist;",
+									"    pm.environment.set(\"auth_token\", jsonData.token);",
+									"});",
+									"",
+									"pm.test(\"User data received\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.user).to.be.an('object');",
+									"    pm.expect(jsonData.user.email).to.exist;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{test_email}}\",\n    \"password\": \"{{test_password}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login",
+								""
+							]
+						},
+						"description": "Login with registered email and password to get JWT token"
+					},
+					"response": []
+				},
+				{
+					"name": "Login - Wrong Password (Expected to Fail)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Login rejected with 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									"pm.test(\"Error message received\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.be.false;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{test_email}}\",\n    \"password\": \"WrongPassword123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login",
+								""
+							]
+						},
+						"description": "Negative test: Login with wrong password"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Profile (Authenticated)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Profile retrieved successfully\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Profile data exists\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.be.an('object');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/auth/profil/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"profil",
+								""
+							]
+						},
+						"description": "Get user profile using JWT token from login"
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Token refreshed\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"New access token received\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.access).to.exist;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refresh\": \"{{refresh_token}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/token/refresh/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"token",
+								"refresh",
+								""
+							]
+						},
+						"description": "Refresh JWT token using refresh token"
+					},
+					"response": []
+				}
+			],
+			"description": "Login and authentication endpoints"
+		},
+		{
+			"name": "6. Password Reset",
+			"item": [
+				{
+					"name": "Request Password Reset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Password reset email sent\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Success message received\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{test_email}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/password-reset/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"password-reset",
+								""
+							]
+						},
+						"description": "Request password reset email"
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"new_password\": \"NewSecurePassword123\",\n    \"confirm_password\": \"NewSecurePassword123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/reset/{{uidb64}}/{{reset_token}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"reset",
+								"{{uidb64}}",
+								"{{reset_token}}",
+								""
+							]
+						},
+						"description": "Reset password using token from password reset email (requires manual token from email)"
+					},
+					"response": []
+				}
+			],
+			"description": "Password reset flow endpoints"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "https://admin.pewaca.id/api",
+			"type": "string"
+		},
+		{
+			"key": "registration_uuid",
+			"value": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+			"type": "string"
+		},
+		{
+			"key": "test_password",
+			"value": "TestPassword123",
+			"type": "string"
+		},
+		{
+			"key": "test_email",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "test_nik",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "test_phone",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "unit_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "unit_name",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "gender_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "religion_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "family_as_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "education_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "occupation_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "marital_status_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "auth_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "refresh_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "uidb64",
+			"value": "",
+			"type": "string",
+			"description": "User ID Base64 encoded (from verification/reset email)"
+		},
+		{
+			"key": "verification_token",
+			"value": "",
+			"type": "string",
+			"description": "Email verification token (from verification email)"
+		},
+		{
+			"key": "reset_token",
+			"value": "",
+			"type": "string",
+			"description": "Password reset token (from reset email)"
+		}
+	]
+}
