@@ -17,6 +17,19 @@ class HomeController extends Controller
         $user = Session::get('cred');
         $warga = Session::get('warga');
         $residence = Session::get('residence');
+        
+        \Log::info('=== HOME INDEX DEBUG ===');
+        \Log::info('Session Warga Data:', [
+            'is_checker' => $warga['is_checker'] ?? 'NOT SET',
+            'isreject' => $warga['isreject'] ?? 'NOT SET',
+            'full_name' => $warga['full_name'] ?? 'NOT SET',
+            'is_checker_type' => isset($warga['is_checker']) ? gettype($warga['is_checker']) : 'NOT SET'
+        ]);
+        \Log::info('Session User Data:', [
+            'is_pengurus' => $user['is_pengurus'] ?? 'NOT SET',
+            'email' => $user['email'] ?? 'NOT SET'
+        ]);
+        
         $stories = $this->getStories();
        
         //dd($replays);

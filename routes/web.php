@@ -149,3 +149,17 @@ Route::prefix('test/registration')->group(function () {
     });
 });
 
+// Debug route untuk check session data
+Route::get('/debug/session', function () {
+    if (!Session::get('token')) {
+        return response()->json(['error' => 'Not logged in']);
+    }
+    
+    return response()->json([
+        'user' => Session::get('cred'),
+        'warga' => Session::get('warga'),
+        'residence' => Session::get('residence'),
+        'token_exists' => Session::has('token')
+    ]);
+})->name('debug.session');
+
