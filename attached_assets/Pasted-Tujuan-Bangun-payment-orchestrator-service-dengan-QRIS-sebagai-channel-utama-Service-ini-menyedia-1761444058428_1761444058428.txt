@@ -1,0 +1,43 @@
+Tujuan:
+Bangun payment orchestrator service dengan QRIS sebagai channel utama. Service ini menyediakan API untuk membuat pembayaran (QR dinamis), mengecek status, menerima webhook dari provider, dan rekonsiliasi harian. Pilih salah satu stack: Laravel 10+ (PHP 8.2+) atau Node.js 18+ (Express/TypeScript).
+Keluaran Minimum (MVP):
+1.	Endpoint publik:
+o	POST /payments → buat pembayaran QR dinamis
+o	GET /payments/:id → ambil status
+o	POST /webhooks/qris → terima notifikasi provider (idempotent + verifikasi signature)
+2.	Database (SQLite/MySQL/Postgres): tabel payments, payment_logs, webhook_events, settlements
+3.	Adapter QrisProvider (mock + siap ganti ke Midtrans/Xendit/DOKU/NICEPAY)
+4.	Job antrian:
+o	auto-expire pembayaran jika lewat expires_at
+o	rekonsiliasi harian (dummy dulu, siap dihubungkan ke provider)
+5.	Keamanan:
+o	Idempotency-key untuk POST /payments
+o	Verifikasi X-Signature di webhook (HMAC-SHA256)
+o	Validasi amount, order_id, provider_trx_id
+6.	DevEx:
+o	README.md detail
+o	.env.example
+o	skrip npm run dev / npm run start atau php artisan serve
+o	koleksi Postman/Insomnia (/docs/api-collection.json)
+o	uji unit minimal untuk util signature & idempotency
+________________________________________
+Spesifikasi Fungsional
+Model data:
+•	payments
+o	id (uuid), order_id (unique), amount (decimal), currency (IDR)
+o	status (CREATED|PENDING|PAID|EXPIRED|FAILED|REFUNDED)
+o	qris_payload (text), provider_trx_id (index), provider_ref_no (nullable)
+o	expires_at (datetime), paid_at (nullable)
+o	callback_url (nullable), metadata (json), signature_version (smallint)
+o	timestamps
+•	payment_logs
+o	id, payment_id, event (CREATED|WEBHOOK_SUCCESS|RETRY|EXPIRE|RECONCILE|ERROR)
+o	payload (json), created_at
+•	webhook_events
+o	id (uuid), provider (qris_xxx), event_id (unique)
+o	payload (json), received_at, processed_at (nullable)
+o	status (OK|ERROR|PENDING), error_message (nullable)
+•	settlements
+o	id, provider_trx_id, payment_id, amount, fee, net_amount
+o	settlement_date, file_id (nullable), reconciled (bool), created_at
+
