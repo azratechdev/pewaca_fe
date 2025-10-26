@@ -58,6 +58,9 @@ class TagihanController extends Controller
         $id = $request->tagihan_id;
 
         try {
+            \Log::info('=== PUBLISH TAGIHAN DEBUG ===');
+            \Log::info('Tagihan ID:', ['id' => $id]);
+            
             $response = Http::withHeaders([
                 'Accept' => 'application/json',
                 'Authorization' => 'Token ' . Session::get('token'),
@@ -65,21 +68,32 @@ class TagihanController extends Controller
 
             $data_response = json_decode($response->body(), true);
 
-            //dd($data_response);
+            \Log::info('Publish Response Status:', ['status' => $response->status()]);
+            \Log::info('Publish Response Body:', ['body' => $response->body()]);
+            \Log::info('Parsed Response:', ['parsed' => $data_response]);
 
             if ($data_response['success'] == true) {
+                \Log::info('Publish Success', ['tagihan_id' => $id]);
                 return response()->json([
                     'success' => true,
                     'message' => 'Tagihan berhasil dipublish.',
-                    'data' => $data_response['data'], // Opsional, jika ada data tambahan
+                    'data' => $data_response['data'],
                 ], 200);
             } else {
+                \Log::error('Publish Failed', [
+                    'tagihan_id' => $id,
+                    'response' => $data_response
+                ]);
                 return response()->json([
                     'success' => false,
                     'message' => 'Gagal mempublish tagihan.',
                 ], 400);
             }
         } catch (\Exception $e) {
+            \Log::error('Publish Exception', [
+                'tagihan_id' => $id,
+                'error' => $e->getMessage()
+            ]);
             return response()->json([
                 'success' => false,
                 'message' => 'Terjadi kesalahan server.',
