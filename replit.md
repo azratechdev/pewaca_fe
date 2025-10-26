@@ -41,6 +41,51 @@ I prefer simple language and detailed explanations. I want iterative development
 - **Environment Configuration**: Utilizes `.env` for sensitive configurations like API keys and database credentials.
 - **PWA Support**: Includes manifest for Progressive Web App features.
 
+### Warga Registration Architecture
+- **Registration Flow**: UUID-based invitation system where pengurus generates unique registration codes for new residents
+- **Multi-Step Process**:
+  1. Pengurus creates/shares residence UUID code
+  2. Warga accesses `/registration/{uuid}` link
+  3. System loads residence data and master data (units, gender, religion, etc.) from Django API
+  4. Warga fills comprehensive registration form with personal details
+  5. Backend validates and creates user account via `POST /api/auth/sign-up/{code}/`
+  6. System sends verification email with unique token
+  7. Warga verifies email via link (`GET /api/auth/verify/{uidb64}/{token}/`)
+  8. After verification, warga can login with email/password
+- **Key Components**:
+  - `RegisterController`: Handles registration form display and submission
+  - Django API endpoints: residence-by-code, units/code, master data, sign-up, verify
+  - Email verification system with token-based authentication
+  - Frontend validation: NIK (16 digits), phone format, file size limits (2MB for photos)
+  - Error handling for duplicate emails, invalid codes, expired tokens
+
+### Registration Testing Tools
+Located in `/test/registration` - comprehensive testing suite for registration flow:
+- **Interactive Web UI** (`/test/registration`):
+  - Tab-based interface for testing each step of registration
+  - Master data viewer with all dropdown options
+  - Residence & units validation
+  - Registration form tester with auto-generated test data
+  - Email verification simulator
+  - Login tester
+  - Real-time API response viewer with JSON formatting
+- **Bash Testing Script** (`tests/registration-test.sh`):
+  - Automated end-to-end testing of full registration flow
+  - Negative testing (invalid UUID, duplicate email, file size errors)
+  - Colorized output with pass/fail indicators
+  - Usage: `./tests/registration-test.sh --uuid {your-uuid}`
+- **Postman Collection** (`tests/registration-api.postman_collection.json`):
+  - Complete API collection with 20+ endpoints
+  - Pre-request scripts for auto-generating test data
+  - Test scripts for response validation
+  - Environment variables for easy configuration
+  - Import into Postman for manual/automated testing
+- **Documentation** (`docs/registration-scenario.md`):
+  - Complete flow diagrams and step-by-step guides
+  - All API endpoints with request/response examples
+  - Error handling scenarios and troubleshooting guides
+  - Common issues (413 file size, 400 validation, 401 auth errors)
+
 ## External Dependencies
 - **Backend API**: `https://admin.pewaca.id` (Django backend)
 - **Payment Providers**:
@@ -57,3 +102,40 @@ I prefer simple language and detailed explanations. I want iterative development
     - `spatie/laravel-permission`
     - `realarashid/sweet-alert`
     - `silviolleite/laravelpwa`
+
+## Important API Endpoints (Django Backend)
+
+### Authentication & Registration
+- `POST /api/auth/login/` - User login (returns JWT token)
+- `POST /api/auth/sign-up/{code}/` - Register new warga (multipart/form-data)
+- `GET /api/auth/verify/{uidb64}/{token}/` - Email verification
+- `POST /api/auth/verify/resend/` - Resend verification email
+- `POST /api/auth/password-reset/` - Request password reset
+- `POST /api/auth/reset/{uidb64}/{token}/` - Reset password with token
+- `GET /api/auth/profil/` - Get user profile (authenticated)
+- `PUT /api/auth/profil/update/` - Update user profile
+
+### Residence & Units
+- `GET /api/residence-by-code/{uuid}/` - Get residence info by UUID code (NOT numeric ID)
+- `GET /api/units/code/{uuid}/` - Get units list by residence UUID
+
+### Master Data
+- `GET /api/gender/` - Gender list
+- `GET /api/religions/` - Religion list
+- `GET /api/family-as/` - Family role list
+- `GET /api/education/` - Education level list
+- `GET /api/ocupation/` - Occupation list
+- `GET /api/marital-statuses/` - Marital status list
+- `GET /api/cities/` - Cities list
+
+### Payment & Tagihan
+- `GET /api/tagihan-warga/self-list/` - Get user's tagihan list
+- `PATCH /api/tagihan-warga/bayar/{id}/` - Mark tagihan as paid (upload bukti)
+- `POST /api/tagihan-warga/{id}/approve/` - Approve payment (pengurus)
+- `POST /api/tagihan-warga/{id}/reject/` - Reject payment (pengurus)
+
+### Common Errors
+- **404 on `/api/residence-by-code/1/`**: Use UUID string, not numeric ID
+- **413 Request Entity Too Large**: File upload > 2MB, compress images before upload
+- **400 Bad Request on sign-up**: Missing required fields or validation errors
+- **401 Unauthorized on login**: Wrong password, unverified email, or inactive account

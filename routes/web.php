@@ -133,3 +133,19 @@ Route::group(['middleware' => ['auth', 'check.token']], function () {
     Route::view('/offline', 'vendor.laravelpwa.offline')->name('offline');
 });
 
+use App\Http\Controllers\Test\RegistrationTestController;
+
+Route::prefix('test/registration')->group(function () {
+    Route::get('/', [RegistrationTestController::class, 'index'])->name('test.registration');
+    Route::prefix('api')->group(function () {
+        Route::get('/master-data', [RegistrationTestController::class, 'getMasterData'])->name('test.registration.master');
+        Route::get('/master-data/all', [RegistrationTestController::class, 'getAllMasterData'])->name('test.registration.master.all');
+        Route::get('/residence', [RegistrationTestController::class, 'getResidenceByCode'])->name('test.registration.residence');
+        Route::get('/units', [RegistrationTestController::class, 'getUnitsByCode'])->name('test.registration.units');
+        Route::post('/registration', [RegistrationTestController::class, 'testRegistration'])->name('test.registration.submit');
+        Route::post('/login', [RegistrationTestController::class, 'testLogin'])->name('test.registration.login');
+        Route::post('/verify', [RegistrationTestController::class, 'testVerify'])->name('test.registration.verify');
+        Route::post('/resend-verification', [RegistrationTestController::class, 'testResendVerification'])->name('test.registration.resend');
+    });
+});
+
