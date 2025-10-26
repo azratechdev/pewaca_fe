@@ -194,7 +194,7 @@ class TagihanController extends Controller
             'name' => $request->nama_tagihan,
             'tipe' => $request->type_iuran,
             'description' => $request->deskripsi,
-            'from_date' => $from_date,
+            'date_start' => $from_date,  // Fixed: changed from_date to date_start
         ];
 
         //dd($data);
