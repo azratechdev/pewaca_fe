@@ -1,0 +1,51 @@
+(pewaca_env) ubuntu@VM-8-8-ubuntu:~/apps/django/pewaca_be/dash$ tail -f nohup.out
+DEBUG 2025-10-26 04:40:32,207 autoreload File /home/ubuntu/apps/django/pewaca_be/dash/tagihan/migrations/__init__.py first seen with mtime 1758979335.072439
+DEBUG 2025-10-26 04:40:32,207 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/sessions/migrations/0001_initial.py first seen with mtime 1758982201.452694
+DEBUG 2025-10-26 04:40:32,207 autoreload File /home/ubuntu/apps/django/pewaca_be/dash/tagihan/migrations/0006_remove_tagihanunpublishnote_tagihan_id_and_more.py first seen with mtime 1758979335.072439
+DEBUG 2025-10-26 04:40:32,207 autoreload File /home/ubuntu/apps/django/pewaca_be/dash/tagihan/migrations/0008_alter_tagihanunpublishnote_created_by.py first seen with mtime 1758979335.072439
+DEBUG 2025-10-26 04:40:32,207 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/middleware/clickjacking.py first seen with mtime 1758982201.5566947
+DEBUG 2025-10-26 04:40:32,208 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/rest_framework/authtoken/migrations/0003_tokenproxy.py first seen with mtime 1758982203.5647118
+DEBUG 2025-10-26 04:40:32,208 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/migrations/graph.py first seen with mtime 1758982201.5206945
+DEBUG 2025-10-26 04:40:32,208 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/rest_framework/authtoken/migrations/__init__.py first seen with mtime 1758982203.5647118
+DEBUG 2025-10-26 04:40:32,208 autoreload File /home/ubuntu/apps/django/pewaca_be/dash/main/migrations/0003_alter_munit_unit_corridor.py first seen with mtime 1758979334.9524379
+DEBUG 2025-10-26 04:40:32,208 autoreload File /home/ubuntu/apps/django/pewaca_be/dash/tagihan/migrations/0004_tagihanunpublishnote_alter_tagihan_tagihan_ke.py first seen with mtime 1758979335.072439
+DEBUG 2025-10-26 04:40:45,221 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 04:40:45,221 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 04:40:45,221 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 04:40:45,221 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 04:40:45,221 utils (0.000) SELECT 1 AS `a` FROM `m_user` WHERE `m_user`.`user_email` = 'test.warga.1761453645040@example.com' LIMIT 1; args=(1, 'test.warga.1761453645040@example.com'); alias=default
+DEBUG 2025-10-26 04:40:45,221 utils (0.000) SELECT 1 AS `a` FROM `m_user` WHERE `m_user`.`user_email` = 'test.warga.1761453645040@example.com' LIMIT 1; args=(1, 'test.warga.1761453645040@example.com'); alias=default
+DEBUG 2025-10-26 04:40:45,222 utils (0.000) BEGIN; args=None; alias=default
+DEBUG 2025-10-26 04:40:45,222 utils (0.000) BEGIN; args=None; alias=default
+DEBUG 2025-10-26 04:40:45,222 utils (0.000) SAVEPOINT `s139906814834240_x1`; args=None; alias=default
+DEBUG 2025-10-26 04:40:45,222 utils (0.000) SAVEPOINT `s139906814834240_x1`; args=None; alias=default
+DEBUG 2025-10-26 04:40:45,224 utils (0.000) SELECT `m_role`.`role_id`, `m_role`.`role_category`, `m_role`.`role_name`, `m_role`.`role_desc`, `m_role`.`role_created_by`, `m_role`.`role_created_on`, `m_role`.`role_modified_by`, `m_role`.`role_modified_on`, `m_role`.`role_isactive`, `m_role`.`role_isdelete` FROM `m_role` WHERE `m_role`.`role_id` = 5 ORDER BY `m_role`.`role_id` ASC LIMIT 1; args=(5,); alias=default
+DEBUG 2025-10-26 04:40:45,224 utils (0.000) SELECT `m_role`.`role_id`, `m_role`.`role_category`, `m_role`.`role_name`, `m_role`.`role_desc`, `m_role`.`role_created_by`, `m_role`.`role_created_on`, `m_role`.`role_modified_by`, `m_role`.`role_modified_on`, `m_role`.`role_isactive`, `m_role`.`role_isdelete` FROM `m_role` WHERE `m_role`.`role_id` = 5 ORDER BY `m_role`.`role_id` ASC LIMIT 1; args=(5,); alias=default
+DEBUG 2025-10-26 04:40:45,530 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/messages/storage/fallback.py first seen with mtime 1758982201.3486931
+DEBUG 2025-10-26 04:40:45,530 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/messages/storage/session.py first seen with mtime 1758982201.3486931
+DEBUG 2025-10-26 04:40:45,531 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/sessions/serializers.py first seen with mtime 1758982201.4206936
+DEBUG 2025-10-26 04:40:45,531 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/messages/storage/cookie.py first seen with mtime 1758982201.3486931
+DEBUG 2025-10-26 04:40:45,551 utils (0.000) None; args=['', 'test.warga.1761453645040@example.com', 'test.warga.1761453645040@example.com', 'pbkdf2_sha256$720000$KtdW98AMaPDiKG2I2fYEo0$8tvBVhEW4uB2tsWSUezVzByG/jvqPKdkbrLD/CtOdZQ=', None, '2025-10-26 04:40:45.224237', False, False, False, False, True, None, None]; alias=default
+DEBUG 2025-10-26 04:40:45,551 utils (0.000) None; args=['', 'test.warga.1761453645040@example.com', 'test.warga.1761453645040@example.com', 'pbkdf2_sha256$720000$KtdW98AMaPDiKG2I2fYEo0$8tvBVhEW4uB2tsWSUezVzByG/jvqPKdkbrLD/CtOdZQ=', None, '2025-10-26 04:40:45.224237', False, False, False, False, True, None, None]; alias=default
+DEBUG 2025-10-26 04:40:45,551 utils (0.000) ROLLBACK TO SAVEPOINT `s139906814834240_x1`; args=None; alias=default
+DEBUG 2025-10-26 04:40:45,551 utils (0.000) ROLLBACK TO SAVEPOINT `s139906814834240_x1`; args=None; alias=default
+DEBUG 2025-10-26 04:40:45,552 utils (0.000) RELEASE SAVEPOINT `s139906814834240_x1`; args=None; alias=default
+DEBUG 2025-10-26 04:40:45,552 utils (0.000) RELEASE SAVEPOINT `s139906814834240_x1`; args=None; alias=default
+DEBUG 2025-10-26 04:40:45,552 utils (0.000) ROLLBACK; args=None; alias=default
+DEBUG 2025-10-26 04:40:45,552 utils (0.000) ROLLBACK; args=None; alias=default
+WARNING 2025-10-26 04:40:45,552 log Bad Request: /api/auth/sign-up/350c228d-2121-47fd-a808-456a7523e527/
+WARNING 2025-10-26 04:40:45,553 basehttp "POST /api/auth/sign-up/350c228d-2121-47fd-a808-456a7523e527/ HTTP/1.0" 400 244
