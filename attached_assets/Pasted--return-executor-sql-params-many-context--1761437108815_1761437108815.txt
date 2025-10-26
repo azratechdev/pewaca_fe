@@ -1,0 +1,100 @@
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+django.db.utils.IntegrityError: (1364, "Field 'id' doesn't have a default value")
+[25/Oct/2025 23:49:19] "POST /api/stories/ HTTP/1.0" 500 249584
+[25/Oct/2025 23:49:19] "GET /api/stories/ HTTP/1.0" 200 4409
+Watching for file changes with StatReloader
+[25/Oct/2025 23:58:18] "GET /api/stories/ HTTP/1.0" 200 4409
+[25/Oct/2025 23:58:32] "POST /api/stories/ HTTP/1.0" 201 169
+[25/Oct/2025 23:58:33] "GET /api/stories/ HTTP/1.0" 200 4495
+Unauthorized: /api/report/index/
+[25/Oct/2025 23:58:58] "GET /api/report/index/?periode=2025-09 HTTP/1.0" 401 58
+Performing system checks...
+
+System check identified no issues (0 silenced).
+October 25, 2025 - 23:58:02
+Django version 5.0.7, using settings 'dash.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Request META: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Token format detected, converting: eyJhbGciOiJIUzI1NiIs...
+Header after processing: b'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE'
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Request META: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Token format detected, converting: eyJhbGciOiJIUzI1NiIs...
+Authentication result: (<MUser: pengurus1@gmail.com>, {'token_type': 'access', 'exp': 1761689179, 'iat': 1761429979, 'jti': 'f054cb80a4974c20b3535976532c1d7d', 'user_id': 2, 'email': 'pengurus1@gmail.com'})
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Request META: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Token format detected, converting: eyJhbGciOiJIUzI1NiIs...
+Header after processing: b'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE'
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Request META: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Token format detected, converting: eyJhbGciOiJIUzI1NiIs...
+Authentication result: (<MUser: pengurus1@gmail.com>, {'token_type': 'access', 'exp': 1761689179, 'iat': 1761429979, 'jti': 'f054cb80a4974c20b3535976532c1d7d', 'user_id': 2, 'email': 'pengurus1@gmail.com'})
+perform_create
+=== UPLOADING TO COS ===
+Bucket: pewaca-1379748683
+Key: story_images/1000152879_gs3WjLe.jpg
+Content size: 114713 bytes
+✅ Upload successful: story_images/1000152879_gs3WjLe.jpg
+✅ Set as public-read: story_images/1000152879_gs3WjLe.jpg
+✅ URL: https://pewaca-1379748683.cos.ap-singapore.myqcloud.com/story_images/1000152879_gs3WjLe.jpg
+=======================
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Request META: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Token format detected, converting: eyJhbGciOiJIUzI1NiIs...
+Header after processing: b'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE'
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Request META: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Token format detected, converting: eyJhbGciOiJIUzI1NiIs...
+Authentication result: (<MUser: pengurus1@gmail.com>, {'token_type': 'access', 'exp': 1761689179, 'iat': 1761429979, 'jti': 'f054cb80a4974c20b3535976532c1d7d', 'user_id': 2, 'email': 'pengurus1@gmail.com'})
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Header after processing: None
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Authentication result: None
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Request META: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Token format detected, converting: eyJhbGciOiJIUzI1NiIs...
+Header after processing: b'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE'
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Request META: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE[25/Oct/2025 23:59:03] "GET /api/tagihan/?page=1 HTTP/1.0" 200 3532
+[26/Oct/2025 00:00:58] code 400, message Bad HTTP/0.9 request type ('\x03\x00\x00/*à\x00\x00\x00\x00\x00Cookie:')
+[26/Oct/2025 00:00:58] "/*àCookie: mstshash=Administr" 400 

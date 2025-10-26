@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
 
 class PengurusController extends Controller
 {
@@ -290,74 +291,121 @@ class PengurusController extends Controller
 
     public function list_biaya(Request $request)
     {
-        //dd("here");
-        $filter = $request->input('filter');
-        $page = $request->input('page', 1); // Default page = 1 jika tidak ada  
+        try {
+            $filter = $request->input('filter');
+            $page = $request->input('page', 1); // Default page = 1 jika tidak ada  
 
-        if (!empty($filter)) {
-            $page = 1;
-        }
-        //dd(env('API_URL'));
-        // $apiUrl = env('API_URL') . '/api/tagihan/?page='.$page;
-        $apiUrl = env('API_URL') . '/api/tagihan/?page='.$page;
-
-        if (!empty($filter)) {
-            $apiUrl .= '&search=' . urlencode($filter);
-        }
-      
-        $response = Http::withHeaders([
-            'Accept' => 'application/json',
-            'Authorization' => 'Token ' . Session::get('token'),
-        ])->get($apiUrl);
-        //dd($response);
-        $biaya_response = json_decode($response->body(), true);
-        
-        //dd($biaya_response);
-      
-        $biaya = $biaya_response['results'] ?? [];
-        $next_page = $biaya_response['next'] ?? null;
-        $previous_page = $biaya_response['previous'] ?? null;
-
-
-        if($biaya_response){
-            $total_pages = (int) ceil($biaya_response['count'] / 10);
-        }
-        else {
-            $total_pages = (int) 1;
-        }
-       
-       
-        $next=null;
-        if($next_page != null){
-            $p = explode('page=', $next_page);
-            $next=$p[1];
-        }
-
-        $current = $page;
-
-        $prev=null;
-        if($previous_page != null){
-            if($page == 2){
-                $prev = 1;
-            }else{
-                $p = explode('page=', $previous_page);
-                $prev=$p[1];
+            if (!empty($filter)) {
+                $page = 1;
             }
             
-        }
+            $apiUrl = env('API_URL') . '/api/tagihan/?page='.$page;
 
-        $datadump = [
-            'biaya' => $biaya,
-            'current' => $current,
-            'next' => $next,
-            'prev' => $prev,
-            'next_page' => $next_page,
-            'previous_page' => $previous_page,
-            'total_pages' => $total_pages
-        ];
-        //dd($datadump);
-        
-        return view('pengurus.tagihan.list_biaya', compact('biaya','current','next','prev','next_page','previous_page', 'total_pages'));
+            if (!empty($filter)) {
+                $apiUrl .= '&search=' . urlencode($filter);
+            }
+          
+            $response = Http::withHeaders([
+                'Accept' => 'application/json',
+                'Authorization' => 'Token ' . Session::get('token'),
+            ])->get($apiUrl);
+            
+            // Validasi response
+            if (!$response->successful()) {
+                Log::error('List Biaya Failed:', [
+                    'status' => $response->status(),
+                    'body' => $response->body(),
+                    'url' => $apiUrl
+                ]);
+                
+                session()->flash('status', 'error');
+                session()->flash('message', 'Gagal menghubungi server. Status: ' . $response->status());
+                
+                return view('pengurus.tagihan.list_biaya', [
+                    'biaya' => [],
+                    'current' => 1,
+                    'next' => null,
+                    'prev' => null,
+                    'next_page' => null,
+                    'previous_page' => null,
+                    'total_pages' => 1
+                ]);
+            }
+            
+            $biaya_response = json_decode($response->body(), true);
+            
+            // Validasi JSON decode berhasil
+            if (!$biaya_response) {
+                Log::error('List Biaya Invalid Response:', [
+                    'body' => $response->body()
+                ]);
+                
+                session()->flash('status', 'error');
+                session()->flash('message', 'Response tidak valid dari server');
+                
+                return view('pengurus.tagihan.list_biaya', [
+                    'biaya' => [],
+                    'current' => 1,
+                    'next' => null,
+                    'prev' => null,
+                    'next_page' => null,
+                    'previous_page' => null,
+                    'total_pages' => 1
+                ]);
+            }
+          
+            $biaya = $biaya_response['results'] ?? [];
+            $next_page = $biaya_response['next'] ?? null;
+            $previous_page = $biaya_response['previous'] ?? null;
+
+            // Perbaiki: Cek apakah key 'count' ada sebelum diakses
+            if(isset($biaya_response['count'])){
+                $total_pages = (int) ceil($biaya_response['count'] / 10);
+            }
+            else {
+                $total_pages = (int) 1;
+            }
+           
+           
+            $next=null;
+            if($next_page != null){
+                $p = explode('page=', $next_page);
+                $next=$p[1];
+            }
+
+            $current = $page;
+
+            $prev=null;
+            if($previous_page != null){
+                if($page == 2){
+                    $prev = 1;
+                }else{
+                    $p = explode('page=', $previous_page);
+                    $prev=$p[1];
+                }
+                
+            }
+            
+            return view('pengurus.tagihan.list_biaya', compact('biaya','current','next','prev','next_page','previous_page', 'total_pages'));
+            
+        } catch (\Exception $e) {
+            Log::error('List Biaya Exception:', [
+                'error' => $e->getMessage()
+            ]);
+            
+            session()->flash('status', 'error');
+            session()->flash('message', 'Terjadi kesalahan: ' . $e->getMessage());
+            
+            return view('pengurus.tagihan.list_biaya', [
+                'biaya' => [],
+                'current' => 1,
+                'next' => null,
+                'prev' => null,
+                'next_page' => null,
+                'previous_page' => null,
+                'total_pages' => 1
+            ]);
+        }
     }
 
     public function list_konfirmasi(Request $request)
