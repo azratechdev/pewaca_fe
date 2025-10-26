@@ -77,6 +77,16 @@ This is a Laravel 9 PHP web application called "Pewaca" - a residence management
       - `detail_by_cashout.blade.php`: Added Authorization header to `/api/report/cashout/` fetch call
     - Both fetch calls now send `Authorization: Token {{ Session::get("token") }}` header
     - Report pages now load data successfully instead of showing 401 errors
+  - **October 26, 2025**: Implemented pagination for report cashout page
+    - **Problem**: Chart showed 80 warga sudah bayar, but list only displayed 2 records
+    - **Root Cause**: Backend API returns paginated data (e.g., total=12 but only sends 2 records per page)
+    - **Solution**: Implemented frontend pagination in `detail_by_cashout.blade.php`:
+      - Track pagination state: currentPage, totalData, isLoading for each tab
+      - "More" button now fetches next page from API with `?page=2`, `?page=3`, etc.
+      - Appends new data to existing cached data
+      - Button shows progress: "More (2/12)" and auto-hides when all data loaded
+      - Loading state prevents double-clicks
+    - Result: Users can now load all records progressively by clicking "More" button
 
 ## Project Architecture
 
