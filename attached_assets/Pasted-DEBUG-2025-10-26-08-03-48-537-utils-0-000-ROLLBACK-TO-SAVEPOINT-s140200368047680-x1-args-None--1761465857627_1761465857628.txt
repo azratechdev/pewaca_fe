@@ -1,0 +1,57 @@
+DEBUG 2025-10-26 08:03:48,537 utils (0.000) ROLLBACK TO SAVEPOINT `s140200368047680_x1`; args=None; alias=default
+DEBUG 2025-10-26 08:03:48,537 utils (0.000) ROLLBACK TO SAVEPOINT `s140200368047680_x1`; args=None; alias=default
+DEBUG 2025-10-26 08:03:48,538 utils (0.000) RELEASE SAVEPOINT `s140200368047680_x1`; args=None; alias=default
+DEBUG 2025-10-26 08:03:48,538 utils (0.000) RELEASE SAVEPOINT `s140200368047680_x1`; args=None; alias=default
+[SERIALIZER] ❌ Exception: ValueError
+[SERIALIZER] ❌ Message: The database backend does not accept 0 as a value for AutoField.
+Traceback (most recent call last):
+  File "/home/ubuntu/apps/django/pewaca_be/dash/api/serializers/user_registration.py", line 301, in create
+    user = User.objects.create_user(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/apps/django/pewaca_be/dash/management_user/models/user.py", line 19, in create_user
+    user.save(using=self._db)
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/auth/base_user.py", line 78, in save
+    super().save(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/base.py", line 822, in save
+    self.save_base(
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/base.py", line 909, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/base.py", line 1071, in _save_table
+    results = self._do_insert(
+              ^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/base.py", line 1112, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1822, in execute_sql
+    for sql, params in self.as_sql():
+                       ^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1745, in as_sql
+    value_rows = [
+                 ^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1746, in <listcomp>
+    [
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1747, in <listcomp>
+    self.prepare_value(field, self.pre_save_val(field, obj))
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1686, in prepare_value
+    return field.get_db_prep_save(value, connection=self.connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/fields/__init__.py", line 1013, in get_db_prep_save
+    return self.get_db_prep_value(value, connection=connection, prepared=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/fields/__init__.py", line 2807, in get_db_prep_value
+    value = connection.ops.validate_autopk_value(value)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/backends/mysql/operations.py", line 250, in validate_autopk_value
+    raise ValueError(
+ValueError: The database backend does not accept 0 as a value for AutoField.
+DEBUG 2025-10-26 08:03:48,588 utils (0.000) ROLLBACK; args=None; alias=default
+DEBUG 2025-10-26 08:03:48,588 utils (0.000) ROLLBACK; args=None; alias=default
+WARNING 2025-10-26 08:03:48,588 log Bad Request: /api/auth/sign-up/350c228d-2121-47fd-a808-456a7523e527/
+WARNING 2025-10-26 08:03:48,589 basehttp "POST /api/auth/sign-up/350c228d-2121-47fd-a808-456a7523e527/ HTTP/1.0" 400 253
