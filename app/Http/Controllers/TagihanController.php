@@ -216,7 +216,11 @@ class TagihanController extends Controller
     
             $data_response = json_decode($response->body(), true);
 
-            //dd($data_response);
+            \Log::info('=== POST TAGIHAN DEBUG ===');
+            \Log::info('Request Data:', $data);
+            \Log::info('Response Status:', ['status' => $response->status()]);
+            \Log::info('Response Body:', ['body' => $response->body()]);
+            \Log::info('Parsed Response:', ['parsed' => $data_response]);
     
             if ($response->successful()) {
                 Session::flash('flash-message', [
@@ -225,8 +229,21 @@ class TagihanController extends Controller
                 ]);
                 return redirect()->route('tagihan.add');
             } else {
+                // Get error message from API response
+                $errorMsg = 'Periksa Data Kembali';
+                if (isset($data_response['error'])) {
+                    $errorMsg .= ': ' . (is_array($data_response['error']) ? json_encode($data_response['error']) : $data_response['error']);
+                } elseif (isset($data_response['message'])) {
+                    $errorMsg .= ': ' . $data_response['message'];
+                }
+                
+                \Log::error('Post Tagihan Failed:', [
+                    'status' => $response->status(),
+                    'error' => $errorMsg
+                ]);
+                
                 Session::flash('flash-message', [
-                    'message' => 'Periksa Data Kembali',
+                    'message' => $errorMsg,
                     'alert-class' => 'alert-warning',
                 ]);
                 return redirect()->route('tagihan.add');
