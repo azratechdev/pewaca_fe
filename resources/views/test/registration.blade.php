@@ -410,8 +410,9 @@
                                         <tbody>
                                             ${items.map(item => {
                                                 const id = item.id || item.gender_id || item.unit_id || 'N/A';
-                                                const name = item.religion_name || item.gender_name || item.family_as_name || 
-                                                           item.education_name || item.occupation_name || item.marital_status_name || 'Unknown';
+                                                const name = item.name || item.religion_name || item.gender_name || item.family_as_name || 
+                                                           item.education_name || item.occupation_name || item.marital_status_name || 
+                                                           item.code || 'Unknown';
                                                 return `<tr><td><strong>${id}</strong></td><td>${name}</td></tr>`;
                                             }).join('')}
                                         </tbody>
