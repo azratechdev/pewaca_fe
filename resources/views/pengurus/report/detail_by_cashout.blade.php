@@ -160,6 +160,12 @@ document.addEventListener('DOMContentLoaded', function () {
         })
             .then(res => res.json())
             .then(data => {
+                console.log('=== CASHOUT RESPONSE DEBUG ===');
+                console.log('Full response:', data);
+                console.log('Sudah Bayar records:', data.sudah_bayar?.data?.length || 0);
+                console.log('Belum Bayar records:', data.belum_bayar?.data?.length || 0);
+                console.log('Chart shows: Sudah=' + (data.bypembayaran?.[0]?.jumlah || 0) + ', Belum=' + (data.bypembayaran?.[1]?.jumlah || 0));
+                
                 document.getElementById('total_by_type').textContent = data.jumlah_warga;
                 Highcharts.chart('bypembayaran', {
                     chart: { type: 'pie' },
