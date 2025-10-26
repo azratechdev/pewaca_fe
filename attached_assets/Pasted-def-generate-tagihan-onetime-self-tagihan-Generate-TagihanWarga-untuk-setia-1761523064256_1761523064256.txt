@@ -1,0 +1,57 @@
+def generate_tagihan_onetime(self, tagihan):
+        """
+        Generate TagihanWarga untuk setiap unit di residence.
+        FIX: Menambahkan field warga (kepala keluarga) agar TagihanWarga muncul di list warga.
+        """
+        # Ambil semua unit di residence yang sama
+        unit = MUnit.objects.filter(unit_residence=tagihan.residence).all()
+        
+        # Inisialisasi tagihan_ke
+        tagihan_ke = tagihan.tagihan_ke if tagihan.tagihan_ke else 0
+        
+        # Loop untuk setiap unit
+        for u in unit:
+            # TAMBAHAN FIX: Cari kepala keluarga (warga lead) di unit ini
+            warga_lead = Warga.objects.filter(
+                unit_id=u, 
+                is_lead=True,
+                isactive=True
+            ).first()
+            
+            # Jika tidak ada lead, ambil warga pertama yang aktif
+            if not warga_lead:
+                warga_lead = Warga.objects.filter(
+                    unit_id=u,
+                    isactive=True
+                ).first()
+            
+            # Skip unit yang tidak ada warga aktif sama sekali
+            if not warga_lead:
+                continue
+            
+            # Generate nomor tagihan
+            no_tagihan = "T-" + str(u.unit_id) + "-" + str(tagihan.id)
+            
+            # Tentukan tanggal jatuh tempo berdasarkan jenis tagihan
+            date = tagihan.date_due
+            if tagihan.jenis_tagihan == "monthly":
+                date = tagihan.date_due + relativedelta(months=tagihan_ke)
+            elif tagihan.jenis_tagihan == "yearly":
+                date = tagihan.date_due + relativedelta(years=tagihan_ke)
+            elif tagihan.jenis_tagihan == "weekly":
+                date = tagihan.date_due + relativedelta(weeks=tagihan_ke)
+            
+            # Buat TagihanWarga
+            TagihanWarga.objects.create(
+                tagihan_id=tagihan.id,
+                date_due=date,
+                unit_id=u,
+                warga=warga_lead,  # FIX: Field warga HARUS diisi!
+                no_tagihan=no_tagihan,
+                status="unpaid"
+            )
+        
+        # Increment tagihan_ke
+        tagihan_ke = tagihan_ke + 1
+        
+        return tagihan_ke
