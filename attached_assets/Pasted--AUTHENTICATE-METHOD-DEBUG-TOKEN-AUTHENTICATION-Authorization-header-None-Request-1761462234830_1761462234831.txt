@@ -1,0 +1,222 @@
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Header after processing: None
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Authentication result: None
+DEBUG 2025-10-26 06:55:39,429 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:55:39,429 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:55:39,429 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:55:39,429 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:55:39,429 utils (0.000) SELECT `m_family_as`.`id`, `m_family_as`.`name`, `m_family_as`.`created_by`, `m_family_as`.`created_on` FROM `m_family_as`; args=(); alias=default
+DEBUG 2025-10-26 06:55:39,429 utils (0.000) SELECT `m_family_as`.`id`, `m_family_as`.`name`, `m_family_as`.`created_by`, `m_family_as`.`created_on` FROM `m_family_as`; args=(); alias=default
+INFO 2025-10-26 06:55:39,430 basehttp "GET /api/family-as/ HTTP/1.0" 200 232
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Header after processing: None
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Authentication result: None
+DEBUG 2025-10-26 06:55:40,066 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:55:40,066 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:55:40,066 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:55:40,066 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:55:40,066 utils (0.000) SELECT `m_education`.`id`, `m_education`.`code`, `m_education`.`name`, `m_education`.`created_by`, `m_education`.`created_on`, `m_education`.`isactive`, `m_education`.`isdelete` FROM `m_education`; args=(); alias=default
+DEBUG 2025-10-26 06:55:40,066 utils (0.000) SELECT `m_education`.`id`, `m_education`.`code`, `m_education`.`name`, `m_education`.`created_by`, `m_education`.`created_on`, `m_education`.`isactive`, `m_education`.`isdelete` FROM `m_education`; args=(); alias=default
+INFO 2025-10-26 06:55:40,067 basehttp "GET /api/education/ HTTP/1.0" 200 1270
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Header after processing: None
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Authentication result: None
+DEBUG 2025-10-26 06:55:40,705 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:55:40,705 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:55:40,706 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:55:40,706 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:55:40,706 utils (0.000) SELECT `m_occupation`.`id`, `m_occupation`.`code`, `m_occupation`.`name`, `m_occupation`.`created_by`, `m_occupation`.`created_on`, `m_occupation`.`isactive`, `m_occupation`.`isdelete` FROM `m_occupation`; args=(); alias=default
+DEBUG 2025-10-26 06:55:40,706 utils (0.000) SELECT `m_occupation`.`id`, `m_occupation`.`code`, `m_occupation`.`name`, `m_occupation`.`created_by`, `m_occupation`.`created_on`, `m_occupation`.`isactive`, `m_occupation`.`isdelete` FROM `m_occupation`; args=(); alias=default
+INFO 2025-10-26 06:55:40,708 basehttp "GET /api/ocupation/ HTTP/1.0" 200 5019
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Header after processing: None
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Authentication result: None
+DEBUG 2025-10-26 06:55:41,345 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:55:41,345 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:55:41,345 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:55:41,345 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:55:41,346 utils (0.000) SELECT `m_marital_status`.`id`, `m_marital_status`.`name`, `m_marital_status`.`created_by`, `m_marital_status`.`created_on` FROM `m_marital_status`; args=(); alias=default
+DEBUG 2025-10-26 06:55:41,346 utils (0.000) SELECT `m_marital_status`.`id`, `m_marital_status`.`name`, `m_marital_status`.`created_by`, `m_marital_status`.`created_on` FROM `m_marital_status`; args=(); alias=default
+INFO 2025-10-26 06:55:41,347 basehttp "GET /api/marital-statuses/ HTTP/1.0" 200 162
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Header after processing: None
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Authentication result: None
+DEBUG 2025-10-26 06:55:46,618 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:55:46,618 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 06:55:46,618 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:55:46,618 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 06:55:46,618 utils (0.000) SELECT 1 AS `a` FROM `m_user` WHERE `m_user`.`user_email` = 'test.warga.1761461734@example.com' LIMIT 1; args=(1, 'test.warga.1761461734@example.com'); alias=default
+DEBUG 2025-10-26 06:55:46,618 utils (0.000) SELECT 1 AS `a` FROM `m_user` WHERE `m_user`.`user_email` = 'test.warga.1761461734@example.com' LIMIT 1; args=(1, 'test.warga.1761461734@example.com'); alias=default
+DEBUG 2025-10-26 06:55:46,619 utils (0.000) BEGIN; args=None; alias=default
+DEBUG 2025-10-26 06:55:46,619 utils (0.000) BEGIN; args=None; alias=default
+DEBUG 2025-10-26 06:55:46,619 utils (0.000) SAVEPOINT `s140001184745024_x1`; args=None; alias=default
+DEBUG 2025-10-26 06:55:46,619 utils (0.000) SAVEPOINT `s140001184745024_x1`; args=None; alias=default
+DEBUG 2025-10-26 06:55:46,620 utils (0.000) SELECT `m_role`.`role_id`, `m_role`.`role_category`, `m_role`.`role_name`, `m_role`.`role_desc`, `m_role`.`role_created_by`, `m_role`.`role_created_on`, `m_role`.`role_modified_by`, `m_role`.`role_modified_on`, `m_role`.`role_isactive`, `m_role`.`role_isdelete` FROM `m_role` WHERE `m_role`.`role_id` = 5 ORDER BY `m_role`.`role_id` ASC LIMIT 1; args=(5,); alias=default
+DEBUG 2025-10-26 06:55:46,620 utils (0.000) SELECT `m_role`.`role_id`, `m_role`.`role_category`, `m_role`.`role_name`, `m_role`.`role_desc`, `m_role`.`role_created_by`, `m_role`.`role_created_on`, `m_role`.`role_modified_by`, `m_role`.`role_modified_on`, `m_role`.`role_isactive`, `m_role`.`role_isdelete` FROM `m_role` WHERE `m_role`.`role_id` = 5 ORDER BY `m_role`.`role_id` ASC LIMIT 1; args=(5,); alias=default
+DEBUG 2025-10-26 06:55:46,886 utils (0.000) None; args=['', 'test.warga.1761461734@example.com', 'test.warga.1761461734@example.com', 'pbkdf2_sha256$720000$3Bvwgf9vMTyq96pTIIOIz1$K6ey3vdnq2RNOl3cLekw2BlKgzfpMBbapHZWyKjRyPk=', None, '2025-10-26 06:55:46.621040', False, False, False, False, True, None, None]; alias=default
+DEBUG 2025-10-26 06:55:46,886 utils (0.000) None; args=['', 'test.warga.1761461734@example.com', 'test.warga.1761461734@example.com', 'pbkdf2_sha256$720000$3Bvwgf9vMTyq96pTIIOIz1$K6ey3vdnq2RNOl3cLekw2BlKgzfpMBbapHZWyKjRyPk=', None, '2025-10-26 06:55:46.621040', False, False, False, False, True, None, None]; alias=default
+DEBUG 2025-10-26 06:55:46,887 utils (0.000) ROLLBACK TO SAVEPOINT `s140001184745024_x1`; args=None; alias=default
+DEBUG 2025-10-26 06:55:46,887 utils (0.000) ROLLBACK TO SAVEPOINT `s140001184745024_x1`; args=None; alias=default
+DEBUG 2025-10-26 06:55:46,887 utils (0.000) RELEASE SAVEPOINT `s140001184745024_x1`; args=None; alias=default
+DEBUG 2025-10-26 06:55:46,887 utils (0.000) RELEASE SAVEPOINT `s140001184745024_x1`; args=None; alias=default
+DEBUG 2025-10-26 06:55:46,887 utils (0.000) ROLLBACK; args=None; alias=default
+DEBUG 2025-10-26 06:55:46,887 utils (0.000) ROLLBACK; args=None; alias=default
+WARNING 2025-10-26 06:55:46,888 log Bad Request: /api/auth/sign-up/350c228d-2121-47fd-a808-456a7523e527/
+WARNING 2025-10-26 06:55:46,888 basehttp "POST /api/auth/sign-up/350c228d-2121-47fd-a808-456a7523e527/ HTTP/1.0" 400 244
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Header after processing: None
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Authentication result: None
+DEBUG 2025-10-26 07:00:42,431 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 07:00:42,431 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 07:00:42,431 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 07:00:42,431 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 07:00:42,431 utils (0.000) SELECT 1 AS `a` FROM `m_user` WHERE `m_user`.`user_email` = 'test.warga.1761462031@example.com' LIMIT 1; args=(1, 'test.warga.1761462031@example.com'); alias=default
+DEBUG 2025-10-26 07:00:42,431 utils (0.000) SELECT 1 AS `a` FROM `m_user` WHERE `m_user`.`user_email` = 'test.warga.1761462031@example.com' LIMIT 1; args=(1, 'test.warga.1761462031@example.com'); alias=default
+DEBUG 2025-10-26 07:00:42,432 utils (0.000) BEGIN; args=None; alias=default
+DEBUG 2025-10-26 07:00:42,432 utils (0.000) BEGIN; args=None; alias=default
+DEBUG 2025-10-26 07:00:42,432 utils (0.000) SAVEPOINT `s140001184745024_x1`; args=None; alias=default
+DEBUG 2025-10-26 07:00:42,432 utils (0.000) SAVEPOINT `s140001184745024_x1`; args=None; alias=default
+DEBUG 2025-10-26 07:00:42,433 utils (0.000) SELECT `m_role`.`role_id`, `m_role`.`role_category`, `m_role`.`role_name`, `m_role`.`role_desc`, `m_role`.`role_created_by`, `m_role`.`role_created_on`, `m_role`.`role_modified_by`, `m_role`.`role_modified_on`, `m_role`.`role_isactive`, `m_role`.`role_isdelete` FROM `m_role` WHERE `m_role`.`role_id` = 5 ORDER BY `m_role`.`role_id` ASC LIMIT 1; args=(5,); alias=default
+DEBUG 2025-10-26 07:00:42,433 utils (0.000) SELECT `m_role`.`role_id`, `m_role`.`role_category`, `m_role`.`role_name`, `m_role`.`role_desc`, `m_role`.`role_created_by`, `m_role`.`role_created_on`, `m_role`.`role_modified_by`, `m_role`.`role_modified_on`, `m_role`.`role_isactive`, `m_role`.`role_isdelete` FROM `m_role` WHERE `m_role`.`role_id` = 5 ORDER BY `m_role`.`role_id` ASC LIMIT 1; args=(5,); alias=default
+DEBUG 2025-10-26 07:00:42,706 utils (0.000) None; args=['', 'test.warga.1761462031@example.com', 'test.warga.1761462031@example.com', 'pbkdf2_sha256$720000$J8uOT9hjOqAWr00N2th9WG$WR8OkKZIIBmuLc6JuKbflZ01PdKEzWJRaVQhKemaBUc=', None, '2025-10-26 07:00:42.433676', False, False, False, False, True, None, None]; alias=default
+DEBUG 2025-10-26 07:00:42,706 utils (0.000) None; args=['', 'test.warga.1761462031@example.com', 'test.warga.1761462031@example.com', 'pbkdf2_sha256$720000$J8uOT9hjOqAWr00N2th9WG$WR8OkKZIIBmuLc6JuKbflZ01PdKEzWJRaVQhKemaBUc=', None, '2025-10-26 07:00:42.433676', False, False, False, False, True, None, None]; alias=default
+DEBUG 2025-10-26 07:00:42,707 utils (0.000) ROLLBACK TO SAVEPOINT `s140001184745024_x1`; args=None; alias=default
+DEBUG 2025-10-26 07:00:42,707 utils (0.000) ROLLBACK TO SAVEPOINT `s140001184745024_x1`; args=None; alias=default
+DEBUG 2025-10-26 07:00:42,707 utils (0.000) RELEASE SAVEPOINT `s140001184745024_x1`; args=None; alias=default
+DEBUG 2025-10-26 07:00:42,707 utils (0.000) RELEASE SAVEPOINT `s140001184745024_x1`; args=None; alias=default
+DEBUG 2025-10-26 07:00:42,707 utils (0.000) ROLLBACK; args=None; alias=default
+DEBUG 2025-10-26 07:00:42,707 utils (0.000) ROLLBACK; args=None; alias=default
+WARNING 2025-10-26 07:00:42,708 log Bad Request: /api/auth/sign-up/350c228d-2121-47fd-a808-456a7523e527/
+WARNING 2025-10-26 07:00:42,708 basehttp "POST /api/auth/sign-up/350c228d-2121-47fd-a808-456a7523e527/ HTTP/1.0" 400 244
