@@ -21,22 +21,24 @@ class TagihanController extends Controller
     
             $data_response = json_decode($response->body(), true);
 
-            if ($response->successful()) {
-                return view('pengurus.tagihan.list', compact('data'));
+            if ($response->successful() && isset($data_response['data'])) {
+                $data_tagihan = $data_response['data'];
+                return view('pengurus.tagihan.list', compact('data_tagihan'));
             } else {
                
                 Session::flash('flash-message', [
                     'message' => 'Data tidak ditemukan',
                     'alert-class' => 'alert-warning',
                 ]);
+                return redirect()->route('home');
             }
         } catch (\Exception $e) {
           
             Session::flash('flash-message', [
-                'message' => 'Gagal mengambil data tagihan',
+                'message' => 'Gagal mengambil data tagihan: ' . $e->getMessage(),
                 'alert-class' => 'alert-error',
             ]);
-            
+            return redirect()->route('home');
         }
     }
 
