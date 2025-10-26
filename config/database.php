@@ -37,6 +37,13 @@ return [
 
         'sqlite' => [
             'driver' => 'sqlite',
+            'database' => database_path('payment_local.sqlite'),
+            'prefix' => '',
+            'foreign_key_constraints' => true,
+        ],
+        
+        'sqlite_backup' => [
+            'driver' => 'sqlite',
             'url' => env('DATABASE_URL'),
             'database' => env('DB_DATABASE', database_path('database.sqlite')),
             'prefix' => '',

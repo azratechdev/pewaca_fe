@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Payment\PaymentController;
+use App\Http\Controllers\Payment\WebhookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +19,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::prefix('payments')->middleware('throttle:10,1')->group(function () {
+    Route::post('/', [PaymentController::class, 'create']);
+    Route::get('/{id}', [PaymentController::class, 'show']);
+});
+
+Route::post('/webhooks/qris', [WebhookController::class, 'handleQrisWebhook']);
