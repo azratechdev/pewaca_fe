@@ -7,6 +7,29 @@
 **HTTP Status**: 400 Bad Request  
 **Impact**: Warga tidak bisa registrasi baru
 
+## ✅ **SOLUSI CEPAT (Quick Fix)**
+
+**File**: `api/serializers.py` atau file yang berisi `UserRegistrationSerializer`
+
+**Cari dan ganti semua `created_by=user.user_id` menjadi `created_by=user.id`**
+
+Ada **3 lokasi** yang perlu diganti:
+1. Line ~122: dalam loop `for i in range(len(nik_list))`
+2. Line ~143: handling single warga (else block)
+3. Line ~227: dalam `UserUpdateSerializer`
+
+**Before:**
+```python
+created_by=user.user_id  # ❌ SALAH
+```
+
+**After:**
+```python
+created_by=user.id  # ✅ BENAR
+```
+
+Setelah edit, **restart Django server** dan test ulang!
+
 ---
 
 ## 🔍 Root Cause Analysis
