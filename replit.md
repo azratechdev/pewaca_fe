@@ -48,6 +48,17 @@ This is a Laravel 9 PHP web application called "Pewaca" - a residence management
     - Graceful degradation: No more "Trying to access array offset on null" errors
     - User sees clear error messages instead of application crashes
     - Added Log facade import for proper error logging
+  - **October 26, 2025**: Fixed incorrect API URLs across all view files
+    - **Problem**: JavaScript fetch calls used incorrect URL `api.pewaca.id` instead of `admin.pewaca.id`
+    - **Fixed 10 endpoints across 6 files**:
+      - `list_biaya.blade.php`: publish-tagihan, unpublish-tagihan, list_banks endpoints
+      - `verify.blade.php`: auth/verify endpoint
+      - `rekeninginfo.blade.php`: residence-banks DELETE and activate endpoints
+      - `detail_tunggakan.blade.php`: report/tunggakan endpoint
+      - `detail_by_type.blade.php`: report/bytype endpoint
+      - `detail_by_cashout.blade.php`: report/cashout endpoint
+    - All JavaScript fetch calls now correctly use `https://admin.pewaca.id`
+    - Fixed "Gagal menghubungi server" error when clicking ADD button on biaya page
 
 ## Project Architecture
 
