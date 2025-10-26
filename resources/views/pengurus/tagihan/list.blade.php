@@ -91,6 +91,11 @@ $(document).on('click', '.btn-publish', function (e) {
     e.preventDefault();
     let tagihanId = $(this).data('id');
     const publishUrl = @json(route('tagihan.publish'));
+    
+    console.log('=== PUBLISH DEBUG ===');
+    console.log('Tagihan ID:', tagihanId);
+    console.log('Publish URL:', publishUrl);
+    console.log('CSRF Token:', $('meta[name="csrf-token"]').attr('content'));
 
     Swal.fire({
         title: 'Yakin ingin publish tagihan ini?',
