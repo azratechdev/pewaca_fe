@@ -121,7 +121,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
                                 education=education_dict.get(int(education_ids[i])),
                                 profile_photo=profile_photo_list[i],
                                 family_as=familyAs_dict.get(int(family_as_id[i])),
-                                created_by=user.id
+                                created_by=user.user_id
                             )
                     else:
                         # Handling the case where nik is not a list
@@ -140,7 +140,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
                             occupation=occupation_dict.get(int(warga_data['occupation'])),
                             education=education_dict.get(int(warga_data['education'])),
                             profile_photo=warga_data['profile_photo'] if warga_data.get('profile_photo') else None,
-                            created_by=user.id
+                            created_by=user.user_id
                         )
 
                     return user
@@ -236,7 +236,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
                     education=education,
                     profile_photo=validated_data.get('profile_photo', None),
                     family_as=family_as,
-                    created_by=user.id
+                    created_by=user.user_id
                 )
 
                 return user
@@ -306,13 +306,7 @@ class UserRegistrationSingleSerializer(serializers.ModelSerializer):
                     is_active=0,
                     role=Role.objects.filter(role_id=5).first()
                 )
-                print(f"[SERIALIZER] ✅ User created! ID: {user.id}, user_id field: {user.user_id}")
-                
-                if not user.user_id:
-                    print("[SERIALIZER] Setting user.user_id = user.id")
-                    user.user_id = user.id
-                    user.save(update_fields=['user_id'])
-                    print(f"[SERIALIZER] ✅ user_id updated to: {user.user_id}")
+                print(f"[SERIALIZER] ✅ User created! user_id: {user.user_id}")
 
                 print(f"[SERIALIZER] Fetching residence with code: {code}")
                 residence = get_object_or_404(MResidence, code=code)
@@ -332,7 +326,7 @@ class UserRegistrationSingleSerializer(serializers.ModelSerializer):
 
                 # Buat Warga terkait dengan user
                 print("[SERIALIZER] Creating Warga record...")
-                print(f"[SERIALIZER] created_by will be set to: {user.id}")
+                print(f"[SERIALIZER] created_by will be set to: {user.user_id}")
                 
                 warga = Warga.objects.create(
                     user=user,
@@ -350,7 +344,7 @@ class UserRegistrationSingleSerializer(serializers.ModelSerializer):
                     education=education,
                     profile_photo=validated_data.get('profile_photo'),
                     family_as=family_as,
-                    created_by=user.id,
+                    created_by=user.user_id,
                     marriagePhoto=validated_data.get('marriage_photo')
                 )
                 
