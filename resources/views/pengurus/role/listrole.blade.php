@@ -21,6 +21,7 @@
                             alt="User profile picture" 
                             class="w-16 h-16 rounded-full border-2 border-gray-300" 
                             src="{{ $val['warga']['profile_photo'] }}" 
+                            onerror="this.onerror=null; this.src='/placeholder_avatars/avatar-{{ ($loop->index % 5) + 1 }}.png';"
                         />
                         <div class="ml-4">
                             <p class="font-semibold text-lg text-gray-800">

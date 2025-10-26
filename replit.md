@@ -87,6 +87,14 @@ This is a Laravel 9 PHP web application called "Pewaca" - a residence management
       - Button shows progress: "More (2/12)" and auto-hides when all data loaded
       - Loading state prevents double-clicks
     - Result: Users can now load all records progressively by clicking "More" button
+  - **October 26, 2025**: Fixed broken profile images in waiting approval and role pages
+    - **Problem**: User profile pictures showing broken image icons in `/pengurus/warga/waitingapproval` and `/pengurus/peran`
+    - **Fixed 2 pages**:
+      - `waiting_approval.blade.php`: Added onerror fallback to placeholder avatars
+      - `listrole.blade.php`: Added onerror fallback to placeholder avatars
+    - Both pages now use `onerror` handler to show default avatars when profile photo fails to load
+    - Avatars cycle through 5 different placeholder images based on loop index
+    - Result: No more broken image icons, users always see proper avatar images
 
 ## Project Architecture
 
