@@ -34,6 +34,20 @@ This is a Laravel 9 PHP web application called "Pewaca" - a residence management
     - Added file size validation: max 5MB for story images
     - Added specific error message for 413 (file too large) errors
     - Improved error detection for non-JSON responses from backend
+  - **October 26, 2025**: Fixed database AUTO_INCREMENT issue for story table
+    - Added AUTO_INCREMENT to story.id field in MySQL database
+    - Fixed IntegrityError: Field 'id' doesn't have a default value
+    - Story posting now works successfully with image uploads
+  - **October 26, 2025**: Comprehensive error handling improvements
+    - **HomeController**: Added 3-level validation (HTTP status, JSON decode, type checking) to:
+      - `getStories()`: Validates 'data' key exists, returns empty array on error
+      - `getReplays()`: Validates 'results' is array, normalizes response structure
+      - `getReplaysMore()`: Validates 'results' is array, prevents foreach crashes
+    - **PengurusController**: Fixed `list_biaya()` to validate 'count' key exists
+    - All functions now log errors with full context for debugging
+    - Graceful degradation: No more "Trying to access array offset on null" errors
+    - User sees clear error messages instead of application crashes
+    - Added Log facade import for proper error logging
 
 ## Project Architecture
 
