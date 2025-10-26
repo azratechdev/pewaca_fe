@@ -421,6 +421,77 @@ class PembayaranController extends Controller
         return (int) $formatted;
     }
 
+    public function qrisPembayaran($id)
+    {
+        try {
+            $response = Http::withHeaders([
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Token ' . Session::get('token'),
+            ])->get(env('API_URL') . '/api/tagihan-warga/'.$id.'/');
+    
+            $data_response = json_decode($response->body(), true);
+    
+            if ($response->successful() && isset($data_response['data'])) {
+                $tagihan = $data_response['data'];
+                
+                $orderId = 'TGH-' . $tagihan['id'];
+                $amount = $this->formatNominal($tagihan['tagihan']['amount']);
+                
+                $localResponse = Http::post(url('/api/payments'), [
+                    'order_id' => $orderId,
+                    'amount' => $amount,
+                    'metadata' => [
+                        'tagihan_warga_id' => $tagihan['id'],
+                        'warga_id' => $tagihan['warga_id'],
+                        'tagihan_name' => $tagihan['tagihan']['name'],
+                    ],
+                ]);
+                
+                $paymentData = json_decode($localResponse->body(), true);
+                
+                if ($localResponse->successful() && isset($paymentData['payment_id'])) {
+                    return view('pembayaran.qris', [
+                        'tagihan' => $tagihan,
+                        'payment' => $paymentData,
+                    ]);
+                } else {
+                    Session::flash('flash-message', [
+                        'message' => 'Gagal membuat QR Code pembayaran',
+                        'alert-class' => 'alert-danger',
+                    ]);
+                    return redirect()->route('pembayaran.list');
+                }
+            } else {
+                Session::flash('flash-message', [
+                    'message' => 'Data tagihan tidak ditemukan',
+                    'alert-class' => 'alert-warning',
+                ]);
+                return redirect()->route('pembayaran.list');
+            }
+        } catch (\Exception $e) {
+            Session::flash('flash-message', [
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage(),
+                'alert-class' => 'alert-danger',
+            ]);
+            return redirect()->route('pembayaran.list');
+        }
+    }
+    
+    public function checkPaymentStatus($paymentId)
+    {
+        try {
+            $response = Http::get(url('/api/payments/' . $paymentId));
+            $data = json_decode($response->body(), true);
+            
+            return response()->json($data);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Gagal cek status pembayaran'
+            ], 500);
+        }
+    }
+
     // public function pembayaran_periode()
     // {
     //     return view('pembayaran.pembayaran_periode');

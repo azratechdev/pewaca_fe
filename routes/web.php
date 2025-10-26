@@ -124,6 +124,8 @@ Route::group(['middleware' => ['auth', 'check.token']], function () {
     Route::get('/pembayaran/{id}/add', [PembayaranController::class, 'addpembayaran'])->name('pembayaran.add');
     Route::get('/pembayaran/{id}/upload', [PembayaranController::class, 'uploadbukti'])->name('pembayaran.upload_bukti');
     Route::get('/pembayaran/{id}/detail', [PembayaranController::class, 'detailPembayaran'])->name('pembayaran.detail_bukti');
+    Route::get('/pembayaran/{id}/qris', [PembayaranController::class, 'qrisPembayaran'])->name('pembayaran.qris');
+    Route::get('/api/check-payment/{paymentId}', [PembayaranController::class, 'checkPaymentStatus'])->name('pembayaran.check_status');
 
     // Route::get('/pembayaran/pembayaran_periode', [PembayaranController::class, 'pembayaran_periode'])->name('pembayaran.pembayaran_periode');
     // Route::get('/pembayaran/periode', [PembayaranController::class, 'periode'])->name('pembayaran.periode');
