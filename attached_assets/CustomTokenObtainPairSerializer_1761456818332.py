@@ -1,0 +1,12 @@
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        # Tambahkan claim sesuai kebutuhan
+        token['user_id'] = user.user_id  # Ganti dari 'id'
+        token['email'] = user.email
+
+        return token

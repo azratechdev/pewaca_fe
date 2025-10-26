@@ -1,0 +1,27 @@
+(pewaca_env) ubuntu@VM-8-8-ubuntu:~/apps/django/pewaca_be/dash$ python -c "import api.serializers.user_registration; print(api.serializers.user_registration.__file__)"
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/home/ubuntu/apps/django/pewaca_be/dash/api/serializers/__init__.py", line 1, in <module>
+    from .user_registration import *
+  File "/home/ubuntu/apps/django/pewaca_be/dash/api/serializers/user_registration.py", line 3, in <module>
+    from management_user.models import Warga,MaritalStatus,Role,MfamilyAs
+  File "/home/ubuntu/apps/django/pewaca_be/dash/management_user/models/__init__.py", line 1, in <module>
+    from .user import *
+  File "/home/ubuntu/apps/django/pewaca_be/dash/management_user/models/user.py", line 1, in <module>
+    from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, Group, Permission
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/auth/models.py", line 3, in <module>
+    from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/auth/base_user.py", line 59, in <module>
+    class AbstractBaseUser(models.Model):
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/base.py", line 129, in __new__
+    app_config = apps.get_containing_app_config(module)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/apps/registry.py", line 260, in get_containing_app_config
+    self.check_apps_ready()
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/apps/registry.py", line 137, in check_apps_ready
+    settings.INSTALLED_APPS
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/conf/__init__.py", line 89, in __getattr__
+    self._setup(name)
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/conf/__init__.py", line 69, in _setup
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Requested setting INSTALLED_APPS, but settings are not configured. You must either define the environment variable DJANGO_SETTINGS_MODULE or call settings.configure() before accessing settings.

@@ -1,0 +1,341 @@
+(pewaca_env) ubuntu@VM-8-8-ubuntu:~/apps/django/pewaca_be/dash$ tail -f nohup.out
+DEBUG 2025-10-26 05:17:23,900 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/migrations/executor.py first seen with mtime 1758982201.5206945
+DEBUG 2025-10-26 05:17:23,900 autoreload File /home/ubuntu/apps/django/pewaca_be/dash/management_user/migrations/0003_alter_warga_nik.py first seen with mtime 1758979335.072439
+DEBUG 2025-10-26 05:17:23,900 autoreload File /home/ubuntu/apps/django/pewaca_be/dash/management_user/migrations/0002_warga_checked_on.py first seen with mtime 1758979335.072439
+DEBUG 2025-10-26 05:17:23,900 autoreload File /home/ubuntu/apps/django/pewaca_be/dash/tagihan/migrations/0002_kategori_residence_kategori_warga_tagihan_amount_and_more.py first seen with mtime 1758979335.072439
+DEBUG 2025-10-26 05:17:23,900 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/backends/mysql/compiler.py first seen with mtime 1758982201.5166945
+DEBUG 2025-10-26 05:17:23,900 autoreload File /home/ubuntu/apps/django/pewaca_be/dash/tagihan/migrations/__init__.py first seen with mtime 1758979335.072439
+DEBUG 2025-10-26 05:17:23,901 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/auth/migrations/0012_alter_user_first_name_max_length.py first seen with mtime 1758982201.1366913
+DEBUG 2025-10-26 05:17:23,901 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/auth/migrations/0008_alter_user_username_max_length.py first seen with mtime 1758982201.1326911
+DEBUG 2025-10-26 05:17:23,901 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/admin/migrations/0001_initial.py first seen with mtime 1758982200.99269
+DEBUG 2025-10-26 05:17:23,901 autoreload File /home/ubuntu/apps/django/pewaca_be/dash/management_user/migrations/0001_initial.py first seen with mtime 1758979335.072439
+DEBUG 2025-10-26 05:17:39,326 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,326 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,327 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,327 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,327 utils (0.000) SELECT 1 AS `a` FROM `m_user` WHERE `m_user`.`user_email` = 'yasminaninda99@yahoo.com' LIMIT 1; args=(1, 'yasminaninda99@yahoo.com'); alias=default
+DEBUG 2025-10-26 05:17:39,327 utils (0.000) SELECT 1 AS `a` FROM `m_user` WHERE `m_user`.`user_email` = 'yasminaninda99@yahoo.com' LIMIT 1; args=(1, 'yasminaninda99@yahoo.com'); alias=default
+DEBUG 2025-10-26 05:17:39,349 utils (0.000) BEGIN; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,349 utils (0.000) BEGIN; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,349 utils (0.000) SAVEPOINT `s139694807619136_x1`; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,349 utils (0.000) SAVEPOINT `s139694807619136_x1`; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,351 utils (0.000) SELECT `m_role`.`role_id`, `m_role`.`role_category`, `m_role`.`role_name`, `m_role`.`role_desc`, `m_role`.`role_created_by`, `m_role`.`role_created_on`, `m_role`.`role_modified_by`, `m_role`.`role_modified_on`, `m_role`.`role_isactive`, `m_role`.`role_isdelete` FROM `m_role` WHERE `m_role`.`role_id` = 5 ORDER BY `m_role`.`role_id` ASC LIMIT 1; args=(5,); alias=default
+DEBUG 2025-10-26 05:17:39,351 utils (0.000) SELECT `m_role`.`role_id`, `m_role`.`role_category`, `m_role`.`role_name`, `m_role`.`role_desc`, `m_role`.`role_created_by`, `m_role`.`role_created_on`, `m_role`.`role_modified_by`, `m_role`.`role_modified_on`, `m_role`.`role_isactive`, `m_role`.`role_isdelete` FROM `m_role` WHERE `m_role`.`role_id` = 5 ORDER BY `m_role`.`role_id` ASC LIMIT 1; args=(5,); alias=default
+DEBUG 2025-10-26 05:17:39,617 utils (0.000) None; args=['', 'yasminaninda99@yahoo.com', 'yasminaninda99@yahoo.com', 'pbkdf2_sha256$720000$91k83KJhStVdaoNKfK4ScM$8cehbEvGW9Sy4+yR8QnS0q5cGo1E9gMIno92YOjqEdw=', None, '2025-10-26 05:17:39.351590', False, False, False, False, True, None, None]; alias=default
+DEBUG 2025-10-26 05:17:39,617 utils (0.000) None; args=['', 'yasminaninda99@yahoo.com', 'yasminaninda99@yahoo.com', 'pbkdf2_sha256$720000$91k83KJhStVdaoNKfK4ScM$8cehbEvGW9Sy4+yR8QnS0q5cGo1E9gMIno92YOjqEdw=', None, '2025-10-26 05:17:39.351590', False, False, False, False, True, None, None]; alias=default
+DEBUG 2025-10-26 05:17:39,617 utils (0.000) ROLLBACK TO SAVEPOINT `s139694807619136_x1`; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,617 utils (0.000) ROLLBACK TO SAVEPOINT `s139694807619136_x1`; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,617 utils (0.000) RELEASE SAVEPOINT `s139694807619136_x1`; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,617 utils (0.000) RELEASE SAVEPOINT `s139694807619136_x1`; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,618 utils (0.000) ROLLBACK; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,618 utils (0.000) ROLLBACK; args=None; alias=default
+WARNING 2025-10-26 05:17:39,618 log Bad Request: /api/auth/sign-up/350c228d-2121-47fd-a808-456a7523e527/
+WARNING 2025-10-26 05:17:39,619 basehttp "POST /api/auth/sign-up/350c228d-2121-47fd-a808-456a7523e527/ HTTP/1.1" 400 244
+DEBUG 2025-10-26 05:17:39,657 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,657 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,658 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,658 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,658 utils (0.000) SELECT `m_unit`.`unit_id`, `m_unit`.`unit_residence_id`, `m_unit`.`unit_corridor_id`, `m_unit`.`unit_name`, `m_unit`.`unit_desc`, `m_unit`.`unit_image`, `m_unit`.`unit_size`, `m_unit`.`unit_isused`, `m_unit`.`unit_created_by`, `m_unit`.`unit_created_on`, `m_unit`.`unit_modified_by`, `m_unit`.`unit_modified_on`, `m_unit`.`unit_isactive`, `m_unit`.`unit_isdelete` FROM `m_unit` INNER JOIN `m_residence` ON (`m_unit`.`unit_residence_id` = `m_residence`.`id`) WHERE (`m_unit`.`unit_isdelete` = 0 AND `m_residence`.`code` = '350c228d-2121-47fd-a808-456a7523e527'); args=(False, '350c228d-2121-47fd-a808-456a7523e527'); alias=default
+DEBUG 2025-10-26 05:17:39,658 utils (0.000) SELECT `m_unit`.`unit_id`, `m_unit`.`unit_residence_id`, `m_unit`.`unit_corridor_id`, `m_unit`.`unit_name`, `m_unit`.`unit_desc`, `m_unit`.`unit_image`, `m_unit`.`unit_size`, `m_unit`.`unit_isused`, `m_unit`.`unit_created_by`, `m_unit`.`unit_created_on`, `m_unit`.`unit_modified_by`, `m_unit`.`unit_modified_on`, `m_unit`.`unit_isactive`, `m_unit`.`unit_isdelete` FROM `m_unit` INNER JOIN `m_residence` ON (`m_unit`.`unit_residence_id` = `m_residence`.`id`) WHERE (`m_unit`.`unit_isdelete` = 0 AND `m_residence`.`code` = '350c228d-2121-47fd-a808-456a7523e527'); args=(False, '350c228d-2121-47fd-a808-456a7523e527'); alias=default
+DEBUG 2025-10-26 05:17:39,660 utils (0.000) SELECT `m_corridor`.`corridor_id`, `m_corridor`.`corridor_residence_id`, `m_corridor`.`corridor_name`, `m_corridor`.`corridor_desc`, `m_corridor`.`corridor_icon`, `m_corridor`.`corridor_created_by`, `m_corridor`.`corridor_created_on`, `m_corridor`.`corridor_modified_by`, `m_corridor`.`corridor_modified_on`, `m_corridor`.`corridor_isactive`, `m_corridor`.`corridor_isdelete` FROM `m_corridor` WHERE `m_corridor`.`corridor_id` = 3 LIMIT 21; args=(3,); alias=default
+DEBUG 2025-10-26 05:17:39,660 utils (0.000) SELECT `m_corridor`.`corridor_id`, `m_corridor`.`corridor_residence_id`, `m_corridor`.`corridor_name`, `m_corridor`.`corridor_desc`, `m_corridor`.`corridor_icon`, `m_corridor`.`corridor_created_by`, `m_corridor`.`corridor_created_on`, `m_corridor`.`corridor_modified_by`, `m_corridor`.`corridor_modified_on`, `m_corridor`.`corridor_isactive`, `m_corridor`.`corridor_isdelete` FROM `m_corridor` WHERE `m_corridor`.`corridor_id` = 3 LIMIT 21; args=(3,); alias=default
+DEBUG 2025-10-26 05:17:39,660 utils (0.000) SELECT `m_residence`.`id`, `m_residence`.`name`, `m_residence`.`code`, `m_residence`.`loc_address`, `m_residence`.`image`, `m_residence`.`prov_id`, `m_residence`.`city_id`, `m_residence`.`district_id`, `m_residence`.`village_id`, `m_residence`.`postal_code`, `m_residence`.`lat`, `m_residence`.`long`, `m_residence`.`area_large`, `m_residence`.`establishment_year`, `m_residence`.`created_by`, `m_residence`.`created_on`, `m_residence`.`modified_by`, `m_residence`.`modified_on`, `m_residence`.`isactive`, `m_residence`.`isdelete` FROM `m_residence` WHERE `m_residence`.`id` = 3 LIMIT 21; args=(3,); alias=default
+DEBUG 2025-10-26 05:17:39,660 utils (0.000) SELECT `m_residence`.`id`, `m_residence`.`name`, `m_residence`.`code`, `m_residence`.`loc_address`, `m_residence`.`image`, `m_residence`.`prov_id`, `m_residence`.`city_id`, `m_residence`.`district_id`, `m_residence`.`village_id`, `m_residence`.`postal_code`, `m_residence`.`lat`, `m_residence`.`long`, `m_residence`.`area_large`, `m_residence`.`establishment_year`, `m_residence`.`created_by`, `m_residence`.`created_on`, `m_residence`.`modified_by`, `m_residence`.`modified_on`, `m_residence`.`isactive`, `m_residence`.`isdelete` FROM `m_residence` WHERE `m_residence`.`id` = 3 LIMIT 21; args=(3,); alias=default
+DEBUG 2025-10-26 05:17:39,661 utils (0.000) SELECT `m_corridor`.`corridor_id`, `m_corridor`.`corridor_residence_id`, `m_corridor`.`corridor_name`, `m_corridor`.`corridor_desc`, `m_corridor`.`corridor_icon`, `m_corridor`.`corridor_created_by`, `m_corridor`.`corridor_created_on`, `m_corridor`.`corridor_modified_by`, `m_corridor`.`corridor_modified_on`, `m_corridor`.`corridor_isactive`, `m_corridor`.`corridor_isdelete` FROM `m_corridor` WHERE `m_corridor`.`corridor_id` = 4 LIMIT 21; args=(4,); alias=default
+DEBUG 2025-10-26 05:17:39,661 utils (0.000) SELECT `m_corridor`.`corridor_id`, `m_corridor`.`corridor_residence_id`, `m_corridor`.`corridor_name`, `m_corridor`.`corridor_desc`, `m_corridor`.`corridor_icon`, `m_corridor`.`corridor_created_by`, `m_corridor`.`corridor_created_on`, `m_corridor`.`corridor_modified_by`, `m_corridor`.`corridor_modified_on`, `m_corridor`.`corridor_isactive`, `m_corridor`.`corridor_isdelete` FROM `m_corridor` WHERE `m_corridor`.`corridor_id` = 4 LIMIT 21; args=(4,); alias=default
+DEBUG 2025-10-26 05:17:39,662 utils (0.000) SELECT `m_residence`.`id`, `m_residence`.`name`, `m_residence`.`code`, `m_residence`.`loc_address`, `m_residence`.`image`, `m_residence`.`prov_id`, `m_residence`.`city_id`, `m_residence`.`district_id`, `m_residence`.`village_id`, `m_residence`.`postal_code`, `m_residence`.`lat`, `m_residence`.`long`, `m_residence`.`area_large`, `m_residence`.`establishment_year`, `m_residence`.`created_by`, `m_residence`.`created_on`, `m_residence`.`modified_by`, `m_residence`.`modified_on`, `m_residence`.`isactive`, `m_residence`.`isdelete` FROM `m_residence` WHERE `m_residence`.`id` = 3 LIMIT 21; args=(3,); alias=default
+DEBUG 2025-10-26 05:17:39,662 utils (0.000) SELECT `m_residence`.`id`, `m_residence`.`name`, `m_residence`.`code`, `m_residence`.`loc_address`, `m_residence`.`image`, `m_residence`.`prov_id`, `m_residence`.`city_id`, `m_residence`.`district_id`, `m_residence`.`village_id`, `m_residence`.`postal_code`, `m_residence`.`lat`, `m_residence`.`long`, `m_residence`.`area_large`, `m_residence`.`establishment_year`, `m_residence`.`created_by`, `m_residence`.`created_on`, `m_residence`.`modified_by`, `m_residence`.`modified_on`, `m_residence`.`isactive`, `m_residence`.`isdelete` FROM `m_residence` WHERE `m_residence`.`id` = 3 LIMIT 21; args=(3,); alias=default
+DEBUG 2025-10-26 05:17:39,663 utils (0.000) SELECT `m_corridor`.`corridor_id`, `m_corridor`.`corridor_residence_id`, `m_corridor`.`corridor_name`, `m_corridor`.`corridor_desc`, `m_corridor`.`corridor_icon`, `m_corridor`.`corridor_created_by`, `m_corridor`.`corridor_created_on`, `m_corridor`.`corridor_modified_by`, `m_corridor`.`corridor_modified_on`, `m_corridor`.`corridor_isactive`, `m_corridor`.`corridor_isdelete` FROM `m_corridor` WHERE `m_corridor`.`corridor_id` = 4 LIMIT 21; args=(4,); alias=default
+DEBUG 2025-10-26 05:17:39,663 utils (0.000) SELECT `m_corridor`.`corridor_id`, `m_corridor`.`corridor_residence_id`, `m_corridor`.`corridor_name`, `m_corridor`.`corridor_desc`, `m_corridor`.`corridor_icon`, `m_corridor`.`corridor_created_by`, `m_corridor`.`corridor_created_on`, `m_corridor`.`corridor_modified_by`, `m_corridor`.`corridor_modified_on`, `m_corridor`.`corridor_isactive`, `m_corridor`.`corridor_isdelete` FROM `m_corridor` WHERE `m_corridor`.`corridor_id` = 4 LIMIT 21; args=(4,); alias=default
+DEBUG 2025-10-26 05:17:39,663 utils (0.000) SELECT `m_residence`.`id`, `m_residence`.`name`, `m_residence`.`code`, `m_residence`.`loc_address`, `m_residence`.`image`, `m_residence`.`prov_id`, `m_residence`.`city_id`, `m_residence`.`district_id`, `m_residence`.`village_id`, `m_residence`.`postal_code`, `m_residence`.`lat`, `m_residence`.`long`, `m_residence`.`area_large`, `m_residence`.`establishment_year`, `m_residence`.`created_by`, `m_residence`.`created_on`, `m_residence`.`modified_by`, `m_residence`.`modified_on`, `m_residence`.`isactive`, `m_residence`.`isdelete` FROM `m_residence` WHERE `m_residence`.`id` = 3 LIMIT 21; args=(3,); alias=default
+DEBUG 2025-10-26 05:17:39,663 utils (0.000) SELECT `m_residence`.`id`, `m_residence`.`name`, `m_residence`.`code`, `m_residence`.`loc_address`, `m_residence`.`image`, `m_residence`.`prov_id`, `m_residence`.`city_id`, `m_residence`.`district_id`, `m_residence`.`village_id`, `m_residence`.`postal_code`, `m_residence`.`lat`, `m_residence`.`long`, `m_residence`.`area_large`, `m_residence`.`establishment_year`, `m_residence`.`created_by`, `m_residence`.`created_on`, `m_residence`.`modified_by`, `m_residence`.`modified_on`, `m_residence`.`isactive`, `m_residence`.`isdelete` FROM `m_residence` WHERE `m_residence`.`id` = 3 LIMIT 21; args=(3,); alias=default
+DEBUG 2025-10-26 05:17:39,664 utils (0.000) SELECT `m_corridor`.`corridor_id`, `m_corridor`.`corridor_residence_id`, `m_corridor`.`corridor_name`, `m_corridor`.`corridor_desc`, `m_corridor`.`corridor_icon`, `m_corridor`.`corridor_created_by`, `m_corridor`.`corridor_created_on`, `m_corridor`.`corridor_modified_by`, `m_corridor`.`corridor_modified_on`, `m_corridor`.`corridor_isactive`, `m_corridor`.`corridor_isdelete` FROM `m_corridor` WHERE `m_corridor`.`corridor_id` = 4 LIMIT 21; args=(4,); alias=default
+DEBUG 2025-10-26 05:17:39,664 utils (0.000) SELECT `m_corridor`.`corridor_id`, `m_corridor`.`corridor_residence_id`, `m_corridor`.`corridor_name`, `m_corridor`.`corridor_desc`, `m_corridor`.`corridor_icon`, `m_corridor`.`corridor_created_by`, `m_corridor`.`corridor_created_on`, `m_corridor`.`corridor_modified_by`, `m_corridor`.`corridor_modified_on`, `m_corridor`.`corridor_isactive`, `m_corridor`.`corridor_isdelete` FROM `m_corridor` WHERE `m_corridor`.`corridor_id` = 4 LIMIT 21; args=(4,); alias=default
+DEBUG 2025-10-26 05:17:39,665 utils (0.000) SELECT `m_residence`.`id`, `m_residence`.`name`, `m_residence`.`code`, `m_residence`.`loc_address`, `m_residence`.`image`, `m_residence`.`prov_id`, `m_residence`.`city_id`, `m_residence`.`district_id`, `m_residence`.`village_id`, `m_residence`.`postal_code`, `m_residence`.`lat`, `m_residence`.`long`, `m_residence`.`area_large`, `m_residence`.`establishment_year`, `m_residence`.`created_by`, `m_residence`.`created_on`, `m_residence`.`modified_by`, `m_residence`.`modified_on`, `m_residence`.`isactive`, `m_residence`.`isdelete` FROM `m_residence` WHERE `m_residence`.`id` = 3 LIMIT 21; args=(3,); alias=default
+DEBUG 2025-10-26 05:17:39,665 utils (0.000) SELECT `m_residence`.`id`, `m_residence`.`name`, `m_residence`.`code`, `m_residence`.`loc_address`, `m_residence`.`image`, `m_residence`.`prov_id`, `m_residence`.`city_id`, `m_residence`.`district_id`, `m_residence`.`village_id`, `m_residence`.`postal_code`, `m_residence`.`lat`, `m_residence`.`long`, `m_residence`.`area_large`, `m_residence`.`establishment_year`, `m_residence`.`created_by`, `m_residence`.`created_on`, `m_residence`.`modified_by`, `m_residence`.`modified_on`, `m_residence`.`isactive`, `m_residence`.`isdelete` FROM `m_residence` WHERE `m_residence`.`id` = 3 LIMIT 21; args=(3,); alias=default
+DEBUG 2025-10-26 05:17:39,665 utils (0.000) SELECT `m_corridor`.`corridor_id`, `m_corridor`.`corridor_residence_id`, `m_corridor`.`corridor_name`, `m_corridor`.`corridor_desc`, `m_corridor`.`corridor_icon`, `m_corridor`.`corridor_created_by`, `m_corridor`.`corridor_created_on`, `m_corridor`.`corridor_modified_by`, `m_corridor`.`corridor_modified_on`, `m_corridor`.`corridor_isactive`, `m_corridor`.`corridor_isdelete` FROM `m_corridor` WHERE `m_corridor`.`corridor_id` = 4 LIMIT 21; args=(4,); alias=default
+DEBUG 2025-10-26 05:17:39,665 utils (0.000) SELECT `m_corridor`.`corridor_id`, `m_corridor`.`corridor_residence_id`, `m_corridor`.`corridor_name`, `m_corridor`.`corridor_desc`, `m_corridor`.`corridor_icon`, `m_corridor`.`corridor_created_by`, `m_corridor`.`corridor_created_on`, `m_corridor`.`corridor_modified_by`, `m_corridor`.`corridor_modified_on`, `m_corridor`.`corridor_isactive`, `m_corridor`.`corridor_isdelete` FROM `m_corridor` WHERE `m_corridor`.`corridor_id` = 4 LIMIT 21; args=(4,); alias=default
+DEBUG 2025-10-26 05:17:39,666 utils (0.000) SELECT `m_residence`.`id`, `m_residence`.`name`, `m_residence`.`code`, `m_residence`.`loc_address`, `m_residence`.`image`, `m_residence`.`prov_id`, `m_residence`.`city_id`, `m_residence`.`district_id`, `m_residence`.`village_id`, `m_residence`.`postal_code`, `m_residence`.`lat`, `m_residence`.`long`, `m_residence`.`area_large`, `m_residence`.`establishment_year`, `m_residence`.`created_by`, `m_residence`.`created_on`, `m_residence`.`modified_by`, `m_residence`.`modified_on`, `m_residence`.`isactive`, `m_residence`.`isdelete` FROM `m_residence` WHERE `m_residence`.`id` = 3 LIMIT 21; args=(3,); alias=default
+DEBUG 2025-10-26 05:17:39,666 utils (0.000) SELECT `m_residence`.`id`, `m_residence`.`name`, `m_residence`.`code`, `m_residence`.`loc_address`, `m_residence`.`image`, `m_residence`.`prov_id`, `m_residence`.`city_id`, `m_residence`.`district_id`, `m_residence`.`village_id`, `m_residence`.`postal_code`, `m_residence`.`lat`, `m_residence`.`long`, `m_residence`.`area_large`, `m_residence`.`establishment_year`, `m_residence`.`created_by`, `m_residence`.`created_on`, `m_residence`.`modified_by`, `m_residence`.`modified_on`, `m_residence`.`isactive`, `m_residence`.`isdelete` FROM `m_residence` WHERE `m_residence`.`id` = 3 LIMIT 21; args=(3,); alias=default
+DEBUG 2025-10-26 05:17:39,667 utils (0.000) SELECT `m_corridor`.`corridor_id`, `m_corridor`.`corridor_residence_id`, `m_corridor`.`corridor_name`, `m_corridor`.`corridor_desc`, `m_corridor`.`corridor_icon`, `m_corridor`.`corridor_created_by`, `m_corridor`.`corridor_created_on`, `m_corridor`.`corridor_modified_by`, `m_corridor`.`corridor_modified_on`, `m_corridor`.`corridor_isactive`, `m_corridor`.`corridor_isdelete` FROM `m_corridor` WHERE `m_corridor`.`corridor_id` = 4 LIMIT 21; args=(4,); alias=default
+DEBUG 2025-10-26 05:17:39,667 utils (0.000) SELECT `m_corridor`.`corridor_id`, `m_corridor`.`corridor_residence_id`, `m_corridor`.`corridor_name`, `m_corridor`.`corridor_desc`, `m_corridor`.`corridor_icon`, `m_corridor`.`corridor_created_by`, `m_corridor`.`corridor_created_on`, `m_corridor`.`corridor_modified_by`, `m_corridor`.`corridor_modified_on`, `m_corridor`.`corridor_isactive`, `m_corridor`.`corridor_isdelete` FROM `m_corridor` WHERE `m_corridor`.`corridor_id` = 4 LIMIT 21; args=(4,); alias=default
+DEBUG 2025-10-26 05:17:39,667 utils (0.000) SELECT `m_residence`.`id`, `m_residence`.`name`, `m_residence`.`code`, `m_residence`.`loc_address`, `m_residence`.`image`, `m_residence`.`prov_id`, `m_residence`.`city_id`, `m_residence`.`district_id`, `m_residence`.`village_id`, `m_residence`.`postal_code`, `m_residence`.`lat`, `m_residence`.`long`, `m_residence`.`area_large`, `m_residence`.`establishment_year`, `m_residence`.`created_by`, `m_residence`.`created_on`, `m_residence`.`modified_by`, `m_residence`.`modified_on`, `m_residence`.`isactive`, `m_residence`.`isdelete` FROM `m_residence` WHERE `m_residence`.`id` = 3 LIMIT 21; args=(3,); alias=default
+DEBUG 2025-10-26 05:17:39,667 utils (0.000) SELECT `m_residence`.`id`, `m_residence`.`name`, `m_residence`.`code`, `m_residence`.`loc_address`, `m_residence`.`image`, `m_residence`.`prov_id`, `m_residence`.`city_id`, `m_residence`.`district_id`, `m_residence`.`village_id`, `m_residence`.`postal_code`, `m_residence`.`lat`, `m_residence`.`long`, `m_residence`.`area_large`, `m_residence`.`establishment_year`, `m_residence`.`created_by`, `m_residence`.`created_on`, `m_residence`.`modified_by`, `m_residence`.`modified_on`, `m_residence`.`isactive`, `m_residence`.`isdelete` FROM `m_residence` WHERE `m_residence`.`id` = 3 LIMIT 21; args=(3,); alias=default
+INFO 2025-10-26 05:17:39,668 basehttp "GET /api/units/code/350c228d-2121-47fd-a808-456a7523e527/ HTTP/1.1" 200 945
+INFO 2025-10-26 05:17:39,672 basehttp "GET /api/gender/ HTTP/1.1" 200 105
+DEBUG 2025-10-26 05:17:39,677 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,677 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,678 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,678 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,678 utils (0.000) SELECT `m_religion`.`id`, `m_religion`.`name`, `m_religion`.`desc`, `m_religion`.`icon`, `m_religion`.`created_by`, `m_religion`.`created_on`, `m_religion`.`modified_by`, `m_religion`.`modified_on`, `m_religion`.`isactive`, `m_religion`.`isdelete` FROM `m_religion` ORDER BY `m_religion`.`id` ASC; args=(); alias=default
+DEBUG 2025-10-26 05:17:39,678 utils (0.000) SELECT `m_religion`.`id`, `m_religion`.`name`, `m_religion`.`desc`, `m_religion`.`icon`, `m_religion`.`created_by`, `m_religion`.`created_on`, `m_religion`.`modified_by`, `m_religion`.`modified_on`, `m_religion`.`isactive`, `m_religion`.`isdelete` FROM `m_religion` ORDER BY `m_religion`.`id` ASC; args=(); alias=default
+INFO 2025-10-26 05:17:39,679 basehttp "GET /api/religions/ HTTP/1.1" 200 230
+DEBUG 2025-10-26 05:17:39,684 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,684 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,684 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,684 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,686 utils (0.002) SELECT `m_city`.`id`, `m_city`.`province_id`, `m_city`.`name`, `m_city`.`created_at`, `m_city`.`updated_at`, `m_city`.`deleted_at` FROM `m_city`; args=(); alias=default
+DEBUG 2025-10-26 05:17:39,686 utils (0.002) SELECT `m_city`.`id`, `m_city`.`province_id`, `m_city`.`name`, `m_city`.`created_at`, `m_city`.`updated_at`, `m_city`.`deleted_at` FROM `m_city`; args=(); alias=default
+INFO 2025-10-26 05:17:39,693 basehttp "GET /api/cities/ HTTP/1.1" 200 28073
+DEBUG 2025-10-26 05:17:39,698 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,698 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,698 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,698 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,699 utils (0.000) SELECT `m_marital_status`.`id`, `m_marital_status`.`name`, `m_marital_status`.`created_by`, `m_marital_status`.`created_on` FROM `m_marital_status`; args=(); alias=default
+DEBUG 2025-10-26 05:17:39,699 utils (0.000) SELECT `m_marital_status`.`id`, `m_marital_status`.`name`, `m_marital_status`.`created_by`, `m_marital_status`.`created_on` FROM `m_marital_status`; args=(); alias=default
+INFO 2025-10-26 05:17:39,700 basehttp "GET /api/marital-statuses/ HTTP/1.1" 200 162
+DEBUG 2025-10-26 05:17:39,704 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,704 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,705 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,705 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,705 utils (0.000) SELECT `m_occupation`.`id`, `m_occupation`.`code`, `m_occupation`.`name`, `m_occupation`.`created_by`, `m_occupation`.`created_on`, `m_occupation`.`isactive`, `m_occupation`.`isdelete` FROM `m_occupation`; args=(); alias=default
+DEBUG 2025-10-26 05:17:39,705 utils (0.000) SELECT `m_occupation`.`id`, `m_occupation`.`code`, `m_occupation`.`name`, `m_occupation`.`created_by`, `m_occupation`.`created_on`, `m_occupation`.`isactive`, `m_occupation`.`isdelete` FROM `m_occupation`; args=(); alias=default
+INFO 2025-10-26 05:17:39,707 basehttp "GET /api/ocupation/ HTTP/1.1" 200 5019
+DEBUG 2025-10-26 05:17:39,712 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,712 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,713 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,713 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,713 utils (0.000) SELECT `m_education`.`id`, `m_education`.`code`, `m_education`.`name`, `m_education`.`created_by`, `m_education`.`created_on`, `m_education`.`isactive`, `m_education`.`isdelete` FROM `m_education`; args=(); alias=default
+DEBUG 2025-10-26 05:17:39,713 utils (0.000) SELECT `m_education`.`id`, `m_education`.`code`, `m_education`.`name`, `m_education`.`created_by`, `m_education`.`created_on`, `m_education`.`isactive`, `m_education`.`isdelete` FROM `m_education`; args=(); alias=default
+INFO 2025-10-26 05:17:39,714 basehttp "GET /api/education/ HTTP/1.1" 200 1270
+DEBUG 2025-10-26 05:17:39,719 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,719 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,719 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,719 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,719 utils (0.000) SELECT `m_family_as`.`id`, `m_family_as`.`name`, `m_family_as`.`created_by`, `m_family_as`.`created_on` FROM `m_family_as`; args=(); alias=default
+DEBUG 2025-10-26 05:17:39,719 utils (0.000) SELECT `m_family_as`.`id`, `m_family_as`.`name`, `m_family_as`.`created_by`, `m_family_as`.`created_on` FROM `m_family_as`; args=(); alias=default
+INFO 2025-10-26 05:17:39,720 basehttp "GET /api/family-as/ HTTP/1.1" 200 232
+DEBUG 2025-10-26 05:17:39,725 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,725 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,726 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,726 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 05:17:39,726 utils (0.000) SELECT `m_residence`.`id`, `m_residence`.`name`, `m_residence`.`code`, `m_residence`.`loc_address`, `m_residence`.`image`, `m_residence`.`prov_id`, `m_residence`.`city_id`, `m_residence`.`district_id`, `m_residence`.`village_id`, `m_residence`.`postal_code`, `m_residence`.`lat`, `m_residence`.`long`, `m_residence`.`area_large`, `m_residence`.`establishment_year`, `m_residence`.`created_by`, `m_residence`.`created_on`, `m_residence`.`modified_by`, `m_residence`.`modified_on`, `m_residence`.`isactive`, `m_residence`.`isdelete` FROM `m_residence` WHERE (`m_residence`.`isdelete` = 0 AND `m_residence`.`code` = '350c228d-2121-47fd-a808-456a7523e527') LIMIT 21; args=(False, '350c228d-2121-47fd-a808-456a7523e527'); alias=default
+DEBUG 2025-10-26 05:17:39,726 utils (0.000) SELECT `m_residence`.`id`, `m_residence`.`name`, `m_residence`.`code`, `m_residence`.`loc_address`, `m_residence`.`image`, `m_residence`.`prov_id`, `m_residence`.`city_id`, `m_residence`.`district_id`, `m_residence`.`village_id`, `m_residence`.`postal_code`, `m_residence`.`lat`, `m_residence`.`long`, `m_residence`.`area_large`, `m_residence`.`establishment_year`, `m_residence`.`created_by`, `m_residence`.`created_on`, `m_residence`.`modified_by`, `m_residence`.`modified_on`, `m_residence`.`isactive`, `m_residence`.`isdelete` FROM `m_residence` WHERE (`m_residence`.`isdelete` = 0 AND `m_residence`.`code` = '350c228d-2121-47fd-a808-456a7523e527') LIMIT 21; args=(False, '350c228d-2121-47fd-a808-456a7523e527'); alias=default
+INFO 2025-10-26 05:17:39,727 basehttp "GET /api/residence-by-code/350c228d-2121-47fd-a808-456a7523e527/ HTTP/1.1" 200 355
+DEBUG 2025-10-26 05:17:40,238 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/messages/storage/cookie.py first seen with mtime 1758982201.3486931
+DEBUG 2025-10-26 05:17:40,239 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/GribStubImagePlugin.py first seen with mtime 1758982198.6806705
+DEBUG 2025-10-26 05:17:40,239 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/Jpeg2KImagePlugin.py first seen with mtime 1758982198.6766706
+DEBUG 2025-10-26 05:17:40,239 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/FitsImagePlugin.py first seen with mtime 1758982198.6606703
+DEBUG 2025-10-26 05:17:40,239 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/_imagingmath.cpython-311-x86_64-linux-gnu.so first seen with mtime 1758982198.6566703
+DEBUG 2025-10-26 05:17:40,240 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/messages/storage/fallback.py first seen with mtime 1758982201.3486931
+DEBUG 2025-10-26 05:17:40,240 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/SgiImagePlugin.py first seen with mtime 1758982198.6766706
+DEBUG 2025-10-26 05:17:40,240 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/PcxImagePlugin.py first seen with mtime 1758982198.6806705
+DEBUG 2025-10-26 05:17:40,240 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/messages/storage/session.py first seen with mtime 1758982201.3486931
+DEBUG 2025-10-26 05:17:40,241 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/SunImagePlugin.py first seen with mtime 1758982198.6606703
+DEBUG 2025-10-26 05:17:40,241 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/DdsImagePlugin.py first seen with mtime 1758982198.6526704
+DEBUG 2025-10-26 05:17:40,241 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/QoiImagePlugin.py first seen with mtime 1758982198.6566703
+DEBUG 2025-10-26 05:17:40,241 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/IptcImagePlugin.py first seen with mtime 1758982198.6806705
+DEBUG 2025-10-26 05:17:40,241 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/_webp.cpython-311-x86_64-linux-gnu.so first seen with mtime 1758982198.6526704
+DEBUG 2025-10-26 05:17:40,242 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/XpmImagePlugin.py first seen with mtime 1758982198.6606703
+DEBUG 2025-10-26 05:17:40,242 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/JpegPresets.py first seen with mtime 1758982198.6566703
+DEBUG 2025-10-26 05:17:40,242 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/ImageOps.py first seen with mtime 1758982198.6846704
+DEBUG 2025-10-26 05:17:40,243 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/TiffImagePlugin.py first seen with mtime 1758982198.6846704
+DEBUG 2025-10-26 05:17:40,243 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/ImagePalette.py first seen with mtime 1758982198.6886706
+DEBUG 2025-10-26 05:17:40,244 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/features.py first seen with mtime 1758982198.6606703
+DEBUG 2025-10-26 05:17:40,244 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/PixarImagePlugin.py first seen with mtime 1758982198.6566703
+DEBUG 2025-10-26 05:17:40,244 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/ImageChops.py first seen with mtime 1758982198.6566703
+DEBUG 2025-10-26 05:17:40,244 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/lib-dynload/mmap.cpython-311-x86_64-linux-gnu.so first seen with mtime 1749130225.115385
+DEBUG 2025-10-26 05:17:40,244 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/MpoImagePlugin.py first seen with mtime 1758982198.6526704
+DEBUG 2025-10-26 05:17:40,245 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/GimpPaletteFile.py first seen with mtime 1758982198.6766706
+DEBUG 2025-10-26 05:17:40,245 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/Hdf5StubImagePlugin.py first seen with mtime 1758982198.6846704
+DEBUG 2025-10-26 05:17:40,245 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/SpiderImagePlugin.py first seen with mtime 1758982198.6806705
+DEBUG 2025-10-26 05:17:40,246 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/FtexImagePlugin.py first seen with mtime 1758982198.6606703
+DEBUG 2025-10-26 05:17:40,246 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/ImtImagePlugin.py first seen with mtime 1758982198.6806705
+DEBUG 2025-10-26 05:17:40,246 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/PngImagePlugin.py first seen with mtime 1758982198.6526704
+DEBUG 2025-10-26 05:17:40,246 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/CurImagePlugin.py first seen with mtime 1758982198.6806705
+DEBUG 2025-10-26 05:17:40,246 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/PalmImagePlugin.py first seen with mtime 1758982198.6566703
+DEBUG 2025-10-26 05:17:40,247 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/PdfParser.py first seen with mtime 1758982198.6606703
+DEBUG 2025-10-26 05:17:40,247 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/ImageFile.py first seen with mtime 1758982198.6806705
+DEBUG 2025-10-26 05:17:40,247 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/WmfImagePlugin.py first seen with mtime 1758982198.6606703
+DEBUG 2025-10-26 05:17:40,247 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/WebPImagePlugin.py first seen with mtime 1758982198.6806705
+DEBUG 2025-10-26 05:17:40,247 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/BufrStubImagePlugin.py first seen with mtime 1758982198.6886706
+DEBUG 2025-10-26 05:17:40,247 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/PpmImagePlugin.py first seen with mtime 1758982198.6846704
+DEBUG 2025-10-26 05:17:40,248 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/JpegImagePlugin.py first seen with mtime 1758982198.6566703
+DEBUG 2025-10-26 05:17:40,248 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/FliImagePlugin.py first seen with mtime 1758982198.6806705
+DEBUG 2025-10-26 05:17:40,248 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/PsdImagePlugin.py first seen with mtime 1758982198.6486702
+DEBUG 2025-10-26 05:17:40,248 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/ImImagePlugin.py first seen with mtime 1758982198.6606703
+DEBUG 2025-10-26 05:17:40,248 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/ImageMath.py first seen with mtime 1758982198.6806705
+DEBUG 2025-10-26 05:17:40,248 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/BmpImagePlugin.py first seen with mtime 1758982198.6846704
+DEBUG 2025-10-26 05:17:40,249 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/EpsImagePlugin.py first seen with mtime 1758982198.6606703
+DEBUG 2025-10-26 05:17:40,249 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/PdfImagePlugin.py first seen with mtime 1758982198.6846704
+DEBUG 2025-10-26 05:17:40,249 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/DcxImagePlugin.py first seen with mtime 1758982198.6806705
+DEBUG 2025-10-26 05:17:40,249 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/fractions.py first seen with mtime 1749130207.355742
+DEBUG 2025-10-26 05:17:40,249 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/GbrImagePlugin.py first seen with mtime 1758982198.6566703
+DEBUG 2025-10-26 05:17:40,250 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/sessions/serializers.py first seen with mtime 1758982201.4206936
+DEBUG 2025-10-26 05:17:40,250 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/IcoImagePlugin.py first seen with mtime 1758982198.6606703
+DEBUG 2025-10-26 05:17:40,250 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/GifImagePlugin.py first seen with mtime 1758982198.6566703
+DEBUG 2025-10-26 05:17:40,250 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/XbmImagePlugin.py first seen with mtime 1758982198.6806705
+DEBUG 2025-10-26 05:17:40,251 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/BlpImagePlugin.py first seen with mtime 1758982198.6606703
+DEBUG 2025-10-26 05:17:40,251 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/MpegImagePlugin.py first seen with mtime 1758982198.6606703
+DEBUG 2025-10-26 05:17:40,251 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/GimpGradientFile.py first seen with mtime 1758982198.6846704
+DEBUG 2025-10-26 05:17:40,251 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/TgaImagePlugin.py first seen with mtime 1758982198.6766706
+DEBUG 2025-10-26 05:17:40,251 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/PcdImagePlugin.py first seen with mtime 1758982198.6606703
+DEBUG 2025-10-26 05:17:40,252 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/ImageSequence.py first seen with mtime 1758982198.6766706
+DEBUG 2025-10-26 05:17:40,252 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/ImageColor.py first seen with mtime 1758982198.6846704
+DEBUG 2025-10-26 05:17:40,252 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/IcnsImagePlugin.py first seen with mtime 1758982198.6806705
+DEBUG 2025-10-26 05:17:40,252 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/PaletteFile.py first seen with mtime 1758982198.6766706
+DEBUG 2025-10-26 05:17:40,253 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/XVThumbImagePlugin.py first seen with mtime 1758982198.6846704
+DEBUG 2025-10-26 05:17:40,253 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/McIdasImagePlugin.py first seen with mtime 1758982198.6846704
+DEBUG 2025-10-26 05:17:40,253 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/MspImagePlugin.py first seen with mtime 1758982198.6766706
+DEBUG 2025-10-26 05:17:48,129 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 05:17:48,129 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 05:17:48,129 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 05:17:48,129 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 05:17:48,130 utils (0.000) SELECT 1 AS `a` FROM `m_user` WHERE `m_user`.`user_email` = 'test.warga.1761455867765@example.com' LIMIT 1; args=(1, 'test.warga.1761455867765@example.com'); alias=default
+DEBUG 2025-10-26 05:17:48,130 utils (0.000) SELECT 1 AS `a` FROM `m_user` WHERE `m_user`.`user_email` = 'test.warga.1761455867765@example.com' LIMIT 1; args=(1, 'test.warga.1761455867765@example.com'); alias=default
+DEBUG 2025-10-26 05:17:48,130 utils (0.000) BEGIN; args=None; alias=default
+DEBUG 2025-10-26 05:17:48,130 utils (0.000) BEGIN; args=None; alias=default
+DEBUG 2025-10-26 05:17:48,131 utils (0.000) SAVEPOINT `s139694807619136_x1`; args=None; alias=default
+DEBUG 2025-10-26 05:17:48,131 utils (0.000) SAVEPOINT `s139694807619136_x1`; args=None; alias=default
+DEBUG 2025-10-26 05:17:48,131 utils (0.000) SELECT `m_role`.`role_id`, `m_role`.`role_category`, `m_role`.`role_name`, `m_role`.`role_desc`, `m_role`.`role_created_by`, `m_role`.`role_created_on`, `m_role`.`role_modified_by`, `m_role`.`role_modified_on`, `m_role`.`role_isactive`, `m_role`.`role_isdelete` FROM `m_role` WHERE `m_role`.`role_id` = 5 ORDER BY `m_role`.`role_id` ASC LIMIT 1; args=(5,); alias=default
+DEBUG 2025-10-26 05:17:48,131 utils (0.000) SELECT `m_role`.`role_id`, `m_role`.`role_category`, `m_role`.`role_name`, `m_role`.`role_desc`, `m_role`.`role_created_by`, `m_role`.`role_created_on`, `m_role`.`role_modified_by`, `m_role`.`role_modified_on`, `m_role`.`role_isactive`, `m_role`.`role_isdelete` FROM `m_role` WHERE `m_role`.`role_id` = 5 ORDER BY `m_role`.`role_id` ASC LIMIT 1; args=(5,); alias=default
+DEBUG 2025-10-26 05:17:48,414 utils (0.000) None; args=['', 'test.warga.1761455867765@example.com', 'test.warga.1761455867765@example.com', 'pbkdf2_sha256$720000$FxXSAnO63n7tsirUngScWm$hRPMxmYYoh/fYfa8iCkUIl1mSn+Ln6C+GeygNz03OW8=', None, '2025-10-26 05:17:48.132206', False, False, False, False, True, None, None]; alias=default
+DEBUG 2025-10-26 05:17:48,414 utils (0.000) None; args=['', 'test.warga.1761455867765@example.com', 'test.warga.1761455867765@example.com', 'pbkdf2_sha256$720000$FxXSAnO63n7tsirUngScWm$hRPMxmYYoh/fYfa8iCkUIl1mSn+Ln6C+GeygNz03OW8=', None, '2025-10-26 05:17:48.132206', False, False, False, False, True, None, None]; alias=default
+DEBUG 2025-10-26 05:17:48,415 utils (0.000) ROLLBACK TO SAVEPOINT `s139694807619136_x1`; args=None; alias=default
+DEBUG 2025-10-26 05:17:48,415 utils (0.000) ROLLBACK TO SAVEPOINT `s139694807619136_x1`; args=None; alias=default
+DEBUG 2025-10-26 05:17:48,415 utils (0.000) RELEASE SAVEPOINT `s139694807619136_x1`; args=None; alias=default
+DEBUG 2025-10-26 05:17:48,415 utils (0.000) RELEASE SAVEPOINT `s139694807619136_x1`; args=None; alias=default
+DEBUG 2025-10-26 05:17:48,415 utils (0.000) ROLLBACK; args=None; alias=default
+DEBUG 2025-10-26 05:17:48,415 utils (0.000) ROLLBACK; args=None; alias=default
+WARNING 2025-10-26 05:17:48,416 log Bad Request: /api/auth/sign-up/350c228d-2121-47fd-a808-456a7523e527/
+WARNING 2025-10-26 05:17:48,416 basehttp "POST /api/auth/sign-up/350c228d-2121-47fd-a808-456a7523e527/ HTTP/1.0" 400 244

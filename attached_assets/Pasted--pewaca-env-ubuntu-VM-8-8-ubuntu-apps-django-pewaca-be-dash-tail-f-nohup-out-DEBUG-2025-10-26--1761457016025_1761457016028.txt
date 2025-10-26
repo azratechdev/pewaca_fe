@@ -1,0 +1,163 @@
+(pewaca_env) ubuntu@VM-8-8-ubuntu:~/apps/django/pewaca_be/dash$ tail -f nohup.out
+DEBUG 2025-10-26 05:35:47,875 autoreload File /home/ubuntu/apps/django/pewaca_be/dash/api/migrations/__init__.py first seen with mtime 1758979334.9444377
+DEBUG 2025-10-26 05:35:47,876 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/sessions/backends/__init__.py first seen with mtime 1758982201.4206936
+DEBUG 2025-10-26 05:35:47,876 autoreload File /home/ubuntu/apps/django/pewaca_be/dash/management_user/migrations/0001_initial.py first seen with mtime 1758979335.072439
+DEBUG 2025-10-26 05:35:47,876 autoreload File /home/ubuntu/apps/django/pewaca_be/dash/tagihan/migrations/0005_tagihanunpublishnote_created_by.py first seen with mtime 1758979335.072439
+DEBUG 2025-10-26 05:35:47,876 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/migrations/executor.py first seen with mtime 1758982201.5206945
+DEBUG 2025-10-26 05:35:47,876 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/rest_framework/authtoken/migrations/0004_alter_tokenproxy_options.py first seen with mtime 1758982203.5647118
+DEBUG 2025-10-26 05:35:47,876 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/MySQLdb/connections.py first seen with mtime 1758982198.9206727
+DEBUG 2025-10-26 05:35:47,877 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/rest_framework/authtoken/migrations/0001_initial.py first seen with mtime 1758982203.5647118
+DEBUG 2025-10-26 05:35:47,877 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/auth/migrations/0001_initial.py first seen with mtime 1758982201.1326911
+DEBUG 2025-10-26 05:35:47,877 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/messages/middleware.py first seen with mtime 1758982201.3486931
+DEBUG 2025-10-26 05:36:01,370 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 05:36:01,370 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 05:36:01,370 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 05:36:01,370 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 05:36:01,371 utils (0.000) SELECT 1 AS `a` FROM `m_user` WHERE `m_user`.`user_email` = 'test.warga.1761456960952@example.com' LIMIT 1; args=(1, 'test.warga.1761456960952@example.com'); alias=default
+DEBUG 2025-10-26 05:36:01,371 utils (0.000) SELECT 1 AS `a` FROM `m_user` WHERE `m_user`.`user_email` = 'test.warga.1761456960952@example.com' LIMIT 1; args=(1, 'test.warga.1761456960952@example.com'); alias=default
+DEBUG 2025-10-26 05:36:01,371 utils (0.000) BEGIN; args=None; alias=default
+DEBUG 2025-10-26 05:36:01,371 utils (0.000) BEGIN; args=None; alias=default
+DEBUG 2025-10-26 05:36:01,372 utils (0.000) SAVEPOINT `s139904106530368_x1`; args=None; alias=default
+DEBUG 2025-10-26 05:36:01,372 utils (0.000) SAVEPOINT `s139904106530368_x1`; args=None; alias=default
+DEBUG 2025-10-26 05:36:01,373 utils (0.000) SELECT `m_role`.`role_id`, `m_role`.`role_category`, `m_role`.`role_name`, `m_role`.`role_desc`, `m_role`.`role_created_by`, `m_role`.`role_created_on`, `m_role`.`role_modified_by`, `m_role`.`role_modified_on`, `m_role`.`role_isactive`, `m_role`.`role_isdelete` FROM `m_role` WHERE `m_role`.`role_id` = 5 ORDER BY `m_role`.`role_id` ASC LIMIT 1; args=(5,); alias=default
+DEBUG 2025-10-26 05:36:01,373 utils (0.000) SELECT `m_role`.`role_id`, `m_role`.`role_category`, `m_role`.`role_name`, `m_role`.`role_desc`, `m_role`.`role_created_by`, `m_role`.`role_created_on`, `m_role`.`role_modified_by`, `m_role`.`role_modified_on`, `m_role`.`role_isactive`, `m_role`.`role_isdelete` FROM `m_role` WHERE `m_role`.`role_id` = 5 ORDER BY `m_role`.`role_id` ASC LIMIT 1; args=(5,); alias=default
+DEBUG 2025-10-26 05:36:01,646 utils (0.000) None; args=['', 'test.warga.1761456960952@example.com', 'test.warga.1761456960952@example.com', 'pbkdf2_sha256$720000$0Kuu3ROtjsp7ZT9C0WaQ0P$WTUIp/noS3Snrr7k9HAw+kTOnEbD4KW27jgi9DwBk5M=', None, '2025-10-26 05:36:01.373659', False, False, False, False, True, None, None]; alias=default
+DEBUG 2025-10-26 05:36:01,646 utils (0.000) None; args=['', 'test.warga.1761456960952@example.com', 'test.warga.1761456960952@example.com', 'pbkdf2_sha256$720000$0Kuu3ROtjsp7ZT9C0WaQ0P$WTUIp/noS3Snrr7k9HAw+kTOnEbD4KW27jgi9DwBk5M=', None, '2025-10-26 05:36:01.373659', False, False, False, False, True, None, None]; alias=default
+DEBUG 2025-10-26 05:36:01,646 utils (0.000) ROLLBACK TO SAVEPOINT `s139904106530368_x1`; args=None; alias=default
+DEBUG 2025-10-26 05:36:01,646 utils (0.000) ROLLBACK TO SAVEPOINT `s139904106530368_x1`; args=None; alias=default
+DEBUG 2025-10-26 05:36:01,646 utils (0.000) RELEASE SAVEPOINT `s139904106530368_x1`; args=None; alias=default
+DEBUG 2025-10-26 05:36:01,646 utils (0.000) RELEASE SAVEPOINT `s139904106530368_x1`; args=None; alias=default
+DEBUG 2025-10-26 05:36:01,647 utils (0.000) ROLLBACK; args=None; alias=default
+DEBUG 2025-10-26 05:36:01,647 utils (0.000) ROLLBACK; args=None; alias=default
+WARNING 2025-10-26 05:36:01,647 log Bad Request: /api/auth/sign-up/350c228d-2121-47fd-a808-456a7523e527/
+WARNING 2025-10-26 05:36:01,648 basehttp "POST /api/auth/sign-up/350c228d-2121-47fd-a808-456a7523e527/ HTTP/1.0" 400 244
+DEBUG 2025-10-26 05:36:02,181 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/sessions/serializers.py first seen with mtime 1758982201.4206936
+DEBUG 2025-10-26 05:36:02,182 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/messages/storage/fallback.py first seen with mtime 1758982201.3486931
+DEBUG 2025-10-26 05:36:02,182 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/messages/storage/cookie.py first seen with mtime 1758982201.3486931
+DEBUG 2025-10-26 05:36:02,183 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/messages/storage/session.py first seen with mtime 1758982201.3486931
+DEBUG 2025-10-26 05:36:14,560 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 05:36:14,560 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 05:36:14,561 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 05:36:14,561 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 05:36:14,561 utils (0.000) SELECT `m_user`.`user_id`, `m_user`.`image`, `m_user`.`user_name`, `m_user`.`user_email`, `m_user`.`user_password`, `m_user`.`user_created_by`, `m_user`.`user_created_on`, `m_user`.`user_isactive`, `m_user`.`user_isdelete`, `m_user`.`is_superuser`, `m_user`.`is_staff`, `m_user`.`is_warga`, `m_user`.`last_login`, `m_user`.`user_role_id` FROM `m_user` WHERE `m_user`.`user_id` = 2 LIMIT 21; args=(2,); alias=default
+DEBUG 2025-10-26 05:36:14,561 utils (0.000) SELECT `m_user`.`user_id`, `m_user`.`image`, `m_user`.`user_name`, `m_user`.`user_email`, `m_user`.`user_password`, `m_user`.`user_created_by`, `m_user`.`user_created_on`, `m_user`.`user_isactive`, `m_user`.`user_isdelete`, `m_user`.`is_superuser`, `m_user`.`is_staff`, `m_user`.`is_warga`, `m_user`.`last_login`, `m_user`.`user_role_id` FROM `m_user` WHERE `m_user`.`user_id` = 2 LIMIT 21; args=(2,); alias=default
+DEBUG 2025-10-26 05:36:14,564 utils (0.000) SELECT 1 AS `a` FROM `m_user` WHERE `m_user`.`user_email` = 'yasminaninda99@yahoo.com' LIMIT 1; args=(1, 'yasminaninda99@yahoo.com'); alias=default
+DEBUG 2025-10-26 05:36:14,564 utils (0.000) SELECT 1 AS `a` FROM `m_user` WHERE `m_user`.`user_email` = 'yasminaninda99@yahoo.com' LIMIT 1; args=(1, 'yasminaninda99@yahoo.com'); alias=default
+DEBUG 2025-10-26 05:36:14,584 utils (0.000) BEGIN; args=None; alias=default
+DEBUG 2025-10-26 05:36:14,584 utils (0.000) BEGIN; args=None; alias=default
+DEBUG 2025-10-26 05:36:14,585 utils (0.000) SAVEPOINT `s139904106530368_x1`; args=None; alias=default
+DEBUG 2025-10-26 05:36:14,585 utils (0.000) SAVEPOINT `s139904106530368_x1`; args=None; alias=default
+DEBUG 2025-10-26 05:36:14,586 utils (0.000) SELECT `m_role`.`role_id`, `m_role`.`role_category`, `m_role`.`role_name`, `m_role`.`role_desc`, `m_role`.`role_created_by`, `m_role`.`role_created_on`, `m_role`.`role_modified_by`, `m_role`.`role_modified_on`, `m_role`.`role_isactive`, `m_role`.`role_isdelete` FROM `m_role` WHERE `m_role`.`role_id` = 5 ORDER BY `m_role`.`role_id` ASC LIMIT 1; args=(5,); alias=default
+DEBUG 2025-10-26 05:36:14,586 utils (0.000) SELECT `m_role`.`role_id`, `m_role`.`role_category`, `m_role`.`role_name`, `m_role`.`role_desc`, `m_role`.`role_created_by`, `m_role`.`role_created_on`, `m_role`.`role_modified_by`, `m_role`.`role_modified_on`, `m_role`.`role_isactive`, `m_role`.`role_isdelete` FROM `m_role` WHERE `m_role`.`role_id` = 5 ORDER BY `m_role`.`role_id` ASC LIMIT 1; args=(5,); alias=default
+DEBUG 2025-10-26 05:36:14,858 utils (0.000) None; args=['', 'yasminaninda99@yahoo.com', 'yasminaninda99@yahoo.com', 'pbkdf2_sha256$720000$KmBjnsXDQnNsxP5FedqgBK$NSjwRcm7rPAcULdWLS7vsgElG7eoCYJMrXt00pICU0w=', None, '2025-10-26 05:36:14.586326', False, False, False, False, True, None, None]; alias=default
+DEBUG 2025-10-26 05:36:14,858 utils (0.000) None; args=['', 'yasminaninda99@yahoo.com', 'yasminaninda99@yahoo.com', 'pbkdf2_sha256$720000$KmBjnsXDQnNsxP5FedqgBK$NSjwRcm7rPAcULdWLS7vsgElG7eoCYJMrXt00pICU0w=', None, '2025-10-26 05:36:14.586326', False, False, False, False, True, None, None]; alias=default
+DEBUG 2025-10-26 05:36:14,859 utils (0.000) ROLLBACK TO SAVEPOINT `s139904106530368_x1`; args=None; alias=default
+DEBUG 2025-10-26 05:36:14,859 utils (0.000) ROLLBACK TO SAVEPOINT `s139904106530368_x1`; args=None; alias=default
+DEBUG 2025-10-26 05:36:14,859 utils (0.000) RELEASE SAVEPOINT `s139904106530368_x1`; args=None; alias=default
+DEBUG 2025-10-26 05:36:14,859 utils (0.000) RELEASE SAVEPOINT `s139904106530368_x1`; args=None; alias=default
+DEBUG 2025-10-26 05:36:14,859 utils (0.000) ROLLBACK; args=None; alias=default
+DEBUG 2025-10-26 05:36:14,859 utils (0.000) ROLLBACK; args=None; alias=default
+WARNING 2025-10-26 05:36:14,860 log Bad Request: /api/auth/sign-up/350c228d-2121-47fd-a808-456a7523e527/
+WARNING 2025-10-26 05:36:14,860 basehttp "POST /api/auth/sign-up/350c228d-2121-47fd-a808-456a7523e527/ HTTP/1.0" 400 244
+DEBUG 2025-10-26 05:36:15,482 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/PdfParser.py first seen with mtime 1758982198.6606703
+DEBUG 2025-10-26 05:36:15,482 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/DdsImagePlugin.py first seen with mtime 1758982198.6526704
+DEBUG 2025-10-26 05:36:15,482 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/rest_framework_simplejwt/state.py first seen with mtime 1758982204.9807239
+DEBUG 2025-10-26 05:36:15,483 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/jwt/jwk_set_cache.py first seen with mtime 1758982198.4406686
+DEBUG 2025-10-26 05:36:15,483 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/IptcImagePlugin.py first seen with mtime 1758982198.6806705
+DEBUG 2025-10-26 05:36:15,483 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/SgiImagePlugin.py first seen with mtime 1758982198.6766706
+DEBUG 2025-10-26 05:36:15,483 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/CurImagePlugin.py first seen with mtime 1758982198.6806705
+DEBUG 2025-10-26 05:36:15,483 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/QoiImagePlugin.py first seen with mtime 1758982198.6566703
+DEBUG 2025-10-26 05:36:15,484 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/JpegPresets.py first seen with mtime 1758982198.6566703
+DEBUG 2025-10-26 05:36:15,484 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/MpegImagePlugin.py first seen with mtime 1758982198.6606703
+DEBUG 2025-10-26 05:36:15,484 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/XbmImagePlugin.py first seen with mtime 1758982198.6806705
+DEBUG 2025-10-26 05:36:15,484 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/SpiderImagePlugin.py first seen with mtime 1758982198.6806705
+DEBUG 2025-10-26 05:36:15,484 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/PaletteFile.py first seen with mtime 1758982198.6766706
+DEBUG 2025-10-26 05:36:15,484 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/TiffImagePlugin.py first seen with mtime 1758982198.6846704
+DEBUG 2025-10-26 05:36:15,485 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/lib-dynload/mmap.cpython-311-x86_64-linux-gnu.so first seen with mtime 1749130225.115385
+DEBUG 2025-10-26 05:36:15,485 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/MpoImagePlugin.py first seen with mtime 1758982198.6526704
+DEBUG 2025-10-26 05:36:15,485 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/Hdf5StubImagePlugin.py first seen with mtime 1758982198.6846704
+DEBUG 2025-10-26 05:36:15,485 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/SunImagePlugin.py first seen with mtime 1758982198.6606703
+DEBUG 2025-10-26 05:36:15,485 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/BmpImagePlugin.py first seen with mtime 1758982198.6846704
+DEBUG 2025-10-26 05:36:15,485 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/jwt/api_jwt.py first seen with mtime 1758982198.4366684
+DEBUG 2025-10-26 05:36:15,485 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/ImageChops.py first seen with mtime 1758982198.6566703
+DEBUG 2025-10-26 05:36:15,485 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/ImagePalette.py first seen with mtime 1758982198.6886706
+DEBUG 2025-10-26 05:36:15,486 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/jwt/utils.py first seen with mtime 1758982198.4406686
+DEBUG 2025-10-26 05:36:15,486 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/BlpImagePlugin.py first seen with mtime 1758982198.6606703
+DEBUG 2025-10-26 05:36:15,486 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/GribStubImagePlugin.py first seen with mtime 1758982198.6806705
+DEBUG 2025-10-26 05:36:15,487 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/jwt/exceptions.py first seen with mtime 1758982198.4406686
+DEBUG 2025-10-26 05:36:15,487 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/ImageMath.py first seen with mtime 1758982198.6806705
+DEBUG 2025-10-26 05:36:15,487 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/McIdasImagePlugin.py first seen with mtime 1758982198.6846704
+DEBUG 2025-10-26 05:36:15,487 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/PixarImagePlugin.py first seen with mtime 1758982198.6566703
+DEBUG 2025-10-26 05:36:15,487 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/FtexImagePlugin.py first seen with mtime 1758982198.6606703
+DEBUG 2025-10-26 05:36:15,487 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/ImtImagePlugin.py first seen with mtime 1758982198.6806705
+DEBUG 2025-10-26 05:36:15,488 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/_imagingmath.cpython-311-x86_64-linux-gnu.so first seen with mtime 1758982198.6566703
+DEBUG 2025-10-26 05:36:15,488 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/XVThumbImagePlugin.py first seen with mtime 1758982198.6846704
+DEBUG 2025-10-26 05:36:15,488 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/jwt/__init__.py first seen with mtime 1758982198.4366684
+DEBUG 2025-10-26 05:36:15,488 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/ImageFile.py first seen with mtime 1758982198.6806705
+DEBUG 2025-10-26 05:36:15,488 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/jwt/warnings.py first seen with mtime 1758982198.4406686
+DEBUG 2025-10-26 05:36:15,488 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/PcdImagePlugin.py first seen with mtime 1758982198.6606703
+DEBUG 2025-10-26 05:36:15,489 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/ImageSequence.py first seen with mtime 1758982198.6766706
+DEBUG 2025-10-26 05:36:15,489 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/ImImagePlugin.py first seen with mtime 1758982198.6606703
+DEBUG 2025-10-26 05:36:15,489 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/XpmImagePlugin.py first seen with mtime 1758982198.6606703
+DEBUG 2025-10-26 05:36:15,489 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/jwt/jwks_client.py first seen with mtime 1758982198.4406686
+DEBUG 2025-10-26 05:36:15,489 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/_webp.cpython-311-x86_64-linux-gnu.so first seen with mtime 1758982198.6526704
+DEBUG 2025-10-26 05:36:15,489 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/GimpPaletteFile.py first seen with mtime 1758982198.6766706
+DEBUG 2025-10-26 05:36:15,489 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/jwt/algorithms.py first seen with mtime 1758982198.4366684
+DEBUG 2025-10-26 05:36:15,490 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/BufrStubImagePlugin.py first seen with mtime 1758982198.6886706
+DEBUG 2025-10-26 05:36:15,490 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/ImageColor.py first seen with mtime 1758982198.6846704
+DEBUG 2025-10-26 05:36:15,490 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/IcoImagePlugin.py first seen with mtime 1758982198.6606703
+DEBUG 2025-10-26 05:36:15,490 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/FliImagePlugin.py first seen with mtime 1758982198.6806705
+DEBUG 2025-10-26 05:36:15,491 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/PcxImagePlugin.py first seen with mtime 1758982198.6806705
+DEBUG 2025-10-26 05:36:15,491 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/features.py first seen with mtime 1758982198.6606703
+DEBUG 2025-10-26 05:36:15,491 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/IcnsImagePlugin.py first seen with mtime 1758982198.6806705
+DEBUG 2025-10-26 05:36:15,491 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/rest_framework_simplejwt/backends.py first seen with mtime 1758982204.9807239
+DEBUG 2025-10-26 05:36:15,491 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/DcxImagePlugin.py first seen with mtime 1758982198.6806705
+DEBUG 2025-10-26 05:36:15,491 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/ImageOps.py first seen with mtime 1758982198.6846704
+DEBUG 2025-10-26 05:36:15,491 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/FitsImagePlugin.py first seen with mtime 1758982198.6606703
+DEBUG 2025-10-26 05:36:15,492 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/JpegImagePlugin.py first seen with mtime 1758982198.6566703
+DEBUG 2025-10-26 05:36:15,492 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/jwt/api_jwk.py first seen with mtime 1758982198.4366684
+DEBUG 2025-10-26 05:36:15,492 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/PdfImagePlugin.py first seen with mtime 1758982198.6846704
+DEBUG 2025-10-26 05:36:15,492 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/PpmImagePlugin.py first seen with mtime 1758982198.6846704
+DEBUG 2025-10-26 05:36:15,492 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/GbrImagePlugin.py first seen with mtime 1758982198.6566703
+DEBUG 2025-10-26 05:36:15,493 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/EpsImagePlugin.py first seen with mtime 1758982198.6606703
+DEBUG 2025-10-26 05:36:15,493 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/PsdImagePlugin.py first seen with mtime 1758982198.6486702
+DEBUG 2025-10-26 05:36:15,493 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/MspImagePlugin.py first seen with mtime 1758982198.6766706
+DEBUG 2025-10-26 05:36:15,493 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/GifImagePlugin.py first seen with mtime 1758982198.6566703
+DEBUG 2025-10-26 05:36:15,493 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/Jpeg2KImagePlugin.py first seen with mtime 1758982198.6766706
+DEBUG 2025-10-26 05:36:15,493 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/WmfImagePlugin.py first seen with mtime 1758982198.6606703
+DEBUG 2025-10-26 05:36:15,493 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/PalmImagePlugin.py first seen with mtime 1758982198.6566703
+DEBUG 2025-10-26 05:36:15,493 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/TgaImagePlugin.py first seen with mtime 1758982198.6766706
+DEBUG 2025-10-26 05:36:15,494 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/PngImagePlugin.py first seen with mtime 1758982198.6526704
+DEBUG 2025-10-26 05:36:15,494 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/jwt/types.py first seen with mtime 1758982198.4406686
+DEBUG 2025-10-26 05:36:15,494 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/jwt/api_jws.py first seen with mtime 1758982198.4366684
+DEBUG 2025-10-26 05:36:15,494 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/fractions.py first seen with mtime 1749130207.355742
+DEBUG 2025-10-26 05:36:15,494 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/WebPImagePlugin.py first seen with mtime 1758982198.6806705
+DEBUG 2025-10-26 05:36:15,495 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/PIL/GimpGradientFile.py first seen with mtime 1758982198.6846704
