@@ -292,24 +292,33 @@ class PembayaranController extends Controller
             );
         
             $data_response = json_decode($response->body(), true);
-            //dd($data_response);
+            
+            Log::info('=== UPLOAD BUKTI PEMBAYARAN DEBUG ===');
+            Log::info('Response Status:', ['status' => $response->status()]);
+            Log::info('Response Body:', ['body' => $response->body()]);
+            Log::info('Parsed Response:', ['data' => $data_response]);
 
-            if ($response['success'] == true) {
+            if ($response->successful() && isset($data_response['success']) && $data_response['success'] == true) {
                 Session::flash('flash-message', [
                     'message' => 'Bukti pembayaran berhasil diunggah',
                     'alert-class' => 'alert-success',
                 ]);
                 return redirect()->route('pembayaran.detail_bukti', ['id' => $request->tagihan_id]);
             } else {
+                $errorMsg = $data_response['message'] ?? 'Bukti pembayaran gagal diunggah';
                 Session::flash('flash-message', [
-                    'message' => 'Bukti pembayaran gagal diunggah',
+                    'message' => $errorMsg,
                     'alert-class' => 'alert-warning',
                 ]);
                 return redirect()->route('pembayaran.upload_bukti', ['id' => $request->tagihan_id]);
             }
         } catch (\Exception $e) {
+            Log::error('Upload Bukti Error:', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
             Session::flash('flash-message', [
-                'message' => 'Gagal Mengirim Data',
+                'message' => 'Gagal Mengirim Data: ' . $e->getMessage(),
                 'alert-class' => 'alert-danger',
             ]);
             return redirect()->route('pembayaran.upload_bukti', ['id' => $request->tagihan_id]);
