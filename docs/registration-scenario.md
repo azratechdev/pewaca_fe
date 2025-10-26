@@ -669,6 +669,7 @@ Conditional validation: required if marital_status == "Menikah"
 | Kode tidak valid | Kode registrasi tidak valid atau sudah kadaluarsa. |
 | Foto format salah | Foto harus format JPG/JPEG. |
 | Foto terlalu besar (413) | Ukuran foto terlalu besar. Maksimal 2MB per file. |
+| user_id doesn't have default value | Error backend database. Hubungi backend developer untuk fix schema. |
 | Token expired | Token verifikasi sudah kadaluarsa. Kirim ulang email verifikasi. |
 
 ---
@@ -776,6 +777,41 @@ ls -lh profile_photo.jpg
 -rw-r--r-- 1 user user 456K Oct 26 10:00 profile_photo.jpg  ✓ OK
 -rw-r--r-- 1 user user 3.2M Oct 26 10:00 too_large.jpg      ✗ TOO LARGE
 ```
+
+---
+
+### Error: "Field 'user_id' doesn't have a default value" (Error 400)
+
+**Penyebab**:
+- Error dari **backend Django database**
+- Ada field di tabel database yang tidak memiliki default value dan tidak terisi saat insert
+
+**Pesan Error**:
+```json
+{
+  "success": false,
+  "error": true,
+  "message": "An error occurred while processing your request.",
+  "errors": "Field 'user_id' doesn't have a default value",
+  "code": 400
+}
+```
+
+**Solusi**:
+⚠️ **Ini adalah masalah backend Django, bukan frontend Laravel**
+
+1. ✅ **Backend developer** perlu cek:
+   - Migrasi database belum dijalankan dengan benar
+   - Ada foreign key atau relasi yang tidak terisi
+   - Model Django tidak memiliki default value untuk field wajib
+
+2. ✅ **Workaround sementara**:
+   - Hubungi backend developer untuk fix database schema
+   - Atau gunakan akun testing yang sudah ada (skip registrasi baru)
+
+3. ✅ **Untuk testing**:
+   - Gunakan endpoint lain yang tidak involve registrasi baru
+   - Test dengan user yang sudah terdaftar
 
 ---
 

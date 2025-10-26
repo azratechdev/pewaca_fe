@@ -6,6 +6,11 @@
 # Script ini digunakan untuk testing otomatis flow registrasi warga
 # dari awal hingga akhir (end-to-end testing)
 #
+# Requirements:
+#   - jq (JSON processor) - Install: sudo apt-get install jq
+#   - curl
+#   - bash
+#
 # Usage:
 #   ./tests/registration-test.sh
 #   ./tests/registration-test.sh --uuid YOUR-UUID
