@@ -1,0 +1,279 @@
+EBUG 2025-10-27 00:11:13,593 utils (0.000) None; args=[291, 57, '1', '2025-10-27 00:11:13.593357']; alias=default
+Traceback (most recent call last):
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+MySQLdb.IntegrityError: (1364, "Field 'id' doesn't have a default value")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/wsgiref/handlers.py", line 137, in run
+    self.result = application(self.environ, self.start_response)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/staticfiles/handlers.py", line 80, in __call__
+    return self.application(environ, start_response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/wsgi.py", line 124, in __call__
+    response = self.get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/base.py", line 140, in get_response
+    response = self._middleware_chain(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 57, in inner
+    response = response_for_exception(request, exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 140, in response_for_exception
+    response = handle_uncaught_exception(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/utils/deprecation.py", line 134, in __call__
+    response = response or self.get_response(request)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 57, in inner
+    response = response_for_exception(request, exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 140, in response_for_exception
+    response = handle_uncaught_exception(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/utils/deprecation.py", line 134, in __call__
+    response = response or self.get_response(request)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 57, in inner
+    response = response_for_exception(request, exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 140, in response_for_exception
+    response = handle_uncaught_exception(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/apps/django/pewaca_be/dash/api/utils/debug_middleware.py", line 19, in __call__
+    response = self.get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 57, in inner
+    response = response_for_exception(request, exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 140, in response_for_exception
+    response = handle_uncaught_exception(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/utils/deprecation.py", line 134, in __call__
+    response = response or self.get_response(request)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 57, in inner
+    response = response_for_exception(request, exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 140, in response_for_exception
+    response = handle_uncaught_exception(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/utils/deprecation.py", line 134, in __call__
+    response = response or self.get_response(request)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 57, in inner
+    response = response_for_exception(request, exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 140, in response_for_exception
+    response = handle_uncaught_exception(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/utils/deprecation.py", line 134, in __call__
+    response = response or self.get_response(request)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 57, in inner
+    response = response_for_exception(request, exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 140, in response_for_exception
+    response = handle_uncaught_exception(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/utils/deprecation.py", line 134, in __call__
+    response = response or self.get_response(request)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 57, in inner
+    response = response_for_exception(request, exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 140, in response_for_exception
+    response = handle_uncaught_exception(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/utils/deprecation.py", line 134, in __call__
+    response = response or self.get_response(request)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 57, in inner
+    response = response_for_exception(request, exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 140, in response_for_exception
+    response = handle_uncaught_exception(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/corsheaders/middleware.py", line 56, in __call__
+    result = self.get_response(request)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 57, in inner
+    response = response_for_exception(request, exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 140, in response_for_exception
+    response = handle_uncaught_exception(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/apps/django/pewaca_be/dash/api/views/tagihan.py", line 495, in patch
+    note_obj =  NoteTagihan.objects.create(note=note, tagihan_warga=tagihan, warga=warga)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/query.py", line 679, in create
+    obj.save(force_insert=True, using=self.db)
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/base.py", line 822, in save
+    self.save_base(
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/base.py", line 909, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/base.py", line 1071, in _save_table
+    results = self._do_insert(
+              ^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/base.py", line 1112, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1823, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+django.db.utils.IntegrityError: (1364, "Field 'id' doesn't have a default value")
+ERROR 2025-10-27 00:11:13,599 basehttp "PATCH /api/tagihan-warga/bayar/291/ HTTP/1.0" 500 59
+DEBUG 2025-10-27 00:11:13,893 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-27 00:11:13,893 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-27 00:11:13,893 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-27 00:11:13,893 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-27 00:11:13,894 utils (0.000) SELECT `m_user`.`user_id`, `m_user`.`image`, `m_user`.`user_name`, `m_user`.`user_email`, `m_user`.`user_password`, `m_user`.`user_created_by`, `m_user`.`user_created_on`, `m_user`.`user_isactive`, `m_user`.`user_isdelete`, `m_user`.`is_superuser`, `m_user`.`is_staff`, `m_user`.`is_warga`, `m_user`.`last_login`, `m_user`.`user_role_id` FROM `m_user` WHERE `m_user`.`user_id` = 69 LIMIT 21; args=(69,); alias=default
+DEBUG 2025-10-27 00:11:13,894 utils (0.000) SELECT `m_user`.`user_id`, `m_user`.`image`, `m_user`.`user_name`, `m_user`.`user_email`, `m_user`.`user_password`, `m_user`.`user_created_by`, `m_user`.`user_created_on`, `m_user`.`user_isactive`, `m_user`.`user_isdelete`, `m_user`.`is_superuser`, `m_user`.`is_staff`, `m_user`.`is_warga`, `m_user`.`last_login`, `m_user`.`user_role_id` FROM `m_user` WHERE `m_user`.`user_id` = 69 LIMIT 21; args=(69,); alias=default
+DEBUG 2025-10-27 00:11:13,895 utils (0.000) SELECT `tagihan_warga`.`id`, `tagihan_warga`.`tagihan_id`, `tagihan_warga`.`status`, `tagihan_warga`.`no_tagihan`, `tagihan_warga`.`bukti_pembayaran`, `tagihan_warga`.`warga_id`, `tagihan_warga`.`unit_id`, `tagihan_warga`.`residence_bank_id`, `tagihan_warga`.`amount`, `tagihan_warga`.`paydate`, `tagihan_warga`.`date_due`, `tagihan_warga`.`update_date` FROM `tagihan_warga` WHERE `tagihan_warga`.`id` = 291 LIMIT 21; args=(291,); alias=default
+DEBUG 2025-10-27 00:11:13,895 utils (0.000) SELECT `tagihan_warga`.`id`, `tagihan_warga`.`tagihan_id`, `tagihan_warga`.`status`, `tagihan_warga`.`no_tagihan`, `tagihan_warga`.`bukti_pembayaran`, `tagihan_warga`.`warga_id`, `tagihan_warga`.`unit_id`, `tagihan_warga`.`residence_bank_id`, `tagihan_warga`.`amount`, `tagihan_warga`.`paydate`, `tagihan_warga`.`date_due`, `tagihan_warga`.`update_date` FROM `tagihan_warga` WHERE `tagihan_warga`.`id` = 291 LIMIT 21; args=(291,); alias=default
+DEBUG 2025-10-27 00:11:13,895 utils (0.000) SELECT `tagihan`.`id`, `tagihan`.`jenis_tagihan`, `tagihan`.`tipe`, `tagihan`.`amount`, `tagihan`.`name`, `tagihan`.`description`, `tagihan`.`residence_id`, `tagihan`.`created_by`, `tagihan`.`create_at`, `tagihan`.`is_publish`, `tagihan`.`publish_date`, `tagihan`.`date_due`, `tagihan`.`date_start`, `tagihan`.`tagihan_ke`, `tagihan`.`is_active` FROM `tagihan` WHERE `tagihan`.`id` = 32 LIMIT 21; args=(32,); alias=default
+DEBUG 2025-10-27 00:11:13,895 utils (0.000) SELECT `tagihan`.`id`, `tagihan`.`jenis_tagihan`, `tagihan`.`tipe`, `tagihan`.`amount`, `tagihan`.`name`, `tagihan`.`description`, `tagihan`.`residence_id`, `tagihan`.`created_by`, `tagihan`.`create_at`, `tagihan`.`is_publish`, `tagihan`.`publish_date`, `tagihan`.`date_due`, `tagihan`.`date_start`, `tagihan`.`tagihan_ke`, `tagihan`.`is_active` FROM `tagihan` WHERE `tagihan`.`id` = 32 LIMIT 21; args=(32,); alias=default
+DEBUG 2025-10-27 00:11:13,896 utils (0.001) SELECT `m_residence`.`id`, `m_residence`.`name`, `m_residence`.`code`, `m_residence`.`loc_address`, `m_residence`.`image`, `m_residence`.`prov_id`, `m_residence`.`city_id`, `m_residence`.`district_id`, `m_residence`.`village_id`, `m_residence`.`postal_code`, `m_residence`.`lat`, `m_residence`.`long`, `m_residence`.`area_large`, `m_residence`.`establishment_year`, `m_residence`.`created_by`, `m_residence`.`created_on`, `m_residence`.`modified_by`, `m_residence`.`modified_on`, `m_residence`.`isactive`, `m_residence`.`isdelete` FROM `m_residence` WHERE `m_residence`.`id` = 1 LIMIT 21; args=(1,); alias=default
+DEBUG 2025-10-27 00:11:13,896 utils (0.001) SELECT `m_residence`.`id`, `m_residence`.`name`, `m_residence`.`code`, `m_residence`.`loc_address`, `m_residence`.`image`, `m_residence`.`prov_id`, `m_residence`.`city_id`, `m_residence`.`district_id`, `m_residence`.`village_id`, `m_residence`.`postal_code`, `m_residence`.`lat`, `m_residence`.`long`, `m_residence`.`area_large`, `m_residence`.`establishment_year`, `m_residence`.`created_by`, `m_residence`.`created_on`, `m_residence`.`modified_by`, `m_residence`.`modified_on`, `m_residence`.`isactive`, `m_residence`.`isdelete` FROM `m_residence` WHERE `m_residence`.`id` = 1 LIMIT 21; args=(1,); alias=default
+DEBUG 2025-10-27 00:11:13,898 utils (0.000) SELECT `m_residence_bank`.`id`, `m_residence_bank`.`residence_id`, `m_residence_bank`.`bank_id`, `m_residence_bank`.`account_number`, `m_residence_bank`.`account_holder_name`, `m_residence_bank`.`isactive`, `m_residence_bank`.`deleted_at` FROM `m_residence_bank` WHERE (`m_residence_bank`.`isactive` = 1 AND `m_residence_bank`.`residence_id` = 1) ORDER BY `m_residence_bank`.`id` ASC LIMIT 1; args=(True, 1); alias=default
+DEBUG 2025-10-27 00:11:13,898 utils (0.000) SELECT `m_residence_bank`.`id`, `m_residence_bank`.`residence_id`, `m_residence_bank`.`bank_id`, `m_residence_bank`.`account_number`, `m_residence_bank`.`account_holder_name`, `m_residence_bank`.`isactive`, `m_residence_bank`.`deleted_at` FROM `m_residence_bank` WHERE (`m_residence_bank`.`isactive` = 1 AND `m_residence_bank`.`residence_id` = 1) ORDER BY `m_residence_bank`.`id` ASC LIMIT 1; args=(True, 1); alias=default
+DEBUG 2025-10-27 00:11:13,900 utils (0.000) SELECT `m_bank_list`.`bank_id`, `m_bank_list`.`bank_code`, `m_bank_list`.`bank_name`, `m_bank_list`.`bank_icon`, `m_bank_list`.`bank_created_on`, `m_bank_list`.`bank_isactive`, `m_bank_list`.`bank_isdelete` FROM `m_bank_list` WHERE `m_bank_list`.`bank_id` = 97 LIMIT 21; args=(97,); alias=default
+DEBUG 2025-10-27 00:11:13,900 utils (0.000) SELECT `m_bank_list`.`bank_id`, `m_bank_list`.`bank_code`, `m_bank_list`.`bank_name`, `m_bank_list`.`bank_icon`, `m_bank_list`.`bank_created_on`, `m_bank_list`.`bank_isactive`, `m_bank_list`.`bank_isdelete` FROM `m_bank_list` WHERE `m_bank_list`.`bank_id` = 97 LIMIT 21; args=(97,); alias=default
+DEBUG 2025-10-27 00:11:13,901 utils (0.000) SELECT `m_unit`.`unit_id`, `m_unit`.`unit_residence_id`, `m_unit`.`unit_corridor_id`, `m_unit`.`unit_name`, `m_unit`.`unit_desc`, `m_unit`.`unit_image`, `m_unit`.`unit_size`, `m_unit`.`unit_isused`, `m_unit`.`unit_created_by`, `m_unit`.`unit_created_on`, `m_unit`.`unit_modified_by`, `m_unit`.`unit_modified_on`, `m_unit`.`unit_isactive`, `m_unit`.`unit_isdelete` FROM `m_unit` WHERE `m_unit`.`unit_id` = 1 LIMIT 21; args=(1,); alias=default
+DEBUG 2025-10-27 00:11:13,901 utils (0.000) SELECT `m_unit`.`unit_id`, `m_unit`.`unit_residence_id`, `m_unit`.`unit_corridor_id`, `m_unit`.`unit_name`, `m_unit`.`unit_desc`, `m_unit`.`unit_image`, `m_unit`.`unit_size`, `m_unit`.`unit_isused`, `m_unit`.`unit_created_by`, `m_unit`.`unit_created_on`, `m_unit`.`unit_modified_by`, `m_unit`.`unit_modified_on`, `m_unit`.`unit_isactive`, `m_unit`.`unit_isdelete` FROM `m_unit` WHERE `m_unit`.`unit_id` = 1 LIMIT 21; args=(1,); alias=default
+INFO 2025-10-27 00:11:13,902 basehttp "GET /api/tagihan-warga/291/ HTTP/1.0" 200 1029
+DEBUG 2025-10-27 00:11:14,097 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-27 00:11:14,097 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-27 00:11:14,097 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-27 00:11:14,097 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-27 00:11:14,098 utils (0.000) SELECT `m_user`.`user_id`, `m_user`.`image`, `m_user`.`user_name`, `m_user`.`user_email`, `m_user`.`user_password`, `m_user`.`user_created_by`, `m_user`.`user_created_on`, `m_user`.`user_isactive`, `m_user`.`user_isdelete`, `m_user`.`is_superuser`, `m_user`.`is_staff`, `m_user`.`is_warga`, `m_user`.`last_login`, `m_user`.`user_role_id` FROM `m_user` WHERE `m_user`.`user_id` = 69 LIMIT 21; args=(69,); alias=default
+DEBUG 2025-10-27 00:11:14,098 utils (0.000) SELECT `m_user`.`user_id`, `m_user`.`image`, `m_user`.`user_name`, `m_user`.`user_email`, `m_user`.`user_password`, `m_user`.`user_created_by`, `m_user`.`user_created_on`, `m_user`.`user_isactive`, `m_user`.`user_isdelete`, `m_user`.`is_superuser`, `m_user`.`is_staff`, `m_user`.`is_warga`, `m_user`.`last_login`, `m_user`.`user_role_id` FROM `m_user` WHERE `m_user`.`user_id` = 69 LIMIT 21; args=(69,); alias=default
+DEBUG 2025-10-27 00:11:14,099 utils (0.000) SELECT `note_tagihan`.`id`, `note_tagihan`.`tagihan_warga_id`, `note_tagihan`.`warga_id`, `note_tagihan`.`note`, `note_tagihan`.`timestamp` FROM `note_tagihan` WHERE `note_tagihan`.`tagihan_warga_id` = 291 ORDER BY `note_tagihan`.`timestamp` ASC; args=(291,); alias=default
+DEBUG 2025-10-27 00:11:14,099 utils (0.000) SELECT `note_tagihan`.`id`, `note_tagihan`.`tagihan_warga_id`, `note_tagihan`.`warga_id`, `note_tagihan`.`note`, `note_tagihan`.`timestamp` FROM `note_tagihan` WHERE `note_tagihan`.`tagihan_warga_id` = 291 ORDER BY `note_tagihan`.`timestamp` ASC; args=(291,); alias=default
+INFO 2025-10-27 00:11:14,099 basehttp "GET /api/tagihan-note/list/291/ HTTP/1.0" 200 50
