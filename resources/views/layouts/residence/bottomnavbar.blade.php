@@ -30,6 +30,13 @@
       @endif
 
       <li class="nav-item">
+        <a href="{{ route('warungku.index') }}" class="nav-link text-center {{ Request::is('warungku*') ? 'active' : '' }}">
+          <i class="fa fa-store menu-icon"></i>
+          <span class="small d-block menu-text">Warungku</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
         <a href="{{ route('pembayaran.list') }}" class="nav-link text-center {{ request()->routeIs(['pembayaran.list', 'pembayaran.history', 'postingan']) ? 'active' : '' }}" @if (!$isPengurus && !$isChecker) cursor-not-allowed text-gray-400 @endif" 
         style="@if (!$isPengurus && !$isChecker) pointer-events: none; @endif">
           <i class="fa fa-receipt menu-icon"></i> <!-- Ikon Purchase Order -->

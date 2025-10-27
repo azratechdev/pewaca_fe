@@ -45,12 +45,9 @@ Route::get('/offline', function () {
     return view('offline');
 })->name('offline');
 
-// Warungku Marketplace Routes (Public)
+// Warungku Setup Routes (Admin - Public)
 Route::get('/warungku/setup', [WarungkuSetupController::class, 'setup'])->name('warungku.setup');
 Route::get('/warungku/update-images', [WarungkuSetupController::class, 'updateImages'])->name('warungku.update-images');
-Route::get('/warungku', [WarungkuController::class, 'index'])->name('warungku.index');
-Route::get('/warungku/toko/{id}', [WarungkuController::class, 'showStore'])->name('warungku.store');
-Route::get('/warungku/produk/{id}', [WarungkuController::class, 'showProduct'])->name('warungku.product');
 
 Auth::routes();
 
@@ -144,6 +141,11 @@ Route::group(['middleware' => ['auth', 'check.token']], function () {
 
     // Route::get('/pembayaran/pembayaran_periode', [PembayaranController::class, 'pembayaran_periode'])->name('pembayaran.pembayaran_periode');
     // Route::get('/pembayaran/periode', [PembayaranController::class, 'periode'])->name('pembayaran.periode');
+
+    // Warungku Marketplace Routes (Protected - Requires Login)
+    Route::get('/warungku', [WarungkuController::class, 'index'])->name('warungku.index');
+    Route::get('/warungku/toko/{id}', [WarungkuController::class, 'showStore'])->name('warungku.store');
+    Route::get('/warungku/produk/{id}', [WarungkuController::class, 'showProduct'])->name('warungku.product');
 });
 
 use App\Http\Controllers\Test\RegistrationTestController;
