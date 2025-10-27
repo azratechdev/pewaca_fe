@@ -21,10 +21,32 @@ I prefer simple language and detailed explanations. I want iterative development
 - Comprehensive reporting and billing functionalities.
 - Progressive Web App (PWA) capabilities.
 - QRIS Payment Orchestrator for residence fee collection.
+- **Warungku Marketplace**: Internal marketplace for residence community.
 
 ### QRIS Payment Orchestrator
 - **Backend**: Uses a dedicated SQLite database for payments, `QrisProvider` interface with `QrisProviderMock` and `QrisProviderMidtrans` implementations, `PaymentController` and `WebhookController`, and background jobs for payment expiry and reconciliation. Includes security features like signature verification and idempotency.
 - **Frontend**: Integrates "Bayar via QRIS" option in the payment view, displaying QR codes and auto-refreshing payment status.
+- **Service Layer**: `PaymentService` extracts business logic from controllers, enabling both API and web routes to share validation and payment processing logic without HTTP self-calls (resolves single-threaded PHP server timeout issue).
+
+### Warungku Marketplace
+- **Purpose**: Internal marketplace for residence community to buy and sell products among residents.
+- **Access**: Public routes (no authentication required) accessible from login page via "Pindah ke Warungku" button.
+- **Database Schema**: 
+  - `stores` table: name, description, logo, address, phone, email, rating, is_active
+  - `products` table: store_id (foreign key), name, description, image, price, stock, is_available
+- **Models**: `Store` and `Product` with HasMany/BelongsTo relationships
+- **Routes**:
+  - `/warungku` - Main marketplace page (list of stores)
+  - `/warungku/toko/{id}` - Store detail page with products
+  - `/warungku/produk/{id}` - Product detail page
+- **Controller**: `WarungkuController` handles store and product listing/viewing
+- **UI Features**:
+  - Store cards with logo, rating, product count
+  - Product cards with image, price, stock badge
+  - Responsive Bootstrap 5 design with Pewaca green theme (#5FA782)
+  - "Tambah ke Keranjang" button (UI only, checkout pending implementation)
+- **Data Seeding**: `WarungkuSeeder` provides 4 sample stores with 8 products each
+- **Next Steps**: Run `php artisan migrate` and `php artisan db:seed --class=WarungkuSeeder` to populate marketplace data
 
 ### UI/UX Decisions
 - Consistent use of Bootstrap 5 for responsive design.
