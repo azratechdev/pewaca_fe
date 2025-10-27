@@ -30,6 +30,45 @@ class PaymentController extends Controller
     public function create(Request $request)
     {
         try {
+            $paymentService = app(\App\Services\Payment\PaymentService::class);
+            
+            $data = $request->all();
+            $data['idempotency_key'] = $request->header('Idempotency-Key') ?? Str::uuid()->toString();
+            
+            $result = $paymentService->createPayment($data);
+            
+            $isNew = $result['_is_new'] ?? false;
+            unset($result['_is_new']);
+            
+            return response()->json($result, $isNew ? 201 : 200);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'error' => 'Validation failed',
+                'messages' => $e->errors(),
+            ], 422);
+        } catch (\Exception $e) {
+            if (str_contains($e->getMessage(), 'Idempotency key conflict')) {
+                return response()->json([
+                    'error' => 'Idempotency key conflict',
+                    'message' => $e->getMessage(),
+                ], 409);
+            }
+            
+            Log::error('Payment creation failed', [
+                'error' => $e->getMessage(),
+                'request' => $request->all(),
+            ]);
+            
+            return response()->json([
+                'error' => 'Payment creation failed',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+    
+    private function createPaymentOld(Request $request)
+    {
+        try {
             $validated = $request->validate([
                 'order_id' => 'required|string|max:100',
                 'amount' => 'required|numeric|min:1',

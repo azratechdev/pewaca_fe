@@ -457,7 +457,8 @@ class PembayaranController extends Controller
                 $orderId = 'TGH-' . $tagihanData['id'];
                 $amount = $this->formatNominal($tagihanData['tagihan']['amount']);
                 
-                $localResponse = Http::post(url('/api/payments'), [
+                $paymentService = app(\App\Services\Payment\PaymentService::class);
+                $paymentData = $paymentService->createPayment([
                     'order_id' => $orderId,
                     'amount' => $amount,
                     'metadata' => [
@@ -467,9 +468,7 @@ class PembayaranController extends Controller
                     ],
                 ]);
                 
-                $paymentData = json_decode($localResponse->body(), true);
-                
-                if ($localResponse->successful() && isset($paymentData['payment_id'])) {
+                if (isset($paymentData['payment_id'])) {
                     return view('pembayaran.qris', [
                         'tagihan' => $tagihanData,
                         'payment' => $paymentData,
