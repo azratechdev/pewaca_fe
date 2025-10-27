@@ -134,11 +134,7 @@
               @if($product->image)
                 <img src="{{ $product->image }}" 
                      alt="{{ $product->name }}"
-                     onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fas fa-box\'></i><span class=\'badge-stock {{ $product->stock > 0 ? \'\' : \'badge-out-stock\' }}\'>' + ({{ $product->stock }} > 0 ? 'Stok: {{ $product->stock }}' : 'Habis') + '</span>';">
-              @else
-                <i class="fas fa-box"></i>
-              @endif
-              @if($product->image)
+                     onerror="this.style.display='none'; this.parentElement.classList.add('d-flex', 'align-items-center', 'justify-content-center'); this.parentElement.innerHTML='<i class=&quot;fas fa-box&quot;></i>';">
                 <span class="badge-stock {{ $product->stock > 0 ? '' : 'badge-out-stock' }}">
                   @if($product->stock > 0)
                     Stok: {{ $product->stock }}
@@ -146,6 +142,8 @@
                     Habis
                   @endif
                 </span>
+              @else
+                <i class="fas fa-box"></i>
               @endif
             </div>
             <div class="p-3">
