@@ -26,6 +26,17 @@
       border: 4px solid white;
       object-fit: cover;
       background-color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #5FA782;
+      font-size: 2.5rem;
+    }
+    .store-logo-large img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
     }
     .product-card {
       border: 1px solid #e0e0e0;
@@ -43,7 +54,17 @@
       width: 100%;
       height: 180px;
       object-fit: cover;
-      background-color: #e9ecef;
+      background-color: #f8f9fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #adb5bd;
+      font-size: 3rem;
+    }
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     .badge-stock {
       position: absolute;
@@ -76,10 +97,15 @@
         </a>
       </div>
       <div class="d-flex align-items-center">
-        <img src="{{ $store->logo ?? 'https://via.placeholder.com/100?text=TOKO' }}" 
-             alt="{{ $store->name }}" 
-             class="store-logo-large me-4"
-             onerror="this.src='https://via.placeholder.com/100?text=TOKO'">
+        <div class="store-logo-large me-4">
+          @if($store->logo)
+            <img src="{{ $store->logo }}" 
+                 alt="{{ $store->name }}"
+                 onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fas fa-store\'></i>';">
+          @else
+            <i class="fas fa-store"></i>
+          @endif
+        </div>
         <div>
           <h3 class="mb-2">{{ $store->name }}</h3>
           <p class="mb-1"><i class="fas fa-star text-warning"></i> {{ number_format($store->rating, 1) }}</p>
@@ -104,18 +130,23 @@
         @foreach($store->products as $product)
         <div class="col-md-6 col-lg-4">
           <div class="product-card">
-            <div class="position-relative">
-              <img src="{{ $product->image ?? 'https://via.placeholder.com/300x180?text=PRODUK' }}" 
-                   alt="{{ $product->name }}" 
-                   class="product-image"
-                   onerror="this.src='https://via.placeholder.com/300x180?text=PRODUK'">
-              <span class="badge-stock {{ $product->stock > 0 ? '' : 'badge-out-stock' }}">
-                @if($product->stock > 0)
-                  Stok: {{ $product->stock }}
-                @else
-                  Habis
-                @endif
-              </span>
+            <div class="position-relative product-image">
+              @if($product->image)
+                <img src="{{ $product->image }}" 
+                     alt="{{ $product->name }}"
+                     onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fas fa-box\'></i><span class=\'badge-stock {{ $product->stock > 0 ? \'\' : \'badge-out-stock\' }}\'>' + ({{ $product->stock }} > 0 ? 'Stok: {{ $product->stock }}' : 'Habis') + '</span>';">
+              @else
+                <i class="fas fa-box"></i>
+              @endif
+              @if($product->image)
+                <span class="badge-stock {{ $product->stock > 0 ? '' : 'badge-out-stock' }}">
+                  @if($product->stock > 0)
+                    Stok: {{ $product->stock }}
+                  @else
+                    Habis
+                  @endif
+                </span>
+              @endif
             </div>
             <div class="p-3">
               <h6 class="fw-bold mb-2">{{ $product->name }}</h6>

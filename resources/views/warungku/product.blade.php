@@ -18,7 +18,19 @@
       width: 100%;
       max-height: 400px;
       object-fit: contain;
-      background-color: white;
+      background-color: #f8f9fa;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #adb5bd;
+      font-size: 5rem;
+      min-height: 300px;
+    }
+    .product-image-main img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: contain;
       border-radius: 12px;
     }
     .product-info-card {
@@ -79,10 +91,15 @@
 
   <!-- Product Image -->
   <div class="container mt-3">
-    <img src="{{ $product->image ?? 'https://via.placeholder.com/600x400?text=PRODUK' }}" 
-         alt="{{ $product->name }}" 
-         class="product-image-main"
-         onerror="this.src='https://via.placeholder.com/600x400?text=PRODUK'">
+    <div class="product-image-main">
+      @if($product->image)
+        <img src="{{ $product->image }}" 
+             alt="{{ $product->name }}"
+             onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fas fa-box\'></i>';">
+      @else
+        <i class="fas fa-box"></i>
+      @endif
+    </div>
   </div>
 
   <!-- Product Info -->
@@ -118,10 +135,16 @@
       <h5 class="mb-3">Informasi Toko</h5>
       <div class="store-badge">
         <div class="d-flex align-items-center">
-          <img src="{{ $product->store->logo ?? 'https://via.placeholder.com/50?text=TOKO' }}" 
-               alt="{{ $product->store->name }}"
-               style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;"
-               onerror="this.src='https://via.placeholder.com/50?text=TOKO'">
+          <div style="width: 50px; height: 50px; border-radius: 50%; background-color: #5FA782; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">
+            @if($product->store->logo)
+              <img src="{{ $product->store->logo }}" 
+                   alt="{{ $product->store->name }}"
+                   style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;"
+                   onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fas fa-store\'></i>';">
+            @else
+              <i class="fas fa-store"></i>
+            @endif
+          </div>
           <div class="ms-3">
             <h6 class="mb-1">{{ $product->store->name }}</h6>
             <small class="text-muted">

@@ -35,7 +35,18 @@
       height: 80px;
       border-radius: 50%;
       object-fit: cover;
-      background-color: #e9ecef;
+      background-color: #5FA782;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2rem;
+    }
+    .store-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
     }
     .rating-badge {
       background-color: #ffc107;
@@ -92,10 +103,15 @@
         <div class="col-md-6 col-lg-4">
           <div class="store-card p-3">
             <div class="d-flex align-items-start">
-              <img src="{{ $store->logo ?? 'https://via.placeholder.com/80?text=TOKO' }}" 
-                   alt="{{ $store->name }}" 
-                   class="store-logo me-3"
-                   onerror="this.src='https://via.placeholder.com/80?text=TOKO'">
+              <div class="store-logo me-3">
+                @if($store->logo)
+                  <img src="{{ $store->logo }}" 
+                       alt="{{ $store->name }}"
+                       onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fas fa-store\'></i>';">
+                @else
+                  <i class="fas fa-store"></i>
+                @endif
+              </div>
               <div class="flex-grow-1">
                 <h6 class="fw-bold mb-1">{{ $store->name }}</h6>
                 <p class="text-muted small mb-2">{{ Str::limit($store->description, 50) }}</p>
