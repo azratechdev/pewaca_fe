@@ -451,19 +451,19 @@ class PembayaranController extends Controller
     
             $data_response = json_decode($response->body(), true);
     
-            if ($response->successful()) {
-                $tagihan = $data_response['data'];
+            if ($response->successful() && isset($data_response['data'])) {
+                $tagihanData = $data_response['data'];
                 
-                $orderId = 'TGH-' . $tagihan['id'];
-                $amount = $this->formatNominal($tagihan['tagihan']['amount']);
+                $orderId = 'TGH-' . $tagihanData['id'];
+                $amount = $this->formatNominal($tagihanData['tagihan']['amount']);
                 
                 $localResponse = Http::post(url('/api/payments'), [
                     'order_id' => $orderId,
                     'amount' => $amount,
                     'metadata' => [
-                        'tagihan_warga_id' => $tagihan['id'],
-                        'warga_id' => $tagihan['warga_id'],
-                        'tagihan_name' => $tagihan['tagihan']['name'],
+                        'tagihan_warga_id' => $tagihanData['id'],
+                        'warga_id' => $tagihanData['warga']['id'] ?? Session::get('warga')['id'] ?? null,
+                        'tagihan_name' => $tagihanData['tagihan']['name'],
                     ],
                 ]);
                 
@@ -471,7 +471,7 @@ class PembayaranController extends Controller
                 
                 if ($localResponse->successful() && isset($paymentData['payment_id'])) {
                     return view('pembayaran.qris', [
-                        'tagihan' => $tagihan,
+                        'tagihan' => $tagihanData,
                         'payment' => $paymentData,
                     ]);
                 } else {
