@@ -226,4 +226,57 @@ class WarungkuSetupController extends Controller
             ], 500);
         }
     }
+
+    public function setupCart()
+    {
+        try {
+            // Create carts table if not exists
+            if (!Schema::hasTable('carts')) {
+                DB::statement("
+                    CREATE TABLE `carts` (
+                      `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+                      `user_email` varchar(255) NOT NULL,
+                      `created_at` timestamp NULL DEFAULT NULL,
+                      `updated_at` timestamp NULL DEFAULT NULL,
+                      PRIMARY KEY (`id`),
+                      UNIQUE KEY `carts_user_email_unique` (`user_email`),
+                      KEY `carts_user_email_index` (`user_email`)
+                    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+                ");
+            }
+
+            // Create cart_items table if not exists
+            if (!Schema::hasTable('cart_items')) {
+                DB::statement("
+                    CREATE TABLE `cart_items` (
+                      `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+                      `cart_id` bigint unsigned NOT NULL,
+                      `product_id` bigint unsigned NOT NULL,
+                      `quantity` int NOT NULL DEFAULT '1',
+                      `price` decimal(10,2) NOT NULL,
+                      `created_at` timestamp NULL DEFAULT NULL,
+                      `updated_at` timestamp NULL DEFAULT NULL,
+                      PRIMARY KEY (`id`),
+                      UNIQUE KEY `cart_items_cart_id_product_id_unique` (`cart_id`,`product_id`),
+                      KEY `cart_items_cart_id_foreign` (`cart_id`),
+                      KEY `cart_items_product_id_foreign` (`product_id`),
+                      CONSTRAINT `cart_items_cart_id_foreign` FOREIGN KEY (`cart_id`) REFERENCES `carts` (`id`) ON DELETE CASCADE,
+                      CONSTRAINT `cart_items_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE
+                    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+                ");
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Cart database setup completed! Tabel carts dan cart_items berhasil dibuat.',
+                'redirect' => '/warungku'
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error: ' . $e->getMessage()
+            ], 500);
+        }
+    }
 }

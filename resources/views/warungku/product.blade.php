@@ -150,8 +150,60 @@
 </div>
 
 <script>
+  const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  
   document.getElementById('btnAddCart')?.addEventListener('click', function() {
-    alert('Produk "{{ $product->name }}" berhasil ditambahkan ke keranjang!\n\n(Fitur checkout akan segera hadir)');
+    const btn = this;
+    const originalText = btn.innerHTML;
+    
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menambahkan...';
+    
+    fetch('{{ route("cart.add") }}', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': csrfToken,
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        product_id: {{ $product->id }},
+        quantity: 1
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        btn.innerHTML = '<i class="fas fa-check"></i> Berhasil Ditambahkan!';
+        
+        // Update cart badge if exists
+        const cartBadge = document.querySelector('.cart-badge');
+        if (cartBadge) {
+          cartBadge.textContent = data.cart_count;
+          cartBadge.style.display = 'inline-block';
+        }
+        
+        // Show success message with option to view cart
+        setTimeout(() => {
+          if (confirm('Produk berhasil ditambahkan ke keranjang!\n\nLihat keranjang sekarang?')) {
+            window.location.href = '{{ route("cart.index") }}';
+          } else {
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+          }
+        }, 500);
+      } else {
+        alert(data.message || 'Gagal menambahkan produk');
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      alert('Terjadi kesalahan saat menambahkan produk');
+      btn.disabled = false;
+      btn.innerHTML = originalText;
+    });
   });
 </script>
 @endsection

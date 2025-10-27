@@ -56,6 +56,25 @@
     padding: 1.5rem 0;
     margin: -20px -20px 20px -20px;
   }
+  .cart-icon-container {
+    position: relative;
+    display: inline-block;
+  }
+  .cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #dc3545;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+  }
 </style>
 
 <div class="warungku-header">
@@ -66,7 +85,10 @@
         <small>Marketplace Warga Pewaca</small>
       </div>
       <div>
-        <i class="fas fa-shopping-cart fa-lg"></i>
+        <a href="{{ route('cart.index') }}" class="text-white text-decoration-none cart-icon-container">
+          <i class="fas fa-shopping-cart fa-lg"></i>
+          <span class="cart-badge" id="cartBadge" style="display: none;">0</span>
+        </a>
       </div>
     </div>
   </div>
@@ -117,4 +139,18 @@
     </div>
   @endif
 </div>
+
+<script>
+  // Load cart count on page load
+  fetch('{{ route("cart.count") }}')
+    .then(res => res.json())
+    .then(data => {
+      const badge = document.getElementById('cartBadge');
+      if (data.count > 0) {
+        badge.textContent = data.count;
+        badge.style.display = 'flex';
+      }
+    })
+    .catch(err => console.error('Failed to load cart count:', err));
+</script>
 @endsection
