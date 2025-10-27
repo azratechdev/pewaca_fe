@@ -135,8 +135,6 @@ Route::group(['middleware' => ['auth', 'check.token']], function () {
 
     // Route::get('/pembayaran/pembayaran_periode', [PembayaranController::class, 'pembayaran_periode'])->name('pembayaran.pembayaran_periode');
     // Route::get('/pembayaran/periode', [PembayaranController::class, 'periode'])->name('pembayaran.periode');
-    
-    Route::view('/offline', 'vendor.laravelpwa.offline')->name('offline');
 });
 
 use App\Http\Controllers\Test\RegistrationTestController;
