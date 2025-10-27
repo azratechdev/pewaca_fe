@@ -146,14 +146,13 @@
                   </div>
                 </div>
                 <div class="col-auto">
-                  <div class="quantity-control">
-                    <button class="quantity-btn" onclick="updateQuantity({{ $item->id }}, {{ $item->quantity - 1 }})">
+                  <div class="quantity-control" data-item-id="{{ $item->id }}" data-max-stock="{{ $item->product->stock }}">
+                    <button class="quantity-btn btn-decrease">
                       <i class="fas fa-minus"></i>
                     </button>
                     <input type="number" class="quantity-input" value="{{ $item->quantity }}" 
-                           min="1" max="{{ $item->product->stock }}"
-                           onchange="updateQuantity({{ $item->id }}, this.value)">
-                    <button class="quantity-btn" onclick="updateQuantity({{ $item->id }}, {{ $item->quantity + 1 }})">
+                           min="1" max="{{ $item->product->stock }}" readonly>
+                    <button class="quantity-btn btn-increase">
                       <i class="fas fa-plus"></i>
                     </button>
                   </div>
@@ -218,7 +217,7 @@
     .then(res => res.json())
     .then(data => {
       if (data.success) {
-        updateCartUI(data);
+        updateCartUI(data, itemId);
       } else {
         alert(data.message);
         location.reload();
@@ -279,7 +278,19 @@
     });
   });
 
-  function updateCartUI(data) {
+  function updateCartUI(data, itemId = null) {
+    // Update subtotal untuk item yang diupdate
+    if (itemId && data.subtotal !== undefined) {
+      const itemCard = document.querySelector(`.cart-item[data-item-id="${itemId}"]`);
+      if (itemCard) {
+        const subtotalElement = itemCard.querySelector('.item-subtotal');
+        if (subtotalElement) {
+          subtotalElement.textContent = 'Rp ' + data.subtotal.toLocaleString('id-ID');
+        }
+      }
+    }
+    
+    // Update total items
     if (data.cart_count !== undefined) {
       document.getElementById('summaryTotalItems').textContent = data.cart_count;
       
@@ -290,9 +301,43 @@
       }
     }
     
+    // Update total harga
     if (data.total !== undefined) {
       document.getElementById('summaryTotal').textContent = 'Rp ' + data.total.toLocaleString('id-ID');
     }
   }
+
+  // Event listeners untuk tombol + dan -
+  document.querySelectorAll('.quantity-control').forEach(control => {
+    const itemId = control.dataset.itemId;
+    const maxStock = parseInt(control.dataset.maxStock);
+    const input = control.querySelector('.quantity-input');
+    const btnIncrease = control.querySelector('.btn-increase');
+    const btnDecrease = control.querySelector('.btn-decrease');
+
+    btnIncrease.addEventListener('click', () => {
+      const currentQty = parseInt(input.value);
+      const newQty = currentQty + 1;
+      
+      if (newQty <= maxStock) {
+        input.value = newQty;
+        updateQuantity(itemId, newQty);
+      } else {
+        alert(`Stok maksimal: ${maxStock}`);
+      }
+    });
+
+    btnDecrease.addEventListener('click', () => {
+      const currentQty = parseInt(input.value);
+      const newQty = currentQty - 1;
+      
+      if (newQty >= 1) {
+        input.value = newQty;
+        updateQuantity(itemId, newQty);
+      } else {
+        removeItem(itemId);
+      }
+    });
+  });
 </script>
 @endsection
