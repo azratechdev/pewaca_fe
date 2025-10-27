@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\TagihanController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\WarungkuController;
+use App\Http\Controllers\WarungkuSetupController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,6 +46,7 @@ Route::get('/offline', function () {
 })->name('offline');
 
 // Warungku Marketplace Routes (Public)
+Route::get('/warungku/setup', [WarungkuSetupController::class, 'setup'])->name('warungku.setup');
 Route::get('/warungku', [WarungkuController::class, 'index'])->name('warungku.index');
 Route::get('/warungku/toko/{id}', [WarungkuController::class, 'showStore'])->name('warungku.store');
 Route::get('/warungku/produk/{id}', [WarungkuController::class, 'showProduct'])->name('warungku.product');
