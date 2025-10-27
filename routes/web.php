@@ -37,6 +37,12 @@ Route::get('/forgotpassword', [ForgotPasswordController::class, 'showFormReset']
 Route::post('/sendmail', [ForgotPasswordController::class, 'sendMail'])->name('sendMail');
 Route::get('/reset/{uuid?}/{token?}', [ForgotPasswordController::class, 'newPassword'])->name('newPassword');
 Route::post('/sendnewpassword', [ForgotPasswordController::class, 'sendNewpassword'])->name('sendNewpassword');
+
+// PWA Offline Page
+Route::get('/offline', function () {
+    return view('offline');
+})->name('offline');
+
 Auth::routes();
 
 // Rute yang membutuhkan autentikasi
