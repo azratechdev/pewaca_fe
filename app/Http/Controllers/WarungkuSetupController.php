@@ -131,4 +131,99 @@ class WarungkuSetupController extends Controller
 
         DB::table('products')->insert($products);
     }
+
+    public function updateImages(Request $request)
+    {
+        try {
+            // Validasi base URL
+            $baseUrl = $request->input('base_url');
+            
+            if (!$baseUrl) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Parameter base_url harus diisi! Contoh: ?base_url=https://your-bucket.cos.ap-jakarta.myqcloud.com/warungku/'
+                ], 400);
+            }
+
+            // Pastikan base URL diakhiri dengan /
+            if (!str_ends_with($baseUrl, '/')) {
+                $baseUrl .= '/';
+            }
+
+            // Update logo toko
+            $storeLogos = [
+                1 => 'logo_toko_sembako.png',
+                2 => 'logo_warung_snack.png',
+                3 => 'logo_toko_sayur.png',
+                4 => 'logo_perlengkapan_rumah.png',
+            ];
+
+            foreach ($storeLogos as $storeId => $logoFile) {
+                DB::table('stores')
+                    ->where('id', $storeId)
+                    ->update(['logo' => $baseUrl . $logoFile]);
+            }
+
+            // Update gambar produk (mapping berdasarkan nama produk)
+            $productImages = [
+                'Beras Premium 5kg' => 'beras_premium_5kg.png',
+                'Minyak Goreng 2L' => 'minyak_goreng_2l.png',
+                'Gula Pasir 1kg' => 'gula_pasir_1kg.png',
+                'Telur Ayam 1kg' => 'telur_ayam_1kg.png',
+                'Tepung Terigu 1kg' => 'tepung_terigu_1kg.png',
+                'Garam Dapur 500g' => 'garam_dapur_500g.png',
+                'Kecap Manis 600ml' => 'kecap_manis_600ml.png',
+                'Mie Instan 1 Dus' => 'mie_instan_1_dus.png',
+                'Keripik Singkong' => 'keripik_singkong.png',
+                'Coklat Batangan' => 'coklat_batangan.png',
+                'Biskuit Kaleng' => 'biskuit_kaleng.png',
+                'Kopi Sachet 1 Box' => 'kopi_sachet_1_box.png',
+                'Teh Celup 1 Box' => 'teh_celup_1_box.png',
+                'Air Mineral 1 Dus' => 'air_mineral_1_dus.png',
+                'Susu UHT 1 Dus' => 'susu_uht_1_dus.png',
+                'Wafer Coklat' => 'wafer_coklat.png',
+                'Jeruk Manis 1kg' => 'jeruk_manis_1kg.png',
+                'Apel Fuji 1kg' => 'apel_fuji_1kg.png',
+                'Pisang Cavendish 1kg' => 'pisang_cavendish_1kg.png',
+                'Tomat Segar 1kg' => 'tomat_segar_1kg.png',
+                'Wortel 1kg' => 'wortel_1kg.png',
+                'Bayam Hijau 1 Ikat' => 'bayam_hijau_1_ikat.png',
+                'Kentang 1kg' => 'kentang_1kg.png',
+                'Bawang Merah 1kg' => 'bawang_merah_1kg.png',
+                'Sapu Lantai' => 'sapu_lantai.png',
+                'Pel Lantai Set' => 'pel_lantai_set.png',
+                'Tempat Sampah 50L' => 'tempat_sampah_50l.png',
+                'Rak Piring Stainless' => 'rak_piring_stainless.png',
+                'Gantungan Baju Set' => 'gantungan_baju_set.png',
+                'Ember Plastik 15L' => 'ember_plastik_15l.png',
+                'Lap Microfiber Set' => 'lap_microfiber_set.png',
+                'Sikat WC Set' => 'sikat_wc_set.png',
+            ];
+
+            $updatedProducts = 0;
+            foreach ($productImages as $productName => $imageFile) {
+                $updated = DB::table('products')
+                    ->where('name', $productName)
+                    ->update(['image' => $baseUrl . $imageFile]);
+                $updatedProducts += $updated;
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Semua gambar berhasil diupdate!',
+                'details' => [
+                    'store_logos_updated' => count($storeLogos),
+                    'product_images_updated' => $updatedProducts,
+                    'base_url' => $baseUrl
+                ],
+                'redirect' => '/warungku'
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error: ' . $e->getMessage()
+            ], 500);
+        }
+    }
 }

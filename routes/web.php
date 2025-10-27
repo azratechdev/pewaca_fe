@@ -47,6 +47,7 @@ Route::get('/offline', function () {
 
 // Warungku Marketplace Routes (Public)
 Route::get('/warungku/setup', [WarungkuSetupController::class, 'setup'])->name('warungku.setup');
+Route::get('/warungku/update-images', [WarungkuSetupController::class, 'updateImages'])->name('warungku.update-images');
 Route::get('/warungku', [WarungkuController::class, 'index'])->name('warungku.index');
 Route::get('/warungku/toko/{id}', [WarungkuController::class, 'showStore'])->name('warungku.store');
 Route::get('/warungku/produk/{id}', [WarungkuController::class, 'showProduct'])->name('warungku.product');
