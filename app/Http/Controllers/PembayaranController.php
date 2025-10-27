@@ -452,7 +452,7 @@ class PembayaranController extends Controller
             $data_response = json_decode($response->body(), true);
     
             if ($response->successful()) {
-                $tagihan = $data_response;
+                $tagihan = $data_response['data'];
                 
                 $orderId = 'TGH-' . $tagihan['id'];
                 $amount = $this->formatNominal($tagihan['tagihan']['amount']);
