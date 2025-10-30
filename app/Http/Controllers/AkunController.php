@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Http;
-
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class AkunController extends Controller
@@ -189,20 +189,39 @@ class AkunController extends Controller
 
     public function addRekening()
     {
-        $response = Http::withHeaders([
-            'Accept' => 'application/json',
-            'Authorization' => 'Token '.Session::get('token'),
-        ])->get(env('API_URL') . '/api/banks/');
-        $bank_response = json_decode($response->body(), true);
-        $banks =  $bank_response['data'];
+        try {
+            $response = Http::withHeaders([
+                'Accept' => 'application/json',
+                'Authorization' => 'Token '.Session::get('token'),
+            ])->get(env('API_URL') . '/api/banks/');
+            
+            if ($response->successful()) {
+                $bank_response = json_decode($response->body(), true);
+                $banks = $bank_response['data'] ?? [];
+            } else {
+                Log::error('Failed to get banks', ['status' => $response->status(), 'body' => $response->body()]);
+                $banks = [];
+                
+                Session::flash('flash-message', [
+                    'message' => 'Gagal mengambil data bank dari server. Silakan coba lagi.',
+                    'alert-class' => 'alert-danger',
+                ]);
+            }
+        } catch (\Exception $e) {
+            Log::error('Exception in addRekening', ['error' => $e->getMessage()]);
+            $banks = [];
+            
+            Session::flash('flash-message', [
+                'message' => 'Terjadi kesalahan. Silakan coba lagi.',
+                'alert-class' => 'alert-danger',
+            ]);
+        }
       
-        //dd($residence_id);
         return view('akun.addrekening', compact('banks'));
     }
 
     public function postRekening(Request $request)
     {
-        //dd($request->all());
         $request->validate([
             'nama_lengkap' => 'required|string',
             'nomor_rekening' => 'required|string',
@@ -210,7 +229,15 @@ class AkunController extends Controller
         ]);
 
         $residence = Session::get('warga');
-        $residence_id = $residence['residence'];
+        $residence_id = $residence['residence'] ?? null;
+
+        if (!$residence_id) {
+            Session::flash('flash-message', [
+                'message' => 'Session warga tidak valid. Silakan login ulang.',
+                'alert-class' => 'alert-danger',
+            ]);
+            return redirect()->route('addRekening');
+        }
 
         $data = [
             'account_number' => $request->nomor_rekening,
@@ -219,12 +246,13 @@ class AkunController extends Controller
             'residence' => $residence_id,
             'bank' => $request->nama_bank
         ];
-        //dd($data);
+        
         try {
             $response = Http::withHeaders([
                 'Accept' => 'application/json',
                 'Authorization' => 'Token '.Session::get('token'),
             ])->post(env('API_URL') . '/api/residence-banks/', $data);
+            
             $data_response = json_decode($response->body(), true);
             
             if ($response->successful()) {
@@ -234,17 +262,36 @@ class AkunController extends Controller
                 ]);
                 return redirect()->route('inforekening');
             } else {
+                // Log error details
+                Log::error('Failed to add rekening', [
+                    'status' => $response->status(),
+                    'response' => $data_response,
+                    'request_data' => $data
+                ]);
+                
+                // Get error message from API if available
+                $errorMessage = 'Periksa Data Kembali';
+                if (isset($data_response['message'])) {
+                    $errorMessage = $data_response['message'];
+                } elseif (isset($data_response['error'])) {
+                    $errorMessage = $data_response['error'];
+                }
+                
                 Session::flash('flash-message', [
-                    'message' => 'Periksa Data Kembali',
+                    'message' => $errorMessage,
                     'alert-class' => 'alert-warning',
                 ]);
                 return redirect()->route('addRekening');
             }
                
         } catch (\Exception $e) {
-               
+            Log::error('Exception in postRekening', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
             Session::flash('flash-message', [
-                'message' => 'Gagal Mengirim Data',
+                'message' => 'Gagal Mengirim Data: ' . $e->getMessage(),
                 'alert-class' => 'alert-danger',
             ]);
             return redirect()->route('addRekening');

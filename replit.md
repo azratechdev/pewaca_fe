@@ -55,11 +55,15 @@ I prefer simple language and detailed explanations. I want iterative development
 
 ### System Design Choices
 - **API Connectivity**: Interacts with a Django backend API at `https://admin.pewaca.id`.
-- **Error Handling**: Robust multi-level validation for API responses.
+- **Error Handling**: Robust multi-level validation for API responses with comprehensive logging and user-friendly error messages.
 - **Dynamic Content**: JavaScript fetch calls for dynamic data retrieval.
 - **Environment Configuration**: Utilizes `.env` for sensitive settings.
 - **PWA Support**: Full PWA implementation for a mobile-first experience, including an offline page and installable app functionality.
 - **PWA Optimization (Oct 2025)**: Service worker updated to Network-First strategy with selective caching (only static assets like images, CSS, JS). Icon and splash screen configurations reduced to essential sizes (192x192, 512x512 icons; 3 splash sizes) to improve mobile app performance and reduce initial load size.
+
+### Recent Bug Fixes (Oct 30, 2025)
+- **Add Pengurus**: Fixed "Trying to access array offset on null" error by adding proper API response validation and error handling in `PengurusController::getRole()` and `getWarga()` methods.
+- **Add Rekening**: Fixed similar null access error by adding comprehensive error handling in `AkunController::addRekening()` and `postRekening()` methods, with detailed logging and user-friendly error messages.
 
 ### Warga Registration Architecture
 - **Flow**: UUID-based invitation system for residents, multi-step registration form, backend validation, email verification, and account creation via the Django API.
