@@ -614,31 +614,65 @@ class PengurusController extends Controller
 
     public function getRole()
     {
-        $response = Http::withHeaders([
-            'Accept' => 'application/json',
-            'Authorization' => 'Token '.Session::get('token'),
-        ])->get(env('API_URL') . '/api/roles/');
-        $role_response = json_decode($response->body(), true);
-        return  $role_response['results'];
+        try {
+            $response = Http::withHeaders([
+                'Accept' => 'application/json',
+                'Authorization' => 'Token '.Session::get('token'),
+            ])->get(env('API_URL') . '/api/roles/');
+            
+            if ($response->successful()) {
+                $role_response = json_decode($response->body(), true);
+                return $role_response['results'] ?? [];
+            }
+            
+            Log::error('Failed to get roles', ['status' => $response->status(), 'body' => $response->body()]);
+            return [];
+        } catch (\Exception $e) {
+            Log::error('Exception in getRole', ['error' => $e->getMessage()]);
+            return [];
+        }
     }
 
     public function getWarga()
     {
-        $response = Http::withHeaders([
-            'Accept' => 'application/json',
-            'Authorization' => 'Token '.Session::get('token'),
-        ])->get(env('API_URL') . '/api/warga/?is_checker=true&isreject=false');
-        $warga_response = json_decode($response->body(), true);
-        return  $warga_response['results'];
+        try {
+            $response = Http::withHeaders([
+                'Accept' => 'application/json',
+                'Authorization' => 'Token '.Session::get('token'),
+            ])->get(env('API_URL') . '/api/warga/?is_checker=true&isreject=false');
+            
+            if ($response->successful()) {
+                $warga_response = json_decode($response->body(), true);
+                return $warga_response['results'] ?? [];
+            }
+            
+            Log::error('Failed to get warga', ['status' => $response->status(), 'body' => $response->body()]);
+            return [];
+        } catch (\Exception $e) {
+            Log::error('Exception in getWarga', ['error' => $e->getMessage()]);
+            return [];
+        }
     }
 
     public function addPengurus()
     {
         $roles = $this->getRole();
         $wargas = $this->getWarga();
-        //dd($wargas);
+        
+        // Check if data is available
+        if (empty($roles) || empty($wargas)) {
+            Session::flash('flash-message', [
+                'message' => 'Gagal mengambil data dari server. Silakan coba lagi.',
+                'alert-class' => 'alert-danger',
+            ]);
+            
+            // If both empty, might be auth issue
+            if (empty($roles) && empty($wargas)) {
+                Log::warning('Both roles and wargas are empty in addPengurus');
+            }
+        }
+        
         return view('pengurus.role.addrole', compact('roles', 'wargas'));
-       
     }
 
     public function postRole(Request $request)
