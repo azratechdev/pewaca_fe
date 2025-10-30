@@ -1,32 +1,30 @@
-const CACHE_NAME = 'pewaca-pwa-v1';
+const CACHE_NAME = 'pewaca-pwa-v2';
 const OFFLINE_URL = '/offline';
+
+// Critical assets to cache on install
 const ASSETS_TO_CACHE = [
     OFFLINE_URL,
-    '/css/app.css',
-    '/js/app.js',
-    '/images/icons/icon-72x72.png',
-    '/images/icons/icon-96x96.png',
-    '/images/icons/icon-128x128.png',
-    '/images/icons/icon-144x144.png',
-    '/images/icons/icon-152x152.png',
     '/images/icons/icon-192x192.png',
-    '/images/icons/icon-384x384.png',
     '/images/icons/icon-512x512.png',
+    '/assets/bootstrap/dist/css/bootstrap-5.min.css',
+    '/assets/bootstrap/dist/js/bootstrap-5.min.js',
 ];
 
-// Install event - cache assets
+// Install event - cache critical assets
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(cache => {
-                console.log('[Service Worker] Caching offline page and assets');
-                return cache.addAll(ASSETS_TO_CACHE);
+                console.log('[Service Worker] Caching critical assets');
+                return cache.addAll(ASSETS_TO_CACHE).catch(err => {
+                    console.error('[Service Worker] Failed to cache some assets:', err);
+                });
             })
             .then(() => self.skipWaiting())
     );
 });
 
-// Activate event - cleanup old caches and take control
+// Activate event - cleanup old caches
 self.addEventListener('activate', event => {
     event.waitUntil(
         caches.keys()
@@ -44,43 +42,61 @@ self.addEventListener('activate', event => {
     );
 });
 
-// Fetch event - serve from cache, fallback to network, then offline page
+// Fetch event - Network First with Cache Fallback
 self.addEventListener('fetch', event => {
     // Skip non-GET requests
     if (event.request.method !== 'GET') {
         return;
     }
 
+    const url = new URL(event.request.url);
+    
+    // Handle same-origin requests only
+    if (url.origin !== location.origin) {
+        return;
+    }
+
     event.respondWith(
-        caches.match(event.request)
-            .then(cachedResponse => {
-                if (cachedResponse) {
-                    return cachedResponse;
+        // Try network first
+        fetch(event.request)
+            .then(response => {
+                // Only cache successful responses for static assets
+                if (response && response.status === 200) {
+                    // Cache static assets (images, CSS, JS) but skip API and dynamic content
+                    const shouldCache = url.pathname.match(/\.(png|jpg|jpeg|gif|webp|svg|css|js|woff|woff2|ttf|eot)$/i) ||
+                                       url.pathname.startsWith('/assets/') ||
+                                       url.pathname.startsWith('/images/');
+                    
+                    if (shouldCache) {
+                        const responseClone = response.clone();
+                        caches.open(CACHE_NAME)
+                            .then(cache => {
+                                cache.put(event.request, responseClone);
+                            })
+                            .catch(err => console.error('[Service Worker] Cache put error:', err));
+                    }
                 }
-                
-                return fetch(event.request)
-                    .then(response => {
-                        // Cache successful responses for future offline use
-                        if (response && response.status === 200) {
-                            const responseClone = response.clone();
-                            caches.open(CACHE_NAME)
-                                .then(cache => {
-                                    cache.put(event.request, responseClone);
-                                });
+                return response;
+            })
+            .catch(() => {
+                // Network failed, try cache
+                return caches.match(event.request)
+                    .then(cachedResponse => {
+                        if (cachedResponse) {
+                            console.log('[Service Worker] Serving from cache:', url.pathname);
+                            return cachedResponse;
                         }
-                        return response;
-                    })
-                    .catch(() => {
-                        // Network failed, serve offline page
-                        return caches.match(OFFLINE_URL)
-                            .then(offlineResponse => {
-                                if (offlineResponse) {
-                                    return offlineResponse;
-                                }
-                                // Fallback: search all caches for offline page
-                                return caches.open(CACHE_NAME)
-                                    .then(cache => cache.match(OFFLINE_URL));
-                            });
+                        
+                        // For navigation requests, serve offline page
+                        if (event.request.mode === 'navigate') {
+                            return caches.match(OFFLINE_URL);
+                        }
+                        
+                        // For other requests, throw error
+                        return new Response('Network error', {
+                            status: 408,
+                            headers: { 'Content-Type': 'text/plain' }
+                        });
                     });
             })
     );

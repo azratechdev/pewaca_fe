@@ -59,6 +59,7 @@ I prefer simple language and detailed explanations. I want iterative development
 - **Dynamic Content**: JavaScript fetch calls for dynamic data retrieval.
 - **Environment Configuration**: Utilizes `.env` for sensitive settings.
 - **PWA Support**: Full PWA implementation for a mobile-first experience, including an offline page and installable app functionality.
+- **PWA Optimization (Oct 2025)**: Service worker updated to Network-First strategy with selective caching (only static assets like images, CSS, JS). Icon and splash screen configurations reduced to essential sizes (192x192, 512x512 icons; 3 splash sizes) to improve mobile app performance and reduce initial load size.
 
 ### Warga Registration Architecture
 - **Flow**: UUID-based invitation system for residents, multi-step registration form, backend validation, email verification, and account creation via the Django API.
