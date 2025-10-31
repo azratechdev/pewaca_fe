@@ -243,17 +243,25 @@ class AkunController extends Controller
             'account_number' => $request->nomor_rekening,
             'account_holder_name' => $request->nama_lengkap,
             'isactive' => false,
-            'residence' => $residence_id,
-            'bank' => $request->nama_bank
+            'residence' => (int)$residence_id,
+            'bank' => (int)$request->nama_bank
         ];
         
         try {
+            Log::info('Sending request to add rekening', ['data' => $data]);
+            
             $response = Http::withHeaders([
                 'Accept' => 'application/json',
                 'Authorization' => 'Token '.Session::get('token'),
             ])->post(env('API_URL') . '/api/residence-banks/', $data);
             
             $data_response = json_decode($response->body(), true);
+            
+            Log::info('Add rekening response', [
+                'status' => $response->status(),
+                'response' => $data_response,
+                'raw_body' => $response->body()
+            ]);
             
             if ($response->successful()) {
                 Session::flash('flash-message', [
@@ -266,15 +274,23 @@ class AkunController extends Controller
                 Log::error('Failed to add rekening', [
                     'status' => $response->status(),
                     'response' => $data_response,
+                    'raw_body' => $response->body(),
                     'request_data' => $data
                 ]);
                 
                 // Get error message from API if available
-                $errorMessage = 'Periksa Data Kembali';
-                if (isset($data_response['message'])) {
+                $errorMessage = 'Gagal menambahkan rekening. ';
+                
+                if ($response->status() == 500) {
+                    $errorMessage .= 'Terjadi kesalahan di server. Silakan hubungi administrator.';
+                } elseif (isset($data_response['message'])) {
                     $errorMessage = $data_response['message'];
                 } elseif (isset($data_response['error'])) {
                     $errorMessage = $data_response['error'];
+                } elseif (isset($data_response['detail'])) {
+                    $errorMessage = $data_response['detail'];
+                } else {
+                    $errorMessage .= 'Periksa data kembali (Status: ' . $response->status() . ')';
                 }
                 
                 Session::flash('flash-message', [
