@@ -239,10 +239,10 @@ class AkunController extends Controller
             return redirect()->route('addRekening');
         }
 
+        // Try without isactive field, let backend set default
         $data = [
             'account_number' => $request->nomor_rekening,
             'account_holder_name' => $request->nama_lengkap,
-            'isactive' => false,
             'residence' => (int)$residence_id,
             'bank' => (int)$request->nama_bank
         ];
@@ -440,7 +440,7 @@ class AkunController extends Controller
 
             } else {
                
-                $data_errors = $data_response['errors'] ?? [];
+                $data_errors = $response['errors'] ?? [];
 
                 $validator = Validator::make([], []);
                 
