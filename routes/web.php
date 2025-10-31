@@ -29,6 +29,8 @@ Route::get('/', [LoginController::class, 'showLoginForm'])
     ->middleware('check.token')
     ->name('showLoginForm');
 
+Route::get('/company-profile', [LoginController::class, 'companyProfile'])->name('companyProfile');
+
 Route::post('/', [LoginController::class, 'postlogin'])->name('postlogin');
 Route::get('/registration/{uuid?}', [RegisterController::class, 'showRegister'])->name('showRegister');
 Route::post('/postregistration', [RegisterController::class, 'postRegister'])->name('postRegister');

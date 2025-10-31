@@ -160,6 +160,11 @@ class LoginController extends Controller
         return $responses;
     }
 
+    public function companyProfile()
+    {
+        return view('auth.company-profile');
+    }
+
     public function logout()
     {   
         
