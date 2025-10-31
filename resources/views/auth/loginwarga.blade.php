@@ -104,6 +104,14 @@
                           </div>
                         </div>
                         <br>
+                        <div class="row">
+                          <div class="col-md-12">
+                              <a href="{{ route('companyProfile') }}" class="btn btn-outline-success form-control">
+                                <i class="fas fa-globe"></i> Go to Pewaca Web
+                              </a>
+                          </div>
+                        </div>
+                        <br>
                         <div class="mb-3">
                           <p class="text-center">Belum punya akun? Hubungi Pengurus.</p>
                         </div>
