@@ -22,6 +22,7 @@ I prefer simple language and detailed explanations. I want iterative development
 - Progressive Web App (PWA) capabilities.
 - QRIS Payment Orchestrator for residence fee collection.
 - **Warungku Marketplace**: Internal marketplace for residence community.
+- **Company Profile Page**: Modern, responsive landing page accessible from login via "Go to Pewaca Web" button, showcasing features and benefits of Pewaca.
 
 ### QRIS Payment Orchestrator
 - **Backend**: Uses a dedicated SQLite database for payments, `QrisProvider` interface with `QrisProviderMock` and `QrisProviderMidtrans` implementations, `PaymentController` and `WebhookController`, and background jobs for payment expiry and reconciliation. Includes security features like signature verification and idempotency.
