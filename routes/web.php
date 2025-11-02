@@ -128,6 +128,7 @@ Route::group(['middleware' => ['auth', 'check.token']], function () {
         
         //report download routes
         Route::get('/pengurus/report/download/comprehensive', [ReportController::class, 'downloadComprehensive'])->name('pengurus.report.download.comprehensive');
+        Route::get('/pengurus/report/debug/tunggakan', [ReportController::class, 'debugTunggakan'])->name('pengurus.report.debug.tunggakan');
         //end report route
     });
     
