@@ -179,12 +179,35 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         container.innerHTML = html;
     }
+    // Get unit_id from residence_commites for filtering by unit
+    const residenceCommites = @json(Session::get('cred.residence_commites', []));
+    const unitIds = [];
+    residenceCommites.forEach(commite => {
+        if (commite.unit_id && typeof commite.unit_id === 'number') unitIds.push(commite.unit_id);
+        else if (commite.unit && typeof commite.unit.id === 'number') unitIds.push(commite.unit.id);
+        else if (Array.isArray(commite.units)) {
+            commite.units.forEach(unit => {
+                if (typeof unit.id === 'number') unitIds.push(unit.id);
+                else if (typeof unit === 'number') unitIds.push(unit);
+            });
+        }
+        else if (typeof commite.units === 'number') unitIds.push(commite.units);
+    });
+    const uniqueUnitIds = [...new Set(unitIds)];
+    console.log('ByType filtering by unit count:', uniqueUnitIds.length);
+    
     function fetchAndRender() {
+        if (uniqueUnitIds.length === 0) {
+            console.error('No units assigned');
+            alert('Anda tidak memiliki akses ke unit manapun.');
+            return;
+        }
+        
         const periodeVal = periodeInput.value;
         const unitVal = unitInput.value.trim();
-        const pengurusEmail = '{{ Session::get("cred.email") }}';
-        let apiUrl = `https://admin.pewaca.id/api/report/bytype/?periode=${periodeVal}&email=${encodeURIComponent(pengurusEmail)}`;
+        let apiUrl = `https://admin.pewaca.id/api/report/bytype/?periode=${periodeVal}&unit_ids=${encodeURIComponent(uniqueUnitIds.join(','))}`;
         if (unitVal) apiUrl += `&unit_no=${encodeURIComponent(unitVal)}`;
+        
         fetch(apiUrl)
             .then(res => res.json())
             .then(data => {

@@ -135,8 +135,40 @@ document.addEventListener('DOMContentLoaded', function () {
     periodeInput.value = getDefaultPeriode();
     periodeInput.max = getDefaultPeriode(); // batasi max ke bulan default (tidak bisa pilih bulan depan)
     
-    // Get pengurus email from session for filtering
-    const pengurusEmail = '{{ Session::get("cred.email") }}';
+    // Get unit_id from residence_commites for filtering by unit
+    const residenceCommites = @json(Session::get('cred.residence_commites', []));
+    
+    // Extract all unit_ids that this pengurus manages - handle various data structures
+    const unitIds = [];
+    residenceCommites.forEach(commite => {
+        // Case 1: Direct unit_id field (scalar)
+        if (commite.unit_id && typeof commite.unit_id === 'number') {
+            unitIds.push(commite.unit_id);
+        }
+        // Case 2: Nested unit object with id
+        else if (commite.unit && typeof commite.unit.id === 'number') {
+            unitIds.push(commite.unit.id);
+        }
+        // Case 3: units array of objects
+        else if (Array.isArray(commite.units)) {
+            commite.units.forEach(unit => {
+                if (typeof unit.id === 'number') {
+                    unitIds.push(unit.id);
+                } else if (typeof unit === 'number') {
+                    unitIds.push(unit);
+                }
+            });
+        }
+        // Case 4: units as scalar
+        else if (typeof commite.units === 'number') {
+            unitIds.push(commite.units);
+        }
+    });
+    
+    // Remove duplicates
+    const uniqueUnitIds = [...new Set(unitIds)];
+    console.log('Report filtering by unit count:', uniqueUnitIds.length);
+    
     const urlBase = '{{ env('API_URL') }}/api/report/index/?periode=';
     
     fetchAndRender(periodeInput.value);
@@ -146,8 +178,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function fetchAndRender(periode) {
-        // Add email parameter to filter data by pengurus
-        const url = urlBase + periode + '&email=' + encodeURIComponent(pengurusEmail);
+        // Security: Only fetch if pengurus has valid units assigned
+        if (uniqueUnitIds.length === 0) {
+            console.error('No units assigned to this pengurus');
+            alert('Anda tidak memiliki akses ke unit manapun. Silakan hubungi administrator.');
+            return;
+        }
+        
+        // Add unit_id parameter to filter data by pengurus's units
+        let url = urlBase + periode + '&unit_ids=' + encodeURIComponent(uniqueUnitIds.join(','));
         
         fetch(url, {
             headers: {
