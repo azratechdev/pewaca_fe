@@ -3,12 +3,20 @@
 
 <div class="flex justify-center items-center">
     <div class="bg-white w-full max-w-6xl">
-        <div class="p-6 border-b">
+        <div class="p-6 border-b flex justify-between items-center">
             <h1 class="text-xl font-semibold text-gray-800">
                 <a href="{{ route('pengurus.report') }}" class="text-dark">
                     <i class="fas fa-arrow-left"></i>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;Detail Report
             </h1>
+            <div class="flex gap-2">
+                <button id="download-sudah-bayar" class="bg-green-600 text-white px-4 py-2 rounded text-sm hover:bg-green-700">
+                    <i class="fas fa-download"></i> Download Sudah Bayar
+                </button>
+                <button id="download-belum-bayar" class="bg-orange-500 text-white px-4 py-2 rounded text-sm hover:bg-orange-600">
+                    <i class="fas fa-download"></i> Download Belum Bayar
+                </button>
+            </div>
         </div>
         
         <div class="col-md-12 col-sm-12" style="padding-left:20px;padding-right:20px;">
@@ -333,6 +341,19 @@ document.addEventListener('DOMContentLoaded', function () {
         tabWajib.classList.add('text-gray-400', 'border-transparent');
         contentSukarela.classList.remove('hidden');
         contentWajib.classList.add('hidden');
+    });
+    
+    // Download buttons
+    document.getElementById('download-sudah-bayar').addEventListener('click', function() {
+        const periodeVal = periodeInput.value;
+        const url = `{{ route('pengurus.report.download.cashout') }}?periode=${periodeVal}&type=sudah_bayar`;
+        window.location.href = url;
+    });
+    
+    document.getElementById('download-belum-bayar').addEventListener('click', function() {
+        const periodeVal = periodeInput.value;
+        const url = `{{ route('pengurus.report.download.cashout') }}?periode=${periodeVal}&type=belum_bayar`;
+        window.location.href = url;
     });
 });
 </script>
