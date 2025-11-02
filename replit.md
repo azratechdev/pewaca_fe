@@ -1,7 +1,7 @@
 # Residence Frontend Application
 
 ## Overview
-Pewaca is a Laravel 9 PHP web application for residence management. It provides comprehensive administration for residents and administrators, including user authentication, member management, reporting, and a newly integrated QRIS payment orchestrator for fee collection. The project aims to streamline residence administration and enhance payment processing.
+PT HEMITECH KARYA INDONESIA (formerly Pewaca) is a Laravel 9 PHP web application for residence management. It provides comprehensive administration for residents and administrators, including user authentication, member management, reporting, and a newly integrated QRIS payment orchestrator for fee collection. The project aims to streamline residence administration and enhance payment processing.
 
 ## User Preferences
 I prefer simple language and detailed explanations. I want iterative development where you ask before making major changes. Do not make changes to the folder `Z`. Do not make changes to the file `Y`.
@@ -22,7 +22,7 @@ I prefer simple language and detailed explanations. I want iterative development
 - Progressive Web App (PWA) capabilities.
 - QRIS Payment Orchestrator for residence fee collection.
 - **Warungku Marketplace**: Internal marketplace for residence community.
-- **Company Profile Page**: Modern, responsive landing page accessible from login via "Go to Pewaca Web" button, showcasing features and benefits of Pewaca.
+- **Company Profile Page**: Modern, responsive landing page accessible from login via "Visit Company Profile" button, showcasing features and benefits of PT HEMITECH KARYA INDONESIA.
 
 ### QRIS Payment Orchestrator
 - **Backend**: Uses a dedicated SQLite database for payments, `QrisProvider` interface with `QrisProviderMock` and `QrisProviderMidtrans` implementations, `PaymentController` and `WebhookController`, and background jobs for payment expiry and reconciliation. Includes security features like signature verification and idempotency.
@@ -66,6 +66,7 @@ I prefer simple language and detailed explanations. I want iterative development
 - **Oct 30, 2025 - Add Pengurus**: Fixed "Trying to access array offset on null" error by adding proper API response validation and error handling in `PengurusController::getRole()` and `getWarga()` methods.
 - **Oct 30, 2025 - Add Rekening**: Fixed similar null access error by adding comprehensive error handling in `AkunController::addRekening()` and `postRekening()` methods, with detailed logging and user-friendly error messages.
 - **Nov 2, 2025 - Report Filtering**: Updated `/pengurus/report` and all detail pages to filter data by `residence_id` instead of showing all data. Each pengurus now only sees reports for their assigned residence, based on their `residence_commites` data. Frontend extracts `residence_id` from session and sends to backend API as filter parameter.
+- **Nov 2, 2025 - Company Rebranding**: Rebranded from "Pewaca" to "PT HEMITECH KARYA INDONESIA" throughout the application. Updated company profile page with new logo (`hemitech-logo.png`), company name, and contact information (info@hemitech.co.id, www.hemitech.co.id). Login page button updated to "Visit Company Profile".
 
 ### Warga Registration Architecture
 - **Flow**: UUID-based invitation system for residents, multi-step registration form, backend validation, email verification, and account creation via the Django API.

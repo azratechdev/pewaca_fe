@@ -11,8 +11,8 @@
     <link rel="manifest" href="{{ url('manifest.json') }}">
 
    
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/plugins/images/logo.png') }}">
-    <title>Cubic Admin Template</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/plugins/images/hemitech-logo.png') }}">
+    <title>PT HEMITECH KARYA INDONESIA - Login</title>
     <!-- ===== Bootstrap CSS ===== -->
     <link href="{{ asset('assets/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
    
