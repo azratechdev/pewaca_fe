@@ -1,0 +1,153 @@
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+from api.serializers import (
+    ReportIndexSerializer,
+    ReportCashoutSerializer,
+    ReportByTypeSerializer,
+    ReportTunggakanSerializer
+)
+@swagger_auto_schema(
+    method='get',
+    operation_description="Data Ringkasan Laporan",
+    manual_parameters=[
+        openapi.Parameter('periode', openapi.IN_QUERY, description="Periode laporan (format: YYYY-MM)", type=openapi.TYPE_STRING),
+        openapi.Parameter('unit_no', openapi.IN_QUERY, description="Unit number", type=openapi.TYPE_STRING)
+    ],
+    responses={200: ReportIndexSerializer}
+)
+@api_view(['GET'])
+def report_index_data(request):
+    data = {
+        "periode": "2025-06",
+        "total_uang_masuk": 20000000,
+        "jumlah_warga": 100,
+        "bypembayaran": [
+            {"name": "Sudah Bayar", "jumlah": 80},
+            {"name": "Belum Bayar", "jumlah": 20}
+        ],
+        "bytype": [
+            {"name": "Wajib", "nominal": 12000000},
+            {"name": "Sukarela", "nominal": 8000000}
+        ],
+        "tunggakan": {
+            "total_unit": 10,
+            "total_nominal": 15000000
+        }
+    }
+    return Response(data)
+
+
+@swagger_auto_schema(
+    method='get',
+    operation_description="Detail Pembayaran Warga",
+    manual_parameters=[
+        openapi.Parameter('periode', openapi.IN_QUERY, description="Periode laporan (format: YYYY-MM)", type=openapi.TYPE_STRING),
+        openapi.Parameter('unit_name', openapi.IN_QUERY, description="Unit Name", type=openapi.TYPE_STRING)
+    ],
+    responses={200: ReportCashoutSerializer}
+)
+@api_view(['GET'])
+def report_cashout_data(request):
+    periode = request.query_params.get('periode')
+    unit_name = request.query_params.get('unit_name')
+    
+    data = {
+        "periode": periode,
+        "jumlah_warga": 100,
+        "bypembayaran": [
+            {"name": "Sudah Bayar", "jumlah": 80},
+            {"name": "Belum Bayar", "jumlah": 20}
+        ],
+        "sudah_bayar": {
+            "total": 12,
+            "data": [
+                {"unit": "C44", "tanggal": "12 April 2025", "nominal": 150000},
+                {"unit": "C45", "tanggal": "13 April 2025", "nominal": 200000},
+            ]
+        },
+        "belum_bayar": {
+            "total": 8,
+            "data": [
+                {"unit": "C12", "tanggal": "12 April 2025", "nominal": 200000}
+            ]
+        }
+    }
+    return Response(data)
+
+
+@swagger_auto_schema(
+    method='get',
+    operation_description="Laporan per Tipe Pembayaran",
+    manual_parameters=[
+        openapi.Parameter('periode', openapi.IN_QUERY, description="Periode laporan (format: YYYY-MM)", type=openapi.TYPE_STRING),
+        openapi.Parameter('unit_no', openapi.IN_QUERY, description="Unit number", type=openapi.TYPE_STRING)
+    ],
+    responses={200: ReportByTypeSerializer}
+)
+@api_view(['GET'])
+def report_by_type_data(request):
+    data = {
+        "periode": "2025-06",
+        "total_uang_masuk": 20000000,
+        "jumlah_warga": 100,
+        "bytype_chart": [
+            {"name": "Wajib", "nominal": 12000000},
+            {"name": "Sukarela", "nominal": 8000000}
+        ],
+        "wajib": {
+            "total": 12000000,
+            "data": [
+                {"unit": "C44", "tanggal": "12 April 2025", "nominal": 150000},
+                {"unit": "C45", "tanggal": "13 April 2025", "nominal": 200000},
+            ]
+        },
+        "sukarela": {
+            "total": 8000000,
+            "data": [
+                {"unit": "C12", "tanggal": "12 April 2025", "nominal": 200000}
+            ]
+        }
+    }
+    return Response(data)
+
+
+@swagger_auto_schema(
+    method='get',
+    operation_description="Data Tunggakan Warga",
+    manual_parameters=[
+        openapi.Parameter('periode', openapi.IN_QUERY, description="Periode laporan (format: YYYY-MM)", type=openapi.TYPE_STRING),
+        openapi.Parameter('unit_no', openapi.IN_QUERY, description="Unit number", type=openapi.TYPE_STRING)
+    ],
+    responses={200: ReportTunggakanSerializer}
+)
+@api_view(['GET'])
+def report_tunggakan_data(request):
+    data = {
+        "periode": "2025-06",
+        "total_unit": 10,
+        "total_nominal": 15000000,
+        "units": [
+            {
+                "nama_unit": "C44",
+                "periode": ["April", "Mei"],
+                "tahun": 2025,
+                "total_nominal": 300000
+            },
+            {
+                "nama_unit": "C45",
+                "periode": ["Mei"],
+                "tahun": 2025,
+                "total_nominal": 150000
+            },
+            {
+                "nama_unit": "C46",
+                "periode": ["April", "Mei"],
+                "tahun": 2025,
+                "total_nominal": 300000
+            }
+        ]
+    }
+    return Response(data)
