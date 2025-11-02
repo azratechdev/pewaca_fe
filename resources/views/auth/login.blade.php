@@ -11,8 +11,8 @@
     <link rel="manifest" href="{{ url('manifest.json') }}">
 
    
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/plugins/images/hemitech-logo.png') }}">
-    <title>PT HEMITECH KARYA INDONESIA - Login</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/plugins/images/logo.png') }}">
+    <title>Cubic Admin Template</title>
     <!-- ===== Bootstrap CSS ===== -->
     <link href="{{ asset('assets/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
    
@@ -91,7 +91,7 @@
                     <div class="form-group text-center mt-3">
                         <div class="col-xs-12">
                             <a href="{{ route('companyProfile') }}" class="btn btn-success btn-lg btn-block text-uppercase waves-effect waves-light" style="background-color: #5FA782; border-color: #5FA782;">
-                                <i class="fa fa-globe"></i> Visit Company Profile
+                                <i class="fa fa-globe"></i> Go to Pewaca Web
                             </a>
                         </div>
                     </div>

@@ -22,7 +22,7 @@ I prefer simple language and detailed explanations. I want iterative development
 - Progressive Web App (PWA) capabilities.
 - QRIS Payment Orchestrator for residence fee collection.
 - **Warungku Marketplace**: Internal marketplace for residence community.
-- **Company Profile Page**: Modern, responsive landing page accessible from login via "Visit Company Profile" button, showcasing features and benefits of PT HEMITECH KARYA INDONESIA.
+- **Company Profile Page**: Modern, responsive landing page accessible from login via "Go to Pewaca Web" button, showcasing features and benefits of PT HEMITECH KARYA INDONESIA (company profile uses new branding while login pages retain Pewaca branding).
 
 ### QRIS Payment Orchestrator
 - **Backend**: Uses a dedicated SQLite database for payments, `QrisProvider` interface with `QrisProviderMock` and `QrisProviderMidtrans` implementations, `PaymentController` and `WebhookController`, and background jobs for payment expiry and reconciliation. Includes security features like signature verification and idempotency.
@@ -66,7 +66,7 @@ I prefer simple language and detailed explanations. I want iterative development
 - **Oct 30, 2025 - Add Pengurus**: Fixed "Trying to access array offset on null" error by adding proper API response validation and error handling in `PengurusController::getRole()` and `getWarga()` methods.
 - **Oct 30, 2025 - Add Rekening**: Fixed similar null access error by adding comprehensive error handling in `AkunController::addRekening()` and `postRekening()` methods, with detailed logging and user-friendly error messages.
 - **Nov 2, 2025 - Report Filtering**: Updated `/pengurus/report` and all detail pages to filter data by `residence_id` instead of showing all data. Each pengurus now only sees reports for their assigned residence, based on their `residence_commites` data. Frontend extracts `residence_id` from session and sends to backend API as filter parameter.
-- **Nov 2, 2025 - Company Rebranding**: Rebranded from "Pewaca" to "PT HEMITECH KARYA INDONESIA" throughout the application. Updated company profile page with new logo (`hemitech-logo.png`), company name, and contact information (info@hemitech.co.id, www.hemitech.co.id). Login page button updated to "Visit Company Profile".
+- **Nov 2, 2025 - Company Profile Page Rebranding**: Updated company profile page (`/company-profile`) to showcase "PT HEMITECH KARYA INDONESIA" as the company identity. Added new logo (`hemitech-logo.png`), updated company name throughout the profile page, and changed contact information to info@hemitech.co.id and www.hemitech.co.id. Login pages remain with original "Pewaca" branding with "Go to Pewaca Web" button linking to the company profile page.
 
 ### Warga Registration Architecture
 - **Flow**: UUID-based invitation system for residents, multi-step registration form, backend validation, email verification, and account creation via the Django API.

@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/plugins/images/hemitech-logo.png') }}">
-  <title>PT HEMITECH KARYA INDONESIA</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/plugins/images/logo.png') }}">
+  <title>Pewaca</title>
   <link rel="manifest" href="{{ url('manifest.json') }}">
 
   
@@ -57,13 +57,13 @@
                 <div class="card-body">
                   <div class="mb-4 mt-4" style="align-items: left;">
                     <picture>
-                      <img src="{{ asset('assets/plugins/images/hemitech-logo.png') }}" class="img-fluid img-thumbnail waca-logo" alt="PT HEMITECH KARYA INDONESIA Logo">
+                      <img src="{{ asset('assets/plugins/images/mainlogo.png') }}" class="img-fluid img-thumbnail waca-logo" alt="Waca Logo">
                     </picture>
                   </div>
 
                   <div class="mb-3">
                     <p class="text-left">Selamat Datang di</p>
-                    <p><strong>PT HEMITECH KARYA INDONESIA</strong></p>
+                    <p><strong>Pewaca</strong></p>
                   </div>
       
                   <div class="mb-3">
@@ -107,7 +107,7 @@
                         <div class="row">
                           <div class="col-md-12">
                               <a href="{{ route('companyProfile') }}" class="btn btn-outline-success form-control">
-                                <i class="fas fa-globe"></i> Visit Company Profile
+                                <i class="fas fa-globe"></i> Go to Pewaca Web
                               </a>
                           </div>
                         </div>
