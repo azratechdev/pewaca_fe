@@ -113,7 +113,8 @@ document.addEventListener('DOMContentLoaded', function () {
     function fetchAndRender() {
         const periodeVal = periodeInput.value;
         const unitVal = unitInput.value.trim();
-        let apiUrl = `https://admin.pewaca.id/api/report/tunggakan/?periode=${periodeVal}`;
+        const pengurusEmail = '{{ Session::get("cred.email") }}';
+        let apiUrl = `https://admin.pewaca.id/api/report/tunggakan/?periode=${periodeVal}&email=${encodeURIComponent(pengurusEmail)}`;
         if (unitVal) apiUrl += `&unit_no=${encodeURIComponent(unitVal)}`;
         fetch(apiUrl)
             .then(res => res.json())

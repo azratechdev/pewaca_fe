@@ -134,7 +134,11 @@ document.addEventListener('DOMContentLoaded', function () {
     updateDetailLinks(); // set awal
     periodeInput.value = getDefaultPeriode();
     periodeInput.max = getDefaultPeriode(); // batasi max ke bulan default (tidak bisa pilih bulan depan)
+    
+    // Get pengurus email from session for filtering
+    const pengurusEmail = '{{ Session::get("cred.email") }}';
     const urlBase = '{{ env('API_URL') }}/api/report/index/?periode=';
+    
     fetchAndRender(periodeInput.value);
 
     periodeInput.addEventListener('change', function() {
@@ -142,7 +146,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function fetchAndRender(periode) {
-        fetch(urlBase + periode, {
+        // Add email parameter to filter data by pengurus
+        const url = urlBase + periode + '&email=' + encodeURIComponent(pengurusEmail);
+        
+        fetch(url, {
             headers: {
                 'Authorization': 'Token {{ Session::get("token") }}',
                 'Content-Type': 'application/json'
