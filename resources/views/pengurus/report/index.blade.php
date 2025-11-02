@@ -138,9 +138,19 @@ document.addEventListener('DOMContentLoaded', function () {
     // Get residence_id from residence_commites for filtering by residence
     const residenceCommites = @json(Session::get('cred.residence_commites', []));
     
+    // DEBUG: Check what data we have
+    console.log('=== DEBUG RESIDENCE DATA ===');
+    console.log('Raw residenceCommites:', residenceCommites);
+    console.log('Is Array?', Array.isArray(residenceCommites));
+    console.log('Length:', residenceCommites ? residenceCommites.length : 'null/undefined');
+    
     // Extract all residence_ids that this pengurus manages
     const residenceIds = [];
-    residenceCommites.forEach(commite => {
+    residenceCommites.forEach((commite, index) => {
+        console.log(`Commite [${index}]:`, commite);
+        console.log(`  - residence_id:`, commite.residence_id);
+        console.log(`  - type of residence_id:`, typeof commite.residence_id);
+        
         if (commite.residence_id && typeof commite.residence_id === 'number') {
             residenceIds.push(commite.residence_id);
         }
@@ -148,7 +158,10 @@ document.addEventListener('DOMContentLoaded', function () {
     
     // Remove duplicates (though usually pengurus only has 1 residence)
     const uniqueResidenceIds = [...new Set(residenceIds)];
+    console.log('Extracted residenceIds:', residenceIds);
+    console.log('Unique residence IDs:', uniqueResidenceIds);
     console.log('Report filtering by residence count:', uniqueResidenceIds.length);
+    console.log('=== END DEBUG ===');
     
     const urlBase = '{{ env('API_URL') }}/api/report/index/?periode=';
     
