@@ -141,9 +141,6 @@ class ReportController extends Controller
             $tunggakanResponse = Http::withHeaders($headers)
                 ->get("https://admin.pewaca.id/api/report/tunggakan/?periode={$periode}&residence_id={$residence_id}");
             $tunggakanData = $tunggakanResponse->successful() ? $tunggakanResponse->json() : [];
-            
-            // Log tunggakan data for debugging
-            \Log::info('Tunggakan API Response', ['data' => $tunggakanData]);
 
             // Compile all data
             $allData = [
@@ -163,8 +160,6 @@ class ReportController extends Controller
                 'sukarela' => $byTypeData['sukarela']['data'] ?? [],
                 'tunggakan' => $tunggakanData['units'] ?? [],
             ];
-            
-            \Log::info('Tunggakan Units Data', ['units' => $allData['tunggakan']]);
 
             $filename = "Laporan_Pembayaran_{$periode}.xlsx";
             return Excel::download(new ReportComprehensiveExport($allData, $periode), $filename);
@@ -172,32 +167,6 @@ class ReportController extends Controller
         } catch (\Exception $e) {
             return back()->with('error', 'Gagal mengunduh laporan: ' . $e->getMessage());
         }
-    }
-
-    public function debugTunggakan(Request $request)
-    {
-        $periode = $request->get('periode', '2024-10');
-        $residence_id = $this->getResidenceId();
-        $token = Session::get('token');
-
-        $headers = [
-            'Authorization' => 'Token ' . $token,
-            'Content-Type' => 'application/json'
-        ];
-
-        $tunggakanResponse = Http::withHeaders($headers)
-            ->get("https://admin.pewaca.id/api/report/tunggakan/?periode={$periode}&residence_id={$residence_id}");
-
-        $data = $tunggakanResponse->json();
-        
-        return response()->json([
-            'status' => $tunggakanResponse->successful(),
-            'status_code' => $tunggakanResponse->status(),
-            'residence_id' => $residence_id,
-            'periode' => $periode,
-            'raw_data' => $data,
-            'units' => $data['units'] ?? [],
-        ]);
     }
 
     private function getResidenceId()

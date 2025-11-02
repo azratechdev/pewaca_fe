@@ -467,7 +467,7 @@ def report_tunggakan_data(request):
         unit_id__unit_id__in=unit_ids,
         tagihan_id__in=tagihan_ids,
         status='unpaid'
-    ).select_related('unit_id')
+    ).select_related('unit_id', 'tagihan')
     
     unit_tunggakan_map = defaultdict(list)
     
@@ -485,14 +485,18 @@ def report_tunggakan_data(request):
         total_nominal_unit = 0
         
         for tw in tunggakan_list:
-            if tw.date_due:
-                month_name = tw.date_due.strftime('%B')
+            # Access tagihan object for date and amount
+            tagihan = tw.tagihan
+            if tagihan and tagihan.date_due:
+                month_name = tagihan.date_due.strftime('%B')
                 if month_name not in periode_list:
                     periode_list.append(month_name)
                 if not tahun:
-                    tahun = tw.date_due.year
+                    tahun = tagihan.date_due.year
             
-            total_nominal_unit += float(tw.amount) if tw.amount else 0
+            # Get amount from tagihan, not from TagihanWarga
+            if tagihan and tagihan.amount:
+                total_nominal_unit += float(tagihan.amount)
         
         units_data.append({
             "nama_unit": unit_obj.unit_name,
