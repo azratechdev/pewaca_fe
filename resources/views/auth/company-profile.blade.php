@@ -72,21 +72,21 @@
         }
 
         .hero-title {
-            font-size: 3.5rem;
+            font-size: 4.5rem;
             font-weight: 700;
             margin: 30px 0 20px;
             text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
         }
 
         .hero-subtitle {
-            font-size: 1.6rem;
+            font-size: 2rem;
             margin-bottom: 15px;
             opacity: 0.95;
             font-weight: 300;
         }
 
         .hero-description {
-            font-size: 1.3rem;
+            font-size: 1.6rem;
             margin-bottom: 40px;
             opacity: 0.9;
             max-width: 700px;
@@ -97,10 +97,10 @@
         .btn-login {
             background: white;
             color: var(--pewaca-green);
-            padding: 18px 45px;
+            padding: 20px 50px;
             border-radius: 50px;
             font-weight: 600;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             text-decoration: none;
             display: inline-block;
             transition: all 0.3s ease;
@@ -145,7 +145,7 @@
         }
 
         .stat-label {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             opacity: 0.9;
         }
 
@@ -157,7 +157,7 @@
 
         .section-title {
             text-align: center;
-            font-size: 2.8rem;
+            font-size: 3.5rem;
             font-weight: 700;
             color: var(--pewaca-dark);
             margin-bottom: 20px;
@@ -165,7 +165,7 @@
 
         .section-subtitle {
             text-align: center;
-            font-size: 1.4rem;
+            font-size: 1.7rem;
             color: #666;
             margin-bottom: 60px;
             max-width: 700px;
@@ -210,7 +210,7 @@
         }
 
         .feature-title {
-            font-size: 1.7rem;
+            font-size: 2rem;
             font-weight: 600;
             color: var(--pewaca-dark);
             margin-bottom: 15px;
@@ -219,7 +219,7 @@
         .feature-text {
             color: #666;
             line-height: 1.7;
-            font-size: 1.15rem;
+            font-size: 1.35rem;
         }
 
         /* Benefits Section */
@@ -259,7 +259,7 @@
         }
 
         .benefit-content h3 {
-            font-size: 1.6rem;
+            font-size: 1.9rem;
             font-weight: 600;
             color: var(--pewaca-dark);
             margin-bottom: 10px;
@@ -269,7 +269,7 @@
             color: #666;
             line-height: 1.7;
             margin: 0;
-            font-size: 1.1rem;
+            font-size: 1.3rem;
         }
 
         /* CTA Section */
@@ -281,13 +281,13 @@
         }
 
         .cta-title {
-            font-size: 2.8rem;
+            font-size: 3.5rem;
             font-weight: 700;
             margin-bottom: 20px;
         }
 
         .cta-text {
-            font-size: 1.4rem;
+            font-size: 1.7rem;
             margin-bottom: 40px;
             opacity: 0.9;
         }
@@ -362,20 +362,20 @@
         }
 
         @media (max-width: 768px) {
-            .hero-title { font-size: 2.5rem; }
-            .hero-subtitle { font-size: 1.3rem; }
-            .hero-description { font-size: 1.1rem; }
-            .section-title { font-size: 2.2rem; }
-            .section-subtitle { font-size: 1.2rem; }
-            .feature-title { font-size: 1.5rem; }
-            .feature-text { font-size: 1.05rem; }
-            .benefit-content h3 { font-size: 1.4rem; }
-            .benefit-content p { font-size: 1rem; }
-            .stat-number { font-size: 2.5rem; }
-            .stat-label { font-size: 1.1rem; }
-            .cta-title { font-size: 2.2rem; }
-            .cta-text { font-size: 1.2rem; }
-            .btn-login { font-size: 1.1rem; padding: 15px 35px; }
+            .hero-title { font-size: 3rem; }
+            .hero-subtitle { font-size: 1.6rem; }
+            .hero-description { font-size: 1.3rem; }
+            .section-title { font-size: 2.8rem; }
+            .section-subtitle { font-size: 1.5rem; }
+            .feature-title { font-size: 1.8rem; }
+            .feature-text { font-size: 1.2rem; }
+            .benefit-content h3 { font-size: 1.7rem; }
+            .benefit-content p { font-size: 1.2rem; }
+            .stat-number { font-size: 3rem; }
+            .stat-label { font-size: 1.3rem; }
+            .cta-title { font-size: 2.8rem; }
+            .cta-text { font-size: 1.5rem; }
+            .btn-login { font-size: 1.3rem; padding: 18px 40px; }
         }
 
         .fade-in {
