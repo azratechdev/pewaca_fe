@@ -110,33 +110,27 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         listDiv.innerHTML = html;
     }
-    // Get unit_id from residence_commites for filtering by unit
+    // Get residence_id from residence_commites for filtering by residence
     const residenceCommites = @json(Session::get('cred.residence_commites', []));
-    const unitIds = [];
+    const residenceIds = [];
     residenceCommites.forEach(commite => {
-        if (commite.unit_id && typeof commite.unit_id === 'number') unitIds.push(commite.unit_id);
-        else if (commite.unit && typeof commite.unit.id === 'number') unitIds.push(commite.unit.id);
-        else if (Array.isArray(commite.units)) {
-            commite.units.forEach(unit => {
-                if (typeof unit.id === 'number') unitIds.push(unit.id);
-                else if (typeof unit === 'number') unitIds.push(unit);
-            });
+        if (commite.residence_id && typeof commite.residence_id === 'number') {
+            residenceIds.push(commite.residence_id);
         }
-        else if (typeof commite.units === 'number') unitIds.push(commite.units);
     });
-    const uniqueUnitIds = [...new Set(unitIds)];
-    console.log('Tunggakan filtering by unit count:', uniqueUnitIds.length);
+    const uniqueResidenceIds = [...new Set(residenceIds)];
+    console.log('Tunggakan filtering by residence count:', uniqueResidenceIds.length);
     
     function fetchAndRender() {
-        if (uniqueUnitIds.length === 0) {
-            console.error('No units assigned');
-            alert('Anda tidak memiliki akses ke unit manapun.');
+        if (uniqueResidenceIds.length === 0) {
+            console.error('No residence assigned');
+            alert('Anda tidak memiliki akses ke residence manapun.');
             return;
         }
         
         const periodeVal = periodeInput.value;
         const unitVal = unitInput.value.trim();
-        let apiUrl = `https://admin.pewaca.id/api/report/tunggakan/?periode=${periodeVal}&unit_ids=${encodeURIComponent(uniqueUnitIds.join(','))}`;
+        let apiUrl = `https://admin.pewaca.id/api/report/tunggakan/?periode=${periodeVal}&residence_id=${encodeURIComponent(uniqueResidenceIds[0])}`;
         if (unitVal) apiUrl += `&unit_no=${encodeURIComponent(unitVal)}`;
         
         fetch(apiUrl)

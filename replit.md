@@ -65,7 +65,7 @@ I prefer simple language and detailed explanations. I want iterative development
 ### Recent Bug Fixes & Updates
 - **Oct 30, 2025 - Add Pengurus**: Fixed "Trying to access array offset on null" error by adding proper API response validation and error handling in `PengurusController::getRole()` and `getWarga()` methods.
 - **Oct 30, 2025 - Add Rekening**: Fixed similar null access error by adding comprehensive error handling in `AkunController::addRekening()` and `postRekening()` methods, with detailed logging and user-friendly error messages.
-- **Nov 2, 2025 - Report Filtering**: Updated `/pengurus/report` and all detail pages to filter data by `unit_id` instead of showing all residence data. Each pengurus now only sees reports for units they manage, based on their `residence_commites` data. Frontend extracts `unit_ids` from session and sends to backend API as filter parameter.
+- **Nov 2, 2025 - Report Filtering**: Updated `/pengurus/report` and all detail pages to filter data by `residence_id` instead of showing all data. Each pengurus now only sees reports for their assigned residence, based on their `residence_commites` data. Frontend extracts `residence_id` from session and sends to backend API as filter parameter.
 
 ### Warga Registration Architecture
 - **Flow**: UUID-based invitation system for residents, multi-step registration form, backend validation, email verification, and account creation via the Django API.
