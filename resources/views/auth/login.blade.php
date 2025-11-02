@@ -91,7 +91,7 @@
                     <div class="form-group text-center mt-3">
                         <div class="col-xs-12">
                             <a href="{{ route('companyProfile') }}" class="btn btn-success btn-lg btn-block text-uppercase waves-effect waves-light" style="background-color: #5FA782; border-color: #5FA782;">
-                                <i class="fa fa-globe"></i> Go to Pewaca Web
+                                <i class="fa fa-globe"></i> Visit Company Profile
                             </a>
                         </div>
                     </div>

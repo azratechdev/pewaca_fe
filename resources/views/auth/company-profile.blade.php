@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Pewaca - Solusi Digital untuk Lingkungan Anda</title>
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/plugins/images/logo.png') }}">
+    <title>PT HEMITECH KARYA INDONESIA - Solusi Digital untuk Lingkungan Anda</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/plugins/images/hemitech-logo.png') }}">
     <link href="{{ asset('assets/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -383,9 +383,9 @@
     <section class="hero-section">
         <div class="hero-content fade-in">
             <div class="logo-container">
-                <img src="{{ asset('assets/plugins/images/logo.png') }}" alt="Pewaca Logo">
+                <img src="{{ asset('assets/plugins/images/hemitech-logo.png') }}" alt="PT HEMITECH KARYA INDONESIA Logo">
             </div>
-            <h1 class="hero-title">PEWACA</h1>
+            <h1 class="hero-title">PT HEMITECH KARYA INDONESIA</h1>
             <p class="hero-subtitle">Solusi digital terpadu untuk warga dan pengelola lingkungan</p>
             <p class="hero-description">
                 Kelola perumahan Anda dengan mudah. Transparansi iuran, komunikasi efektif, dan administrasi digital dalam satu platform.
@@ -526,7 +526,7 @@
                     <div class="step-card">
                         <div class="step-number">3</div>
                         <h3 class="step-title">Nikmati Layanan</h3>
-                        <p class="step-text">Mulai bayar iuran, berinteraksi dengan warga, dan akses semua fitur Pewaca dengan mudah.</p>
+                        <p class="step-text">Mulai bayar iuran, berinteraksi dengan warga, dan akses semua fitur PT HEMITECH dengan mudah.</p>
                     </div>
                 </div>
             </div>
@@ -537,7 +537,7 @@
     <section class="benefits-section">
         <div class="container">
             <h2 class="section-title">Manfaat untuk Anda</h2>
-            <p class="section-subtitle">Mengapa ribuan warga dan pengurus memilih Pewaca</p>
+            <p class="section-subtitle">Mengapa ribuan warga dan pengurus memilih PT HEMITECH KARYA INDONESIA</p>
             
             <div class="row mt-5">
                 <div class="col-md-6">
@@ -605,9 +605,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <img src="{{ asset('assets/plugins/images/logo.png') }}" alt="Pewaca" class="footer-logo">
+                        <img src="{{ asset('assets/plugins/images/hemitech-logo.png') }}" alt="PT HEMITECH KARYA INDONESIA" class="footer-logo">
                         <p class="footer-text">
-                            Pewaca adalah solusi digital terpadu untuk warga dan pengelola lingkungan. 
+                            PT HEMITECH KARYA INDONESIA adalah solusi digital terpadu untuk warga dan pengelola lingkungan. 
                             Kami membantu menciptakan komunitas yang lebih transparan, rapi, dan terhubung.
                         </p>
                     </div>
@@ -621,13 +621,13 @@
                     <div class="col-md-3">
                         <h5 class="mb-3">Hubungi Kami</h5>
                         <p style="opacity: 0.8;">
-                            <i class="fas fa-envelope me-2"></i>info@pewaca.id<br>
-                            <i class="fas fa-globe me-2"></i>www.pewaca.id
+                            <i class="fas fa-envelope me-2"></i>info@hemitech.co.id<br>
+                            <i class="fas fa-globe me-2"></i>www.hemitech.co.id
                         </p>
                     </div>
                 </div>
                 <div class="footer-bottom">
-                    <p class="mb-0">&copy; {{ date('Y') }} Pewaca. Solusi digital untuk lingkungan yang lebih baik.</p>
+                    <p class="mb-0">&copy; {{ date('Y') }} PT HEMITECH KARYA INDONESIA. Solusi digital untuk lingkungan yang lebih baik.</p>
                 </div>
             </div>
         </div>
