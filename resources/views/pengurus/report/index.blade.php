@@ -148,11 +148,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const residenceIds = [];
     residenceCommites.forEach((commite, index) => {
         console.log(`Commite [${index}]:`, commite);
-        console.log(`  - residence_id:`, commite.residence_id);
-        console.log(`  - type of residence_id:`, typeof commite.residence_id);
+        console.log(`  - residence:`, commite.residence);
+        console.log(`  - type of residence:`, typeof commite.residence);
         
-        if (commite.residence_id && typeof commite.residence_id === 'number') {
-            residenceIds.push(commite.residence_id);
+        if (commite.residence && typeof commite.residence === 'number') {
+            residenceIds.push(commite.residence);
         }
     });
     

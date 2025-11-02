@@ -183,8 +183,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const residenceCommites = @json(Session::get('cred.residence_commites', []));
     const residenceIds = [];
     residenceCommites.forEach(commite => {
-        if (commite.residence_id && typeof commite.residence_id === 'number') {
-            residenceIds.push(commite.residence_id);
+        if (commite.residence && typeof commite.residence === 'number') {
+            residenceIds.push(commite.residence);
         }
     });
     const uniqueResidenceIds = [...new Set(residenceIds)];
