@@ -3,12 +3,15 @@
 
 <div class="flex justify-center items-center">
     <div class="bg-white w-full max-w-6xl">
-        <div class="p-6 border-b">
+        <div class="p-6 border-b flex justify-between items-center">
             <h1 class="text-xl font-semibold text-gray-800">
                 <a href="{{ route('pengurus') }}" class="text-dark">
                     <i class="fas fa-arrow-left"></i>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;Report
             </h1>
+            <button id="download-comprehensive" class="bg-green-600 text-white px-4 py-2 rounded text-sm hover:bg-green-700 flex items-center gap-2">
+                <i class="fas fa-download"></i> Download Laporan Excel
+            </button>
         </div>
         
         <div class="col-md-12 col-sm-12" style="padding-left:20px;padding-right:20px;">
@@ -270,6 +273,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             });
     }
+    
+    // Download comprehensive report button
+    document.getElementById('download-comprehensive').addEventListener('click', function() {
+        const periodeVal = periodeInput.value;
+        if (!periodeVal) {
+            alert('Silakan pilih periode terlebih dahulu');
+            return;
+        }
+        const url = `{{ route('pengurus.report.download.comprehensive') }}?periode=${periodeVal}`;
+        window.location.href = url;
+    });
 });
 </script>
 

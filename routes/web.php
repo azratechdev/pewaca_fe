@@ -127,9 +127,7 @@ Route::group(['middleware' => ['auth', 'check.token']], function () {
         Route::get('/pengurus/detail-by-type/{periode}/{unit?}', [ReportController::class, 'detail_by_type'])->name('pengurus.detail.bytype');
         
         //report download routes
-        Route::get('/pengurus/report/download/bytype', [ReportController::class, 'downloadByType'])->name('pengurus.report.download.bytype');
-        Route::get('/pengurus/report/download/cashout', [ReportController::class, 'downloadByCashout'])->name('pengurus.report.download.cashout');
-        Route::get('/pengurus/report/download/tunggakan', [ReportController::class, 'downloadTunggakan'])->name('pengurus.report.download.tunggakan');
+        Route::get('/pengurus/report/download/comprehensive', [ReportController::class, 'downloadComprehensive'])->name('pengurus.report.download.comprehensive');
         //end report route
     });
     
