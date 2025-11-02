@@ -141,6 +141,9 @@ class ReportController extends Controller
             $tunggakanResponse = Http::withHeaders($headers)
                 ->get("https://admin.pewaca.id/api/report/tunggakan/?periode={$periode}&residence_id={$residence_id}");
             $tunggakanData = $tunggakanResponse->successful() ? $tunggakanResponse->json() : [];
+            
+            // Log tunggakan data for debugging
+            \Log::info('Tunggakan API Response', ['data' => $tunggakanData]);
 
             // Compile all data
             $allData = [
@@ -160,6 +163,8 @@ class ReportController extends Controller
                 'sukarela' => $byTypeData['sukarela']['data'] ?? [],
                 'tunggakan' => $tunggakanData['units'] ?? [],
             ];
+            
+            \Log::info('Tunggakan Units Data', ['units' => $allData['tunggakan']]);
 
             $filename = "Laporan_Pembayaran_{$periode}.xlsx";
             return Excel::download(new ReportComprehensiveExport($allData, $periode), $filename);

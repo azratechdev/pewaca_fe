@@ -25,11 +25,20 @@ class ReportTunggakanExport implements FromArray, WithHeadings, WithStyles, With
     {
         $rows = [];
         foreach ($this->data as $item) {
+            $nominal = $item['total_nominal'] ?? 0;
+            
+            // Ensure nominal is numeric
+            if (is_numeric($nominal)) {
+                $nominal = floatval($nominal);
+            } else {
+                $nominal = 0;
+            }
+            
             $rows[] = [
                 $item['nama_unit'] ?? '-',
                 is_array($item['periode'] ?? null) ? implode(', ', $item['periode']) : '-',
                 $item['tahun'] ?? '-',
-                (float)($item['total_nominal'] ?? 0),
+                $nominal,
             ];
         }
         return $rows;
@@ -48,7 +57,7 @@ class ReportTunggakanExport implements FromArray, WithHeadings, WithStyles, With
     public function columnFormats(): array
     {
         return [
-            'D' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
+            'D' => '#,##0',
         ];
     }
 
