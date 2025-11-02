@@ -1,0 +1,172 @@
+from django.db import models
+from main.models import MResidence,MUnit,MResidenceBank
+from management_user.models import Warga
+
+class Tagihan(models.Model):
+    KATEGORI_CHOICES = [
+        ('one_time', 'One Time'),
+        ('weekly', 'Weekly'),
+        ('monthly', 'Monthly'),
+        ('yearly', 'Yearly'),
+    ]
+
+    JENIS_TIPE_CHOICES = [
+        ('wajib', 'Wajib'),
+        ('tidak wajib', 'Tidak Wajib'),
+    ]
+
+    jenis_tagihan = models.CharField(max_length=20, choices=KATEGORI_CHOICES)
+    tipe = models.CharField(max_length=20, choices=JENIS_TIPE_CHOICES, null=True, blank=True)
+    amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    name = models.CharField(max_length=255, null=True, blank=True)
+    description = models.CharField(max_length=255, null=True, blank=True)
+    residence = models.ForeignKey(
+        MResidence, 
+        on_delete=models.CASCADE, 
+        null=True, 
+        blank=True, 
+        db_column='residence_id', 
+        related_name='residence_tagihan'
+    )
+    created_by = models.IntegerField(null=True, blank=True)
+    create_at = models.DateTimeField(null=True, blank=True,auto_now_add=True)
+    is_publish = models.BooleanField(default=False, null=True, blank=True)
+    publish_date = models.DateTimeField(null=True, blank=True)
+    date_due = models.DateField(null=True, blank=True)
+    date_start = models.DateField(null=True, blank=True)
+    tagihan_ke = models.IntegerField(null=True, blank=True,default=0)
+    is_active = models.BooleanField(default=True, null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.name} - {self.jenis_tagihan}"
+
+    class Meta:
+        db_table = 'tagihan'
+        verbose_name = "Tagihan"
+
+class TagihanWargaRejectNote(models.Model):
+    note = models.TextField()
+    warga = models.ForeignKey(
+        Warga, 
+        on_delete=models.CASCADE, 
+        null=True, 
+        blank=True, 
+        db_column='warga_id', 
+        related_name='pengurus_reject_tagihan'
+    )
+    tagihan_warga_id = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return self.note
+
+    class Meta:
+        db_table = 'tagihan_warga_reject_note'
+        verbose_name = "Tagihan Reject"
+
+class TagihanWarga(models.Model):
+    STATUS_CHOICES = [
+        ('ignore', 'Ignore'),
+        ('paid', 'Paid'),
+        ('process', 'Process'),
+        # ('rejected', 'Rejected'),
+        ('unpaid', 'Unpaid'),
+        ('cancel', 'Cancel'),
+    ]
+
+    tagihan = models.ForeignKey(
+        Tagihan, 
+        on_delete=models.CASCADE, 
+        db_column='tagihan_id'
+    )
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES)
+    no_tagihan = models.CharField(max_length=100,default=None, null=True, blank=True)
+    bukti_pembayaran = models.FileField(upload_to='bukti_pembayaran/', null=True, blank=True)
+    warga = models.ForeignKey(
+        Warga, 
+        on_delete=models.CASCADE, 
+        null=True, 
+        blank=True, 
+        db_column='warga_id', 
+        related_name='tagihan_warga_warga'
+    )
+    unit_id = models.ForeignKey(
+        MUnit, 
+        on_delete=models.CASCADE, 
+        null=True, 
+        blank=True, 
+        db_column='unit_id', 
+        related_name='tagihan_warga_unit_id'
+    )
+    residence_bank = models.ForeignKey(
+        MResidenceBank, 
+        on_delete=models.CASCADE, 
+        null=True, 
+        blank=True, 
+        db_column='residence_bank_id', 
+        related_name='tagihan_warga_residence_bank'
+    )
+    
+    amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    paydate = models.DateTimeField(null=True, blank=True)
+    date_due = models.DateField(null=True, blank=True)
+    update_date = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.tagihan} - {self.status}"
+
+    class Meta:
+        db_table = 'tagihan_warga'
+        verbose_name = "Tagihan Warga"
+
+
+class NoteTagihan(models.Model):
+    tagihan_warga = models.ForeignKey(TagihanWarga, on_delete=models.CASCADE, related_name="notes")
+    warga = models.ForeignKey(
+        Warga, 
+        on_delete=models.CASCADE, 
+        null=True, 
+        blank=True, 
+        db_column='warga_id', 
+        related_name='warga_note_tagihan'
+    )
+    note = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Note {self.id} untuk Tagihan {self.tagihan.id}"
+    
+    class Meta:
+        db_table = 'note_tagihan'
+        verbose_name = "Note Tagihan"
+
+class ImageNoteWarga(models.Model):
+    note = models.ForeignKey(NoteTagihan, on_delete=models.CASCADE, related_name="images")
+    image = models.ImageField(upload_to='tagihan_images/')
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Image {self.id} untuk Note {self.note.id}"
+    
+    class Meta:
+        db_table = 'image_note_warga'
+        verbose_name = "image note warga"
+
+
+class TagihanUnpublishNote(models.Model):
+    note = models.TextField()
+    tagihan = models.ForeignKey(
+        Tagihan, 
+        on_delete=models.CASCADE, 
+        db_column='tagihan_id',
+        default=None,
+        null=True,
+    )
+    timestamp = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey('management_user.MUser', default=None,on_delete=models.CASCADE, db_column='created_by', related_name='user_note_unpublish_tagihan')
+
+    def __str__(self):
+        return self.note
+
+    class Meta:
+        db_table = 'tagihan_unpublish_note'
+        verbose_name = "Tagihan Unpublish"

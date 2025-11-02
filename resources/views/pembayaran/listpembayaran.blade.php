@@ -98,6 +98,10 @@
             <a href="#" class="btn btn-sm btn-light w-20" style="border-radius:8px;">Tidak</a>
             @endif
             &nbsp;&nbsp;
+            <a href="{{ route('pembayaran.qris', ['id' => $tagihan['id']]) }}" class="btn btn-sm btn-primary w-20" style="color: white;border-radius:8px;">
+                <i class="fas fa-qrcode"></i> QRIS
+            </a>
+            &nbsp;&nbsp;
             <a href="{{ route('pembayaran.add', ['id' => $tagihan['id']]) }}" class="btn btn-sm btn-success w-20 btn-publish" style="color: white;border-radius:8px;">Bayar</a>
         </div>
     @else

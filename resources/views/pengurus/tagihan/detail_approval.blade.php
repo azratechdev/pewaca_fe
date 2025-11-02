@@ -208,7 +208,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: env('API_URL') . '/api/tagihan-warga/'+tagihanId+'/approve/',
+                        url: '{{ env('API_URL') }}/api/tagihan-warga/'+tagihanId+'/approve/',
                         type: 'POST',
                         headers: {
                             'Accept': 'application/json',

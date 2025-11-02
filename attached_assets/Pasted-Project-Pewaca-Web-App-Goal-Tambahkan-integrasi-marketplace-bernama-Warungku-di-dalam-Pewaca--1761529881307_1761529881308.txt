@@ -1,0 +1,62 @@
+Project: Pewaca Web App
+Goal: Tambahkan integrasi marketplace bernama "Warungku" di dalam Pewaca.
+
+1. UI Update di Halaman Login
+   - Tambahkan satu tombol di bawah tombol “Masuk”.
+   - Teks tombol: “Pindah ke Warungku”.
+   - Warna tombol gunakan tema hijau Pewaca (#5FA782).
+   - Aksi tombol: redirect ke halaman /warungku (contoh: pewaca.replit.app/warungku).
+
+2. Fitur Marketplace “Warungku”
+   Buat halaman /warungku dengan sistem marketplace sederhana seperti Alfagift:
+   - **Halaman Utama Warungku**
+     - Menampilkan daftar toko (list toko) dalam bentuk grid atau card.
+     - Setiap card toko berisi:
+       - Nama toko
+       - Logo toko / foto profil (opsional)
+       - Deskripsi singkat toko
+       - Tombol “Lihat Toko”
+
+   - **Halaman Detail Toko**
+     - Menampilkan informasi toko:
+       - Nama toko
+       - Alamat
+       - Kontak
+       - Rating (bisa dummy)
+     - Menampilkan daftar produk toko dalam bentuk grid/list.
+     - Setiap produk memiliki:
+       - Foto produk
+       - Nama produk
+       - Harga
+       - Stok tersedia
+       - Tombol “Lihat Detail Produk”
+
+   - **Halaman Detail Produk**
+     - Informasi lengkap produk:
+       - Nama
+       - Foto utama dan galeri
+       - Harga
+       - Deskripsi lengkap
+       - Jumlah stok
+       - Tombol “Tambah ke Keranjang” (belum perlu backend transaksi dulu)
+     - Layout bersih dan responsif.
+
+3. Backend (Opsional — jika sudah ada API)
+   - Buat endpoint `/api/stores` → list semua toko
+   - Buat endpoint `/api/stores/:id/products` → list produk dalam toko
+   - Buat endpoint `/api/products/:id` → detail produk
+   - Untuk sementara data dummy boleh disimpan di JSON lokal atau SQLite.
+
+4. Framework dan Teknologi
+   - Gunakan stack Pewaca yang sudah ada (kemungkinan Django atau Laravel untuk backend + Bootstrap/Tailwind untuk frontend).
+   - Pastikan tombol “Pindah ke Warungku” dan halaman baru tidak mengganggu sistem login utama Pewaca.
+
+5. Style Guide
+   - Gunakan tema Pewaca (warna hijau lembut, putih, dan hitam)
+   - Font tetap konsisten dengan halaman utama Pewaca
+   - Responsif untuk desktop dan mobile
+
+Outcome:
+Tombol “Pindah ke Warungku” muncul di halaman login Pewaca.  
+Ketika diklik, user diarahkan ke marketplace internal sederhana dengan struktur:
+  - Daftar Toko → Daftar Produk → Detail Produk.

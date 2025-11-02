@@ -1,0 +1,113 @@
+{
+  "info": {
+    "name": "Pewaca Payment Orchestrator API",
+    "description": "Collection for testing QRIS payment orchestrator endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Payment",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Idempotency-Key",
+            "value": "{{$guid}}"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"order_id\": \"INV-2025-{{$timestamp}}\",\n  \"amount\": 150000,\n  \"callback_url\": \"https://merchant.app/callback\",\n  \"metadata\": {\n    \"customer_id\": \"C123\",\n    \"customer_name\": \"John Doe\"\n  }\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/payments",
+          "host": ["{{base_url}}"],
+          "path": ["api", "payments"]
+        },
+        "description": "Create a new QRIS payment and get dynamic QR code"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Payment Status",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/payments/{{payment_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "payments", "{{payment_id}}"]
+        },
+        "description": "Get payment status and details by payment ID"
+      },
+      "response": []
+    },
+    {
+      "name": "QRIS Webhook (Mock)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "X-Signature",
+            "value": "{{webhook_signature}}",
+            "description": "HMAC-SHA256 signature of raw body"
+          },
+          {
+            "key": "X-Event-Id",
+            "value": "{{$guid}}",
+            "description": "Unique event ID for idempotency"
+          },
+          {
+            "key": "X-Timestamp",
+            "value": "{{$timestamp}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"trx_id\": \"QRIS-MOCK-ABC123\",\n  \"order_id\": \"INV-2025-001\",\n  \"amount\": 150000,\n  \"status\": \"SUCCESS\",\n  \"ref_no\": \"ABCD1234\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/webhooks/qris",
+          "host": ["{{base_url}}"],
+          "path": ["api", "webhooks", "qris"]
+        },
+        "description": "Simulate QRIS provider webhook notification"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "key": "payment_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "webhook_signature",
+      "value": "calculated_hmac_sha256_signature",
+      "type": "string"
+    }
+  ]
+}

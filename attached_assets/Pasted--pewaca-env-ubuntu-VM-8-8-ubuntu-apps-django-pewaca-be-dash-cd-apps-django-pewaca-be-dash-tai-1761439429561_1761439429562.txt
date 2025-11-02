@@ -1,0 +1,66 @@
+(pewaca_env) ubuntu@VM-8-8-ubuntu:~/apps/django/pewaca_be/dash$ cd ~/apps/django/pewaca_be/dash
+tail -200 nohup.out | grep -B 30 "POST /api/tagihan/"
+Authentication result: (<MUser: pengurus1@gmail.com>, {'token_type': 'access', 'exp': 1761689179, 'iat': 1761429979, 'jti': 'f054cb80a4974c20b3535976532c1d7d', 'user_id': 2, 'email': 'pengurus1@gmail.com'})
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Request META: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Token format detected, converting: eyJhbGciOiJIUzI1NiIs...
+Header after processing: b'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE'
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Request META: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Token format detected, converting: eyJhbGciOiJIUzI1NiIs...
+Authentication result: (<MUser: pengurus1@gmail.com>, {'token_type': 'access', 'exp': 1761689179, 'iat': 1761429979, 'jti': 'f054cb80a4974c20b3535976532c1d7d', 'user_id': 2, 'email': 'pengurus1@gmail.com'})
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Request META: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Token format detected, converting: eyJhbGciOiJIUzI1NiIs...
+Header after processing: b'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE'
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Request META: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Token format detected, converting: eyJhbGciOiJIUzI1NiIs...
+Authentication result: (<MUser: pengurus1@gmail.com>, {'token_type': 'access', 'exp': 1761689179, 'iat': 1761429979, 'jti': 'f054cb80a4974c20b3535976532c1d7d', 'user_id': 2, 'email': 'pengurus1@gmail.com'})
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Request META: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE[26/Oct/2025 00:31:43] "GET /api/tagihan/?page=1 HTTP/1.0" 200 3532
+[26/Oct/2025 00:31:49] "OPTIONS /api/residence-banks/list_banks/?residence_id=1 HTTP/1.0" 200 0
+[26/Oct/2025 00:31:50] "GET /api/residence-banks/list_banks/?residence_id=1 HTTP/1.0" 200 1125
+Internal Server Error: /api/tagihan/
+[26/Oct/2025 00:32:50] "POST /api/tagihan/ HTTP/1.0" 500 137
+--
+Header after processing: b'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE'
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Request META: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Token format detected, converting: eyJhbGciOiJIUzI1NiIs...
+Authentication result: (<MUser: pengurus1@gmail.com>, {'token_type': 'access', 'exp': 1761689179, 'iat': 1761429979, 'jti': 'f054cb80a4974c20b3535976532c1d7d', 'user_id': 2, 'email': 'pengurus1@gmail.com'})
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Request META: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Token format detected, converting: eyJhbGciOiJIUzI1NiIs...
+Header after processing: b'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE'
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Request META: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Token format detected, converting: eyJhbGciOiJIUzI1NiIs...
+Authentication result: (<MUser: pengurus1@gmail.com>, {'token_type': 'access', 'exp': 1761689179, 'iat': 1761429979, 'jti': 'f054cb80a4974c20b3535976532c1d7d', 'user_id': 2, 'email': 'pengurus1@gmail.com'})
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Request META: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Token format detected, converting: eyJhbGciOiJIUzI1NiIs...
+Header after processing: b'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE'
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Request META: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Token format detected, converting: eyJhbGciOiJIUzI1NiIs...
+Authentication result: (<MUser: pengurus1@gmail.com>, {'token_type': 'access', 'exp': 1761689179, 'iat': 1761429979, 'jti': 'f054cb80a4974c20b3535976532c1d7d', 'user_id': 2, 'email': 'pengurus1@gmail.com'})
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===Internal Server Error: /api/tagihan/
+[26/Oct/2025 00:40:09] "POST /api/tagihan/ HTTP/1.0" 500 137
+(pewaca_env) ubuntu@VM-8-8-ubuntu:~/apps/django/pewaca_be/dash$ 

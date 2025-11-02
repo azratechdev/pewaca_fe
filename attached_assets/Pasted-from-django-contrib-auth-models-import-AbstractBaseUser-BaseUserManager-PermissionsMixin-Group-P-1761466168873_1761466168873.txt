@@ -1,0 +1,86 @@
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, Group, Permission
+from django.db import models
+from django.utils import timezone
+from .role import Role,MRoleWarga
+
+class MUserManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_superuser', False)
+        extra_fields.pop('is_superuser', None)  # Remove 'is_superuser' from the fields
+
+        if not email:
+            raise ValueError('The Email field must be set')
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        
+        # FIX: Set user_id to placeholder before first save to avoid MySQL error
+        user.user_id = 0
+        user.save(using=self._db)
+        
+        # Update user_id with actual ID after save
+        user.user_id = user.id
+        user.save(update_fields=['user_id'])
+        
+        return user
+
+    def create_superuser(self, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('is_staff', True)
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser must have is_superuser=True.')
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Superuser must have is_staff=True.')
+        return self.create_user(email, password, **extra_fields)
+
+class MUser(AbstractBaseUser, PermissionsMixin):
+    user_id = models.BigAutoField(primary_key=True)
+    image = models.FileField(upload_to='user/', null=True, blank=True)
+    username = models.CharField(max_length=100, null=True, blank=True, db_column='user_name')
+    email = models.EmailField(max_length=100, unique=True, db_column="user_email")
+    password = models.CharField(max_length=100, db_column="user_password")
+    user_created_by = models.BigIntegerField(null=True, blank=True)
+    date_joined = models.DateTimeField(default=timezone.now,db_column="user_created_on")
+    is_active = models.BooleanField(default=True, db_column='user_isactive')
+    user_isdelete = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_warga = models.BooleanField(default=False)
+    last_login = models.DateTimeField(null=True, blank=True)
+    role = models.ForeignKey('Role', on_delete=models.SET_NULL, null=True, blank=True, db_column='user_role_id')  # Add foreign key to Role
+    # roles_warga = models.ManyToManyField(MRoleWarga, related_name='users_warga')  # Many-to-many relationship
+    
+    groups = models.ManyToManyField(
+        Group,
+        related_name='muser_set',
+        blank=True,
+        help_text='Groups this user belongs to.'
+    )
+
+    user_permissions = models.ManyToManyField(
+        Permission,
+        related_name='muser_set',
+        blank=True,
+        help_text='Specific permissions for this user.'
+    )
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+    objects = MUserManager()
+
+    def __str__(self):
+        return self.email or 'No email set'
+
+    class Meta:
+        db_table = 'm_user'
+        verbose_name = "User"
+
+
+class UserRoleWarga(models.Model):
+    user = models.ForeignKey('MUser', on_delete=models.CASCADE)
+    role = models.ForeignKey('MRoleWarga', on_delete=models.CASCADE)
+    date_assigned = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'role') 
+        db_table = 'm_user_roles_warga'

@@ -51,9 +51,10 @@ $isChecker = $warga['is_checker'] ?? false;
                 <!-- Header Section -->
                 <div class="flex items-center">
                     <img 
-                        alt="Profile picture" 
+                        alt="Foto profil {{ $story['warga']['full_name'] }}" 
                         class="profile-picture rounded-full" 
                         src="{{ $story['warga']['profile_photo'] }}" 
+                        onerror="this.src='{{ asset('assets/plugins/images/default-avatar.png') }}'; this.onerror=null;"
                     />
                     <div class="ml-4">
                         <div class="text-gray-900 font-bold">
@@ -81,7 +82,16 @@ $isChecker = $warga['is_checker'] ?? false;
                         </p>
                         <br/>
                         @if(!empty($story['image']))
-                            <img alt="No images uploaded" class="fixed-img" src="{{ $story['image'] }}" />
+                            <img 
+                                alt="Gambar dari {{ $story['warga']['full_name'] }}" 
+                                class="fixed-img" 
+                                src="{{ $story['image'] }}" 
+                                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                            />
+                            <div style="display:none; padding: 20px; background: #f5f5f5; border-radius: 8px; text-align: center; color: #999;">
+                                <i class="fas fa-image fa-2x mb-2"></i>
+                                <p>Gambar tidak tersedia</p>
+                            </div>
                             <br/>
                         @endif
                     </div>   
@@ -98,10 +108,11 @@ $isChecker = $warga['is_checker'] ?? false;
                 <div class="comment-full{{ $story['id'] }}" style="display:none;">
                     <div class="flex items-left max-w-full">
                         <img 
-                            alt="Profile picture" 
+                            alt="Foto profil Anda" 
                             class="profile-picture rounded-full" 
                             style="width: 36px; height: 36px;"
                             src="{{ $warga['profile_photo'] }}" 
+                            onerror="this.src='{{ asset('assets/plugins/images/default-avatar.png') }}'; this.onerror=null;"
                         />
                         <div class="ml-4 col-md-10 col-10 mb-2 input-comment" style="font-size: 12px;">
                             <form id="form-comment{{ $story['id'] }}" enctype="multipart/form-data" style="display: flex; align-items: stretch; gap: 8px;">
@@ -129,10 +140,11 @@ $isChecker = $warga['is_checker'] ?? false;
                     @for ($i = 0; $i < 5; $i++)
                     <div class="flex items-left max-w-full mb-2">
                         <img 
-                            alt="Profile picture" 
+                            alt="Foto profil {{ $story['warga']['full_name'] }}" 
                             class="profile-picture rounded-full" 
                             style="width: 36px; height: 36px;"
                             src="{{ $story['warga']['profile_photo'] }}" 
+                            onerror="this.src='{{ asset('assets/plugins/images/default-avatar.png') }}'; this.onerror=null;"
                         />
                         <div class="ml-4">
                             <div class="text-gray-900 font-bold" style="font-size: 14px;">
@@ -180,7 +192,7 @@ $(document).ready(function () {
 
             // Kirim data ke API
             $.ajax({
-                url: env('API_URL') . '/api/story-replays/',
+                url: '{{ env('API_URL') }}/api/story-replays/',
                 type: 'POST',
                 cache: false,
                 headers: {
@@ -212,14 +224,26 @@ $(document).ready(function () {
                                 }
                             },
                             error: function (xhr, status, error) {
-                                console.error(xhr.responseText);
+                                console.error('Error fetching comments:', xhr.responseText);
                             }
                         });
                         // Swal.fire('Success!', 'Warga successfully verified.', 'success');
                     }
                 },
-                error: function (error) {
-                    alert('Gagal mengirim komentar. Silakan coba lagi.');
+                error: function (xhr, status, error) {
+                    console.error('API Error:', xhr.status, xhr.responseText);
+                    let errorMsg = 'Gagal mengirim komentar. ';
+                    try {
+                        const errorData = JSON.parse(xhr.responseText);
+                        if (errorData.error) {
+                            errorMsg += errorData.error;
+                        } else {
+                            errorMsg += 'Silakan coba lagi.';
+                        }
+                    } catch (e) {
+                        errorMsg += xhr.status ? `Error ${xhr.status}` : 'Silakan coba lagi.';
+                    }
+                    alert(errorMsg);
                 }
             });
         });

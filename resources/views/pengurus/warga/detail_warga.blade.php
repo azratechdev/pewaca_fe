@@ -133,7 +133,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: env('API_URL') . '/api/warga/verify/',
+                        url: '{{ env('API_URL') }}/api/warga/verify/',
                         type: 'POST',
                         headers: {
                             'Accept': 'application/json',

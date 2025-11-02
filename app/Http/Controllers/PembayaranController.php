@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
 
 class PembayaranController extends Controller
 {
@@ -44,11 +45,20 @@ class PembayaranController extends Controller
             $apiUrl .= '&search=' . urlencode($filter);
         }
       
+        \Log::info('=== PEMBAYARAN LIST DEBUG ===');
+        \Log::info('API URL:', ['url' => $apiUrl]);
+        \Log::info('Token:', ['token' => substr(Session::get('token'), 0, 20) . '...']);
+        
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Token ' . Session::get('token'),
         ])->get($apiUrl);
         $tagihan_response = json_decode($response->body(), true);
+        
+        \Log::info('Response Status:', ['status' => $response->status()]);
+        \Log::info('Response Body:', ['body' => $response->body()]);
+        \Log::info('Parsed Data Count:', ['count' => count($tagihan_response['data'] ?? [])]);
+        
         //dd($tagihan_response);
       
         $data_tagihan = $tagihan_response['data'] ?? [];
@@ -282,24 +292,33 @@ class PembayaranController extends Controller
             );
         
             $data_response = json_decode($response->body(), true);
-            //dd($data_response);
+            
+            Log::info('=== UPLOAD BUKTI PEMBAYARAN DEBUG ===');
+            Log::info('Response Status:', ['status' => $response->status()]);
+            Log::info('Response Body:', ['body' => $response->body()]);
+            Log::info('Parsed Response:', ['data' => $data_response]);
 
-            if ($response['success'] == true) {
+            if ($response->successful() && isset($data_response['success']) && $data_response['success'] == true) {
                 Session::flash('flash-message', [
                     'message' => 'Bukti pembayaran berhasil diunggah',
                     'alert-class' => 'alert-success',
                 ]);
                 return redirect()->route('pembayaran.detail_bukti', ['id' => $request->tagihan_id]);
             } else {
+                $errorMsg = $data_response['message'] ?? 'Bukti pembayaran gagal diunggah';
                 Session::flash('flash-message', [
-                    'message' => 'Bukti pembayaran gagal diunggah',
+                    'message' => $errorMsg,
                     'alert-class' => 'alert-warning',
                 ]);
                 return redirect()->route('pembayaran.upload_bukti', ['id' => $request->tagihan_id]);
             }
         } catch (\Exception $e) {
+            Log::error('Upload Bukti Error:', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
             Session::flash('flash-message', [
-                'message' => 'Gagal Mengirim Data',
+                'message' => 'Gagal Mengirim Data: ' . $e->getMessage(),
                 'alert-class' => 'alert-danger',
             ]);
             return redirect()->route('pembayaran.upload_bukti', ['id' => $request->tagihan_id]);
@@ -419,6 +438,76 @@ class PembayaranController extends Controller
         $formatted = preg_replace('/[^\d]/', '', $nominal);
         // Kembalikan nilai sebagai integer
         return (int) $formatted;
+    }
+
+    public function qrisPembayaran($id)
+    {
+        try {
+            $response = Http::withHeaders([
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Token ' . Session::get('token'),
+            ])->get(env('API_URL') . '/api/tagihan-warga/'.$id.'/');
+    
+            $data_response = json_decode($response->body(), true);
+    
+            if ($response->successful() && isset($data_response['data'])) {
+                $tagihanData = $data_response['data'];
+                
+                $orderId = 'TGH-' . $tagihanData['id'];
+                $amount = $this->formatNominal($tagihanData['tagihan']['amount']);
+                
+                $paymentService = app(\App\Services\Payment\PaymentService::class);
+                $paymentData = $paymentService->createPayment([
+                    'order_id' => $orderId,
+                    'amount' => $amount,
+                    'metadata' => [
+                        'tagihan_warga_id' => $tagihanData['id'],
+                        'warga_id' => $tagihanData['warga']['id'] ?? Session::get('warga')['id'] ?? null,
+                        'tagihan_name' => $tagihanData['tagihan']['name'],
+                    ],
+                ]);
+                
+                if (isset($paymentData['payment_id'])) {
+                    return view('pembayaran.qris', [
+                        'tagihan' => $tagihanData,
+                        'payment' => $paymentData,
+                    ]);
+                } else {
+                    Session::flash('flash-message', [
+                        'message' => 'Gagal membuat QR Code pembayaran',
+                        'alert-class' => 'alert-danger',
+                    ]);
+                    return redirect()->route('pembayaran.list');
+                }
+            } else {
+                Session::flash('flash-message', [
+                    'message' => 'Data tagihan tidak ditemukan',
+                    'alert-class' => 'alert-warning',
+                ]);
+                return redirect()->route('pembayaran.list');
+            }
+        } catch (\Exception $e) {
+            Session::flash('flash-message', [
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage(),
+                'alert-class' => 'alert-danger',
+            ]);
+            return redirect()->route('pembayaran.list');
+        }
+    }
+    
+    public function checkPaymentStatus($paymentId)
+    {
+        try {
+            $response = Http::get(url('/api/payments/' . $paymentId));
+            $data = json_decode($response->body(), true);
+            
+            return response()->json($data);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Gagal cek status pembayaran'
+            ], 500);
+        }
     }
 
     // public function pembayaran_periode()

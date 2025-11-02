@@ -55,7 +55,8 @@ class CheckAccessToken
         }
 
         // Jika tidak ada token sama sekali → arahkan ke login
-        if (! $request->routeIs('showLoginForm')) {
+        // Kecuali untuk offline page (PWA requirement)
+        if (! $request->routeIs('showLoginForm') && ! $request->routeIs('offline')) {
             return redirect()->route('showLoginForm');
         }
 

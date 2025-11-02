@@ -3,12 +3,15 @@
 
 <div class="flex justify-center items-center">
     <div class="bg-white w-full max-w-6xl">
-        <div class="p-6 border-b">
+        <div class="p-6 border-b flex justify-between items-center">
             <h1 class="text-xl font-semibold text-gray-800">
                 <a href="{{ route('pengurus') }}" class="text-dark">
                     <i class="fas fa-arrow-left"></i>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;Report
             </h1>
+            <button id="download-comprehensive" class="bg-green-600 text-white px-4 py-2 rounded text-sm hover:bg-green-700 flex items-center gap-2">
+                <i class="fas fa-download"></i> Download Laporan Excel
+            </button>
         </div>
         
         <div class="col-md-12 col-sm-12" style="padding-left:20px;padding-right:20px;">
@@ -134,7 +137,37 @@ document.addEventListener('DOMContentLoaded', function () {
     updateDetailLinks(); // set awal
     periodeInput.value = getDefaultPeriode();
     periodeInput.max = getDefaultPeriode(); // batasi max ke bulan default (tidak bisa pilih bulan depan)
-    const urlBase = env('API_URL') . '/api/report/index/?periode=';
+    
+    // Get residence_id from residence_commites for filtering by residence
+    const residenceCommites = @json(Session::get('cred.residence_commites', []));
+    
+    // DEBUG: Check what data we have
+    console.log('=== DEBUG RESIDENCE DATA ===');
+    console.log('Raw residenceCommites:', residenceCommites);
+    console.log('Is Array?', Array.isArray(residenceCommites));
+    console.log('Length:', residenceCommites ? residenceCommites.length : 'null/undefined');
+    
+    // Extract all residence_ids that this pengurus manages
+    const residenceIds = [];
+    residenceCommites.forEach((commite, index) => {
+        console.log(`Commite [${index}]:`, commite);
+        console.log(`  - residence:`, commite.residence);
+        console.log(`  - type of residence:`, typeof commite.residence);
+        
+        if (commite.residence && typeof commite.residence === 'number') {
+            residenceIds.push(commite.residence);
+        }
+    });
+    
+    // Remove duplicates (though usually pengurus only has 1 residence)
+    const uniqueResidenceIds = [...new Set(residenceIds)];
+    console.log('Extracted residenceIds:', residenceIds);
+    console.log('Unique residence IDs:', uniqueResidenceIds);
+    console.log('Report filtering by residence count:', uniqueResidenceIds.length);
+    console.log('=== END DEBUG ===');
+    
+    const urlBase = '{{ env('API_URL') }}/api/report/index/?periode=';
+    
     fetchAndRender(periodeInput.value);
 
     periodeInput.addEventListener('change', function() {
@@ -142,7 +175,22 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function fetchAndRender(periode) {
-        fetch(urlBase + periode)
+        // Security: Only fetch if pengurus has valid residence assigned
+        if (uniqueResidenceIds.length === 0) {
+            console.error('No residence assigned to this pengurus');
+            alert('Anda tidak memiliki akses ke residence manapun. Silakan hubungi administrator.');
+            return;
+        }
+        
+        // Add residence_id parameter to filter data by pengurus's residence
+        let url = urlBase + periode + '&residence_id=' + encodeURIComponent(uniqueResidenceIds[0]);
+        
+        fetch(url, {
+            headers: {
+                'Authorization': 'Token {{ Session::get("token") }}',
+                'Content-Type': 'application/json'
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 // Update summary
@@ -225,6 +273,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             });
     }
+    
+    // Download comprehensive report button
+    document.getElementById('download-comprehensive').addEventListener('click', function() {
+        const periodeVal = periodeInput.value;
+        if (!periodeVal) {
+            alert('Silakan pilih periode terlebih dahulu');
+            return;
+        }
+        const url = `{{ route('pengurus.report.download.comprehensive') }}?periode=${periodeVal}`;
+        window.location.href = url;
+    });
 });
 </script>
 

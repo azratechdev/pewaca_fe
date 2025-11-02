@@ -148,25 +148,45 @@
         </div> 
         <hr class="mt-2">
         <br>
-        <div class="row">
-            <div class="col-md-12">
-                @if($tagihan['data']['status'] == 'unpaid')
-                    <a href="{{ route('pembayaran.upload_bukti', ['id' => $tagihan['data']['id']]) }}" class="btn btn-secondary form-control d-flex align-items-center justify-content-between">
+        
+        @if($tagihan['data']['status'] == 'unpaid')
+            <div class="mb-3">
+                <h6 class="text-muted mb-3">Pilih Metode Pembayaran:</h6>
+            </div>
+            
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <a href="{{ route('pembayaran.qris', ['id' => $tagihan['data']['id']]) }}" class="btn btn-success form-control d-flex align-items-center justify-content-between py-3">
                         <span>
-                            <i class="fa fa-file-invoice me-2"></i> Upload Bukti Pembayaran
+                            <i class="fa fa-qrcode me-2"></i> Bayar via QRIS
                         </span>
                         <i class="fa fa-arrow-right"></i>
                     </a>
-                @else
+                    <small class="text-muted d-block mt-1 text-center">Scan QR Code untuk pembayaran instan</small>
+                </div>
+                
+                <div class="col-md-6">
+                    <a href="{{ route('pembayaran.upload_bukti', ['id' => $tagihan['data']['id']]) }}" class="btn btn-secondary form-control d-flex align-items-center justify-content-between py-3">
+                        <span>
+                            <i class="fa fa-file-invoice me-2"></i> Upload Bukti Transfer
+                        </span>
+                        <i class="fa fa-arrow-right"></i>
+                    </a>
+                    <small class="text-muted d-block mt-1 text-center">Transfer manual ke rekening di atas</small>
+                </div>
+            </div>
+        @else
+            <div class="row">
+                <div class="col-md-12">
                     <a href="{{ route('pembayaran.detail_bukti', ['id' => $tagihan['data']['id']]) }}" class="btn btn-success form-control d-flex align-items-center justify-content-between">
                         <span>
                             Detail Bukti Pembayaran
                         </span>
                         <i class="fa fa-arrow-right"></i>
                     </a>
-                @endif
+                </div>
             </div>
-        </div>
+        @endif
     </div>
 </div>
 

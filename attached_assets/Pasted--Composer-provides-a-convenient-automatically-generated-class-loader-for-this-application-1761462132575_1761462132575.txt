@@ -1,0 +1,191 @@
+
+
+| Composer provides a convenient, automatically generated class loader for
+
+| this application. We just need to utilize it! We'll simply require it
+
+| into the script here so we don't need to manually load our classes.
+
+|
+
+*/
+
+
+
+require __DIR__.'/../vendor/autoload.php';
+
+
+
+/*
+
+|--------------------------------------------------------------------------
+
+| Run The Application
+
+|--------------------------------------------------------------------------
+
+|
+
+| Once we have the application, we can handle the incoming request using
+
+| the application's HTTP kernel. Then, we will send the response back
+
+| to this client's browser, allowing them to enjoy our application.
+
+|
+
+*/
+
+
+
+$app = require_once __DIR__.'/../bootstrap/app.php';
+
+
+
+$kernel = $app->make(Kernel::class);
+
+
+
+$response = $kernel->handle(
+
+    $request = Request::capture()
+
+)->send();
+
+
+
+$kernel->terminate($request, $response);
+
+arguments
+$request:Illuminate\Http\Request
+GET https://pewaca.replit.app/test/registration/api/registration
+
+Request
+Browser
+Headers
+Body
+Context
+Versions
+Request
+https://pewaca.replit.app/test/registration/api/registration
+GET
+curl "https://pewaca.replit.app/test/registration/api/registration" \
+   -X GET \
+   -H 'host: pewaca.replit.app' \
+   -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36' \
+   -H 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8' \
+   -H 'accept-encoding: gzip, deflate, br, zstd' \
+   -H 'accept-language: en-US,en;q=0.7' \
+   -H 'cookie: XSRF-TOKEN=eyJpdiI6Ink0SDJxaEx4QjlLS0hWOFcybkF6dlE9PSIsInZhbHVlIjoidmtReGZpSkJsd2ZqSTBndktiUXBmQ0NXaFFiRlZhNW4remV6Y204YmNDNWhBVUxwVTRHZU5LUHFlSVZpUTlsV1dzdlh1THVaeFNOaDJxc0FrdHFTRVloYTF5bWFvalFMMXJ3dU5kMHFmNE52eXlBZjVhSVNBWG9SZk5wbHN3cnciLCJtYWMiOiI4YTRjYjFkODEwMzIzNzhlN2Q0M2Y4Nzc3NmM1OWE5ZjRmNWRhZjgyOWM4YmE5YTJlMjU3ZjJlYTVkM2Y2ZmRhIiwidGFnIjoiIn0%3D; pewaca_session=eyJpdiI6ImN0T1lYYWszdjhsdEJIYm83QnhkV0E9PSIsInZhbHVlIjoibnpPb3lmRytmeHc3RnlPS0RNQzlEQS9xUTJxOVlwWmE2anAwVWxoZEJNUkszbHNOeVdrYUZKbjVhRklKT0dpTFZlVFZiVFc3eWp2WVBXYkQrTnkyNFZWL1J1SHhoUU4wN0UvUUtCeDQyK3kvSS91Zno0dnNJYUk4THhOdll6YWwiLCJtYWMiOiI5YjgxYzU4OGY3ZTI0NDAzZmExMWY4ZmRlMmE0NDAxYWYyNTNmNjQ2YmQ3MDQ1ZmJiOTUyYmM3MDY1MWRjMTMzIiwidGFnIjoiIn0%3D' \
+   -H 'priority: u=0, i' \
+   -H 'sec-ch-ua: "Brave";v="141", "Not?A_Brand";v="8", "Chromium";v="141"' \
+   -H 'sec-ch-ua-mobile: ?0' \
+   -H 'sec-ch-ua-platform: "Windows"' \
+   -H 'sec-fetch-dest: document' \
+   -H 'sec-fetch-mode: navigate' \
+   -H 'sec-fetch-site: none' \
+   -H 'sec-fetch-user: ?1' \
+   -H 'sec-gpc: 1' \
+   -H 'server-timing: depproxy;dur=1761462102122' \
+   -H 'traceparent: 00-030bab71bec41224379797a2b2ac243b-5fe98f0b64cece5e-01' \
+   -H 'upgrade-insecure-requests: 1' \
+   -H 'via: 1.1 google' \
+   -H 'x-cloud-trace-context: 030bab71bec41224379797a2b2ac243b/6911212382275423838;o=1' \
+   -H 'x-forwarded-for: 202.51.197.26, 34.117.33.233, 35.191.76.82,136.112.69.229' \
+   -H 'x-forwarded-host: pewaca.replit.app' \
+   -H 'x-forwarded-proto: https';
+
+
+Browser
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+
+Headers
+host
+pewaca.replit.app
+
+user-agent
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+
+accept
+text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+
+accept-encoding
+gzip, deflate, br, zstd
+
+accept-language
+en-US,en;q=0.7
+
+cookie
+XSRF-TOKEN=eyJpdiI6Ink0SDJxaEx4QjlLS0hWOFcybkF6dlE9PSIsInZhbHVlIjoidmtReGZpSkJsd2ZqSTBndktiUXBmQ0NXaFFiRlZhNW4remV6Y204YmNDNWhBVUxwVTRHZU5LUHFlSVZpUTlsV1dzdlh1THVaeFNOaDJxc0FrdHFTRVloYTF5bWFvalFMMXJ3dU5kMHFmNE52eXlBZjVhSVNBWG9SZk5wbHN3cnciLCJtYWMiOiI4YTRjYjFkODEwMzIzNzhlN2Q0M2Y4Nzc3NmM1OWE5ZjRmNWRhZjgyOWM4YmE5YTJlMjU3ZjJlYTVkM2Y2ZmRhIiwidGFnIjoiIn0%3D; pewaca_session=eyJpdiI6ImN0T1lYYWszdjhsdEJIYm83QnhkV0E9PSIsInZhbHVlIjoibnpPb3lmRytmeHc3RnlPS0RNQzlEQS9xUTJxOVlwWmE2anAwVWxoZEJNUkszbHNOeVdrYUZKbjVhRklKT0dpTFZlVFZiVFc3eWp2WVBXYkQrTnkyNFZWL1J1SHhoUU4wN0UvUUtCeDQyK3kvSS91Zno0dnNJYUk4THhOdll6YWwiLCJtYWMiOiI5YjgxYzU4OGY3ZTI0NDAzZmExMWY4ZmRlMmE0NDAxYWYyNTNmNjQ2YmQ3MDQ1ZmJiOTUyYmM3MDY1MWRjMTMzIiwidGFnIjoiIn0%3D
+
+priority
+u=0, i
+
+sec-ch-ua
+"Brave";v="141", "Not?A_Brand";v="8", "Chromium";v="141"
+
+sec-ch-ua-mobile
+?0
+
+sec-ch-ua-platform
+"Windows"
+
+sec-fetch-dest
+document
+
+sec-fetch-mode
+navigate
+
+sec-fetch-site
+none
+
+sec-fetch-user
+?1
+
+sec-gpc
+1
+
+server-timing
+depproxy;dur=1761462102122
+
+traceparent
+00-030bab71bec41224379797a2b2ac243b-5fe98f0b64cece5e-01
+
+upgrade-insecure-requests
+1
+
+via
+1.1 google
+
+x-cloud-trace-context
+030bab71bec41224379797a2b2ac243b/6911212382275423838;o=1
+
+x-forwarded-for
+202.51.197.26, 34.117.33.233, 35.191.76.82,136.112.69.229
+
+x-forwarded-host
+pewaca.replit.app
+
+x-forwarded-proto
+https
+
+Body
+[]
+
+Context
+Versions
+Php Version
+8.2.23
+
+Laravel Version
+9.52.21
+
+Laravel Locale
+id
+
+Laravel Config Cached
+false
+App Debug
+true
+App Env
+local

@@ -113,7 +113,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     // Fetch and render data
     let cachedData = { sudah_bayar: [], belum_bayar: [] };
-    let shown = { sudah_bayar: 10, belum_bayar: 10 };
+    let totalData = { sudah_bayar: 0, belum_bayar: 0 };
+    let currentPage = { sudah_bayar: 1, belum_bayar: 1 };
+    let isLoading = { sudah_bayar: false, belum_bayar: false };
+    
     function renderTabContent(tabId, items, type) {
         const tab = document.getElementById(tabId);
         const container = tab.querySelector('.divide-y');
@@ -121,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (items.length === 0) {
             html = '<div class="text-center text-gray-400 py-8">Tidak ada data</div>';
         } else {
-            html = items.slice(0, shown[type]).map(item => `
+            html = items.map(item => `
                 <div class=\"py-4\">
                     <div class=\"flex justify-between\">
                         <div>
@@ -139,22 +142,55 @@ document.addEventListener('DOMContentLoaded', function () {
             `).join('');
         }
         container.innerHTML = html;
-        // Show/hide More button
-        // const moreBtn = tab.querySelector('.btn-more');
-        // if (items.length > shown[type]) {
-        //     moreBtn.style.display = '';
-        // } else {
-        //     moreBtn.style.display = 'none';
-        // }
+        
+        // Show/hide More button based on total vs loaded
+        const moreBtn = tab.querySelector('.btn-more');
+        if (moreBtn) {
+            if (items.length >= totalData[type]) {
+                moreBtn.style.display = 'none';
+            } else {
+                moreBtn.style.display = '';
+                moreBtn.textContent = isLoading[type] ? 'Loading...' : `More (${items.length}/${totalData[type]})`;
+            }
+        }
     }
+    // Get residence_id from residence_commites for filtering by residence
+    const residenceCommites = @json(Session::get('cred.residence_commites', []));
+    const residenceIds = [];
+    residenceCommites.forEach(commite => {
+        if (commite.residence && typeof commite.residence === 'number') {
+            residenceIds.push(commite.residence);
+        }
+    });
+    const uniqueResidenceIds = [...new Set(residenceIds)];
+    console.log('Cashout filtering by residence count:', uniqueResidenceIds.length);
+    
     function fetchAndRender() {
+        if (uniqueResidenceIds.length === 0) {
+            console.error('No residence assigned');
+            alert('Anda tidak memiliki akses ke residence manapun.');
+            return;
+        }
+        
         const periodeVal = periodeInput.value;
         const unitVal = unitInput.value.trim();
-        let apiUrl = `https://api.pewaca.id/api/report/cashout/?periode=${periodeVal}`;
+        let apiUrl = `https://admin.pewaca.id/api/report/cashout/?periode=${periodeVal}&residence_id=${encodeURIComponent(uniqueResidenceIds[0])}`;
         if (unitVal) apiUrl += `&unit_no=${encodeURIComponent(unitVal)}`;
-        fetch(apiUrl)
+        
+        fetch(apiUrl, {
+            headers: {
+                'Authorization': 'Token {{ Session::get("token") }}',
+                'Content-Type': 'application/json'
+            }
+        })
             .then(res => res.json())
             .then(data => {
+                console.log('=== CASHOUT RESPONSE DEBUG ===');
+                console.log('Full response:', data);
+                console.log('Sudah Bayar records:', data.sudah_bayar?.data?.length || 0);
+                console.log('Belum Bayar records:', data.belum_bayar?.data?.length || 0);
+                console.log('Chart shows: Sudah=' + (data.bypembayaran?.[0]?.jumlah || 0) + ', Belum=' + (data.bypembayaran?.[1]?.jumlah || 0));
+                
                 document.getElementById('total_by_type').textContent = data.jumlah_warga;
                 Highcharts.chart('bypembayaran', {
                     chart: { type: 'pie' },
@@ -197,14 +233,69 @@ document.addEventListener('DOMContentLoaded', function () {
                         ]
                     }]
                 });
-                // Cache data and reset shown count
+                // Reset pagination and cache initial data
                 cachedData.sudah_bayar = data.sudah_bayar.data || [];
                 cachedData.belum_bayar = data.belum_bayar.data || [];
-                shown.sudah_bayar = 10;
-                shown.belum_bayar = 10;
+                totalData.sudah_bayar = data.sudah_bayar.total || 0;
+                totalData.belum_bayar = data.belum_bayar.total || 0;
+                currentPage.sudah_bayar = 1;
+                currentPage.belum_bayar = 1;
+                
+                console.log('Total - Sudah:', totalData.sudah_bayar, 'Belum:', totalData.belum_bayar);
+                
                 renderTabContent('tab-content-sudahbayar', cachedData.sudah_bayar, 'sudah_bayar');
                 renderTabContent('tab-content-belumbayar', cachedData.belum_bayar, 'belum_bayar');
             });
+    }
+    
+    // Load more data for pagination
+    function loadMoreData(type) {
+        if (isLoading[type]) return; // Prevent double loading
+        if (cachedData[type].length >= totalData[type]) return; // All data loaded
+        
+        isLoading[type] = true;
+        currentPage[type]++;
+        
+        // Update button to show loading state
+        renderTabContent(
+            type === 'sudah_bayar' ? 'tab-content-sudahbayar' : 'tab-content-belumbayar', 
+            cachedData[type], 
+            type
+        );
+        
+        const periodeVal = periodeInput.value;
+        const unitVal = unitInput.value.trim();
+        let apiUrl = `https://admin.pewaca.id/api/report/cashout/?periode=${periodeVal}&page=${currentPage[type]}&residence_id=${encodeURIComponent(uniqueResidenceIds[0])}`;
+        if (unitVal) apiUrl += `&unit_no=${encodeURIComponent(unitVal)}`;
+        
+        fetch(apiUrl, {
+            headers: {
+                'Authorization': 'Token {{ Session::get("token") }}',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(`Loading page ${currentPage[type]} for ${type}:`, data);
+            
+            // Append new data to cached data
+            const newData = data[type]?.data || [];
+            cachedData[type] = [...cachedData[type], ...newData];
+            
+            isLoading[type] = false;
+            
+            // Re-render with updated data
+            renderTabContent(
+                type === 'sudah_bayar' ? 'tab-content-sudahbayar' : 'tab-content-belumbayar', 
+                cachedData[type], 
+                type
+            );
+        })
+        .catch(err => {
+            console.error('Error loading more data:', err);
+            isLoading[type] = false;
+            currentPage[type]--; // Revert page number on error
+        });
     }
     // Initial fetch pakai nilai dari controller
     fetchAndRender();
@@ -215,12 +306,11 @@ document.addEventListener('DOMContentLoaded', function () {
     unitInput.addEventListener('input', function() {
         fetchAndRender();
     });
-    // More button logic
+    // More button logic - Load next page from API
     document.querySelectorAll('.btn-more').forEach(btn => {
         btn.addEventListener('click', function() {
             const type = btn.dataset.type;
-            shown[type] += 10;
-            renderTabContent(`tab-content-${type.replace('_', '')}`, cachedData[type], type);
+            loadMoreData(type);
         });
     });
     // Tabs logic (unchanged)

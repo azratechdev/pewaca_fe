@@ -1,0 +1,136 @@
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Header after processing: None
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: None
+Request META: NOT_FOUND
+No Authorization header found
+Authentication result: None
+============================================================
+[VALIDATE] Checking email: test.warga.1761465276244@example.com
+============================================================
+DEBUG 2025-10-26 07:54:36,484 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 07:54:36,484 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-10-26 07:54:36,484 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 07:54:36,484 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-10-26 07:54:36,485 utils (0.000) SELECT 1 AS `a` FROM `m_user` WHERE `m_user`.`user_email` = 'test.warga.1761465276244@example.com' LIMIT 1; args=(1, 'test.warga.1761465276244@example.com'); alias=default
+DEBUG 2025-10-26 07:54:36,485 utils (0.000) SELECT 1 AS `a` FROM `m_user` WHERE `m_user`.`user_email` = 'test.warga.1761465276244@example.com' LIMIT 1; args=(1, 'test.warga.1761465276244@example.com'); alias=default
+[VALIDATE] ✅ Email valid: test.warga.1761465276244@example.com
+DEBUG 2025-10-26 07:54:36,485 utils (0.000) BEGIN; args=None; alias=default
+DEBUG 2025-10-26 07:54:36,485 utils (0.000) BEGIN; args=None; alias=default
+============================================================
+[SERIALIZER] create() method called!
+============================================================
+[SERIALIZER] Code from context: 350c228d-2121-47fd-a808-456a7523e527
+[SERIALIZER] Validated data keys: dict_keys(['email', 'password', 'unit_id', 'nik', 'full_name', 'phone_no', 'gender_id', 'date_of_birth', 'religion', 'place_of_birth', 'marital_status', 'occupation', 'education', 'family_as'])
+[SERIALIZER] Email: test.warga.1761465276244@example.com
+[SERIALIZER] Unit ID: 25
+DEBUG 2025-10-26 07:54:36,486 utils (0.000) SAVEPOINT `s139938817545792_x1`; args=None; alias=default
+DEBUG 2025-10-26 07:54:36,486 utils (0.000) SAVEPOINT `s139938817545792_x1`; args=None; alias=default
+[SERIALIZER] Creating user...
+DEBUG 2025-10-26 07:54:36,487 utils (0.000) SELECT `m_role`.`role_id`, `m_role`.`role_category`, `m_role`.`role_name`, `m_role`.`role_desc`, `m_role`.`role_created_by`, `m_role`.`role_created_on`, `m_role`.`role_modified_by`, `m_role`.`role_modified_on`, `m_role`.`role_isactive`, `m_role`.`role_isdelete` FROM `m_role` WHERE `m_role`.`role_id` = 5 ORDER BY `m_role`.`role_id` ASC LIMIT 1; args=(5,); alias=default
+DEBUG 2025-10-26 07:54:36,487 utils (0.000) SELECT `m_role`.`role_id`, `m_role`.`role_category`, `m_role`.`role_name`, `m_role`.`role_desc`, `m_role`.`role_created_by`, `m_role`.`role_created_on`, `m_role`.`role_modified_by`, `m_role`.`role_modified_on`, `m_role`.`role_isactive`, `m_role`.`role_isdelete` FROM `m_role` WHERE `m_role`.`role_id` = 5 ORDER BY `m_role`.`role_id` ASC LIMIT 1; args=(5,); alias=default
+DEBUG 2025-10-26 07:54:36,764 utils (0.000) None; args=['', 'test.warga.1761465276244@example.com', 'test.warga.1761465276244@example.com', 'pbkdf2_sha256$720000$eCFO2gE5kxPOV2rdIQkLjM$LLCbt0jpIV4vrmqTWPULJPIHjNX/XVu78nk9MmLjvNE=', None, '2025-10-26 07:54:36.487412', False, False, False, False, True, None, None]; alias=default
+DEBUG 2025-10-26 07:54:36,764 utils (0.000) None; args=['', 'test.warga.1761465276244@example.com', 'test.warga.1761465276244@example.com', 'pbkdf2_sha256$720000$eCFO2gE5kxPOV2rdIQkLjM$LLCbt0jpIV4vrmqTWPULJPIHjNX/XVu78nk9MmLjvNE=', None, '2025-10-26 07:54:36.487412', False, False, False, False, True, None, None]; alias=default
+DEBUG 2025-10-26 07:54:36,764 utils (0.000) ROLLBACK TO SAVEPOINT `s139938817545792_x1`; args=None; alias=default
+DEBUG 2025-10-26 07:54:36,764 utils (0.000) ROLLBACK TO SAVEPOINT `s139938817545792_x1`; args=None; alias=default
+DEBUG 2025-10-26 07:54:36,764 utils (0.000) RELEASE SAVEPOINT `s139938817545792_x1`; args=None; alias=default
+DEBUG 2025-10-26 07:54:36,764 utils (0.000) RELEASE SAVEPOINT `s139938817545792_x1`; args=None; alias=default
+[SERIALIZER] ❌ IntegrityError: (1364, "Field 'user_id' doesn't have a default value")
+Traceback (most recent call last):
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+MySQLdb.IntegrityError: (1364, "Field 'user_id' doesn't have a default value")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/apps/django/pewaca_be/dash/api/serializers/user_registration.py", line 301, in create
+    user = User.objects.create_user(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/apps/django/pewaca_be/dash/management_user/models/user.py", line 16, in create_user
+    user.save(using=self._db)
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/auth/base_user.py", line 78, in save
+    super().save(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/base.py", line 822, in save
+    self.save_base(
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/base.py", line 909, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/base.py", line 1071, in _save_table
+    results = self._do_insert(
+              ^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/base.py", line 1112, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1823, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+django.db.utils.IntegrityError: (1364, "Field 'user_id' doesn't have a default value")
+DEBUG 2025-10-26 07:54:36,778 utils (0.000) ROLLBACK; args=None; alias=default
+DEBUG 2025-10-26 07:54:36,778 utils (0.000) ROLLBACK; args=None; alias=default
+WARNING 2025-10-26 07:54:36,778 log Bad Request: /api/auth/sign-up/350c228d-2121-47fd-a808-456a7523e527/
+WARNING 2025-10-26 07:54:36,779 basehttp "POST /api/auth/sign-up/350c228d-2121-47fd-a808-456a7523e527/ HTTP/1.0" 400 244
+DEBUG 2025-10-26 07:54:36,849 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/messages/storage/cookie.py first seen with mtime 1758982201.3486931
+DEBUG 2025-10-26 07:54:36,850 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/messages/storage/session.py first seen with mtime 1758982201.3486931
+DEBUG 2025-10-26 07:54:36,851 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/messages/storage/fallback.py first seen with mtime 1758982201.3486931
+DEBUG 2025-10-26 07:54:36,851 autoreload File /home/ubuntu/miniconda3/envs/pewaca_env/lib/python3.11/site-packages/django/contrib/sessions/serializers.py first seen with mtime 1758982201.4206936

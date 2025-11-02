@@ -1,0 +1,20 @@
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Request META: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Token format detected, converting: eyJhbGciOiJIUzI1NiIs...
+Header after processing: b'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE'
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Request META: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjg5MTc5LCJpYXQiOjE3NjE0Mjk5NzksImp0aSI6ImYwNTRjYjgwYTQ5NzRjMjBiMzUzNTk3NjUzMmMxZDdkIiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.SX5q4i3tPuNMprJ1aL1rMDsHgfPP2et7vHG5vyuoqmE
+Token format detected, converting: eyJhbGciOiJIUzI1NiIs...
+Authentication result: (<MUser: pengurus1@gmail.com>, {'token_type': 'access', 'exp': 1761689179, 'iat': 1761429979, 'jti': 'f054cb80a4974c20b3535976532c1d7d', 'user_id': 2, 'email': 'pengurus1@gmail.com'})
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: NoneUnauthorized: /api/report/index/
+[26/Oct/2025 01:19:41] "GET /api/report/index/?periode=2025-09 HTTP/1.0" 401 58
+Unauthorized: /api/report/cashout/
+[26/Oct/2025 01:19:46] "GET /api/report/cashout/?periode=2025-09 HTTP/1.0" 401 58
+Unauthorized: /api/report/index/
+[26/Oct/2025 01:20:01] "GET /api/report/index/?periode=2025-09 HTTP/1.0" 401 58
+Unauthorized: /api/report/cashout/
+[26/Oct/2025 01:20:17] "GET /api/report/cashout/?periode=2025-09 HTTP/1.0" 401 58

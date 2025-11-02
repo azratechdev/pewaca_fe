@@ -1,0 +1,14 @@
+Authentication result: (<MUser: pengurus1@gmail.com>, {'token_type': 'access', 'exp': 1761673108, 'iat': 1761413908, 'jti': '506e55f545f14312bc4307544ba5f326', 'user_id': 2, 'email': 'pengurus1@gmail.com'})
+[25/Oct/2025 20:34:11] "GET /api/stories/ HTTP/1.1" 200 4409
+=== AUTHENTICATE METHOD ===
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjczMTA4LCJpYXQiOjE3NjE0MTM5MDgsImp0aSI6IjUwNmU1NWY1NDVmMTQzMTJiYzQzMDc1NDRiYTVmMzI2IiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.DJ_AXSXKU0FeNJ8TKLYyT0CMeNisGvZ2EfXLHZEh0WE
+Request META: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjczMTA4LCJpYXQiOjE3NjE0MTM5MDgsImp0aSI6IjUwNmU1NWY1NDVmMTQzMTJiYzQzMDc1NDRiYTVmMzI2IiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.DJ_AXSXKU0FeNJ8TKLYyT0CMeNisGvZ2EfXLHZEh0WE
+Token format detected, converting: eyJhbGciOiJIUzI1NiIs...
+Header after processing: b'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjczMTA4LCJpYXQiOjE3NjE0MTM5MDgsImp0aSI6IjUwNmU1NWY1NDVmMTQzMTJiYzQzMDc1NDRiYTVmMzI2IiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.DJ_AXSXKU0FeNJ8TKLYyT0CMeNisGvZ2EfXLHZEh0WE'
+=== DEBUG TOKEN AUTHENTICATION ===
+Authorization header: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjczMTA4LCJpYXQiOjE3NjE0MTM5MDgsImp0aSI6IjUwNmU1NWY1NDVmMTQzMTJiYzQzMDc1NDRiYTVmMzI2IiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.DJ_AXSXKU0FeNJ8TKLYyT0CMeNisGvZ2EfXLHZEh0WE
+Request META: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxNjczMTA4LCJpYXQiOjE3NjE0MTM5MDgsImp0aSI6IjUwNmU1NWY1NDVmMTQzMTJiYzQzMDc1NDRiYTVmMzI2IiwidXNlcl9pZCI6MiwiZW1haWwiOiJwZW5ndXJ1czFAZ21haWwuY29tIn0.DJ_AXSXKU0FeNJ8TKLYyT0CMeNisGvZ2EfXLHZEh0WE
+Token format detected, converting: eyJhbGciOiJIUzI1NiIs...
+Authentication result: (<MUser: pengurus1@gmail.com>, {'token_type': 'access', 'exp': 1761673108, 'iat': 1761413908, 'jti': '506e55f545f14312bc4307544ba5f326', 'user_id': 2, 'email': 'pengurus1@gmail.com'})
+[25/Oct/2025 20:42:54] "GET /api/stories/ HTTP/1.1" 200 4409

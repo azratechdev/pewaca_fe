@@ -11,6 +11,9 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\TagihanController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\WarungkuController;
+use App\Http\Controllers\WarungkuSetupController;
+use App\Http\Controllers\CartController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,6 +29,8 @@ Route::get('/', [LoginController::class, 'showLoginForm'])
     ->middleware('check.token')
     ->name('showLoginForm');
 
+Route::get('/company-profile', [LoginController::class, 'companyProfile'])->name('companyProfile');
+
 Route::post('/', [LoginController::class, 'postlogin'])->name('postlogin');
 Route::get('/registration/{uuid?}', [RegisterController::class, 'showRegister'])->name('showRegister');
 Route::post('/postregistration', [RegisterController::class, 'postRegister'])->name('postRegister');
@@ -37,6 +42,17 @@ Route::get('/forgotpassword', [ForgotPasswordController::class, 'showFormReset']
 Route::post('/sendmail', [ForgotPasswordController::class, 'sendMail'])->name('sendMail');
 Route::get('/reset/{uuid?}/{token?}', [ForgotPasswordController::class, 'newPassword'])->name('newPassword');
 Route::post('/sendnewpassword', [ForgotPasswordController::class, 'sendNewpassword'])->name('sendNewpassword');
+
+// PWA Offline Page
+Route::get('/offline', function () {
+    return view('offline');
+})->name('offline');
+
+// Warungku Setup Routes (Admin - Public)
+Route::get('/warungku/setup', [WarungkuSetupController::class, 'setup'])->name('warungku.setup');
+Route::get('/warungku/update-images', [WarungkuSetupController::class, 'updateImages'])->name('warungku.update-images');
+Route::get('/warungku/setup-cart', [WarungkuSetupController::class, 'setupCart'])->name('warungku.setup-cart');
+
 Auth::routes();
 
 // Rute yang membutuhkan autentikasi
@@ -109,6 +125,9 @@ Route::group(['middleware' => ['auth', 'check.token']], function () {
         Route::get('/pengurus/detail-by-chasout/{periode}/{unit?}', [ReportController::class, 'detail_report'])->name('pengurus.detail.report');
         Route::get('/pengurus/detail-tunggakan/{periode}/{unit?}', [ReportController::class, 'detail_tunggakan'])->name('pengurus.detail.tunggakan');
         Route::get('/pengurus/detail-by-type/{periode}/{unit?}', [ReportController::class, 'detail_by_type'])->name('pengurus.detail.bytype');
+        
+        //report download routes
+        Route::get('/pengurus/report/download/comprehensive', [ReportController::class, 'downloadComprehensive'])->name('pengurus.report.download.comprehensive');
         //end report route
     });
     
@@ -124,10 +143,53 @@ Route::group(['middleware' => ['auth', 'check.token']], function () {
     Route::get('/pembayaran/{id}/add', [PembayaranController::class, 'addpembayaran'])->name('pembayaran.add');
     Route::get('/pembayaran/{id}/upload', [PembayaranController::class, 'uploadbukti'])->name('pembayaran.upload_bukti');
     Route::get('/pembayaran/{id}/detail', [PembayaranController::class, 'detailPembayaran'])->name('pembayaran.detail_bukti');
+    Route::get('/pembayaran/{id}/qris', [PembayaranController::class, 'qrisPembayaran'])->name('pembayaran.qris');
+    Route::get('/api/check-payment/{paymentId}', [PembayaranController::class, 'checkPaymentStatus'])->name('pembayaran.check_status');
 
     // Route::get('/pembayaran/pembayaran_periode', [PembayaranController::class, 'pembayaran_periode'])->name('pembayaran.pembayaran_periode');
     // Route::get('/pembayaran/periode', [PembayaranController::class, 'periode'])->name('pembayaran.periode');
-    
-    Route::view('/offline', 'vendor.laravelpwa.offline')->name('offline');
+
+    // Warungku Marketplace Routes (Protected - Requires Login)
+    Route::get('/warungku', [WarungkuController::class, 'index'])->name('warungku.index');
+    Route::get('/warungku/toko/{id}', [WarungkuController::class, 'showStore'])->name('warungku.store');
+    Route::get('/warungku/produk/{id}', [WarungkuController::class, 'showProduct'])->name('warungku.product');
+
+    // Cart Routes (Protected - Requires Login)
+    Route::get('/warungku/keranjang', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/warungku/keranjang/add', [CartController::class, 'add'])->name('cart.add');
+    Route::put('/warungku/keranjang/update/{itemId}', [CartController::class, 'update'])->name('cart.update');
+    Route::delete('/warungku/keranjang/remove/{itemId}', [CartController::class, 'remove'])->name('cart.remove');
+    Route::delete('/warungku/keranjang/clear', [CartController::class, 'clear'])->name('cart.clear');
+    Route::get('/warungku/keranjang/count', [CartController::class, 'getCount'])->name('cart.count');
 });
+
+use App\Http\Controllers\Test\RegistrationTestController;
+
+Route::prefix('test/registration')->group(function () {
+    Route::get('/', [RegistrationTestController::class, 'index'])->name('test.registration');
+    Route::prefix('api')->group(function () {
+        Route::get('/master-data', [RegistrationTestController::class, 'getMasterData'])->name('test.registration.master');
+        Route::get('/master-data/all', [RegistrationTestController::class, 'getAllMasterData'])->name('test.registration.master.all');
+        Route::get('/residence', [RegistrationTestController::class, 'getResidenceByCode'])->name('test.registration.residence');
+        Route::get('/units', [RegistrationTestController::class, 'getUnitsByCode'])->name('test.registration.units');
+        Route::post('/registration', [RegistrationTestController::class, 'testRegistration'])->name('test.registration.submit');
+        Route::post('/login', [RegistrationTestController::class, 'testLogin'])->name('test.registration.login');
+        Route::post('/verify', [RegistrationTestController::class, 'testVerify'])->name('test.registration.verify');
+        Route::post('/resend-verification', [RegistrationTestController::class, 'testResendVerification'])->name('test.registration.resend');
+    });
+});
+
+// Debug route untuk check session data
+Route::get('/debug/session', function () {
+    if (!Session::get('token')) {
+        return response()->json(['error' => 'Not logged in']);
+    }
+    
+    return response()->json([
+        'user' => Session::get('cred'),
+        'warga' => Session::get('warga'),
+        'residence' => Session::get('residence'),
+        'token_exists' => Session::has('token')
+    ]);
+})->name('debug.session');
 

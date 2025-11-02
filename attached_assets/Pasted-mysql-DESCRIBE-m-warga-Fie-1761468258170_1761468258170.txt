@@ -1,0 +1,33 @@
+mysql> DESCRIBE m_warga;
++-------------------+--------------+------+-----+---------+-------+
+| Field             | Type         | Null | Key | Default | Extra |
++-------------------+--------------+------+-----+---------+-------+
+| id                | bigint       | NO   |     | NULL    |       |
+| nik               | varchar(16)  | YES  |     | NULL    |       |
+| full_name         | varchar(150) | YES  |     | NULL    |       |
+| gender_id         | int          | YES  |     | NULL    |       |
+| date_of_birth     | date         | YES  |     | NULL    |       |
+| place_of_birth    | varchar(150) | YES  |     | NULL    |       |
+| phone_no          | varchar(15)  | YES  |     | NULL    |       |
+| profile_photo     | varchar(100) | YES  |     | NULL    |       |
+| marriage_photo    | varchar(100) | YES  |     | NULL    |       |
+| is_checker        | tinyint(1)   | YES  |     | NULL    |       |
+| is_lead           | tinyint(1)   | YES  |     | NULL    |       |
+| created_by        | bigint       | NO   |     | NULL    |       |
+| created_on        | datetime(6)  | YES  |     | NULL    |       |
+| modified_by       | int          | YES  |     | NULL    |       |
+| modified_on       | datetime(6)  | YES  |     | NULL    |       |
+| isactive          | tinyint(1)   | YES  |     | NULL    |       |
+| isdelete          | tinyint(1)   | YES  |     | NULL    |       |
+| isreject          | tinyint(1)   | YES  |     | NULL    |       |
+| education_id      | bigint       | YES  |     | NULL    |       |
+| family_as         | int          | YES  |     | NULL    |       |
+| marital_status_id | bigint       | YES  |     | NULL    |       |
+| occupation_id     | bigint       | YES  |     | NULL    |       |
+| religion_id       | bigint       | YES  |     | NULL    |       |
+| residence_id      | int          | YES  |     | NULL    |       |
+| unit_id           | int          | YES  |     | NULL    |       |
+| user_id           | bigint       | YES  |     | NULL    |       |
+| checked_on        | datetime(6)  | YES  |     | NULL    |       |
++-------------------+--------------+------+-----+---------+-------+
+27 rows in set (0.01 sec)

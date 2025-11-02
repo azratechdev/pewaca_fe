@@ -1,0 +1,104 @@
+from django.forms import modelformset_factory
+from django.views import View
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import get_user_model
+from django.contrib import messages
+from main.forms import UserRegistrationForm
+from main.models import MResidence,MReligion
+from management_user.models import Warga,MfamilyAs,MUnit
+from django.db import transaction, IntegrityError
+from django.core.exceptions import ValidationError
+
+User = get_user_model()
+
+class UserRegisterView(View):
+    form_class = UserRegistrationForm
+    template_name = 'page/sign-up.html'
+
+    # Create a formset for Warga model to allow multiple Warga entries
+    # WargaFormSet = modelformset_factory(Warga, form=WargaForm, extra=1, can_delete=True)
+    WargaFormSet = modelformset_factory(Warga, fields=['full_name', 'gender_id', 'religion', 'phone_no', 'family_as'], extra=1)
+    def get(self, request, code, *args, **kwargs):
+        residence = get_object_or_404(MResidence, code=code)
+        form = self.form_class(residence=residence)  # Pass residence to the form
+        warga_formset = self.WargaFormSet(queryset=Warga.objects.none())  # Empty formset for new Warga
+        family_as = MfamilyAs.objects.all()
+        religion = MReligion.objects.all()
+        return render(request, self.template_name, {
+            'form': form, 
+            'warga_formset': warga_formset,  # Pass formset to template
+            'residence': residence,
+            'family_as': family_as,
+            'religion': religion
+        })
+
+    def post(self, request, code, *args, **kwargs):
+        residence = get_object_or_404(MResidence, code=code)
+        form = self.form_class(request.POST, residence=residence)  # Pass residence again
+        warga_formset = self.WargaFormSet(request.POST)  # Process the Warga formset data
+
+        if form.is_valid():
+            try:
+                with transaction.atomic():  # Mulai transaksi atomik
+                    # Simpan data pengguna (User)
+                    user = form.save(commit=False)
+                    user.is_warga = True
+                    user.save()  # Simpan pengguna
+
+                    # Simpan beberapa instance Warga
+                    full_names = request.POST.getlist('full_name[]')
+                    genders = request.POST.getlist('gender_id[]')
+                    religions = request.POST.getlist('religion[]')
+                    phone_nos = request.POST.getlist('phone_no[]')
+                    family_as_list = request.POST.getlist('family_as[]')
+
+                    for i in range(len(full_names)):
+                        Warga.objects.create(
+                            user=user,
+                            unit_id=MUnit.objects.filter(pk=request.POST.get('unit_id')).first(),
+                            full_name=full_names[i],
+                            gender_id=genders[i],
+                            religion_id=religions[i],
+                            phone_no=phone_nos[i],
+                            family_as_id=family_as_list[i],
+                            created_by=user.user_id
+                        )
+                messages.success(request, 'Pendaftaran berhasil!')
+                return redirect('sign-in')
+
+            except IntegrityError as e:
+                # Tangani kesalahan integritas (misalnya duplikasi data)
+                messages.error(request, f'Kesalahan saat menyimpan data: {str(e)}')
+            except ValidationError as e:
+                # Tangani kesalahan validasi
+                messages.error(request, f'Validasi gagal: {str(e)}')
+            except Exception as e:
+                # Tangani kesalahan tidak terduga lainnya
+                messages.error(request, f'Kesalahan tidak terduga: {str(e)}')
+
+        else:
+            # Tambahkan kesalahan formulir ke pesan
+            error_message = 'Ada kesalahan dalam formulir:\n'
+            
+            # Kumpulkan kesalahan form utama
+            for field, errors in form.errors.items():
+                error_message += f"{field}: {', '.join(errors)}\n"
+            
+            # Kumpulkan kesalahan formset
+            for i, warga_errors in enumerate(warga_formset.errors):
+                if warga_errors:
+                    error_message += f"Warga {i + 1}:\n"
+                    for field, errors in warga_errors.items():
+                        error_message += f"  {field}: {', '.join(errors)}\n"
+
+            messages.error(request, error_message)
+
+        family_as = MfamilyAs.objects.all()
+        religion = MReligion.objects.all()
+        return render(request, self.template_name, {
+            'form': form, 
+            'family_as': family_as, 
+            'religion': religion, 
+            'warga_formset': warga_formset,  # Pastikan formset dikirim kembali ke template
+            'residence': residence
+        })

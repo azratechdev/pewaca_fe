@@ -1,0 +1,150 @@
+Tujuan:
+Bangun payment orchestrator service dengan QRIS sebagai channel utama. Service ini menyediakan API untuk membuat pembayaran (QR dinamis), mengecek status, menerima webhook dari provider, dan rekonsiliasi harian. 
+Keluaran Minimum (MVP):
+1.	Endpoint publik:
+o	POST /payments → buat pembayaran QR dinamis
+o	GET /payments/:id → ambil status
+o	POST /webhooks/qris → terima notifikasi provider (idempotent + verifikasi signature)
+2.	Database (SQLite/MySQL/Postgres): tabel payments, payment_logs, webhook_events, settlements
+3.	Adapter QrisProvider (mock + siap ganti ke Midtrans/Xendit/DOKU/NICEPAY)
+4.	Job antrian:
+o	auto-expire pembayaran jika lewat expires_at
+o	rekonsiliasi harian (dummy dulu, siap dihubungkan ke provider)
+5.	Keamanan:
+o	Idempotency-key untuk POST /payments
+o	Verifikasi X-Signature di webhook (HMAC-SHA256)
+o	Validasi amount, order_id, provider_trx_id
+6.	DevEx:
+o	README.md detail
+o	.env.example
+o	skrip npm run dev / npm run start atau php artisan serve
+o	koleksi Postman/Insomnia (/docs/api-collection.json)
+o	uji unit minimal untuk util signature & idempotency
+________________________________________
+Spesifikasi Fungsional
+Model data:
+•	payments
+o	id (uuid), order_id (unique), amount (decimal), currency (IDR)
+o	status (CREATED|PENDING|PAID|EXPIRED|FAILED|REFUNDED)
+o	qris_payload (text), provider_trx_id (index), provider_ref_no (nullable)
+o	expires_at (datetime), paid_at (nullable)
+o	callback_url (nullable), metadata (json), signature_version (smallint)
+o	timestamps
+•	payment_logs
+o	id, payment_id, event (CREATED|WEBHOOK_SUCCESS|RETRY|EXPIRE|RECONCILE|ERROR)
+o	payload (json), created_at
+•	webhook_events
+o	id (uuid), provider (qris_xxx), event_id (unique)
+o	payload (json), received_at, processed_at (nullable)
+o	status (OK|ERROR|PENDING), error_message (nullable)
+•	settlements
+o	id, provider_trx_id, payment_id, amount, fee, net_amount
+o	settlement_date, file_id (nullable), reconciled (bool), created_at
+Endpoint detail:
+1.	POST /payments
+Request:
+{
+  "order_id": "INV-2025-0001",
+  "amount": 150000,
+  "callback_url": "https://merchant.app/callback",
+  "metadata": {"customer_id": "C123"}
+}
+Headers: Idempotency-Key: <uuid>
+Flow:
+•	Upsert by order_id: jika baru → status=CREATED
+•	Call QrisProvider.createDynamicQR(payment) → terima { qr_string, trx_id, expires_at }
+•	Update: status=PENDING, simpan payload + provider_trx_id
+Response (201):
+{
+  "payment_id": "<uuid>",
+  "status": "PENDING",
+  "qr_string": "000201010212...",
+  "expires_at": "2025-10-26T05:00:00+07:00",
+  "provider_trx_id": "QRIS-XYZ-123"
+}
+2.	GET /payments/:id
+•	Kembalikan status + timestamps + ringkas metadata.
+3.	POST /webhooks/qris
+Headers: X-Signature, X-Event-Id, X-Timestamp
+Body contoh:
+{"trx_id":"QRIS-XYZ-123","order_id":"INV-2025-0001","amount":150000,"status":"SUCCESS","ref_no":"ABCD1234"}
+Flow:
+•	Verifikasi signature: hex(HMAC_SHA256(secret, rawBody))
+•	Idempotent by X-Event-Id (simpan ke webhook_events)
+•	Cari payments.provider_trx_id == trx_id, validasi amount
+•	Set status=PAID, paid_at=now(), log event
+•	(Opsional) kirim callback ke callback_url dengan signature outbound X-Callback-Signature
+Adapter Provider (Strategy Pattern):
+Buat interface QrisProvider:
+•	createDynamicQR(payment) → {qr_string, trx_id, expires_at}
+•	parseWebhook(req) → validasi tanda tangan, hasil {trx_id, amount, status, ref_no, event_id}
+•	fetchSettlement(date) → array transaksi untuk rekonsiliasi (dummy dulu)
+Sediakan implementasi:
+•	QrisProviderMock (default)
+•	Struktur folder siap ganti ke QrisProviderMidtrans / QrisProviderXendit (hanya mapping endpoint & field)
+________________________________________
+Non-Fungsional & Keamanan
+•	Idempotensi: simpan Idempotency-Key (atau kunci pakai order_id)
+•	Validasi input: amount >= 1, currency IDR
+•	Rate limit di endpoint publik (10 req/menit/ IP)
+•	Queue untuk webhook & callback agar non-blocking
+•	Auto-expire job (tiap menit/jam): set PENDING→EXPIRED jika lewat expires_at
+•	Konfigurasi via .env:
+o	PORT=9000
+o	DB_URL=...
+o	PROVIDER=mock|midtrans|xendit|doku|nicepay
+o	PROVIDER_API_KEY=...
+o	PROVIDER_WEBHOOK_SECRET=...
+o	CALLBACK_SIGNING_KEY=...
+o	EXPIRE_MINUTES=15
+•	Logging terstruktur (JSON), jangan log data sensitif
+•	Siapkan CORS (renyah) untuk dashboard
+________________________________________
+Struktur Proyek (contoh)
+Laravel
+app/
+  Http/Controllers/PaymentController.php
+  Http/Controllers/WebhookController.php
+  Services/Qris/QrisProvider.php
+  Services/Qris/QrisProviderMock.php
+  Services/Qris/QrisProviderMidtrans.php (stub)
+  Jobs/ExpirePendingPayments.php
+  Jobs/ReconcileDaily.php
+  Support/Signature.php
+database/migrations/*.php
+routes/api.php
+README.md
+.env.example
+docs/api-collection.json
+Node.js (TypeScript + Express)
+src/
+  app.ts
+  routes/index.ts
+  controllers/payments.ts
+  controllers/webhook.ts
+  services/qris/QrisProvider.ts
+  services/qris/QrisProviderMock.ts
+  services/qris/QrisProviderMidtrans.ts (stub)
+  jobs/expire.ts
+  jobs/reconcile.ts
+  utils/signature.ts
+  db/models.ts
+README.md
+.env.example
+docs/api-collection.json
+________________________________________
+Acceptance Criteria
+•	✅ POST /payments mengembalikan QR dinamis + waktu kedaluwarsa
+•	✅ POST /webhooks/qris:
+o	menolak signature salah (401)
+o	idempotent (event sama → 200 tanpa efek)
+o	mengubah PENDING→PAID ketika sukses
+•	✅ Job expire menandai PENDING→EXPIRED saat lewat waktu
+•	✅ Koleksi Postman tersedia & mudah diuji
+•	✅ README berisi cara jalanin proyek, env vars, How to Test (curl/Postman), dan cara ganti provider
+________________________________________
+Tambahan (opsional cepat)
+•	Callback outbound: POST {callback_url} berisi payment_id, order_id, status, amount, paid_at, header X-Callback-Signature
+•	UI minimal (admin): tabel payments + filter status + tombol export CSV
+•	Log rotation (kalau pakai PM2): pm2 install pm2-logrotate
+

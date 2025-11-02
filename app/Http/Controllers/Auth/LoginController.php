@@ -103,7 +103,16 @@ class LoginController extends Controller
 
         $auth_response = json_decode($response->body(), true);
 
-        //dd($auth_response)['data'];
+        \Log::info('=== LOGIN AUTHENTICATE DEBUG ===');
+        \Log::info('API Response Full:', ['response' => $auth_response]);
+        
+        if (isset($auth_response['data']['warga'])) {
+            \Log::info('Warga Data from API:', [
+                'is_checker' => $auth_response['data']['warga']['is_checker'] ?? 'NOT SET',
+                'isreject' => $auth_response['data']['warga']['isreject'] ?? 'NOT SET',
+                'full_name' => $auth_response['data']['warga']['full_name'] ?? 'NOT SET'
+            ]);
+        }
         
         if (isset($auth_response['data']['user'])) {
             $credentials = $auth_response['data']['user'];
@@ -115,6 +124,11 @@ class LoginController extends Controller
             Session::put(['warga' => $warga_data]);
             Session::put(['residence' => $residence_data]);
             //Session::put(['unit' => $unit_data]);
+            
+            \Log::info('Session Warga Stored:', [
+                'is_checker' => $warga_data['is_checker'] ?? 'NOT SET',
+                'isreject' => $warga_data['isreject'] ?? 'NOT SET'
+            ]);
            
            
             if ($credentials['email'] == $email && $credentials['is_active'] == true) {
@@ -144,6 +158,11 @@ class LoginController extends Controller
         }
         
         return $responses;
+    }
+
+    public function companyProfile()
+    {
+        return view('auth.company-profile');
     }
 
     public function logout()

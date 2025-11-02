@@ -1,0 +1,98 @@
+sed -n '239,335p' /home/ubuntu/apps/django/pewaca_be/dash/api/serializers/user_registration.py
+                    created_by=user.id
+                )
+
+                return user
+
+        except IntegrityError as e:
+            raise serializers.ValidationError(f"Database error occurred: {str(e)}")
+        except Exception as e:
+            raise serializers.ValidationError(f"An error occurred during registration: {str(e)}")
+        
+class UserRegistrationSingleSerializer(serializers.ModelSerializer):
+    unit_id = serializers.IntegerField(required=True)
+    nik = serializers.CharField(required=False)
+    full_name = serializers.CharField(required=True)
+    phone_no = serializers.CharField(required=True)
+    gender_id = serializers.IntegerField(required=True)
+    date_of_birth = serializers.DateField(required=True)
+    religion = serializers.IntegerField(required=True)
+    place_of_birth = serializers.CharField(required=True)
+    marital_status = serializers.IntegerField(required=True)
+    occupation = serializers.IntegerField(required=True)
+    education = serializers.IntegerField(required=True)
+    profile_photo = serializers.ImageField(required=False, allow_null=True)
+    marriage_photo = serializers.ImageField( required=False,allow_null=True)
+    email = serializers.EmailField(required=True)
+    password = serializers.CharField(write_only=True)
+    family_as = serializers.IntegerField(required=True)
+
+    class Meta:
+        model = User
+        fields = [
+            'email', 'password', 'unit_id', 'nik', 'full_name', 'phone_no',
+            'gender_id', 'date_of_birth', 'religion', 'place_of_birth',
+            'marital_status', 'occupation', 'education', 'profile_photo', 'family_as','marriage_photo'
+        ]
+
+    def validate_email(self, value):
+        """Check if the email already exists."""
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("Email sudah terdaftar.")
+        return value
+
+    def create(self, validated_data):
+        """Create a User and a corresponding Warga record."""
+        code = self.context.get('code')
+        
+        try:
+            with transaction.atomic():
+                user = User.objects.create_user(
+                    email=validated_data['email'],
+                    username=validated_data['email'],
+                    password=validated_data['password'],
+                    is_warga=1,
+                    is_active=0,
+                    role=Role.objects.filter(role_id=5).first()
+                )
+                if not user.user_id:
+                    user.user_id = user.id
+                    user.save(update_fields=['user_id'])
+
+                residence = get_object_or_404(MResidence, code=code)
+
+                # Ambil objek referensi berdasarkan ID
+                unit = get_object_or_404(MUnit, unit_id=validated_data['unit_id'])
+                religion = get_object_or_404(MReligion, id=validated_data['religion'])
+                marital_status = get_object_or_404(MaritalStatus, id=validated_data['marital_status'])
+                occupation = get_object_or_404(MOccupation, id=validated_data['occupation'])
+                education = get_object_or_404(MEducation, id=validated_data['education'])
+                family_as = get_object_or_404(MfamilyAs, id=validated_data['family_as'])
+
+                # Buat Warga terkait dengan user
+                Warga.objects.create(
+                    user=user,
+                    residence=residence,
+                    unit_id=unit,
+                    nik=validated_data.get('nik'),
+                    full_name=validated_data['full_name'],
+                    phone_no=validated_data['phone_no'],
+                    gender_id=validated_data['gender_id'],
+                    date_of_birth=validated_data['date_of_birth'],
+                    religion=religion,
+                    place_of_birth=validated_data['place_of_birth'],
+                    marital_status=marital_status,
+                    occupation=occupation,
+                    education=education,
+                    profile_photo=validated_data.get('profile_photo'),
+                    family_as=family_as,
+                    created_by=user.id,
+                    marriagePhoto=validated_data.get('marriage_photo')
+                )
+
+                return user
+
+        except IntegrityError as e:
+            raise serializers.ValidationError(f"Terjadi kesalahan database: {str(e)}")
+        except Exception as e:
+            raise serializers.ValidationError(f"Terjadi kesalahan saat registrasi: {str(e)}")

@@ -110,11 +110,29 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         listDiv.innerHTML = html;
     }
+    // Get residence_id from residence_commites for filtering by residence
+    const residenceCommites = @json(Session::get('cred.residence_commites', []));
+    const residenceIds = [];
+    residenceCommites.forEach(commite => {
+        if (commite.residence && typeof commite.residence === 'number') {
+            residenceIds.push(commite.residence);
+        }
+    });
+    const uniqueResidenceIds = [...new Set(residenceIds)];
+    console.log('Tunggakan filtering by residence count:', uniqueResidenceIds.length);
+    
     function fetchAndRender() {
+        if (uniqueResidenceIds.length === 0) {
+            console.error('No residence assigned');
+            alert('Anda tidak memiliki akses ke residence manapun.');
+            return;
+        }
+        
         const periodeVal = periodeInput.value;
         const unitVal = unitInput.value.trim();
-        let apiUrl = `https://api.pewaca.id/api/report/tunggakan/?periode=${periodeVal}`;
+        let apiUrl = `https://admin.pewaca.id/api/report/tunggakan/?periode=${periodeVal}&residence_id=${encodeURIComponent(uniqueResidenceIds[0])}`;
         if (unitVal) apiUrl += `&unit_no=${encodeURIComponent(unitVal)}`;
+        
         fetch(apiUrl)
             .then(res => res.json())
             .then(data => {
