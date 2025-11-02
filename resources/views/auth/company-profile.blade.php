@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>PT HEMITECH KARYA INDONESIA - Solusi Digital untuk Lingkungan Anda</title>
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/plugins/images/hemitech-logo.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/plugins/images/hemitech-logo-new.png') }}">
     <link href="{{ asset('assets/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -383,7 +383,7 @@
     <section class="hero-section">
         <div class="hero-content fade-in">
             <div class="logo-container">
-                <img src="{{ asset('assets/plugins/images/hemitech-logo.png') }}" alt="PT HEMITECH KARYA INDONESIA Logo">
+                <img src="{{ asset('assets/plugins/images/hemitech-logo-new.png') }}" alt="PT HEMITECH KARYA INDONESIA Logo">
             </div>
             <h1 class="hero-title">PT HEMITECH KARYA INDONESIA</h1>
             <p class="hero-subtitle">Solusi digital terpadu untuk warga dan pengelola lingkungan</p>
@@ -605,7 +605,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <img src="{{ asset('assets/plugins/images/hemitech-logo.png') }}" alt="PT HEMITECH KARYA INDONESIA" class="footer-logo">
+                        <img src="{{ asset('assets/plugins/images/hemitech-logo-new.png') }}" alt="PT HEMITECH KARYA INDONESIA" class="footer-logo">
                         <p class="footer-text">
                             PT HEMITECH KARYA INDONESIA adalah solusi digital terpadu untuk warga dan pengelola lingkungan. 
                             Kami membantu menciptakan komunitas yang lebih transparan, rapi, dan terhubung.
