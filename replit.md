@@ -23,6 +23,7 @@ I prefer simple language and detailed explanations. I want iterative development
 - QRIS Payment Orchestrator for residence fee collection.
 - **Warungku Marketplace**: Internal marketplace for residence community.
 - **Company Profile Page**: Modern, responsive landing page accessible from login via "Go to Pewaca Web" button, showcasing features and benefits of PT HEMITECH KARYA INDONESIA (company profile uses new branding while login pages retain Pewaca branding).
+- **Voting System (Pemilu-TC)**: Public voting system for neighborhood association leader election without authentication requirement.
 
 ### QRIS Payment Orchestrator
 - **Backend**: Uses a dedicated SQLite database for payments, `QrisProvider` interface with `QrisProviderMock` and `QrisProviderMidtrans` implementations, `PaymentController` and `WebhookController`, and background jobs for payment expiry and reconciliation. Includes security features like signature verification and idempotency.
@@ -49,6 +50,29 @@ I prefer simple language and detailed explanations. I want iterative development
 - **Data Seeding**: `WarungkuSeeder` provides 4 sample stores with 8 products each
 - **Next Steps**: Run `php artisan migrate` and `php artisan db:seed --class=WarungkuSeeder` to populate marketplace data
 
+### Voting System (Pemilu-TC)
+- **Purpose**: Enable residents to vote for neighborhood association leader (Ketua Paguyuban) without requiring login.
+- **Access**: Public route at `/pemilu-tc` (no authentication required).
+- **Database**: Uses dedicated SQLite database (`voting.sqlite`) with separate connection (`voting_sqlite`).
+- **Database Schema**:
+  - `candidates` table: name, photo, visi, misi, bio, vote_count, is_active
+  - `votes` table: candidate_id (foreign key), voter_name, house_block, ip_address
+- **Models**: `Candidate` and `Vote` with HasMany/BelongsTo relationships, both configured to use `voting_sqlite` connection.
+- **Routes**:
+  - `/pemilu-tc` - Main voting page with 3 candidates
+  - `/pemilu-tc/vote` - POST endpoint to submit vote
+  - `/pemilu-tc/results` - Public results page showing vote counts and percentages
+- **Controller**: `VotingController` handles voting display, submission, and results with transaction support.
+- **UI Features**:
+  - Interactive candidate selection cards with photo, visi, misi, and bio
+  - Two-step voting process: select candidate → enter voter name and house block
+  - Real-time vote count display
+  - Results page with ranking, percentages, and winner highlighting
+  - Fully responsive design with gradient background
+  - SweetAlert integration for success/error messages
+- **Data Seeding**: `CandidateSeeder` provides 3 dummy candidates (Budi Santoso, Siti Rahma Wati, Ahmad Hidayat) with complete profiles.
+- **Security**: IP address tracking for vote auditing, transaction-based voting to ensure data consistency.
+
 ### UI/UX Decisions
 - Consistent use of Bootstrap 5 for responsive design.
 - `onerror` handlers for images for improved visual consistency.
@@ -67,6 +91,7 @@ I prefer simple language and detailed explanations. I want iterative development
 - **Oct 30, 2025 - Add Rekening**: Fixed similar null access error by adding comprehensive error handling in `AkunController::addRekening()` and `postRekening()` methods, with detailed logging and user-friendly error messages.
 - **Nov 2, 2025 - Report Filtering**: Updated `/pengurus/report` and all detail pages to filter data by `residence_id` instead of showing all data. Each pengurus now only sees reports for their assigned residence, based on their `residence_commites` data. Frontend extracts `residence_id` from session and sends to backend API as filter parameter.
 - **Nov 2, 2025 - Company Profile Page Rebranding**: Updated company profile page (`/company-profile`) to showcase "PT HEMITECH KARYA INDONESIA" as the company identity. Added new logo (`hemitech-logo-new.png` - green background with black "H" letter), updated company name throughout the profile page, and changed contact information to info@hemitech.co.id and www.hemitech.co.id. Login pages remain with original "Pewaca" branding with "Go to Pewaca Web" button linking to the company profile page.
+- **Nov 2, 2025 - Voting System (Pemilu-TC)**: Created complete public voting system for neighborhood association leader election. Includes `/pemilu-tc` voting page with 3 candidates, `/pemilu-tc/results` results page, separate SQLite database (`voting.sqlite`), and countdown timer on login page announcing election until December 31, 2025. Countdown updates every minute and displays days, hours, and minutes remaining with prominent "Vote Sekarang" button linking to voting page.
 
 ### Warga Registration Architecture
 - **Flow**: UUID-based invitation system for residents, multi-step registration form, backend validation, email verification, and account creation via the Django API.

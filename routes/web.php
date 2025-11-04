@@ -53,6 +53,11 @@ Route::get('/warungku/setup', [WarungkuSetupController::class, 'setup'])->name('
 Route::get('/warungku/update-images', [WarungkuSetupController::class, 'updateImages'])->name('warungku.update-images');
 Route::get('/warungku/setup-cart', [WarungkuSetupController::class, 'setupCart'])->name('warungku.setup-cart');
 
+// Voting Routes (Public - No Auth Required)
+Route::get('/pemilu-tc', [\App\Http\Controllers\VotingController::class, 'index'])->name('voting.index');
+Route::post('/pemilu-tc/vote', [\App\Http\Controllers\VotingController::class, 'store'])->name('voting.store');
+Route::get('/pemilu-tc/results', [\App\Http\Controllers\VotingController::class, 'results'])->name('voting.results');
+
 Auth::routes();
 
 // Rute yang membutuhkan autentikasi

@@ -42,6 +42,13 @@ return [
             'foreign_key_constraints' => true,
         ],
         
+        'voting_sqlite' => [
+            'driver' => 'sqlite',
+            'database' => database_path('voting.sqlite'),
+            'prefix' => '',
+            'foreign_key_constraints' => true,
+        ],
+        
         'sqlite_backup' => [
             'driver' => 'sqlite',
             'url' => env('DATABASE_URL'),
