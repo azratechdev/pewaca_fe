@@ -446,9 +446,14 @@
             console.log('- Ukuran setelah kompresi:', compressedSize, 'MB');
             console.log('- Pengurangan:', reduction, '%');
 
-            // Buat File object baru dari compressed blob
-            const newFile = new File([compressedFile], file.name, {
-                type: compressedFile.type,
+            // Buat File object baru dari compressed blob dengan nama file yang sesuai
+            // Ganti ekstensi dengan .jpg karena kita kompres ke JPEG
+            const originalName = file.name;
+            const nameWithoutExt = originalName.substring(0, originalName.lastIndexOf('.')) || originalName;
+            const newFileName = nameWithoutExt + '.jpg';
+            
+            const newFile = new File([compressedFile], newFileName, {
+                type: 'image/jpeg',
                 lastModified: Date.now()
             });
 
