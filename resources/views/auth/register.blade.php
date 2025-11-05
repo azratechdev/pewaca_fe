@@ -397,23 +397,111 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Browser Image Compression Library -->
+  <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
 <script>
    document.addEventListener('DOMContentLoaded', function() {
     const profilePhotoInput = document.getElementById('profile_photo');
+    const maritalPhotoInput = document.getElementById('marital_photo');
     const imagePreview = document.getElementById('imagePreview');
     const imagePreviewContainer = document.getElementById('imagePreviewContainer');
     const removeImageButton = document.getElementById('removeImageButton');
 
+    // Konfigurasi kompresi gambar
+    const compressionOptions = {
+        maxSizeMB: 2,              // Maksimal 2MB setelah kompresi
+        maxWidthOrHeight: 1920,    // Maksimal lebar/tinggi 1920px
+        useWebWorker: true,        // Gunakan Web Worker untuk performa
+        fileType: 'image/jpeg',    // Convert ke JPEG
+        initialQuality: 0.8        // Quality 80%
+    };
+
+    // Fungsi untuk kompres gambar
+    async function compressImage(file, inputElement) {
+        try {
+            // Tampilkan loading
+            Swal.fire({
+                title: 'Memproses Gambar',
+                html: 'Mengoptimalkan ukuran gambar...<br><small>Ukuran asli: ' + (file.size / 1024 / 1024).toFixed(2) + ' MB</small>',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // Kompres gambar
+            const compressedFile = await imageCompression(file, compressionOptions);
+
+            // Tutup loading dan tampilkan hasil
+            Swal.close();
+
+            // Tampilkan notifikasi hasil kompresi
+            const originalSize = (file.size / 1024 / 1024).toFixed(2);
+            const compressedSize = (compressedFile.size / 1024 / 1024).toFixed(2);
+            const reduction = ((1 - compressedFile.size / file.size) * 100).toFixed(0);
+
+            console.log('Kompresi berhasil:');
+            console.log('- Ukuran asli:', originalSize, 'MB');
+            console.log('- Ukuran setelah kompresi:', compressedSize, 'MB');
+            console.log('- Pengurangan:', reduction, '%');
+
+            // Buat File object baru dari compressed blob
+            const newFile = new File([compressedFile], file.name, {
+                type: compressedFile.type,
+                lastModified: Date.now()
+            });
+
+            // Buat DataTransfer object untuk update input file
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(newFile);
+            inputElement.files = dataTransfer.files;
+
+            return newFile;
+
+        } catch (error) {
+            console.error('Error saat kompresi:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal Memproses Gambar',
+                text: 'Terjadi kesalahan saat mengoptimalkan gambar. Silakan coba lagi.',
+                confirmButtonText: 'OK'
+            });
+            // Reset input
+            inputElement.value = '';
+            return null;
+        }
+    }
+
+    // Event listener untuk foto profil
     if (profilePhotoInput) {
-        profilePhotoInput.addEventListener('change', function() {
+        profilePhotoInput.addEventListener('change', async function() {
             const file = this.files[0];
             if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    imagePreview.src = e.target.result;
-                    imagePreviewContainer.style.display = 'block';
+                // Validasi tipe file
+                if (!file.type.match('image.*')) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'File Tidak Valid',
+                        text: 'Mohon pilih file gambar (JPG, JPEG, atau PNG)',
+                        confirmButtonText: 'OK'
+                    });
+                    this.value = '';
+                    return;
                 }
-                reader.readAsDataURL(file);
+
+                // Kompres gambar
+                const compressedFile = await compressImage(file, this);
+                
+                if (compressedFile) {
+                    // Tampilkan preview
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        imagePreview.src = e.target.result;
+                        imagePreviewContainer.style.display = 'block';
+                    }
+                    reader.readAsDataURL(compressedFile);
+                }
             }
         });
 
@@ -422,8 +510,30 @@
             profilePhotoInput.value = '';
             imagePreview.src = '';
             imagePreviewContainer.style.display = 'none';
-            // Reset error state jika ada
             profilePhotoInput.classList.remove('is-invalid');
+        });
+    }
+
+    // Event listener untuk foto buku nikah
+    if (maritalPhotoInput) {
+        maritalPhotoInput.addEventListener('change', async function() {
+            const file = this.files[0];
+            if (file) {
+                // Validasi tipe file
+                if (!file.type.match('image.*')) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'File Tidak Valid',
+                        text: 'Mohon pilih file gambar (JPG, JPEG, atau PNG)',
+                        confirmButtonText: 'OK'
+                    });
+                    this.value = '';
+                    return;
+                }
+
+                // Kompres gambar
+                await compressImage(file, this);
+            }
         });
     }
 
@@ -431,12 +541,14 @@
     const togglePassword = document.querySelector('#togglePassword');
     const password = document.querySelector('#password');
 
-    togglePassword.addEventListener('click', function (e) {
-        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-        password.setAttribute('type', type);
-        this.classList.toggle('fa-eye');
-        this.classList.toggle('fa-eye-slash');
-    });
+    if (togglePassword && password) {
+        togglePassword.addEventListener('click', function (e) {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+    }
 });
 </script>
     <script>
