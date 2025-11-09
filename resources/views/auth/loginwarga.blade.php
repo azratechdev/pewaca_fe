@@ -47,53 +47,7 @@
       color: #6b7280;
     }
 
-    .election-banner {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 20px;
-      border-radius: 15px;
-      margin-bottom: 20px;
-      text-align: center;
-      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
-    }
-
-    .election-banner h5 {
-      margin: 0 0 8px 0;
-      font-weight: 700;
-      font-size: 1.1rem;
-    }
-
-    .election-banner p {
-      margin: 5px 0;
-      font-size: 0.9rem;
-    }
-
-    .countdown {
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin: 12px 0;
-      color: #ffd700;
-    }
-
-    .btn-vote {
-      background: white;
-      color: #667eea;
-      border: none;
-      padding: 10px 25px;
-      border-radius: 25px;
-      font-weight: 600;
-      margin-top: 10px;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      display: inline-block;
-    }
-
-    .btn-vote:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-      color: #667eea;
-      text-decoration: none;
-    }
+    
   </style>
 </head>
 <body>
@@ -108,19 +62,7 @@
                       <img src="{{ asset('assets/plugins/images/mainlogo.png') }}" class="img-fluid img-thumbnail waca-logo" alt="Waca Logo">
                     </picture>
                   </div>
-
-                  <div class="election-banner">
-                    <h5><i class="fas fa-bullhorn"></i> PEMILIHAN KETUA PAGUYUBAN</h5>
-                    <p>Teras Country Periode 2025 - 2029</p>
-                    <div class="countdown" id="countdown">
-                      <i class="fas fa-clock"></i> Menghitung waktu...
-                    </div>
-                    <p style="font-size: 0.85rem; margin-top: 5px;">Gunakan hak pilih Anda untuk masa depan yang lebih baik!</p>
-                    <a href="{{ route('voting.index') }}" class="btn-vote">
-                      <i class="fas fa-vote-yea"></i> Vote Sekarang
-                    </a>
-                  </div>
-
+                
                   <div class="mb-3">
                     <p class="text-left">Selamat Datang di</p>
                     <p><strong>Pewaca</strong></p>
@@ -226,36 +168,7 @@
     emailInput.addEventListener('input', toggleSubmitButton);
     passwordInput.addEventListener('input', toggleSubmitButton);
 
-    // Election Countdown Timer
-    function updateCountdown() {
-      const electionDate = new Date('2025-12-31 23:59:59').getTime();
-      const now = new Date().getTime();
-      const distance = electionDate - now;
-
-      if (distance < 0) {
-        document.getElementById('countdown').innerHTML = '<i class="fas fa-check-circle"></i> Pemilihan Sedang Berlangsung!';
-        return;
-      }
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-
-      let countdownText = '<i class="fas fa-clock"></i> ';
-      
-      if (days > 0) {
-        countdownText += days + ' Hari ';
-      }
-      if (hours > 0 || days > 0) {
-        countdownText += hours + ' Jam ';
-      }
-      countdownText += minutes + ' Menit';
-
-      document.getElementById('countdown').innerHTML = countdownText;
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 60000);
+    
   </script>
  
 </body>
