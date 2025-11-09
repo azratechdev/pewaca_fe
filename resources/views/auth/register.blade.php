@@ -177,7 +177,7 @@
     text-align: center !important; /* Teks di tengah */
 }
 </style>
-  
+
 </head>
 <body>
     <div class="container">
@@ -212,7 +212,7 @@
                             </div>
                         
                             <div class="form-floating mb-3">
-                                <select class="form-select  @error('unit_id') is-invalid @enderror" id="unit_id" name="unit_id" required>
+                                <select class="form-control form-select @error('unit_id') is-invalid @enderror" id="unitSelect" name="unit_id" required>
                                     <option value="" disabled selected hidden>-Pilih Unit-</option>
                                     @foreach ($units as $unit )
                                     <option value="{{ $unit['unit_id'] }}" {{ old('unit_id') == $unit['unit_id'] ? 'selected' : '' }}>{{ $unit['unit_name'] }}</option>
@@ -397,6 +397,14 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(document).ready(function() {
+        $('#unitSelect').select2({
+            placeholder: " ",
+            allowClear: true
+        });
+    });
+</script>   
 <script>
    document.addEventListener('DOMContentLoaded', function() {
     const profilePhotoInput = document.getElementById('profile_photo');
@@ -666,6 +674,7 @@
     }
 });
 </script>
+
 
     {{-- <script>
         function updateNikCounter() {

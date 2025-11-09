@@ -164,7 +164,7 @@ $isChecker = $warga['is_checker'] ?? false;
                     </div>   
                     <div class="flex justify-between items-center">
                         <div class="flex items-center">
-                            <a href="javascript:void(0)" class="toggle-comment text-green-500" data-id="{{ $story['id'] }}">Comment</a> 
+                            <a href="javascript:void(0)" class="toggle-comment text-green-500" data-id="{{ $story['id'] }}"><i class="bi bi-chat"></i> Comment</a> 
                         </div>
                         {{-- <div class="flex items-center">
                             <a href="javascript:void(0)" class="toggle-like text-green-500" data-id="{{ $story['id'] }}"> Like {{ $story['total_like'] }}</a>
