@@ -197,13 +197,20 @@
                                     "Accept": "application/json",
                                     "Authorization": "Token {{ Session::get('token') }}",
                                     "Content-Type": "application/json",
-                                    "X-CSRFToken": "ehbPFxLcdp440i5BmhZAq8c1wRQZuJVIzR2CrWBrwS2CgMFuD0wRdd0Ifor2VLZB"
                                 },
                                 body: JSON.stringify({ id: bankId })
                             })
-                            .then(response => response.json())
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error("Gagal menghubungi server. Status: " + response.status);
+                                }
+                                return response.json();
+                            })
                             .then(data => {
-                                if (data.id == bankId && data.isactive === true) {
+                                console.log("Response dari server:", data);
+
+                                // pastikan struktur JSON sesuai
+                                if (data.data.bank.bank_isactive === true) {
                                     Swal.fire({
                                         title: "Sukses!",
                                         text: "Rekening berhasil diaktifkan sebagai rekening utama.",
