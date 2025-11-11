@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\SellerRequest;
 
 class SellerController extends Controller
 {
@@ -401,48 +402,73 @@ class SellerController extends Controller
         ]);
 
         try {
-            DB::beginTransaction();
-            
             // Get user ID from database
             $user = DB::table('users')
                 ->where('email', $cred['email'])
                 ->first();
             
             if (!$user) {
-                throw new \Exception('User tidak ditemukan.');
+                Alert::error('Error', 'User tidak ditemukan.');
+                return redirect()->back()->withInput();
             }
             
-            // Update is_seller in database
-            DB::table('users')
-                ->where('email', $cred['email'])
-                ->update(['is_seller' => 1]);
+            // Check if user already has pending request
+            $existingRequest = SellerRequest::where('user_id', $user->id)
+                ->where('status', SellerRequest::STATUS_PENDING)
+                ->first();
             
-            // Create store for the seller
-            DB::table('stores')->insert([
+            if ($existingRequest) {
+                Alert::info('Info', 'Anda sudah memiliki pendaftaran seller yang sedang menunggu persetujuan pengurus.');
+                return redirect()->route('pengurus.seller.request.status');
+            }
+            
+            // Create seller request
+            SellerRequest::create([
                 'user_id' => $user->id,
-                'name' => $request->store_name,
-                'address' => $request->store_address,
+                'store_name' => $request->store_name,
+                'store_address' => $request->store_address,
                 'product_type' => $request->product_type,
-                'description' => 'Toko ' . $request->product_type,
-                'is_active' => true,
-                'rating' => 4.50,
-                'created_at' => now(),
-                'updated_at' => now()
+                'status' => SellerRequest::STATUS_PENDING
             ]);
             
-            // Update session data
-            $cred['is_seller'] = 1;
-            Session::put('cred', $cred);
-            
-            DB::commit();
-            
-            Alert::success('Berhasil!', 'Selamat! Toko "' . $request->store_name . '" berhasil didaftarkan. Anda sekarang adalah seller di Warungku.');
-            return redirect()->route('pengurus.seller.dashboard');
+            Alert::success('Berhasil!', 'Pendaftaran seller Anda telah dikirim. Silakan menunggu persetujuan dari pengurus.');
+            return redirect()->route('pengurus.seller.request.status');
             
         } catch (\Exception $e) {
-            DB::rollBack();
             Alert::error('Error', 'Terjadi kesalahan saat mendaftar. Silakan coba lagi.');
             return redirect()->back()->withInput();
         }
+    }
+
+    public function requestStatus()
+    {
+        if (!Session::has('cred')) {
+            Alert::error('Error', 'Silakan login terlebih dahulu.');
+            return redirect()->route('login');
+        }
+        
+        $cred = Session::get('cred');
+        
+        // Get user from database
+        $user = DB::table('users')
+            ->where('email', $cred['email'])
+            ->first();
+        
+        if (!$user) {
+            Alert::error('Error', 'User tidak ditemukan.');
+            return redirect()->route('login');
+        }
+        
+        // Get latest seller request
+        $sellerRequest = SellerRequest::where('user_id', $user->id)
+            ->latest()
+            ->first();
+        
+        if (!$sellerRequest) {
+            Alert::info('Info', 'Anda belum memiliki pendaftaran seller.');
+            return redirect()->route('warungku.index');
+        }
+        
+        return view('pengurus.seller.status', compact('sellerRequest'));
     }
 }
