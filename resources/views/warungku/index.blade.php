@@ -221,24 +221,6 @@
 </div>
 
 <div class="container mb-5 pb-5">
-  {{-- DEBUG: Check session-based auth and seller status --}}
-  <div style="background: #fff3cd; padding: 15px; margin-bottom: 20px; border: 2px solid #856404; border-radius: 8px;">
-    <strong>🔍 DEBUG INFO:</strong><br>
-    <strong>Session Token:</strong> {{ Session::has('token') ? '✅ HAS TOKEN' : '❌ NO TOKEN' }}<br>
-    <strong>Session Cred:</strong> {{ Session::has('cred') ? '✅ HAS CRED' : '❌ NO CRED' }}<br>
-    @if(Session::has('cred'))
-      @php
-        $cred = Session::get('cred');
-        $isSeller = $cred['is_seller'] ?? 0;
-      @endphp
-      <strong>Email:</strong> {{ $cred['email'] ?? 'N/A' }}<br>
-      <strong>is_seller value:</strong> {{ var_export($isSeller, true) }}<br>
-      <strong>Banner should show:</strong> {{ !$isSeller ? '✅ YES' : '❌ NO (already seller)' }}<br>
-    @else
-      <strong>User:</strong> Not logged in - banner will NOT show
-    @endif
-  </div>
-  
   {{-- Seller Registration Banner: Show to authenticated non-sellers only --}}
   @if(Session::has('token') && Session::has('cred'))
     @php
