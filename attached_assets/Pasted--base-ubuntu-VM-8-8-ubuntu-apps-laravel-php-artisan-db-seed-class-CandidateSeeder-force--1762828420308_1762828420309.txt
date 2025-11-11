@@ -1,0 +1,22 @@
+(base) ubuntu@VM-8-8-ubuntu:~/apps/laravel$ php artisan db:seed --class=CandidateSeeder --force
+
+   INFO  Seeding database.  
+
+
+In Connection.php line 760:
+                                                                                                                                                          
+  SQLSTATE[HY000]: General error: 1 no such table: candidates (SQL: insert into "candidates" ("name", "photo", "visi", "misi", "bio", "vote_count", "is_  
+  active", "updated_at", "created_at") values (Budi Santoso, https://ui-avatars.com/api/?name=Budi+Santoso&size=400&background=5FA782&color=fff, Membang  
+  un perumahan yang aman, nyaman, dan harmonis dengan mengedepankan transparansi, gotong royong, dan kesejahteraan bersama., 1. Meningkatkan keamanan li  
+  ngkungan dengan sistem keamanan 24 jam                                                                                                                  
+  2. Memperbaiki infrastruktur jalan dan fasilitas umum                                                                                                   
+  3. Mengelola keuangan dengan transparan dan akuntabel                                                                                                   
+  4. Mengadakan kegiatan sosial untuk mempererat tali silaturahmi                                                                                         
+  5. Menyediakan fasilitas olahraga dan taman bermain yang memadai, Pengusaha sukses dengan pengalaman 15 tahun di bidang properti. Aktif dalam kegiatan  
+   sosial dan peduli terhadap lingkungan., 0, 1, 2025-11-11 02:33:26, 2025-11-11 02:33:26))                                                               
+                                                                                                                                                          
+
+In Connection.php line 539:
+                                                               
+  SQLSTATE[HY000]: General error: 1 no such table: candidates  
+                                                               
