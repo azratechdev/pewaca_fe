@@ -135,11 +135,20 @@ Route::group(['middleware' => ['auth', 'check.token']], function () {
         //report download routes
         Route::get('/pengurus/report/download/comprehensive', [ReportController::class, 'downloadComprehensive'])->name('pengurus.report.download.comprehensive');
         //end report route
+        
+        // Seller Request Management Routes (Pengurus Only)
+        Route::prefix('pengurus/seller-requests')->name('pengurus.seller-requests.')->group(function () {
+            Route::get('/', [App\Http\Controllers\Pengurus\SellerRequestController::class, 'index'])->name('index');
+            Route::get('/{id}', [App\Http\Controllers\Pengurus\SellerRequestController::class, 'show'])->name('show');
+            Route::post('/{id}/approve', [App\Http\Controllers\Pengurus\SellerRequestController::class, 'approve'])->name('approve');
+            Route::post('/{id}/reject', [App\Http\Controllers\Pengurus\SellerRequestController::class, 'reject'])->name('reject');
+        });
     });
     
     // Seller Registration Routes (Open to all authenticated users - NO role required)
     Route::get('/pengurus/seller/register', [SellerController::class, 'showRegisterForm'])->name('pengurus.seller.register');
     Route::post('/pengurus/seller/register', [SellerController::class, 'processRegistration'])->name('pengurus.seller.register.process');
+    Route::get('/pengurus/seller/request-status', [SellerController::class, 'requestStatus'])->name('pengurus.seller.request.status');
     
     // Warungku Seller Routes (Protected by is_seller check in controller - NO pengurus role required)
     Route::prefix('pengurus/seller')->name('pengurus.seller.')->group(function () {
