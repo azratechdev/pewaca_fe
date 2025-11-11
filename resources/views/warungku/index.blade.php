@@ -228,7 +228,7 @@
       $isSeller = $cred['is_seller'] ?? 0;
     @endphp
     
-    @if(!$isSeller)
+    @if(!$isSeller && !$hasPendingRequest)
     <div class="seller-cta-banner">
       <div class="seller-cta-content">
         <div class="row align-items-center">
