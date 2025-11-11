@@ -9,6 +9,8 @@ class SellerRequest extends Model
 {
     use HasFactory;
 
+    protected $connection = 'sqlite_backup';
+
     const STATUS_PENDING = 'pending';
     const STATUS_APPROVED = 'approved';
     const STATUS_REJECTED = 'rejected';
