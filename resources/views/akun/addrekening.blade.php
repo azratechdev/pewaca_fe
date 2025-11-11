@@ -60,7 +60,7 @@
                 <div>
                     <div class="form-floating mt-2">
                         <input type="text" class="form-control @error('nama_lengkap') is-invalid @enderror" value="{{ old('nama_lengkap') }}" id="nama_lengkap" name="nama_lengkap" placeholder=" " required>
-                        <label for="nama_lengkap">Nama Lengkap</label>
+                        <label for="nama_lengkap">Add Bank Account</label>
                         @error('nama_lengkap')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

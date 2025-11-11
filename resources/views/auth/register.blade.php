@@ -10,6 +10,7 @@
 
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
   <style>
     .navbar-custom {
       background-color:  #198754; /* Tosca color */
@@ -177,7 +178,34 @@
     text-align: center !important; /* Teks di tengah */
 }
 </style>
-  
+<style>
+    .form-floating > .form-control:not(:placeholder-shown) ~ label,
+.form-floating > .form-select ~ label {
+    opacity: 1;
+    transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+}
+
+/* Atur tampilan Select2 agar sesuai dengan form-floating */
+.select2-container .select2-selection--single {
+    height: calc(3.5rem + 2px); /* Sesuaikan dengan tinggi form-floating */
+    padding: 1rem 0.75rem;
+    border-radius: 0.25rem;
+    border: 1px solid #ced4da;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 100%;
+    top: 0;
+    right: 0.75rem;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 2.5;
+    padding-left: 0;
+    padding-right: 0;
+}
+</style> 
+
 </head>
 <body>
     <div class="container">
@@ -212,8 +240,9 @@
                             </div>
                         
                             <div class="form-floating mb-3">
-                                <select class="form-select  @error('unit_id') is-invalid @enderror" id="unit_id" name="unit_id" required>
-                                    <option value="" disabled selected hidden>-Pilih Unit-</option>
+                                <select class="form-control form-select @error('unit_id') is-invalid @enderror" id="unitSelect" name="unit_id" required>
+                                    {{-- <option value="" disabled selected hidden>-Pilih Unit-</option> --}}
+                                    <option>-Pilih unit-</option>
                                     @foreach ($units as $unit )
                                     <option value="{{ $unit['unit_id'] }}" {{ old('unit_id') == $unit['unit_id'] ? 'selected' : '' }}>{{ $unit['unit_name'] }}</option>
                                     @endforeach
@@ -222,6 +251,7 @@
                                 @error('unit_id')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
+                                
                             </div>
                             {{-- pattern="\d{16}" minlength="16" maxlength="16" @error('nik') is-invalid @enderror" --}}
                             <div class="form-floating mb-3">
@@ -389,7 +419,7 @@
         </div>
     </div>
    
-
+   
   <!-- Tambahkan jQuery -->
   {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
@@ -397,8 +427,13 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+  <!-- Select2 for Enhanced Dropdowns -->
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  
   <!-- Browser Image Compression Library -->
   <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
+
 <script>
    document.addEventListener('DOMContentLoaded', function() {
     const profilePhotoInput = document.getElementById('profile_photo');
@@ -782,6 +817,15 @@
         counterEl.textContent = `${value.length}/8`;
     }
 });
+</script>
+<script>
+    $(document).ready(function() {
+        $('#unitSelect').select2({
+            placeholder: " ",
+            allowClear: true,
+            width: '100%',
+        });
+    });
 </script>
 
     {{-- <script>

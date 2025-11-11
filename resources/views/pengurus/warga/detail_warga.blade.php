@@ -41,7 +41,7 @@
         <div class="card card-body p-6">
             <div class="space-y-4">
                 <div class="flex items-center">
-                    <span class="text-gray-600">Photo Profile <br>
+                    <span class="text-gray-600">
                         <img 
                         alt="Belum ada" 
                         class="profile-picture rounded w-32 h-24" 
