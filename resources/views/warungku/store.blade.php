@@ -7,11 +7,11 @@
   }
   
   .store-header {
-    background: linear-gradient(135deg, #5FA782 0%, #3d7357 100%);
+    background: linear-gradient(135deg, #3d7357 0%, #2d5642 100%);
     color: white;
     padding: 2.5rem 0;
     margin: -20px -20px 30px -20px;
-    box-shadow: 0 4px 20px rgba(95, 167, 130, 0.25);
+    box-shadow: 0 4px 20px rgba(61, 115, 87, 0.3);
   }
   
   .store-logo-large {
@@ -24,7 +24,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #5FA782;
+    color: #2d5642;
     font-size: 2.8rem;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   }
@@ -73,22 +73,22 @@
     position: absolute;
     top: 12px;
     right: 12px;
-    background: linear-gradient(135deg, #28a745 0%, #20893a 100%);
+    background: linear-gradient(135deg, #0f5132 0%, #07301d 100%);
     color: white;
     padding: 6px 14px;
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: 600;
-    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+    box-shadow: 0 2px 8px rgba(15, 81, 50, 0.3);
   }
   
   .badge-out-stock {
-    background: linear-gradient(135deg, #ff5757 0%, #dc3545 100%);
-    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+    background: linear-gradient(135deg, #991b1b 0%, #7f1d1d 100%);
+    box-shadow: 0 2px 8px rgba(153, 27, 27, 0.3);
   }
   
   .price-tag {
-    background: linear-gradient(135deg, #5FA782 0%, #4a8a68 100%);
+    background: linear-gradient(135deg, #3d7357 0%, #2d5642 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -97,21 +97,21 @@
   }
   
   .btn-detail {
-    background: linear-gradient(135deg, #5FA782 0%, #4a8a68 100%);
+    background: linear-gradient(135deg, #3d7357 0%, #2d5642 100%);
     color: white;
     border: none;
     padding: 8px 20px;
     border-radius: 12px;
     transition: all 0.3s ease;
     font-weight: 600;
-    box-shadow: 0 2px 8px rgba(95, 167, 130, 0.25);
+    box-shadow: 0 2px 8px rgba(61, 115, 87, 0.3);
   }
   
   .btn-detail:hover {
-    background: linear-gradient(135deg, #4a8a68 0%, #3d7357 100%);
+    background: linear-gradient(135deg, #2d5642 0%, #1e3f2f 100%);
     color: white;
     transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(95, 167, 130, 0.35);
+    box-shadow: 0 4px 12px rgba(61, 115, 87, 0.4);
   }
   
   .product-name {
@@ -175,12 +175,12 @@
 <!-- Products -->
 <div class="container mb-5 pb-5">
   <h5 class="mb-4" style="color: #2d3748; font-weight: 700; font-size: 1.5rem;">
-    <i class="fas fa-box-open" style="color: #5FA782;"></i> Produk {{ $store->name }}
+    <i class="fas fa-box-open" style="color: #3d7357;"></i> Produk {{ $store->name }}
   </h5>
 
   @if($store->products->isEmpty())
     <div class="alert alert-info text-center" style="border: none; border-radius: 16px; background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
-      <i class="fas fa-box-open fa-3x mb-3" style="color: #5FA782;"></i>
+      <i class="fas fa-box-open fa-3x mb-3" style="color: #3d7357;"></i>
       <p class="mb-0" style="color: #718096;">Belum ada produk tersedia di toko ini</p>
     </div>
   @else

@@ -26,13 +26,13 @@
     height: 90px;
     border-radius: 50%;
     object-fit: cover;
-    background: linear-gradient(135deg, #5FA782 0%, #4a8a68 100%);
+    background: linear-gradient(135deg, #3d7357 0%, #2d5642 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     font-size: 2.2rem;
-    box-shadow: 0 4px 12px rgba(95, 167, 130, 0.25);
+    box-shadow: 0 4px 12px rgba(61, 115, 87, 0.3);
     border: 3px solid white;
   }
   
@@ -44,39 +44,39 @@
   }
   
   .rating-badge {
-    background: linear-gradient(135deg, #ffd700 0%, #ffc107 100%);
+    background: linear-gradient(135deg, #92400e 0%, #78350f 100%);
     color: white;
     padding: 6px 12px;
     border-radius: 20px;
     font-size: 0.85rem;
     font-weight: 600;
-    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+    box-shadow: 0 2px 8px rgba(146, 64, 14, 0.3);
   }
   
   .btn-lihat-toko {
-    background: linear-gradient(135deg, #5FA782 0%, #4a8a68 100%);
+    background: linear-gradient(135deg, #3d7357 0%, #2d5642 100%);
     color: white;
     border: none;
     padding: 10px 24px;
     border-radius: 12px;
     transition: all 0.3s ease;
     font-weight: 600;
-    box-shadow: 0 4px 12px rgba(95, 167, 130, 0.25);
+    box-shadow: 0 4px 12px rgba(61, 115, 87, 0.3);
   }
   
   .btn-lihat-toko:hover {
-    background: linear-gradient(135deg, #4a8a68 0%, #3d7357 100%);
+    background: linear-gradient(135deg, #2d5642 0%, #1e3f2f 100%);
     color: white;
     transform: scale(1.02);
-    box-shadow: 0 6px 16px rgba(95, 167, 130, 0.35);
+    box-shadow: 0 6px 16px rgba(61, 115, 87, 0.4);
   }
   
   .warungku-header {
-    background: linear-gradient(135deg, #5FA782 0%, #3d7357 100%);
+    background: linear-gradient(135deg, #3d7357 0%, #2d5642 100%);
     color: white;
     padding: 2rem 0;
     margin: -20px -20px 30px -20px;
-    box-shadow: 0 4px 16px rgba(95, 167, 130, 0.2);
+    box-shadow: 0 4px 16px rgba(61, 115, 87, 0.25);
   }
   
   .warungku-header h4 {
@@ -102,7 +102,7 @@
     position: absolute;
     top: -4px;
     right: -4px;
-    background: linear-gradient(135deg, #ff5757 0%, #dc3545 100%);
+    background: linear-gradient(135deg, #991b1b 0%, #7f1d1d 100%);
     color: white;
     border-radius: 50%;
     width: 22px;
@@ -112,7 +112,7 @@
     justify-content: center;
     font-size: 0.75rem;
     font-weight: bold;
-    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.4);
+    box-shadow: 0 2px 8px rgba(153, 27, 27, 0.4);
     animation: pulse 2s infinite;
   }
   
@@ -139,7 +139,7 @@
   }
   
   .product-count {
-    color: #5FA782;
+    color: #2d5642;
     font-weight: 600;
   }
 </style>
@@ -163,12 +163,12 @@
 
 <div class="container mb-5 pb-5">
   <h5 class="mb-4" style="color: #2d3748; font-weight: 700; font-size: 1.5rem;">
-    <i class="fas fa-store-alt" style="color: #5FA782;"></i> Daftar Toko
+    <i class="fas fa-store-alt" style="color: #3d7357;"></i> Daftar Toko
   </h5>
 
   @if($stores->isEmpty())
     <div class="alert alert-info text-center" style="border: none; border-radius: 16px; background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
-      <i class="fas fa-store-slash fa-3x mb-3" style="color: #5FA782;"></i>
+      <i class="fas fa-store-slash fa-3x mb-3" style="color: #3d7357;"></i>
       <p class="mb-0" style="color: #718096;">Belum ada toko tersedia</p>
     </div>
   @else
