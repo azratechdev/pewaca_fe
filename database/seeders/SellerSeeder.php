@@ -80,6 +80,18 @@ class SellerSeeder extends Seeder
         $products = $store->products()->where('is_available', true)->take(3)->get();
         if ($products->isEmpty()) return;
         
+        // Create or get sample customer users for orders
+        $customers = [];
+        for ($i = 1; $i <= 5; $i++) {
+            $customers[] = User::firstOrCreate(
+                ['email' => "customer{$i}@pewaca.test"],
+                [
+                    'name' => "Customer {$i}",
+                    'password' => Hash::make('password'),
+                ]
+            );
+        }
+        
         // Create 5 sample orders
         for ($i = 1; $i <= 5; $i++) {
             $statuses = ['pending', 'processing', 'completed', 'completed', 'completed'];
@@ -89,6 +101,7 @@ class SellerSeeder extends Seeder
             $order = Order::create([
                 'order_number' => 'ORD-' . $storeId . '-' . now()->format('Ymd') . '-' . str_pad($i, 4, '0', STR_PAD_LEFT),
                 'store_id' => $storeId,
+                'user_id' => $customers[$i - 1]->id,
                 'customer_name' => 'Customer ' . $i,
                 'customer_phone' => '08123456789' . $i,
                 'customer_address' => 'Jl. Contoh No. ' . $i . ', Jakarta',
