@@ -1,0 +1,46 @@
+(base) ubuntu@VM-8-8-ubuntu:~/apps/laravel$ git pull origin main
+remote: Enumerating objects: 17, done.
+remote: Counting objects: 100% (17/17), done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 11 (delta 7), reused 10 (delta 7), pack-reused 0 (from 0)
+Unpacking objects: 100% (11/11), 3.26 KiB | 333.00 KiB/s, done.
+From https://github.com/azratechdev/pewaca_fe
+ * branch            main       -> FETCH_HEAD
+   1d2a4be..0c17b2e  main       -> origin/main
+Updating 1d2a4be..0c17b2e
+Fast-forward
+ ...d--base-ubuntu-VM-8-8-ubuntu-apps-laravel-php-artisan-db-seed-class-CandidateSeeder-force--1762828420308_1762828420309.txt | 22 ++++++++++++++++++++++
+ database/migrations/2025_11_02_102931_create_candidates_table.php                                                             |  4 ++--
+ database/migrations/2025_11_02_102946_create_votes_table.php                                                                  |  6 +++---
+ 3 files changed, 27 insertions(+), 5 deletions(-)
+ create mode 100644 attached_assets/Pasted--base-ubuntu-VM-8-8-ubuntu-apps-laravel-php-artisan-db-seed-class-CandidateSeeder-force--1762828420308_1762828420309.txt
+(base) ubuntu@VM-8-8-ubuntu:~/apps/laravel$ php artisan migrate --path=database/migrations/2025_11_02_102931_create_candidates_table.php --force
+
+   INFO  Nothing to migrate.  
+
+(base) ubuntu@VM-8-8-ubuntu:~/apps/laravel$ php artisan migrate --path=database/migrations/2025_11_02_102946_create_votes_table.php --force
+
+   INFO  Nothing to migrate.  
+
+(base) ubuntu@VM-8-8-ubuntu:~/apps/laravel$ php artisan db:seed --class=CandidateSeeder --force
+
+   INFO  Seeding database.  
+
+
+In Connection.php line 760:
+                                                                                                                                                          
+  SQLSTATE[HY000]: General error: 1 no such table: candidates (SQL: insert into "candidates" ("name", "photo", "visi", "misi", "bio", "vote_count", "is_  
+  active", "updated_at", "created_at") values (Budi Santoso, https://ui-avatars.com/api/?name=Budi+Santoso&size=400&background=5FA782&color=fff, Membang  
+  un perumahan yang aman, nyaman, dan harmonis dengan mengedepankan transparansi, gotong royong, dan kesejahteraan bersama., 1. Meningkatkan keamanan li  
+  ngkungan dengan sistem keamanan 24 jam                                                                                                                  
+  2. Memperbaiki infrastruktur jalan dan fasilitas umum                                                                                                   
+  3. Mengelola keuangan dengan transparan dan akuntabel                                                                                                   
+  4. Mengadakan kegiatan sosial untuk mempererat tali silaturahmi                                                                                         
+  5. Menyediakan fasilitas olahraga dan taman bermain yang memadai, Pengusaha sukses dengan pengalaman 15 tahun di bidang properti. Aktif dalam kegiatan  
+   sosial dan peduli terhadap lingkungan., 0, 1, 2025-11-11 02:40:21, 2025-11-11 02:40:21))                                                               
+                                                                                                                                                          
+
+In Connection.php line 539:
+                                                               
+  SQLSTATE[HY000]: General error: 1 no such table: candidates  
+                                                               
