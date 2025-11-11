@@ -353,9 +353,14 @@ class SellerController extends Controller
 
     public function showRegisterForm()
     {
-        $user = Auth::user();
+        if (!Session::has('cred')) {
+            Alert::error('Error', 'Silakan login terlebih dahulu.');
+            return redirect()->route('login');
+        }
         
-        if ($user->is_seller == 1) {
+        $cred = Session::get('cred');
+        
+        if (($cred['is_seller'] ?? 0) == 1) {
             Alert::info('Info', 'Anda sudah terdaftar sebagai seller.');
             return redirect()->route('pengurus.seller.dashboard');
         }
@@ -365,9 +370,14 @@ class SellerController extends Controller
 
     public function processRegistration(Request $request)
     {
-        $user = Auth::user();
+        if (!Session::has('cred')) {
+            Alert::error('Error', 'Silakan login terlebih dahulu.');
+            return redirect()->route('login');
+        }
         
-        if ($user->is_seller == 1) {
+        $cred = Session::get('cred');
+        
+        if (($cred['is_seller'] ?? 0) == 1) {
             Alert::error('Error', 'Anda sudah terdaftar sebagai seller.');
             return redirect()->route('pengurus.seller.dashboard');
         }
@@ -386,8 +396,14 @@ class SellerController extends Controller
         try {
             DB::beginTransaction();
             
-            $user->is_seller = 1;
-            $user->save();
+            // Update is_seller in database
+            DB::table('users')
+                ->where('email', $cred['email'])
+                ->update(['is_seller' => 1]);
+            
+            // Update session data
+            $cred['is_seller'] = 1;
+            Session::put('cred', $cred);
             
             DB::commit();
             
