@@ -31,8 +31,25 @@ class Store extends Model
         return $this->hasMany(Product::class);
     }
 
-    public function availableProducts(): HasMany
+    public function availableProducts()
     {
         return $this->hasMany(Product::class)->where('is_available', true)->where('stock', '>', 0);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'store_user')
+                    ->withPivot('role')
+                    ->withTimestamps();
+    }
+
+    public function sellers()
+    {
+        return $this->users()->wherePivot('role', 'seller');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }

@@ -49,7 +49,23 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_seller' => 'boolean',
     ];
 
-  
+    public function stores()
+    {
+        return $this->belongsToMany(Store::class, 'store_user')
+                    ->withPivot('role')
+                    ->withTimestamps();
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function isSeller(): bool
+    {
+        return $this->is_seller === true;
+    }
 }
