@@ -1,4 +1,4 @@
-@extends('layouts.app_pengurus')
+@extends('layouts.residence.basetemplate')
 
 @section('content')
 <div class="container py-4">
