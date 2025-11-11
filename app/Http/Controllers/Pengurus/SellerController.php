@@ -384,9 +384,19 @@ class SellerController extends Controller
         }
 
         $request->validate([
+            'store_name' => 'required|string|min:3|max:255',
+            'store_address' => 'required|string|min:10|max:500',
+            'product_type' => 'required|string',
             'reason' => 'required|string|min:20|max:500',
             'terms_accepted' => 'required|accepted'
         ], [
+            'store_name.required' => 'Nama toko harus diisi.',
+            'store_name.min' => 'Nama toko minimal 3 karakter.',
+            'store_name.max' => 'Nama toko maksimal 255 karakter.',
+            'store_address.required' => 'Alamat toko harus diisi.',
+            'store_address.min' => 'Alamat toko minimal 10 karakter.',
+            'store_address.max' => 'Alamat toko maksimal 500 karakter.',
+            'product_type.required' => 'Jenis produk harus dipilih.',
             'reason.required' => 'Alasan ingin menjadi seller harus diisi.',
             'reason.min' => 'Alasan minimal 20 karakter.',
             'reason.max' => 'Alasan maksimal 500 karakter.',
@@ -397,10 +407,32 @@ class SellerController extends Controller
         try {
             DB::beginTransaction();
             
+            // Get user ID from database
+            $user = DB::table('users')
+                ->where('email', $cred['email'])
+                ->first();
+            
+            if (!$user) {
+                throw new \Exception('User tidak ditemukan.');
+            }
+            
             // Update is_seller in database
             DB::table('users')
                 ->where('email', $cred['email'])
                 ->update(['is_seller' => 1]);
+            
+            // Create store for the seller
+            DB::table('stores')->insert([
+                'user_id' => $user->id,
+                'name' => $request->store_name,
+                'address' => $request->store_address,
+                'product_type' => $request->product_type,
+                'description' => $request->reason,
+                'is_active' => true,
+                'rating' => 4.50,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
             
             // Update session data
             $cred['is_seller'] = 1;
@@ -408,7 +440,7 @@ class SellerController extends Controller
             
             DB::commit();
             
-            Alert::success('Berhasil!', 'Selamat! Anda sekarang terdaftar sebagai seller. Silakan klaim atau buat toko Anda.');
+            Alert::success('Berhasil!', 'Selamat! Toko "' . $request->store_name . '" berhasil didaftarkan. Anda sekarang adalah seller di Warungku.');
             return redirect()->route('pengurus.seller.dashboard');
             
         } catch (\Exception $e) {

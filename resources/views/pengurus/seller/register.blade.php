@@ -206,6 +206,66 @@ textarea.form-control {
         @csrf
 
         <div class="mb-4">
+          <label for="store_name" class="form-label">
+            <i class="fas fa-store" style="color: #3d7357;"></i> 
+            Nama Toko <span class="text-danger">*</span>
+          </label>
+          <input 
+            type="text" 
+            name="store_name" 
+            id="store_name" 
+            class="form-control @error('store_name') is-invalid @enderror" 
+            placeholder="Contoh: Warung Berkah, Toko Segar, dll"
+            value="{{ old('store_name') }}"
+            required>
+          @error('store_name')
+            <div class="invalid-feedback">{{ $message }}</div>
+          @enderror
+        </div>
+
+        <div class="mb-4">
+          <label for="store_address" class="form-label">
+            <i class="fas fa-map-marker-alt" style="color: #3d7357;"></i> 
+            Alamat Toko <span class="text-danger">*</span>
+          </label>
+          <textarea 
+            name="store_address" 
+            id="store_address" 
+            class="form-control @error('store_address') is-invalid @enderror" 
+            placeholder="Contoh: Blok A No. 15, Cluster Green Valley"
+            rows="2"
+            required>{{ old('store_address') }}</textarea>
+          @error('store_address')
+            <div class="invalid-feedback">{{ $message }}</div>
+          @enderror
+        </div>
+
+        <div class="mb-4">
+          <label for="product_type" class="form-label">
+            <i class="fas fa-tags" style="color: #3d7357;"></i> 
+            Jenis Produk <span class="text-danger">*</span>
+          </label>
+          <select 
+            name="product_type" 
+            id="product_type" 
+            class="form-control @error('product_type') is-invalid @enderror"
+            required>
+            <option value="">-- Pilih Jenis Produk --</option>
+            <option value="Makanan & Minuman" {{ old('product_type') == 'Makanan & Minuman' ? 'selected' : '' }}>Makanan & Minuman</option>
+            <option value="Sayuran & Buah" {{ old('product_type') == 'Sayuran & Buah' ? 'selected' : '' }}>Sayuran & Buah</option>
+            <option value="Kebutuhan Rumah Tangga" {{ old('product_type') == 'Kebutuhan Rumah Tangga' ? 'selected' : '' }}>Kebutuhan Rumah Tangga</option>
+            <option value="Fashion & Aksesoris" {{ old('product_type') == 'Fashion & Aksesoris' ? 'selected' : '' }}>Fashion & Aksesoris</option>
+            <option value="Elektronik" {{ old('product_type') == 'Elektronik' ? 'selected' : '' }}>Elektronik</option>
+            <option value="Kesehatan & Kecantikan" {{ old('product_type') == 'Kesehatan & Kecantikan' ? 'selected' : '' }}>Kesehatan & Kecantikan</option>
+            <option value="Jasa" {{ old('product_type') == 'Jasa' ? 'selected' : '' }}>Jasa</option>
+            <option value="Lainnya" {{ old('product_type') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+          </select>
+          @error('product_type')
+            <div class="invalid-feedback">{{ $message }}</div>
+          @enderror
+        </div>
+
+        <div class="mb-4">
           <label for="reason" class="form-label">
             <i class="fas fa-comment-dots" style="color: #3d7357;"></i> 
             Mengapa Anda ingin menjadi seller? <span class="text-danger">*</span>
