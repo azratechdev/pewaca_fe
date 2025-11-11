@@ -20,7 +20,7 @@ class WarungkuSeeder extends Seeder
             [
                 'name' => 'Toko Sembako Makmur',
                 'description' => 'Menyediakan berbagai kebutuhan sembako dan bahan pokok sehari-hari dengan harga terjangkau',
-                'logo' => 'https://via.placeholder.com/100?text=SEMBAKO',
+                'logo' => '/images/warungku/stores/sembako.jpg',
                 'address' => 'Jl. Raya Residence No. 12, Jakarta Selatan',
                 'phone' => '021-12345678',
                 'email' => 'sembako.makmur@mail.com',
@@ -39,7 +39,7 @@ class WarungkuSeeder extends Seeder
             [
                 'name' => 'Warung Snack & Minuman',
                 'description' => 'Pusat jajanan, snack, dan minuman favorit keluarga Indonesia',
-                'logo' => 'https://via.placeholder.com/100?text=SNACK',
+                'logo' => '/images/warungku/stores/snack.jpg',
                 'address' => 'Jl. Residence Block C No. 8, Jakarta Selatan',
                 'phone' => '021-87654321',
                 'email' => 'snackminuman@mail.com',
@@ -58,7 +58,7 @@ class WarungkuSeeder extends Seeder
             [
                 'name' => 'Toko Sayur & Buah Segar',
                 'description' => 'Sayuran dan buah-buahan segar langsung dari kebun pilihan',
-                'logo' => 'https://via.placeholder.com/100?text=SAYUR',
+                'logo' => '/images/warungku/stores/sayur.jpg',
                 'address' => 'Jl. Residence Block B No. 15, Jakarta Selatan',
                 'phone' => '021-11223344',
                 'email' => 'sayurbuah.segar@mail.com',
@@ -77,7 +77,7 @@ class WarungkuSeeder extends Seeder
             [
                 'name' => 'Toko Perlengkapan Rumah',
                 'description' => 'Lengkap dengan berbagai perlengkapan dan peralatan rumah tangga',
-                'logo' => 'https://via.placeholder.com/100?text=RUMAH',
+                'logo' => '/images/warungku/stores/rumah.jpg',
                 'address' => 'Jl. Residence Block A No. 5, Jakarta Selatan',
                 'phone' => '021-99887766',
                 'email' => 'perlengkapan.rumah@mail.com',
@@ -95,6 +95,8 @@ class WarungkuSeeder extends Seeder
             ],
         ];
 
+        $productImageIndex = 1;
+        
         foreach ($stores as $storeData) {
             $products = $storeData['products'];
             unset($storeData['products']);
@@ -103,8 +105,13 @@ class WarungkuSeeder extends Seeder
 
             foreach ($products as $productData) {
                 $productData['store_id'] = $store->id;
-                $productData['image'] = 'https://via.placeholder.com/300x200?text=' . urlencode($productData['name']);
+                $productData['image'] = '/images/warungku/products/default-' . $productImageIndex . '.jpg';
                 Product::create($productData);
+                
+                $productImageIndex++;
+                if ($productImageIndex > 5) {
+                    $productImageIndex = 1;
+                }
             }
         }
     }
