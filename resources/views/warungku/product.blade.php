@@ -141,12 +141,24 @@
     </div>
   </div>
 
-  <!-- Add to Cart Button -->
-  <button class="btn btn-add-cart" 
-          id="btnAddCart"
-          @if($product->stock <= 0 || !$product->is_available) disabled @endif>
-    <i class="fas fa-shopping-cart"></i> Tambah ke Keranjang
-  </button>
+  <!-- Action Buttons -->
+  <div class="row g-2">
+    <div class="col-6">
+      <button class="btn btn-add-cart" 
+              id="btnAddCart"
+              @if($product->stock <= 0 || !$product->is_available) disabled @endif>
+        <i class="fas fa-shopping-cart"></i> Keranjang
+      </button>
+    </div>
+    <div class="col-6">
+      <button class="btn btn-add-cart" 
+              style="background-color: #3d7357;"
+              id="btnBuyNow"
+              @if($product->stock <= 0 || !$product->is_available) disabled @endif>
+        <i class="fas fa-bolt"></i> Beli Sekarang
+      </button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -201,6 +213,51 @@
     .catch(err => {
       console.error(err);
       alert('Terjadi kesalahan saat menambahkan produk');
+      btn.disabled = false;
+      btn.innerHTML = originalText;
+    });
+  });
+
+  // "Beli Sekarang" button handler - direct checkout
+  document.getElementById('btnBuyNow')?.addEventListener('click', function() {
+    @guest
+      alert('Silakan login terlebih dahulu untuk melakukan pembelian.');
+      window.location.href = '{{ route("login") }}';
+      return;
+    @endguest
+
+    const btn = this;
+    const originalText = btn.innerHTML;
+    
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+    
+    fetch('{{ route("cart.add") }}', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': csrfToken,
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        product_id: {{ $product->id }},
+        quantity: 1
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        // Direct redirect to cart/checkout
+        window.location.href = '{{ route("cart.index") }}';
+      } else {
+        alert(data.message || 'Gagal memproses pesanan');
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      alert('Terjadi kesalahan saat memproses pesanan');
       btn.disabled = false;
       btn.innerHTML = originalText;
     });

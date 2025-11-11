@@ -3,6 +3,7 @@
   @php
     $isPengurus = Session::get('cred.is_pengurus') ?? false;
     $isChecker = Session::get('warga.is_checker') ?? false;
+    $isSeller = auth()->check() && auth()->user()->is_seller;
   @endphp
 <div class="navbar navbar-custom navbar-dark navbar-expand fixed-bottom bg-white" style="padding: 0px;">
   <div class="container-fluid" style="padding-left: 0px;padding-right: 0px;height: 75px;">
@@ -25,6 +26,15 @@
             <a href="{{ route('pengurus') }}" class="nav-link text-center {{ Request::is('pengurus') ? 'active' : '' }}">
                 <i class="fa fa-id-card menu-icon"></i>
                 <span class="small d-block menu-text">Pengurus</span>
+            </a>
+        </li>
+      @endif
+
+      @if($isSeller)
+        <li class="nav-item">
+            <a href="{{ route('pengurus.seller.dashboard') }}" class="nav-link text-center {{ Request::is('pengurus/seller*') ? 'active' : '' }}">
+                <i class="fa fa-shopping-bag menu-icon"></i>
+                <span class="small d-block menu-text">Seller</span>
             </a>
         </li>
       @endif
