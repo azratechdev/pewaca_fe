@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'sqlite_backup'),
+    'default' => 'sqlite_backup',
 
     /*
     |--------------------------------------------------------------------------
@@ -51,7 +51,6 @@ return [
         
         'sqlite_backup' => [
             'driver' => 'sqlite',
-            'url' => env('DATABASE_URL'),
             'database' => database_path('database.sqlite'),
             'prefix' => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
