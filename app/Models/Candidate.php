@@ -9,8 +9,6 @@ class Candidate extends Model
 {
     use HasFactory;
 
-    protected $connection = 'voting_sqlite';
-
     protected $fillable = [
         'name',
         'photo',

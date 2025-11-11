@@ -11,8 +11,6 @@ use App\Models\Payment\Settlement;
 class Payment extends Model
 {
     use HasUuids;
-
-    protected $connection = 'sqlite';
     
     protected $fillable = [
         'order_id',

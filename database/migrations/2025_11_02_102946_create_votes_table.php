@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::connection('voting_sqlite')->create('votes', function (Blueprint $table) {
+        Schema::create('votes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('candidate_id')->constrained('candidates')->onDelete('cascade');
             $table->string('voter_name');
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::connection('voting_sqlite')->dropIfExists('votes');
+        Schema::dropIfExists('votes');
     }
 };
