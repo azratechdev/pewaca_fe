@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => 'mysql', // Use external MySQL server from .env
+    'default' => env('DB_CONNECTION', 'mysql'),
 
     /*
     |--------------------------------------------------------------------------
