@@ -142,6 +142,65 @@
     color: #2d5642;
     font-weight: 600;
   }
+  
+  .seller-cta-banner {
+    background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+    border: 2px solid #3d7357;
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 16px rgba(61, 115, 87, 0.15);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .seller-cta-banner::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(61, 115, 87, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  
+  .seller-cta-content {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .btn-mulai-jualan {
+    background: linear-gradient(135deg, #3d7357 0%, #2d5642 100%);
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(61, 115, 87, 0.3);
+  }
+  
+  .btn-mulai-jualan:hover {
+    background: linear-gradient(135deg, #2d5642 0%, #1e3f2f 100%);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(61, 115, 87, 0.4);
+  }
+  
+  .seller-cta-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #3d7357 0%, #2d5642 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2.5rem;
+    box-shadow: 0 4px 12px rgba(61, 115, 87, 0.3);
+  }
 </style>
 
 <div class="warungku-header">
@@ -162,6 +221,40 @@
 </div>
 
 <div class="container mb-5 pb-5">
+  {{-- Seller Registration Banner: Show to authenticated non-sellers only --}}
+  @auth
+    @php
+      $isSeller = auth()->user()->is_seller ?? false;
+    @endphp
+    
+    @if(!$isSeller)
+    <div class="seller-cta-banner">
+      <div class="seller-cta-content">
+        <div class="row align-items-center">
+          <div class="col-md-2 text-center mb-3 mb-md-0">
+            <div class="seller-cta-icon mx-auto">
+              <i class="fas fa-store-alt"></i>
+            </div>
+          </div>
+          <div class="col-md-7 mb-3 mb-md-0">
+            <h4 style="color: #2d5642; font-weight: 800; margin-bottom: 0.5rem;">
+              Mulai Jualan di Warungku!
+            </h4>
+            <p style="color: #166534; margin-bottom: 0; font-size: 0.95rem;">
+              Punya produk untuk dijual? Daftar jadi seller sekarang dan jangkau ribuan warga residence dengan mudah. Gratis dan tanpa biaya tersembunyi!
+            </p>
+          </div>
+          <div class="col-md-3 text-center text-md-end">
+            <a href="{{ route('pengurus.seller.register') }}" class="btn btn-mulai-jualan">
+              <i class="fas fa-rocket me-2"></i> Daftar Sekarang
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    @endif
+  @endauth
+
   <h5 class="mb-4" style="color: #2d3748; font-weight: 700; font-size: 1.5rem;">
     <i class="fas fa-store-alt" style="color: #3d7357;"></i> Daftar Toko
   </h5>
