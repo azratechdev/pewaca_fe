@@ -2,78 +2,145 @@
 
 @section('content')
 <style>
+  body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8f0f3 100%);
+  }
+  
   .store-card {
-    border: 1px solid #e0e0e0;
-    border-radius: 12px;
-    transition: all 0.3s ease;
+    border: none;
+    border-radius: 20px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     background: white;
     margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(95, 167, 130, 0.08);
+    overflow: hidden;
   }
+  
   .store-card:hover {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(95, 167, 130, 0.2), 0 6px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-8px);
   }
+  
   .store-logo {
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
     object-fit: cover;
-    background-color: #5FA782;
+    background: linear-gradient(135deg, #5FA782 0%, #4a8a68 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 2rem;
+    font-size: 2.2rem;
+    box-shadow: 0 4px 12px rgba(95, 167, 130, 0.25);
+    border: 3px solid white;
   }
+  
   .store-logo img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
   }
+  
   .rating-badge {
-    background-color: #ffc107;
+    background: linear-gradient(135deg, #ffd700 0%, #ffc107 100%);
     color: white;
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 0.9rem;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
   }
+  
   .btn-lihat-toko {
-    background-color: #5FA782;
+    background: linear-gradient(135deg, #5FA782 0%, #4a8a68 100%);
     color: white;
     border: none;
-    padding: 8px 20px;
-    border-radius: 8px;
-    transition: all 0.3s;
+    padding: 10px 24px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(95, 167, 130, 0.25);
   }
+  
   .btn-lihat-toko:hover {
-    background-color: #4a8a68;
+    background: linear-gradient(135deg, #4a8a68 0%, #3d7357 100%);
     color: white;
+    transform: scale(1.02);
+    box-shadow: 0 6px 16px rgba(95, 167, 130, 0.35);
   }
+  
   .warungku-header {
-    background-color: #5FA782;
+    background: linear-gradient(135deg, #5FA782 0%, #3d7357 100%);
     color: white;
-    padding: 1.5rem 0;
-    margin: -20px -20px 20px -20px;
+    padding: 2rem 0;
+    margin: -20px -20px 30px -20px;
+    box-shadow: 0 4px 16px rgba(95, 167, 130, 0.2);
   }
+  
+  .warungku-header h4 {
+    font-weight: 700;
+    font-size: 1.8rem;
+  }
+  
   .cart-icon-container {
     position: relative;
     display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px 14px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
   }
+  
+  .cart-icon-container:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+  }
+  
   .cart-badge {
     position: absolute;
-    top: -8px;
-    right: -8px;
-    background-color: #dc3545;
+    top: -4px;
+    right: -4px;
+    background: linear-gradient(135deg, #ff5757 0%, #dc3545 100%);
     color: white;
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 0.75rem;
     font-weight: bold;
+    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.4);
+    animation: pulse 2s infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+  
+  .store-card-content {
+    padding: 1.5rem;
+  }
+  
+  .store-name {
+    color: #2d3748;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .store-desc {
+    color: #718096;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  
+  .product-count {
+    color: #5FA782;
+    font-weight: 600;
   }
 </style>
 
@@ -95,43 +162,48 @@
 </div>
 
 <div class="container mb-5 pb-5">
-  <h5 class="mb-4">Daftar Toko</h5>
+  <h5 class="mb-4" style="color: #2d3748; font-weight: 700; font-size: 1.5rem;">
+    <i class="fas fa-store-alt" style="color: #5FA782;"></i> Daftar Toko
+  </h5>
 
   @if($stores->isEmpty())
-    <div class="alert alert-info text-center">
-      <i class="fas fa-store-slash fa-3x mb-3"></i>
-      <p class="mb-0">Belum ada toko tersedia</p>
+    <div class="alert alert-info text-center" style="border: none; border-radius: 16px; background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+      <i class="fas fa-store-slash fa-3x mb-3" style="color: #5FA782;"></i>
+      <p class="mb-0" style="color: #718096;">Belum ada toko tersedia</p>
     </div>
   @else
     <div class="row">
       @foreach($stores as $store)
-      <div class="col-md-6 col-lg-4">
-        <div class="store-card p-3">
-          <div class="d-flex align-items-start">
-            <div class="store-logo me-3">
-              @if($store->logo)
-                <img src="{{ $store->logo }}" 
-                     alt="{{ $store->name }}"
-                     onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fas fa-store\'></i>';">
-              @else
-                <i class="fas fa-store"></i>
-              @endif
-            </div>
-            <div class="flex-grow-1">
-              <h6 class="fw-bold mb-1">{{ $store->name }}</h6>
-              <p class="text-muted small mb-2">{{ Str::limit($store->description, 50) }}</p>
-              <div class="d-flex align-items-center mb-2">
-                <span class="rating-badge">
-                  <i class="fas fa-star"></i> {{ number_format($store->rating, 1) }}
-                </span>
-                <span class="ms-2 text-muted small">
-                  {{ $store->products_count }} Produk
-                </span>
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="store-card">
+          <div class="store-card-content">
+            <div class="text-center mb-3">
+              <div class="store-logo mx-auto">
+                @if($store->logo)
+                  <img src="{{ $store->logo }}" 
+                       alt="{{ $store->name }}"
+                       onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fas fa-store\'></i>';">
+                @else
+                  <i class="fas fa-store"></i>
+                @endif
               </div>
-              <a href="{{ route('warungku.store', $store->id) }}" class="btn btn-lihat-toko btn-sm w-100">
-                <i class="fas fa-store"></i> Lihat Toko
-              </a>
             </div>
+            
+            <h6 class="store-name text-center">{{ $store->name }}</h6>
+            <p class="store-desc text-center mb-3">{{ Str::limit($store->description, 70) }}</p>
+            
+            <div class="d-flex justify-content-center align-items-center gap-3 mb-3">
+              <span class="rating-badge">
+                <i class="fas fa-star"></i> {{ number_format($store->rating, 1) }}
+              </span>
+              <span class="product-count">
+                <i class="fas fa-box"></i> {{ $store->products_count }} Produk
+              </span>
+            </div>
+            
+            <a href="{{ route('warungku.store', $store->id) }}" class="btn btn-lihat-toko w-100">
+              <i class="fas fa-shopping-bag"></i> Lihat Toko
+            </a>
           </div>
         </div>
       </div>
