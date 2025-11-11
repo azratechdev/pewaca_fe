@@ -183,11 +183,6 @@ Route::group(['middleware' => ['auth', 'check.token']], function () {
     // Route::get('/pembayaran/pembayaran_periode', [PembayaranController::class, 'pembayaran_periode'])->name('pembayaran.pembayaran_periode');
     // Route::get('/pembayaran/periode', [PembayaranController::class, 'periode'])->name('pembayaran.periode');
 
-    // Warungku Marketplace Routes (Protected - Requires Login)
-    Route::get('/warungku', [WarungkuController::class, 'index'])->name('warungku.index');
-    Route::get('/warungku/toko/{id}', [WarungkuController::class, 'showStore'])->name('warungku.store');
-    Route::get('/warungku/produk/{id}', [WarungkuController::class, 'showProduct'])->name('warungku.product');
-
     // Cart Routes (Protected - Requires Login)
     Route::get('/warungku/keranjang', [CartController::class, 'index'])->name('cart.index');
     Route::post('/warungku/keranjang/add', [CartController::class, 'add'])->name('cart.add');
@@ -196,6 +191,11 @@ Route::group(['middleware' => ['auth', 'check.token']], function () {
     Route::delete('/warungku/keranjang/clear', [CartController::class, 'clear'])->name('cart.clear');
     Route::get('/warungku/keranjang/count', [CartController::class, 'getCount'])->name('cart.count');
 });
+
+// Warungku Marketplace Routes (Public - No Auth Required)
+Route::get('/warungku', [WarungkuController::class, 'index'])->name('warungku.index');
+Route::get('/warungku/toko/{id}', [WarungkuController::class, 'showStore'])->name('warungku.store');
+Route::get('/warungku/produk/{id}', [WarungkuController::class, 'showProduct'])->name('warungku.product');
 
 use App\Http\Controllers\Test\RegistrationTestController;
 
