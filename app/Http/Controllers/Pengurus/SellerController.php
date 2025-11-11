@@ -448,7 +448,7 @@ class SellerController extends Controller
                 'status' => SellerRequest::STATUS_PENDING
             ]);
             
-            Alert::success('Berhasil!', 'Pendaftaran seller Anda telah dikirim. Silakan menunggu persetujuan dari pengurus.');
+            Alert::success('Pendaftaran Berhasil!', 'Pendaftaran seller Anda telah berhasil dikirim dan sudah masuk ke notifikasi pengurus. Silakan menunggu persetujuan.');
             return redirect()->route('pengurus.seller.request.status');
             
         } catch (\Exception $e) {
