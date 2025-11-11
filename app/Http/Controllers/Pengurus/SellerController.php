@@ -387,7 +387,6 @@ class SellerController extends Controller
             'store_name' => 'required|string|min:3|max:255',
             'store_address' => 'required|string|min:10|max:500',
             'product_type' => 'required|string',
-            'reason' => 'required|string|min:20|max:500',
             'terms_accepted' => 'required|accepted'
         ], [
             'store_name.required' => 'Nama toko harus diisi.',
@@ -397,9 +396,6 @@ class SellerController extends Controller
             'store_address.min' => 'Alamat toko minimal 10 karakter.',
             'store_address.max' => 'Alamat toko maksimal 500 karakter.',
             'product_type.required' => 'Jenis produk harus dipilih.',
-            'reason.required' => 'Alasan ingin menjadi seller harus diisi.',
-            'reason.min' => 'Alasan minimal 20 karakter.',
-            'reason.max' => 'Alasan maksimal 500 karakter.',
             'terms_accepted.required' => 'Anda harus menyetujui syarat dan ketentuan.',
             'terms_accepted.accepted' => 'Anda harus menyetujui syarat dan ketentuan.'
         ]);
@@ -427,7 +423,7 @@ class SellerController extends Controller
                 'name' => $request->store_name,
                 'address' => $request->store_address,
                 'product_type' => $request->product_type,
-                'description' => $request->reason,
+                'description' => 'Toko ' . $request->product_type,
                 'is_active' => true,
                 'rating' => 4.50,
                 'created_at' => now(),

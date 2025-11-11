@@ -55,7 +55,7 @@
 }
 
 textarea.form-control {
-  min-height: 120px;
+  min-height: 80px;
   resize: vertical;
 }
 
@@ -265,26 +265,6 @@ textarea.form-control {
           @enderror
         </div>
 
-        <div class="mb-4">
-          <label for="reason" class="form-label">
-            <i class="fas fa-comment-dots" style="color: #3d7357;"></i> 
-            Mengapa Anda ingin menjadi seller? <span class="text-danger">*</span>
-          </label>
-          <textarea 
-            name="reason" 
-            id="reason" 
-            class="form-control @error('reason') is-invalid @enderror" 
-            placeholder="Ceritakan motivasi dan rencana bisnis Anda di Warungku... (minimal 20 karakter)"
-            maxlength="500"
-            required>{{ old('reason') }}</textarea>
-          <div class="char-counter">
-            <span id="charCount">0</span> / 500 karakter
-          </div>
-          @error('reason')
-            <div class="invalid-feedback">{{ $message }}</div>
-          @enderror
-        </div>
-
         <div class="terms-box">
           <h6 style="color: #2d3748; font-weight: 700; margin-bottom: 12px;">
             <i class="fas fa-file-contract" style="color: #3d7357;"></i> Syarat & Ketentuan
@@ -330,32 +310,14 @@ textarea.form-control {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const reasonTextarea = document.getElementById('reason');
-  const charCountSpan = document.getElementById('charCount');
   const termsCheckbox = document.getElementById('terms_accepted');
   const submitBtn = document.getElementById('submitBtn');
   const form = document.getElementById('registrationForm');
 
-  reasonTextarea.addEventListener('input', function() {
-    const count = this.value.length;
-    charCountSpan.textContent = count;
-    
-    if (count < 20) {
-      charCountSpan.style.color = '#dc2626';
-    } else if (count < 100) {
-      charCountSpan.style.color = '#f59e0b';
-    } else {
-      charCountSpan.style.color = '#10b981';
-    }
-  });
-
   function checkFormValidity() {
-    const reasonValid = reasonTextarea.value.length >= 20;
-    const termsValid = termsCheckbox.checked;
-    submitBtn.disabled = !(reasonValid && termsValid);
+    submitBtn.disabled = !termsCheckbox.checked;
   }
 
-  reasonTextarea.addEventListener('input', checkFormValidity);
   termsCheckbox.addEventListener('change', checkFormValidity);
 
   checkFormValidity();
