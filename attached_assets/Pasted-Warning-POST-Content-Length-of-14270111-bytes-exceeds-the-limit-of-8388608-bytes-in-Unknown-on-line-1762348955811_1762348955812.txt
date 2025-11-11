@@ -1,0 +1,310 @@
+Warning: POST Content-Length of 14270111 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+Stack
+Context
+Flare
+Share
+Share with Flare
+Docs
+
+Stack
+
+Context
+
+Debug
+Create Share
+Docs
+
+Ignition Settings
+Docs
+Editor
+
+PhpStorm
+Theme
+auto
+Save settings
+Settings will be saved locally in ~/.ignition.json.
+
+Illuminate
+ \ 
+Http
+ \ 
+Exceptions
+ \ 
+PostTooLargeException
+PHP 8.2.23
+9.52.21
+
+Expand vendor frames
+11 vendor frames
+public
+ / 
+index
+.php
+ 
+: 51
+require_once
+vendor
+ / 
+laravel
+ / 
+framework
+ / 
+src
+ / 
+Illuminate
+ / 
+Foundation
+ / 
+resources
+ / 
+server
+.php
+ 
+: 16
+[top]
+public
+ / 
+index
+.php
+ 
+: 51
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+|
+
+| Composer provides a convenient, automatically generated class loader for
+
+| this application. We just need to utilize it! We'll simply require it
+
+| into the script here so we don't need to manually load our classes.
+
+|
+
+*/
+
+
+
+require _DIR_.'/../vendor/autoload.php';
+
+
+
+/*
+
+|--------------------------------------------------------------------------
+
+| Run The Application
+
+|--------------------------------------------------------------------------
+
+|
+
+| Once we have the application, we can handle the incoming request using
+
+| the application's HTTP kernel. Then, we will send the response back
+
+| to this client's browser, allowing them to enjoy our application.
+
+|
+
+*/
+
+
+
+$app = require_once _DIR_.'/../bootstrap/app.php';
+
+
+
+$kernel = $app->make(Kernel::class);
+
+
+
+$response = $kernel->handle(
+
+    $request = Request::capture()
+
+)->send();
+
+
+
+$kernel->terminate($request, $response);
+
+arguments
+$request:Illuminate\Http\Request
+POST https://pewaca.replit.app/postregistration
+
+Request
+https://pewaca.replit.app/postregistration
+POST
+curl "https://pewaca.replit.app/postregistration" \
+   -X POST \
+   -H 'host: pewaca.replit.app' \
+   -H 'user-agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Mobile Safari/537.36' \
+   -H 'content-length: 14270111' \
+   -H 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,/;q=0.8,application/signed-exchange;v=b3;q=0.7' \
+   -H 'accept-encoding: gzip, deflate, br, zstd' \
+   -H 'accept-language: en-US,en;q=0.9,id;q=0.8' \
+   -H 'cache-control: max-age=0' \
+   -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundaryy4okxv7aqiHVBdmH' \
+   -H 'cookie: XSRF-TOKEN=eyJpdiI6IjRXRmZiTXNxbGdhdXdvMHg3eGlsbHc9PSIsInZhbHVlIjoiRkxLSEpBQmUyd0hjMklOMENxaUlEZlRyQ0VSdXk3TFNLY1B5b0tjR3JycUxJRFdaL2RlT0VoTEkwSXMyZ1p1TFFzSjlIeUdOTDZHV05JbDlOS1VLU0VqZEFCMnFKajFYRDdsOUppRVpFSDQxMm9uS2MwdWt6QVRrVTNsS0pCQ3giLCJtYWMiOiJjMmQ3MGI1MTkzMWUzZjliOWI5NjdkMDk2Njg2ODliNmZmZThkZThmNDNiM2Y3NWNmMzUyODY1OTE2MDVlNDY5IiwidGFnIjoiIn0%3D; pewaca_session=eyJpdiI6ImhKQnlUQWFsMEh2L04rMFBvU2dSeVE9PSIsInZhbHVlIjoiTDRwcGpFYXJHTFpacjcyN2YrYld2T3VRUEIvT0tyMHBRK3VCRWhaYTRmekRDWE9tLzlLV0R6a2VaYWgzSWFYaTd6SnBzdks1djdsc0ZzdWdvc1djOUlJMWN0Y0J6OVJYMENvaGpHR1BaaEthdTdrWUdITWcyWUppVGNrNy9jRUoiLCJtYWMiOiI4Njg5ZjJkMWI3ZGI1ZGJhNTI0MGVlODZjZTNhNWU5ODk4MzkyYjRkMWFjNjM2YWI1Nzg1NTQ0YWIyMjdiNzU5IiwidGFnIjoiIn0%3D' \
+   -H 'origin: https://pewaca.replit.app' \
+   -H 'priority: u=0, i' \
+   -H 'referer: https://pewaca.replit.app/registration/350c228d-2121-47fd-a808-456a7523e527' \
+   -H 'sec-ch-ua: "Chromium";v="142", "Google Chrome";v="142", "Not_A Brand";v="99"' \
+   -H 'sec-ch-ua-mobile: ?1' \
+   -H 'sec-ch-ua-platform: "Android"' \
+   -H 'sec-fetch-dest: document' \
+   -H 'sec-fetch-mode: navigate' \
+   -H 'sec-fetch-site: same-origin' \
+   -H 'sec-fetch-user: ?1' \
+   -H 'server-timing: depproxy;dur=1762348825362' \
+   -H 'traceparent: 00-8a035331354828fbb576dcda1f424440-25394e5bde629d2f-01' \
+   -H 'upgrade-insecure-requests: 1' \
+   -H 'via: 1.1 google' \
+   -H 'x-cloud-trace-context: 8a035331354828fbb576dcda1f424440/2682261209555836207;o=1' \
+   -H 'x-forwarded-for: 103.83.93.192, 34.117.33.233, 35.191.80.53,34.42.215.46' \
+   -H 'x-forwarded-host: pewaca.replit.app' \
+   -H 'x-forwarded-proto: https';
+
+
+Browser
+Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Mobile Safari/537.36
+
+Headers
+host
+pewaca.replit.app
+
+user-agent
+Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Mobile Safari/537.36
+
+content-length
+14270111
+
+accept
+text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,/;q=0.8,application/signed-exchange;v=b3;q=0.7
+
+accept-encoding
+gzip, deflate, br, zstd
+
+accept-language
+en-US,en;q=0.9,id;q=0.8
+
+cache-control
+max-age=0
+
+content-type
+multipart/form-data; boundary=----WebKitFormBoundaryy4okxv7aqiHVBdmH
+
+cookie
+XSRF-TOKEN=eyJpdiI6IjRXRmZiTXNxbGdhdXdvMHg3eGlsbHc9PSIsInZhbHVlIjoiRkxLSEpBQmUyd0hjMklOMENxaUlEZlRyQ0VSdXk3TFNLY1B5b0tjR3JycUxJRFdaL2RlT0VoTEkwSXMyZ1p1TFFzSjlIeUdOTDZHV05JbDlOS1VLU0VqZEFCMnFKajFYRDdsOUppRVpFSDQxMm9uS2MwdWt6QVRrVTNsS0pCQ3giLCJtYWMiOiJjMmQ3MGI1MTkzMWUzZjliOWI5NjdkMDk2Njg2ODliNmZmZThkZThmNDNiM2Y3NWNmMzUyODY1OTE2MDVlNDY5IiwidGFnIjoiIn0%3D; pewaca_session=eyJpdiI6ImhKQnlUQWFsMEh2L04rMFBvU2dSeVE9PSIsInZhbHVlIjoiTDRwcGpFYXJHTFpacjcyN2YrYld2T3VRUEIvT0tyMHBRK3VCRWhaYTRmekRDWE9tLzlLV0R6a2VaYWgzSWFYaTd6SnBzdks1djdsc0ZzdWdvc1djOUlJMWN0Y0J6OVJYMENvaGpHR1BaaEthdTdrWUdITWcyWUppVGNrNy9jRUoiLCJtYWMiOiI4Njg5ZjJkMWI3ZGI1ZGJhNTI0MGVlODZjZTNhNWU5ODk4MzkyYjRkMWFjNjM2YWI1Nzg1NTQ0YWIyMjdiNzU5IiwidGFnIjoiIn0%3D
+
+origin
+https://pewaca.replit.app
+
+priority
+u=0, i
+
+referer
+https://pewaca.replit.app/registration/350c228d-2121-47fd-a808-456a7523e527
+
+sec-ch-ua
+"Chromium";v="142", "Google Chrome";v="142", "Not_A Brand";v="99"
+
+sec-ch-ua-mobile
+?1
+
+sec-ch-ua-platform
+"Android"
+
+sec-fetch-dest
+document
+
+sec-fetch-mode
+navigate
+
+sec-fetch-site
+same-origin
+
+sec-fetch-user
+?1
+
+server-timing
+depproxy;dur=1762348825362
+
+traceparent
+00-8a035331354828fbb576dcda1f424440-25394e5bde629d2f-01
+
+upgrade-insecure-requests
+1
+
+via
+1.1 google
+
+x-cloud-trace-context
+8a035331354828fbb576dcda1f424440/2682261209555836207;o=1
+
+x-forwarded-for
+103.83.93.192, 34.117.33.233, 35.191.80.53,34.42.215.46
+
+x-forwarded-host
+pewaca.replit.app
+
+x-forwarded-proto
+https
+
+Body
+[]
+
+Context
+Versions
+Php Version
+8.2.23
+
+Laravel Version
+9.52.21
+
+Laravel Locale
+id
+
+Laravel Config Cached
+false
+App Debug
+true
+App Env
+local
+
+·
+Source
+·
+Docs
+·
+Laravel
+Ignition is built byFlare, the Laravel error reporting service.
