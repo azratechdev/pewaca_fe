@@ -350,4 +350,54 @@ class SellerController extends Controller
             'revenueByMonth'
         ));
     }
+
+    public function showRegisterForm()
+    {
+        $user = Auth::user();
+        
+        if ($user->is_seller == 1) {
+            Alert::info('Info', 'Anda sudah terdaftar sebagai seller.');
+            return redirect()->route('pengurus.seller.dashboard');
+        }
+
+        return view('pengurus.seller.register');
+    }
+
+    public function processRegistration(Request $request)
+    {
+        $user = Auth::user();
+        
+        if ($user->is_seller == 1) {
+            Alert::error('Error', 'Anda sudah terdaftar sebagai seller.');
+            return redirect()->route('pengurus.seller.dashboard');
+        }
+
+        $request->validate([
+            'reason' => 'required|string|min:20|max:500',
+            'terms_accepted' => 'required|accepted'
+        ], [
+            'reason.required' => 'Alasan ingin menjadi seller harus diisi.',
+            'reason.min' => 'Alasan minimal 20 karakter.',
+            'reason.max' => 'Alasan maksimal 500 karakter.',
+            'terms_accepted.required' => 'Anda harus menyetujui syarat dan ketentuan.',
+            'terms_accepted.accepted' => 'Anda harus menyetujui syarat dan ketentuan.'
+        ]);
+
+        try {
+            DB::beginTransaction();
+            
+            $user->is_seller = 1;
+            $user->save();
+            
+            DB::commit();
+            
+            Alert::success('Berhasil!', 'Selamat! Anda sekarang terdaftar sebagai seller. Silakan klaim atau buat toko Anda.');
+            return redirect()->route('pengurus.seller.dashboard');
+            
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Alert::error('Error', 'Terjadi kesalahan saat mendaftar. Silakan coba lagi.');
+            return redirect()->back()->withInput();
+        }
+    }
 }

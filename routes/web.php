@@ -135,34 +135,38 @@ Route::group(['middleware' => ['auth', 'check.token']], function () {
         //report download routes
         Route::get('/pengurus/report/download/comprehensive', [ReportController::class, 'downloadComprehensive'])->name('pengurus.report.download.comprehensive');
         //end report route
-
-        // Warungku Seller Routes (Protected - Requires Pengurus Role + is_seller Flag)
-        Route::prefix('seller')->name('pengurus.seller.')->group(function () {
-            Route::get('/dashboard', [SellerController::class, 'dashboard'])->name('dashboard');
-            
-            // Store Management
-            Route::get('/my-stores', [SellerController::class, 'myStores'])->name('my-stores');
-            Route::get('/browse-stores', [SellerController::class, 'browseStores'])->name('browse-stores');
-            Route::post('/claim/{store}', [SellerController::class, 'claimStore'])->name('claim-store');
-            Route::post('/leave/{store}', [SellerController::class, 'leaveStore'])->name('leave-store');
-            
-            // Product Management
-            Route::get('/{store}/products', [SellerController::class, 'products'])->name('products');
-            Route::get('/{store}/products/create', [SellerController::class, 'createProduct'])->name('products.create');
-            Route::post('/{store}/products', [SellerController::class, 'storeProduct'])->name('products.store');
-            Route::get('/{store}/products/{product}/edit', [SellerController::class, 'editProduct'])->name('products.edit');
-            Route::put('/{store}/products/{product}', [SellerController::class, 'updateProduct'])->name('products.update');
-            Route::delete('/{store}/products/{product}', [SellerController::class, 'deleteProduct'])->name('products.delete');
-            Route::post('/{store}/products/{product}/stock', [SellerController::class, 'updateStock'])->name('products.update-stock');
-            
-            // Order Management
-            Route::get('/{store}/orders', [SellerController::class, 'orders'])->name('orders');
-            Route::get('/{store}/orders/{order}', [SellerController::class, 'orderDetail'])->name('orders.detail');
-            Route::post('/{store}/orders/{order}/status', [SellerController::class, 'updateOrderStatus'])->name('orders.update-status');
-            
-            // Reports & Analytics
-            Route::get('/{store}/reports', [SellerController::class, 'reports'])->name('reports');
-        });
+    });
+    
+    // Seller Registration Routes (Open to all authenticated users - NO role required)
+    Route::get('/pengurus/seller/register', [SellerController::class, 'showRegisterForm'])->name('pengurus.seller.register');
+    Route::post('/pengurus/seller/register', [SellerController::class, 'processRegistration'])->name('pengurus.seller.register.process');
+    
+    // Warungku Seller Routes (Protected by is_seller check in controller - NO pengurus role required)
+    Route::prefix('pengurus/seller')->name('pengurus.seller.')->group(function () {
+        Route::get('/dashboard', [SellerController::class, 'dashboard'])->name('dashboard');
+        
+        // Store Management
+        Route::get('/my-stores', [SellerController::class, 'myStores'])->name('my-stores');
+        Route::get('/browse-stores', [SellerController::class, 'browseStores'])->name('browse-stores');
+        Route::post('/claim/{store}', [SellerController::class, 'claimStore'])->name('claim-store');
+        Route::post('/leave/{store}', [SellerController::class, 'leaveStore'])->name('leave-store');
+        
+        // Product Management
+        Route::get('/{store}/products', [SellerController::class, 'products'])->name('products');
+        Route::get('/{store}/products/create', [SellerController::class, 'createProduct'])->name('products.create');
+        Route::post('/{store}/products', [SellerController::class, 'storeProduct'])->name('products.store');
+        Route::get('/{store}/products/{product}/edit', [SellerController::class, 'editProduct'])->name('products.edit');
+        Route::put('/{store}/products/{product}', [SellerController::class, 'updateProduct'])->name('products.update');
+        Route::delete('/{store}/products/{product}', [SellerController::class, 'deleteProduct'])->name('products.delete');
+        Route::post('/{store}/products/{product}/stock', [SellerController::class, 'updateStock'])->name('products.update-stock');
+        
+        // Order Management
+        Route::get('/{store}/orders', [SellerController::class, 'orders'])->name('orders');
+        Route::get('/{store}/orders/{order}', [SellerController::class, 'orderDetail'])->name('orders.detail');
+        Route::post('/{store}/orders/{order}/status', [SellerController::class, 'updateOrderStatus'])->name('orders.update-status');
+        
+        // Reports & Analytics
+        Route::get('/{store}/reports', [SellerController::class, 'reports'])->name('reports');
     });
     
     //cashout route

@@ -37,6 +37,13 @@
                 <span class="small d-block menu-text">Seller</span>
             </a>
         </li>
+      @elseif(auth()->check())
+        <li class="nav-item">
+            <a href="{{ route('pengurus.seller.register') }}" class="nav-link text-center {{ Request::is('pengurus/seller/register*') ? 'active' : '' }}">
+                <i class="fa fa-store-alt menu-icon"></i>
+                <span class="small d-block menu-text">Daftar Seller</span>
+            </a>
+        </li>
       @endif
 
       <li class="nav-item">
