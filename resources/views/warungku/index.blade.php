@@ -221,6 +221,24 @@
 </div>
 
 <div class="container mb-5 pb-5">
+  {{-- DEBUG: Check auth and seller status --}}
+  <div style="background: #fff3cd; padding: 15px; margin-bottom: 20px; border: 2px solid #856404; border-radius: 8px;">
+    <strong>🔍 DEBUG INFO:</strong><br>
+    <strong>Auth Check:</strong> {{ auth()->check() ? '✅ LOGGED IN' : '❌ NOT LOGGED IN' }}<br>
+    @auth
+      <strong>Email:</strong> {{ auth()->user()->email ?? 'N/A' }}<br>
+      <strong>is_seller raw:</strong> {{ var_export(auth()->user()->is_seller, true) }}<br>
+      <strong>is_seller type:</strong> {{ gettype(auth()->user()->is_seller) }}<br>
+      @php
+        $isSeller = auth()->user()->is_seller ?? false;
+      @endphp
+      <strong>$isSeller variable:</strong> {{ var_export($isSeller, true) }}<br>
+      <strong>!$isSeller check:</strong> {{ !$isSeller ? '✅ TRUE (banner should show)' : '❌ FALSE (banner hidden)' }}<br>
+    @else
+      <strong>User:</strong> Not authenticated - banner will NOT show
+    @endauth
+  </div>
+  
   {{-- Seller Registration Banner: Show to authenticated non-sellers only --}}
   @auth
     @php
