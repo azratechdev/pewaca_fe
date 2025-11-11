@@ -368,9 +368,8 @@ class SellerController extends Controller
         }
         
         // Check if user has any approved or pending requests
-        $user = DB::table('users')->where('email', $cred['email'])->first();
-        if ($user) {
-            $existingRequest = SellerRequest::where('user_id', $user->id)
+        if (isset($cred['user_id'])) {
+            $existingRequest = SellerRequest::where('user_id', $cred['user_id'])
                 ->whereIn('status', [SellerRequest::STATUS_PENDING, SellerRequest::STATUS_APPROVED])
                 ->first();
             
@@ -414,18 +413,16 @@ class SellerController extends Controller
         ]);
 
         try {
-            // Get user ID from database
-            $user = DB::table('users')
-                ->where('email', $cred['email'])
-                ->first();
-            
-            if (!$user) {
-                Alert::error('Error', 'User tidak ditemukan.');
-                return redirect()->back()->withInput();
+            // Get user ID from session
+            if (!isset($cred['user_id'])) {
+                Alert::error('Error', 'User ID tidak ditemukan. Silakan login ulang.');
+                return redirect()->route('login');
             }
             
+            $userId = $cred['user_id'];
+            
             // Check if user already has pending or approved request
-            $existingRequest = SellerRequest::where('user_id', $user->id)
+            $existingRequest = SellerRequest::where('user_id', $userId)
                 ->whereIn('status', [SellerRequest::STATUS_PENDING, SellerRequest::STATUS_APPROVED])
                 ->first();
             
@@ -441,7 +438,7 @@ class SellerController extends Controller
             
             // Create seller request
             SellerRequest::create([
-                'user_id' => $user->id,
+                'user_id' => $userId,
                 'store_name' => $request->store_name,
                 'store_address' => $request->store_address,
                 'product_type' => $request->product_type,
@@ -466,18 +463,14 @@ class SellerController extends Controller
         
         $cred = Session::get('cred');
         
-        // Get user from database
-        $user = DB::table('users')
-            ->where('email', $cred['email'])
-            ->first();
-        
-        if (!$user) {
-            Alert::error('Error', 'User tidak ditemukan.');
+        // Get user ID from session
+        if (!isset($cred['user_id'])) {
+            Alert::error('Error', 'User ID tidak ditemukan. Silakan login ulang.');
             return redirect()->route('login');
         }
         
         // Get latest seller request
-        $sellerRequest = SellerRequest::where('user_id', $user->id)
+        $sellerRequest = SellerRequest::where('user_id', $cred['user_id'])
             ->latest()
             ->first();
         

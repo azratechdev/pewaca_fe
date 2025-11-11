@@ -22,10 +22,9 @@ class WarungkuController extends Controller
         
         if (Session::has('cred')) {
             $cred = Session::get('cred');
-            $user = DB::table('users')->where('email', $cred['email'])->first();
             
-            if ($user) {
-                $hasPendingRequest = SellerRequest::where('user_id', $user->id)
+            if (isset($cred['user_id'])) {
+                $hasPendingRequest = SellerRequest::where('user_id', $cred['user_id'])
                     ->where('status', SellerRequest::STATUS_PENDING)
                     ->exists();
             }

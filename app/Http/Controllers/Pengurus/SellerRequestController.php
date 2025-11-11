@@ -79,13 +79,14 @@ class SellerRequestController extends Controller
             
             // Get approver info from session
             $cred = Session::get('cred');
-            $approver = DB::table('users')->where('email', $cred['email'])->first();
             
-            if (!$approver) {
+            if (!isset($cred['user_id'])) {
                 DB::rollBack();
-                Alert::error('Error', 'Approver tidak ditemukan.');
-                return redirect()->back();
+                Alert::error('Error', 'Approver ID tidak ditemukan. Silakan login ulang.');
+                return redirect()->route('login');
             }
+            
+            $approverId = $cred['user_id'];
             
             // Check if user already has a store
             $existingStore = Store::where('user_id', $sellerRequest->user_id)->first();
@@ -95,11 +96,6 @@ class SellerRequestController extends Controller
                 Alert::warning('Perhatian', 'User ini sudah memiliki toko: ' . $existingStore->name);
                 return redirect()->back();
             }
-            
-            // Update user to be seller
-            DB::table('users')
-                ->where('id', $sellerRequest->user_id)
-                ->update(['is_seller' => 1]);
             
             // Create store
             Store::create([
@@ -115,7 +111,7 @@ class SellerRequestController extends Controller
             // Update seller request status
             $sellerRequest->update([
                 'status' => SellerRequest::STATUS_APPROVED,
-                'approved_by' => $approver->id,
+                'approved_by' => $approverId,
                 'approved_at' => now()
             ]);
             
@@ -168,18 +164,19 @@ class SellerRequestController extends Controller
             
             // Get approver info from session
             $cred = Session::get('cred');
-            $approver = DB::table('users')->where('email', $cred['email'])->first();
             
-            if (!$approver) {
+            if (!isset($cred['user_id'])) {
                 DB::rollBack();
-                Alert::error('Error', 'Approver tidak ditemukan.');
-                return redirect()->back();
+                Alert::error('Error', 'Approver ID tidak ditemukan. Silakan login ulang.');
+                return redirect()->route('login');
             }
+            
+            $approverId = $cred['user_id'];
             
             $sellerRequest->update([
                 'status' => SellerRequest::STATUS_REJECTED,
                 'rejection_reason' => $request->rejection_reason,
-                'approved_by' => $approver->id,
+                'approved_by' => $approverId,
                 'approved_at' => now()
             ]);
             
