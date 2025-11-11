@@ -259,7 +259,7 @@ textarea.form-control {
         </button>
 
         <div class="text-center mt-3">
-          <a href="{{ route('pengurus.dashboard') }}" class="btn-back">
+          <a href="{{ route('pengurus') }}" class="btn-back">
             <i class="fas fa-arrow-left me-2"></i> Kembali ke Dashboard
           </a>
         </div>
