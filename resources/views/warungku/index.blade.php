@@ -221,28 +221,29 @@
 </div>
 
 <div class="container mb-5 pb-5">
-  {{-- DEBUG: Check auth and seller status --}}
+  {{-- DEBUG: Check session-based auth and seller status --}}
   <div style="background: #fff3cd; padding: 15px; margin-bottom: 20px; border: 2px solid #856404; border-radius: 8px;">
     <strong>🔍 DEBUG INFO:</strong><br>
-    <strong>Auth Check:</strong> {{ auth()->check() ? '✅ LOGGED IN' : '❌ NOT LOGGED IN' }}<br>
-    @auth
-      <strong>Email:</strong> {{ auth()->user()->email ?? 'N/A' }}<br>
-      <strong>is_seller raw:</strong> {{ var_export(auth()->user()->is_seller, true) }}<br>
-      <strong>is_seller type:</strong> {{ gettype(auth()->user()->is_seller) }}<br>
+    <strong>Session Token:</strong> {{ Session::has('token') ? '✅ HAS TOKEN' : '❌ NO TOKEN' }}<br>
+    <strong>Session Cred:</strong> {{ Session::has('cred') ? '✅ HAS CRED' : '❌ NO CRED' }}<br>
+    @if(Session::has('cred'))
       @php
-        $isSeller = auth()->user()->is_seller ?? false;
+        $cred = Session::get('cred');
+        $isSeller = $cred['is_seller'] ?? 0;
       @endphp
-      <strong>$isSeller variable:</strong> {{ var_export($isSeller, true) }}<br>
-      <strong>!$isSeller check:</strong> {{ !$isSeller ? '✅ TRUE (banner should show)' : '❌ FALSE (banner hidden)' }}<br>
+      <strong>Email:</strong> {{ $cred['email'] ?? 'N/A' }}<br>
+      <strong>is_seller value:</strong> {{ var_export($isSeller, true) }}<br>
+      <strong>Banner should show:</strong> {{ !$isSeller ? '✅ YES' : '❌ NO (already seller)' }}<br>
     @else
-      <strong>User:</strong> Not authenticated - banner will NOT show
-    @endauth
+      <strong>User:</strong> Not logged in - banner will NOT show
+    @endif
   </div>
   
   {{-- Seller Registration Banner: Show to authenticated non-sellers only --}}
-  @auth
+  @if(Session::has('token') && Session::has('cred'))
     @php
-      $isSeller = auth()->user()->is_seller ?? false;
+      $cred = Session::get('cred');
+      $isSeller = $cred['is_seller'] ?? 0;
     @endphp
     
     @if(!$isSeller)
@@ -271,7 +272,7 @@
       </div>
     </div>
     @endif
-  @endauth
+  @endif
 
   <h5 class="mb-4" style="color: #2d3748; font-weight: 700; font-size: 1.5rem;">
     <i class="fas fa-store-alt" style="color: #3d7357;"></i> Daftar Toko
