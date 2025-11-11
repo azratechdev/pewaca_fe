@@ -37,7 +37,7 @@
             <div class="flex justify-center mb-4">
                 <div class="text-center mb-2">
                     <div class="text-gray-500">Total Uang Masuk</div>
-                    <div id="total_by_type" class="text-2xl font-bold">Rp20.000.000</div>
+                    <div id="total_by_type" class="text-2xl font-bold">-</div>
                 </div>
             </div>
 
@@ -67,26 +67,10 @@
                     <div class="rounded-xl bg-gray-100 p-3 mb-4">
                         <div class="flex justify-between items-center text-sm">
                             <span class="font-semibold">Total</span>
-                            <span class="font-semibold">Rp 12.000.000</span>
+                            <span id="total-wajib" class="font-semibold">-</span>
                         </div>
                     </div>
                     <div class="divide-y divide-gray-200">
-                        @for($i=0; $i<5; $i++)
-                        <div class="py-4">
-                            <div class="flex justify-between">
-                                <div>
-                                    <div class="text-gray-500">Nama Unit</div>
-                                    <div class="text-gray-500">Tanggal</div>
-                                    <div class="text-gray-500">Nominal</div>
-                                </div>
-                                <div class="text-right">
-                                    <div class="font-semibold">C44</div>
-                                    <div class="font-semibold">12 April 2025</div>
-                                    <div class="font-semibold">IDR 150.000</div>
-                                </div>
-                            </div>
-                        </div>
-                        @endfor
                     </div>
                     <div class="flex justify-center mt-4"><button class="w-full md:w-3/4 border-2 border-green-600 text-green-600 px-6 py-2 rounded-lg font-semibold">More</button>
                         
@@ -96,26 +80,10 @@
                     <div class="rounded-xl bg-gray-100 p-3 mb-4">
                         <div class="flex justify-between items-center text-sm">
                             <span class="font-semibold">Total</span>
-                            <span class="font-semibold">Rp 8.000.000</span>
+                            <span id="total-sukarela" class="font-semibold">-</span>
                         </div>
                     </div>
                     <div class="divide-y divide-gray-200">
-                        @for($i=0; $i<3; $i++)
-                        <div class="py-4">
-                            <div class="flex justify-between">
-                                <div>
-                                    <div class="text-gray-500">Nama Unit</div>
-                                    <div class="text-gray-500">Tanggal</div>
-                                    <div class="text-gray-500">Nominal</div>
-                                </div>
-                                <div class="text-right">
-                                    <div class="font-semibold">C12</div>
-                                    <div class="font-semibold">12 April 2025</div>
-                                    <div class="font-semibold">IDR 200.000</div>
-                                </div>
-                            </div>
-                        </div>
-                        @endfor
                     </div>
                     <div class="flex justify-center mt-4">
                         <button class="w-full md:w-3/4 border-2 border-green-600 text-green-600 px-6 py-2 rounded-lg font-semibold">More</button>
@@ -246,8 +214,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 shown.wajib = 10;
                 shown.sukarela = 10;
                 // Total box
-                document.querySelector('#tab-content-wajib .font-semibold:last-child').textContent = 'Rp ' + (data.wajib.total || 0).toLocaleString('id-ID');
-                document.querySelector('#tab-content-sukarela .font-semibold:last-child').textContent = 'Rp ' + (data.sukarela.total || 0).toLocaleString('id-ID');
+                document.getElementById('total-wajib').textContent = 'Rp ' + (data.wajib.total || 0).toLocaleString('id-ID');
+                document.getElementById('total-sukarela').textContent = 'Rp ' + (data.sukarela.total || 0).toLocaleString('id-ID');
                 renderTabContent('tab-content-wajib', cachedData.wajib, 'wajib');
                 renderTabContent('tab-content-sukarela', cachedData.sukarela, 'sukarela');
             });

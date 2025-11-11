@@ -45,11 +45,11 @@
                 <div class="w-full md:w-1/2 flex flex-col items-center justify-center p-4">
                     <div class="text-center mb-2">
                         <div class="text-gray-500">Total Uang Masuk</div>
-                        <div id="total_by_pembayaran" class="text-2xl font-bold">Rp20.000.000</div>
+                        <div id="total_by_pembayaran" class="text-2xl font-bold">-</div>
                     </div>
                     <div class="text-center">
                         <div class="text-gray-500">Jumlah Warga</div>
-                        <div class="text-2xl font-bold">100</div>
+                        <div id="jumlah_warga_pembayaran" class="text-2xl font-bold">-</div>
                     </div>
                    
                    
@@ -78,11 +78,11 @@
                 <div class="w-full md:w-1/2 flex flex-col items-center justify-center p-4">
                     <div class="text-center mb-2">
                         <div class="text-gray-500">Total Uang Masuk</div>
-                        <div id="total_by_type" class="text-2xl font-bold">Rp20.000.000</div>
+                        <div id="total_by_type" class="text-2xl font-bold">-</div>
                     </div>
                     <div class="text-center">
                         <div class="text-gray-500">Jumlah Warga</div>
-                        <div class="text-2xl font-bold">100</div>
+                        <div id="jumlah_warga_type" class="text-2xl font-bold">-</div>
                     </div>
                     <a id="detailByTypeLink" href="#" class="mt-4 mb-3 md:w-3/4 w-full text-center border-2 border-green-600 text-green-600 px-6 py-2 rounded-lg font-semibold">Detail</a>
                 </div>
@@ -94,7 +94,7 @@
                         <p class="font-bold mb-3">Tunggakan</p>
                         <div class="text-center mb-2">
                             <div class="text-black-700">Total Unit Menunggak</div>
-                            <div class="text-2xl font-bold text-red-500">10</div>
+                            <div id="total_unit_tunggakan" class="text-2xl font-bold text-red-500">-</div>
                         </div>
                         <a id="detailTunggakanLink" href="#" class="mt-4 mb-3 w-full md:w-3/4 text-center border-2 border-green-600 text-green-600 px-6 py-2 rounded-lg font-semibold">Detail</a>
                     </div>
@@ -197,13 +197,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('total_by_pembayaran').innerText = formatRupiah(data.total_uang_masuk);
                 document.getElementById('total_by_type').innerText = formatRupiah(data.total_uang_masuk);
                 // Update jumlah warga
-                document.querySelectorAll('.text-2xl.font-bold').forEach(el => {
-                    if (el.innerText.match(/^\d+$/)) el.innerText = data.jumlah_warga;
-                });
+                document.getElementById('jumlah_warga_pembayaran').innerText = data.jumlah_warga;
+                document.getElementById('jumlah_warga_type').innerText = data.jumlah_warga;
                 // Update tunggakan
-                document.querySelectorAll('.text-2xl.font-bold.text-red-500').forEach(el => {
-                    el.innerText = data.tunggakan.total_unit;
-                });
+                document.getElementById('total_unit_tunggakan').innerText = data.tunggakan.total_unit;
                 // Chart bypembayaran
                 Highcharts.chart('bypembayaran', {
                     chart: { type: 'pie' },

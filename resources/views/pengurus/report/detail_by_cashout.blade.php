@@ -37,7 +37,7 @@
             <div class="flex justify-center mb-4">
                 <div class="text-center mb-2">
                     <div class="text-gray-500">Jumlah Warga</div>
-                    <div id="total_by_type" class="text-2xl font-bold">100</div>
+                    <div id="total_by_type" class="text-2xl font-bold">-</div>
                 </div>
             </div>
 
