@@ -27,7 +27,7 @@ class SellerController extends Controller
         
         if (!$user->isSeller()) {
             Alert::error('Akses Ditolak', 'Anda tidak memiliki akses seller.');
-            return redirect()->route('pengurus.dashboard');
+            return redirect()->route('pengurus');
         }
 
         $stores = $user->stores;
@@ -61,7 +61,7 @@ class SellerController extends Controller
         
         if (!$user->isSeller()) {
             Alert::error('Akses Ditolak', 'Anda tidak memiliki akses seller.');
-            return redirect()->route('pengurus.dashboard');
+            return redirect()->route('pengurus');
         }
 
         $stores = $user->stores()->withCount(['products', 'orders'])->get();
@@ -75,7 +75,7 @@ class SellerController extends Controller
         
         if (!$user->isSeller()) {
             Alert::error('Akses Ditolak', 'Anda tidak memiliki akses seller.');
-            return redirect()->route('pengurus.dashboard');
+            return redirect()->route('pengurus');
         }
 
         $myStoreIds = $user->stores->pluck('id');
@@ -93,7 +93,7 @@ class SellerController extends Controller
         
         if (!$user->isSeller()) {
             Alert::error('Akses Ditolak', 'Anda tidak memiliki akses seller.');
-            return redirect()->route('pengurus.dashboard');
+            return redirect()->route('pengurus');
         }
 
         if ($user->stores->contains($store->id)) {
