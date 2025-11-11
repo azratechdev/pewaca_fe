@@ -16,6 +16,10 @@ class WarungkuSeeder extends Seeder
      */
     public function run()
     {
+        // Clear existing data to prevent duplicates
+        \DB::table('products')->delete();
+        \DB::table('stores')->delete();
+        
         $stores = [
             [
                 'name' => 'Toko Sembako Makmur',
