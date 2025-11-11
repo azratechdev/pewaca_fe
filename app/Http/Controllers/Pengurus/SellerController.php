@@ -366,6 +366,18 @@ class SellerController extends Controller
             Alert::info('Info', 'Anda sudah terdaftar sebagai seller.');
             return redirect()->route('pengurus.seller.dashboard');
         }
+        
+        // Check if user has any approved or pending requests
+        $user = DB::table('users')->where('email', $cred['email'])->first();
+        if ($user) {
+            $existingRequest = SellerRequest::where('user_id', $user->id)
+                ->whereIn('status', [SellerRequest::STATUS_PENDING, SellerRequest::STATUS_APPROVED])
+                ->first();
+            
+            if ($existingRequest) {
+                return redirect()->route('pengurus.seller.request.status');
+            }
+        }
 
         return view('pengurus.seller.register');
     }
@@ -412,14 +424,19 @@ class SellerController extends Controller
                 return redirect()->back()->withInput();
             }
             
-            // Check if user already has pending request
+            // Check if user already has pending or approved request
             $existingRequest = SellerRequest::where('user_id', $user->id)
-                ->where('status', SellerRequest::STATUS_PENDING)
+                ->whereIn('status', [SellerRequest::STATUS_PENDING, SellerRequest::STATUS_APPROVED])
                 ->first();
             
             if ($existingRequest) {
-                Alert::info('Info', 'Anda sudah memiliki pendaftaran seller yang sedang menunggu persetujuan pengurus.');
-                return redirect()->route('pengurus.seller.request.status');
+                if ($existingRequest->status == SellerRequest::STATUS_APPROVED) {
+                    Alert::info('Info', 'Anda sudah terdaftar sebagai seller.');
+                    return redirect()->route('pengurus.seller.dashboard');
+                } else {
+                    Alert::info('Info', 'Anda sudah memiliki pendaftaran seller yang sedang menunggu persetujuan pengurus.');
+                    return redirect()->route('pengurus.seller.request.status');
+                }
             }
             
             // Create seller request
