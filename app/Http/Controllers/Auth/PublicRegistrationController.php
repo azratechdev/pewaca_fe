@@ -99,7 +99,7 @@ class PublicRegistrationController extends Controller
             'password' => $request->password,
             'account_type' => $request->account_type, // 'warga' or 'pengurus'
             'is_warga' => $request->account_type === 'warga',
-            'is_pengurus' => $request->account_type === 'pengurus',
+            // Note: is_pengurus field removed - not in Django MUser model
         ];
 
         try {
