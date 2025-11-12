@@ -46,10 +46,10 @@
                                     {{ $request->store_name }}
                                 </h5>
                                 <p class="mb-1 text-muted">
-                                    <i class="fas fa-user"></i> {{ $request->user->name ?? 'User' }}
+                                    <i class="fas fa-user"></i> User ID: {{ $request->user_id }}
                                 </p>
                                 <p class="mb-1 text-muted small">
-                                    <i class="fas fa-envelope"></i> {{ $request->user->email ?? '-' }}
+                                    <i class="fas fa-map-marker-alt"></i> {{ Str::limit($request->store_address, 50) }}
                                 </p>
                                 <p class="mb-0">
                                     <span class="badge" style="background-color: #dcfce7; color: #3d7357;">
@@ -67,14 +67,14 @@
                                         <i class="fas fa-check"></i> Disetujui
                                     </span>
                                     <p class="small text-muted mb-0 mt-1">
-                                        oleh {{ $request->approver->name ?? 'Admin' }}
+                                        oleh Pengurus ID: {{ $request->approved_by ?? '-' }}
                                     </p>
                                 @else
                                     <span class="badge bg-danger">
                                         <i class="fas fa-times"></i> Ditolak
                                     </span>
                                     <p class="small text-muted mb-0 mt-1">
-                                        oleh {{ $request->approver->name ?? 'Admin' }}
+                                        oleh Pengurus ID: {{ $request->approved_by ?? '-' }}
                                     </p>
                                 @endif
                                 <p class="small text-muted mt-1">{{ $request->created_at->diffForHumans() }}</p>

@@ -66,13 +66,8 @@
                     <h6 class="text-muted mb-3">Informasi Pemohon</h6>
 
                     <div class="row mb-3">
-                        <div class="col-md-4 fw-bold">Nama</div>
-                        <div class="col-md-8">{{ $sellerRequest->user->name ?? '-' }}</div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-4 fw-bold">Email</div>
-                        <div class="col-md-8">{{ $sellerRequest->user->email ?? '-' }}</div>
+                        <div class="col-md-4 fw-bold">User ID</div>
+                        <div class="col-md-8">{{ $sellerRequest->user_id }}</div>
                     </div>
 
                     <div class="row mb-3">
@@ -86,7 +81,7 @@
 
                         <div class="row mb-3">
                             <div class="col-md-4 fw-bold">Diproses Oleh</div>
-                            <div class="col-md-8">{{ $sellerRequest->approver->name ?? '-' }}</div>
+                            <div class="col-md-8">Pengurus ID: {{ $sellerRequest->approved_by ?? '-' }}</div>
                         </div>
 
                         <div class="row mb-3">
