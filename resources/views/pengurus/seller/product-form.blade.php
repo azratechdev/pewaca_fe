@@ -64,7 +64,8 @@
   <div class="form-card">
     <form action="{{ isset($product) ? route('pengurus.seller.products.update', [$store->id, $product->id]) : route('pengurus.seller.products.store', $store->id) }}" 
           method="POST" 
-          id="productForm">
+          id="productForm"
+          onsubmit="console.log('FORM ONSUBMIT FIRED'); alert('Form submitting to: ' + this.action); return true;">
       @csrf
       @if(isset($product))
         @method('PUT')
@@ -175,7 +176,7 @@
         <a href="{{ route('pengurus.seller.products', $store->id) }}" class="btn btn-outline-secondary">
           <i class="fas fa-times"></i> Batal
         </a>
-        <button type="submit" class="btn-seller" id="submitBtn">
+        <button type="submit" class="btn-seller" id="submitBtn" onclick="console.log('BUTTON CLICKED');">
           <i class="fas fa-save"></i> {{ isset($product) ? 'Update' : 'Simpan' }} Produk
         </button>
       </div>
