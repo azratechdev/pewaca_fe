@@ -19,22 +19,17 @@ class SellerRequestController extends Controller
 
     public function index(Request $request)
     {
-        $query = SellerRequest::with(['user', 'approver'])->latest();
+        $query = SellerRequest::latest();
         
         // Filter by status
         if ($request->has('status') && $request->status != '') {
             $query->where('status', $request->status);
         }
         
-        // Search by store name or user name
+        // Search by store name only (user table doesn't exist locally)
         if ($request->has('search') && $request->search != '') {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
-                $q->where('store_name', 'like', "%{$search}%")
-                  ->orWhereHas('user', function($q2) use ($search) {
-                      $q2->where('name', 'like', "%{$search}%");
-                  });
-            });
+            $query->where('store_name', 'like', "%{$search}%");
         }
         
         $sellerRequests = $query->paginate(15);
@@ -45,7 +40,7 @@ class SellerRequestController extends Controller
 
     public function show($id)
     {
-        $sellerRequest = SellerRequest::with(['user', 'approver'])->findOrFail($id);
+        $sellerRequest = SellerRequest::findOrFail($id);
         
         return view('pengurus.seller-requests.show', compact('sellerRequest'));
     }
