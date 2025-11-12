@@ -17,10 +17,8 @@ use App\Models\SellerRequest;
 
 class SellerController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // REMOVED middleware('auth') - this app uses Django API auth (Session::get('cred'))
+    // Each method has its own session check instead
 
     public function dashboard()
     {

@@ -61,6 +61,18 @@
     </a>
   </div>
 
+  @if ($errors->any())
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <h5 class="alert-heading"><i class="fas fa-exclamation-triangle"></i> Error!</h5>
+      <ul class="mb-0">
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  @endif
+
   <div class="form-card">
     <form action="{{ isset($product) ? route('pengurus.seller.products.update', [$store->id, $product->id]) : route('pengurus.seller.products.store', $store->id) }}" 
           method="POST" 
