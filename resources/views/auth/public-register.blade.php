@@ -26,13 +26,15 @@
     <style>
         .login-register {
             background: url(../assets/plugins/images/login-register.jpg) center center/cover no-repeat!important;
-            height: 100%; 
-            position: fixed;
+            min-height: 100vh;
+            overflow-y: auto;
+            padding: 20px 0;
         }
         .register-box {
             background: #fff;
             width: 500px;
-            margin: 3% auto 3%;
+            max-width: 95%;
+            margin: 0 auto;
             border-radius: 10px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
         }
@@ -114,6 +116,44 @@
             border-radius: 5px;
             margin-bottom: 20px;
         }
+        
+        /* Loading Overlay */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        .loading-overlay.active {
+            display: flex;
+        }
+        .loading-content {
+            text-align: center;
+            color: #fff;
+        }
+        .loading-spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #667eea;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .btn-register:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 
@@ -123,6 +163,15 @@
         <div class="cssload-speeding-wheel"></div>
     </div>
     
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h4>Memproses registrasi...</h4>
+            <p>Mohon tunggu sebentar</p>
+        </div>
+    </div>
+
     <section id="wrapper" class="login-register">
         <div class="register-box">
             <div class="white-box">
@@ -301,8 +350,9 @@
                     <!-- Submit Button -->
                     <div class="form-group text-center">
                         <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light btn-register" 
-                                type="submit">
-                            <i class="fas fa-user-plus"></i> Daftar Sekarang
+                                type="submit"
+                                id="submitBtn">
+                            <i class="fas fa-user-plus"></i> <span id="btnText">Daftar Sekarang</span>
                         </button>
                     </div>
                 </form>
@@ -326,19 +376,100 @@
     <script src="{{ asset('assets/js/waves.js') }}"></script>
     <!-- Custom JavaScript -->
     <script src="{{ asset('assets/js/custom.js') }}"></script>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <script>
-        // Form validation
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
+        const form = document.getElementById('registerForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const btnText = document.getElementById('btnText');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        let timeoutId = null;
+
+        // Function to reset button state
+        function resetButtonState() {
+            submitBtn.disabled = false;
+            btnText.innerHTML = 'Daftar Sekarang';
+            loadingOverlay.classList.remove('active');
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+                timeoutId = null;
+            }
+        }
+
+        // Form validation & submit handler
+        form.addEventListener('submit', function(e) {
+            // Validate phone number
             const phoneNo = document.querySelector('input[name="phone_no"]').value;
             const phonePattern = /^\d{8,13}$/;
             
             if (!phonePattern.test(phoneNo)) {
                 e.preventDefault();
-                alert('Nomor HP harus terdiri dari 8-13 digit angka!');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Format Nomor HP Salah!',
+                    text: 'Nomor HP harus terdiri dari 8-13 digit angka',
+                    confirmButtonColor: '#667eea'
+                });
                 return false;
             }
+
+            // Show loading state
+            submitBtn.disabled = true;
+            btnText.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+            loadingOverlay.classList.add('active');
+
+            // Set timeout (30 seconds)
+            timeoutId = setTimeout(function() {
+                resetButtonState();
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Request Timeout',
+                    text: 'Proses memakan waktu terlalu lama. Silakan coba lagi.',
+                    confirmButtonColor: '#667eea'
+                });
+            }, 30000);
         });
+
+        // Clear timeout on page unload (successful submit/redirect)
+        window.addEventListener('beforeunload', function() {
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
+        });
+
+        // Reset state if page loads with errors (validation failed)
+        document.addEventListener('DOMContentLoaded', function() {
+            @if($errors->any())
+                resetButtonState();
+            @endif
+        });
+
+        // Handle success/error messages from Laravel session
+        @if(session('success'))
+            resetButtonState();
+            Swal.fire({
+                icon: 'success',
+                title: 'Registrasi Berhasil!',
+                html: '{{ session('success') }}',
+                confirmButtonColor: '#667eea',
+                confirmButtonText: 'Login Sekarang'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '{{ route('login') }}';
+                }
+            });
+        @endif
+
+        @if(session('error'))
+            resetButtonState();
+            Swal.fire({
+                icon: 'error',
+                title: 'Registrasi Gagal!',
+                html: '{{ session('error') }}',
+                confirmButtonColor: '#667eea'
+            });
+        @endif
     </script>
 </body>
 </html>
