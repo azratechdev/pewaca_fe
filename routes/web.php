@@ -8,6 +8,7 @@ use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\PublicRegistrationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\TagihanController;
 use App\Http\Controllers\ReportController;
@@ -33,6 +34,12 @@ Route::get('/', [LoginController::class, 'showLoginForm'])
 Route::get('/company-profile', [LoginController::class, 'companyProfile'])->name('companyProfile');
 
 Route::post('/', [LoginController::class, 'postlogin'])->name('postlogin');
+
+// Public Registration Routes (New)
+Route::get('/register', [PublicRegistrationController::class, 'showRegister'])->name('register');
+Route::post('/register', [PublicRegistrationController::class, 'store'])->name('register.store');
+
+// UUID-based Registration Routes (Legacy - Invitation System)
 Route::get('/registration/{uuid?}', [RegisterController::class, 'showRegister'])->name('showRegister');
 Route::post('/postregistration', [RegisterController::class, 'postRegister'])->name('postRegister');
 Route::get('/verified/{uuid?}/{token?}', [RegisterController::class, 'verified'])->name('showVerified');
@@ -59,7 +66,8 @@ Route::get('/pemilu-tc', [\App\Http\Controllers\VotingController::class, 'index'
 Route::post('/pemilu-tc/vote', [\App\Http\Controllers\VotingController::class, 'store'])->name('voting.store');
 Route::get('/pemilu-tc/results', [\App\Http\Controllers\VotingController::class, 'results'])->name('voting.results');
 
-Auth::routes();
+// Disable default register routes, use custom routes above
+Auth::routes(['register' => false]);
 
 // Rute yang membutuhkan autentikasi
 Route::group(['middleware' => ['auth', 'check.token']], function () {

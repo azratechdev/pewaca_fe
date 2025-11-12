@@ -21,9 +21,10 @@ I prefer simple language and detailed explanations. I want iterative development
 - Comprehensive reporting and billing functionalities.
 - Progressive Web App (PWA) capabilities with optimized service worker.
 - QRIS Payment Orchestrator using a dedicated SQLite database and flexible provider interface.
-- **Warungku Marketplace**: Internal marketplace for residents, publicly accessible, with product listing and store management. Seller registration includes an approval workflow.
+- **Warungku Marketplace**: Internal marketplace for residents, publicly accessible, with product listing and store management. Seller registration includes an approval workflow. Product CRUD fully functional with SweetAlert notifications.
 - **Company Profile Page**: Modern, responsive landing page for PT HEMITECH KARYA INDONESIA.
 - **Voting System (Pemilu-TC)**: Public voting system for neighborhood association leader elections using a dedicated SQLite database.
+- **Public Registration System**: Accessible from login page at `/register`, allows warga and pengurus to register with simplified form (Nama, No HP, Residence, Blok Rumah, Email, Password).
 
 ### UI/UX Decisions
 - Consistent use of Bootstrap 5 for responsive design.
@@ -37,7 +38,9 @@ I prefer simple language and detailed explanations. I want iterative development
 - **Environment Configuration**: Utilizes `.env` for sensitive settings.
 - **PWA Support**: Full PWA implementation with offline page and installable app functionality.
 - **Authentication**: Custom session-based authentication leveraging `Session::get('cred')` for user data, compatible with the Django backend.
-- **Warga Registration**: UUID-based invitation system, multi-step registration, backend validation, email verification, and account creation via Django API.
+- **User Registration**:
+    - **UUID-based Invitation System** (Legacy): Multi-step registration with complex data fields, backend validation, email verification, and account creation via Django API at `/api/auth/sign-up/{uuid}/`.
+    - **Public Registration** (New - November 2025): Simplified public registration accessible from login page with fields: Nama, No HP, Residence (dropdown), Blok Rumah, Email, Password. Registration handled by `PublicRegistrationController` posting to Django API at `/api/auth/public-sign-up/`. Accounts created as warga (inactive) by default.
 
 ## External Dependencies
 - **Backend API**: `https://admin.pewaca.id` (Django backend)

@@ -18,6 +18,11 @@ class PublicRegistrationController extends Controller
         // Fetch residence list from Django API
         $residences = $this->getResidences();
         
+        // Alert user if residence list is empty
+        if (empty($residences)) {
+            Alert::warning('Peringatan', 'Data residence tidak dapat dimuat. Silakan coba lagi nanti.');
+        }
+        
         return view('auth.public-register', compact('residences'));
     }
 
@@ -93,9 +98,13 @@ class PublicRegistrationController extends Controller
 
         try {
             // Call Django API for public registration
-            $response = Http::withHeaders([
-                'Accept' => 'application/json',
-            ])->timeout(15)->post(env('API_URL') . '/api/auth/public-sign-up/', $data);
+            // Use withoutDebugging() to prevent password logging in HTTP layer
+            $response = Http::withoutDebugging()
+                ->withHeaders([
+                    'Accept' => 'application/json',
+                ])
+                ->timeout(15)
+                ->post(env('API_URL') . '/api/auth/public-sign-up/', $data);
 
             $responseData = json_decode($response->body(), true);
 
@@ -119,9 +128,13 @@ class PublicRegistrationController extends Controller
                     ->withInput();
             }
         } catch (\Exception $e) {
-            \Log::error('Public registration failed', [
+            // Log exception with full diagnostic telemetry (no sensitive data)
+            \Log::error('Public registration API call failed', [
                 'error' => $e->getMessage(),
-                'data' => $data
+                'exception_class' => get_class($e),
+                'trace' => $e->getTraceAsString(),
+                'email' => $data['email'] ?? null,
+                'residence_id' => $data['residence_id'] ?? null,
             ]);
 
             Alert::error('Gagal', 'Terjadi kesalahan saat registrasi. Silakan coba lagi.');
