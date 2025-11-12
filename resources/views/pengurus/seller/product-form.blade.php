@@ -190,6 +190,17 @@ const imagePreview = document.getElementById('imagePreview');
 const imageBase64 = document.getElementById('imageBase64');
 const compressionStatus = document.getElementById('compressionStatus');
 const submitBtn = document.getElementById('submitBtn');
+const productForm = document.getElementById('productForm');
+
+// Debug: Log form submit
+productForm.addEventListener('submit', function(e) {
+  console.log('=== FORM SUBMIT TRIGGERED ===');
+  console.log('Form action:', productForm.action);
+  console.log('Form method:', productForm.method);
+  console.log('Button disabled:', submitBtn.disabled);
+  console.log('Form data:', new FormData(productForm));
+  // Let form submit normally - don't prevent default
+});
 
 imageInput.addEventListener('change', async function(e) {
   const file = e.target.files[0];
@@ -225,6 +236,7 @@ imageInput.addEventListener('change', async function(e) {
         <br><small>Ukuran asli: ${originalSize}KB → Hasil: ${compressedSize}KB</small>
       </div>`;
       submitBtn.disabled = false;
+      console.log('Image compressed, button re-enabled');
     };
     reader.readAsDataURL(compressedFile);
     
@@ -234,6 +246,9 @@ imageInput.addEventListener('change', async function(e) {
     submitBtn.disabled = false;
   }
 });
+
+// Debug: Check button state on page load
+console.log('Page loaded, button disabled:', submitBtn.disabled);
 </script>
 
 @endsection
