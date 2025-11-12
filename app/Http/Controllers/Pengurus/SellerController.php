@@ -24,24 +24,39 @@ class SellerController extends Controller
 
     public function dashboard()
     {
-        $user = Auth::user();
-        
-        if (!$user->isSeller()) {
+        // Check session authentication
+        if (!Session::has('cred')) {
+            Alert::error('Akses Ditolak', 'Sesi Anda telah berakhir. Silakan login kembali.');
+            return redirect()->route('login');
+        }
+
+        $cred = Session::get('cred');
+        $userId = $cred['user_id'] ?? null;
+        $isSeller = $cred['is_seller'] ?? 0;
+
+        if (!$userId) {
+            Alert::error('Akses Ditolak', 'Data user tidak valid.');
+            return redirect()->route('pengurus');
+        }
+
+        if (!$isSeller) {
             Alert::error('Akses Ditolak', 'Anda tidak memiliki akses seller.');
             return redirect()->route('pengurus');
         }
 
-        $stores = $user->stores;
+        // Get stores owned by this user
+        $stores = Store::where('user_id', $userId)->get();
+        $storeIds = $stores->pluck('id');
         
         $totalStores = $stores->count();
-        $totalProducts = Product::whereIn('store_id', $stores->pluck('id'))->count();
-        $totalOrders = Order::whereIn('store_id', $stores->pluck('id'))->count();
-        $totalRevenue = Order::whereIn('store_id', $stores->pluck('id'))
+        $totalProducts = Product::whereIn('store_id', $storeIds)->count();
+        $totalOrders = Order::whereIn('store_id', $storeIds)->count();
+        $totalRevenue = Order::whereIn('store_id', $storeIds)
                             ->where('payment_status', 'paid')
                             ->sum('total_amount');
 
-        $recentOrders = Order::whereIn('store_id', $stores->pluck('id'))
-                            ->with(['store', 'user', 'items'])
+        $recentOrders = Order::whereIn('store_id', $storeIds)
+                            ->with(['store'])
                             ->latest()
                             ->take(10)
                             ->get();
@@ -58,77 +73,78 @@ class SellerController extends Controller
 
     public function myStores()
     {
-        $user = Auth::user();
-        
-        if (!$user->isSeller()) {
+        // Check session authentication
+        if (!Session::has('cred')) {
+            Alert::error('Akses Ditolak', 'Sesi Anda telah berakhir. Silakan login kembali.');
+            return redirect()->route('login');
+        }
+
+        $cred = Session::get('cred');
+        $userId = $cred['user_id'] ?? null;
+        $isSeller = $cred['is_seller'] ?? 0;
+
+        if (!$userId) {
+            Alert::error('Akses Ditolak', 'Data user tidak valid.');
+            return redirect()->route('pengurus');
+        }
+
+        if (!$isSeller) {
             Alert::error('Akses Ditolak', 'Anda tidak memiliki akses seller.');
             return redirect()->route('pengurus');
         }
 
-        $stores = $user->stores()->withCount(['products', 'orders'])->get();
+        // Get stores owned by this user
+        $stores = Store::where('user_id', $userId)
+                    ->withCount(['products', 'orders'])
+                    ->get();
 
         return view('pengurus.seller.my-stores', compact('stores'));
     }
 
     public function browseStores()
     {
-        $user = Auth::user();
-        
-        if (!$user->isSeller()) {
-            Alert::error('Akses Ditolak', 'Anda tidak memiliki akses seller.');
-            return redirect()->route('pengurus');
-        }
-
-        $myStoreIds = $user->stores->pluck('id');
-        $availableStores = Store::whereNotIn('id', $myStoreIds)
-                                ->where('is_active', true)
-                                ->withCount('products')
-                                ->get();
-
-        return view('pengurus.seller.browse-stores', compact('availableStores'));
+        // NOTE: This feature is for multi-seller pivot table system (deprecated)
+        // New ownership model uses direct Store::user_id assignment
+        // Redirecting to dashboard for now
+        Alert::info('Info', 'Fitur browse stores saat ini tidak tersedia.');
+        return redirect()->route('pengurus.seller.dashboard');
     }
 
     public function claimStore(Request $request, Store $store)
     {
-        $user = Auth::user();
-        
-        if (!$user->isSeller()) {
-            Alert::error('Akses Ditolak', 'Anda tidak memiliki akses seller.');
-            return redirect()->route('pengurus');
-        }
-
-        if ($user->stores->contains($store->id)) {
-            Alert::warning('Sudah Terdaftar', 'Anda sudah menjadi seller di toko ini.');
-            return back();
-        }
-
-        $user->stores()->attach($store->id, ['role' => 'seller']);
-
-        Alert::success('Berhasil', 'Anda sekarang menjadi seller di ' . $store->name);
-        return redirect()->route('pengurus.seller.products', $store->id);
+        // NOTE: This feature is for multi-seller pivot table system (deprecated)
+        // New ownership model uses seller_requests approval workflow
+        Alert::info('Info', 'Silakan gunakan form pendaftaran seller untuk mendaftar toko baru.');
+        return redirect()->route('pengurus.seller.register');
     }
 
     public function leaveStore(Store $store)
     {
-        $user = Auth::user();
-        
-        if (!$user->stores->contains($store->id)) {
-            Alert::error('Error', 'Anda bukan seller di toko ini.');
-            return back();
-        }
-
-        $user->stores()->detach($store->id);
-
-        Alert::success('Berhasil', 'Anda telah keluar dari toko ' . $store->name);
-        return redirect()->route('pengurus.seller.my-stores');
+        // NOTE: This feature is for multi-seller pivot table system (deprecated)
+        // New ownership model: Owners cannot leave their own stores
+        Alert::warning('Akses Ditolak', 'Anda tidak dapat meninggalkan toko yang Anda miliki.');
+        return redirect()->route('pengurus.seller.dashboard');
     }
 
     public function products(Store $store)
     {
-        $user = Auth::user();
-        
-        if (!$user->stores->contains($store->id)) {
-            Alert::error('Akses Ditolak', 'Anda bukan seller di toko ini.');
+        // Check session authentication
+        if (!Session::has('cred')) {
+            Alert::error('Akses Ditolak', 'Sesi Anda telah berakhir. Silakan login kembali.');
+            return redirect()->route('login');
+        }
+
+        $cred = Session::get('cred');
+        $userId = $cred['user_id'] ?? null;
+
+        if (!$userId) {
+            Alert::error('Akses Ditolak', 'Data user tidak valid.');
+            return redirect()->route('pengurus');
+        }
+
+        // Check store ownership
+        if ($store->user_id != $userId) {
+            Alert::error('Akses Ditolak', 'Anda bukan pemilik toko ini.');
             return redirect()->route('pengurus.seller.dashboard');
         }
 
@@ -139,10 +155,23 @@ class SellerController extends Controller
 
     public function createProduct(Store $store)
     {
-        $user = Auth::user();
-        
-        if (!$user->stores->contains($store->id)) {
-            Alert::error('Akses Ditolak', 'Anda bukan seller di toko ini.');
+        // Check session authentication
+        if (!Session::has('cred')) {
+            Alert::error('Akses Ditolak', 'Sesi Anda telah berakhir. Silakan login kembali.');
+            return redirect()->route('login');
+        }
+
+        $cred = Session::get('cred');
+        $userId = $cred['user_id'] ?? null;
+
+        if (!$userId) {
+            Alert::error('Akses Ditolak', 'Data user tidak valid.');
+            return redirect()->route('pengurus');
+        }
+
+        // Check store ownership
+        if ($store->user_id != $userId) {
+            Alert::error('Akses Ditolak', 'Anda bukan pemilik toko ini.');
             return redirect()->route('pengurus.seller.dashboard');
         }
 
@@ -151,10 +180,23 @@ class SellerController extends Controller
 
     public function storeProduct(Request $request, Store $store)
     {
-        $user = Auth::user();
-        
-        if (!$user->stores->contains($store->id)) {
-            Alert::error('Akses Ditolak', 'Anda bukan seller di toko ini.');
+        // Check session authentication
+        if (!Session::has('cred')) {
+            Alert::error('Akses Ditolak', 'Sesi Anda telah berakhir. Silakan login kembali.');
+            return redirect()->route('login');
+        }
+
+        $cred = Session::get('cred');
+        $userId = $cred['user_id'] ?? null;
+
+        if (!$userId) {
+            Alert::error('Akses Ditolak', 'Data user tidak valid.');
+            return redirect()->route('pengurus');
+        }
+
+        // Check store ownership
+        if ($store->user_id != $userId) {
+            Alert::error('Akses Ditolak', 'Anda bukan pemilik toko ini.');
             return redirect()->route('pengurus.seller.dashboard');
         }
 
@@ -178,9 +220,22 @@ class SellerController extends Controller
 
     public function editProduct(Store $store, Product $product)
     {
-        $user = Auth::user();
-        
-        if (!$user->stores->contains($store->id) || $product->store_id != $store->id) {
+        // Check session authentication
+        if (!Session::has('cred')) {
+            Alert::error('Akses Ditolak', 'Sesi Anda telah berakhir. Silakan login kembali.');
+            return redirect()->route('login');
+        }
+
+        $cred = Session::get('cred');
+        $userId = $cred['user_id'] ?? null;
+
+        if (!$userId) {
+            Alert::error('Akses Ditolak', 'Data user tidak valid.');
+            return redirect()->route('pengurus');
+        }
+
+        // Check store ownership and product belongs to store
+        if ($store->user_id != $userId || $product->store_id != $store->id) {
             Alert::error('Akses Ditolak', 'Anda tidak memiliki akses untuk mengedit produk ini.');
             return redirect()->route('pengurus.seller.dashboard');
         }
@@ -190,9 +245,22 @@ class SellerController extends Controller
 
     public function updateProduct(Request $request, Store $store, Product $product)
     {
-        $user = Auth::user();
-        
-        if (!$user->stores->contains($store->id) || $product->store_id != $store->id) {
+        // Check session authentication
+        if (!Session::has('cred')) {
+            Alert::error('Akses Ditolak', 'Sesi Anda telah berakhir. Silakan login kembali.');
+            return redirect()->route('login');
+        }
+
+        $cred = Session::get('cred');
+        $userId = $cred['user_id'] ?? null;
+
+        if (!$userId) {
+            Alert::error('Akses Ditolak', 'Data user tidak valid.');
+            return redirect()->route('pengurus');
+        }
+
+        // Check store ownership and product belongs to store
+        if ($store->user_id != $userId || $product->store_id != $store->id) {
             Alert::error('Akses Ditolak', 'Anda tidak memiliki akses untuk mengupdate produk ini.');
             return redirect()->route('pengurus.seller.dashboard');
         }
@@ -216,9 +284,22 @@ class SellerController extends Controller
 
     public function deleteProduct(Store $store, Product $product)
     {
-        $user = Auth::user();
-        
-        if (!$user->stores->contains($store->id) || $product->store_id != $store->id) {
+        // Check session authentication
+        if (!Session::has('cred')) {
+            Alert::error('Akses Ditolak', 'Sesi Anda telah berakhir. Silakan login kembali.');
+            return redirect()->route('login');
+        }
+
+        $cred = Session::get('cred');
+        $userId = $cred['user_id'] ?? null;
+
+        if (!$userId) {
+            Alert::error('Akses Ditolak', 'Data user tidak valid.');
+            return redirect()->route('pengurus');
+        }
+
+        // Check store ownership and product belongs to store
+        if ($store->user_id != $userId || $product->store_id != $store->id) {
             Alert::error('Akses Ditolak', 'Anda tidak memiliki akses untuk menghapus produk ini.');
             return redirect()->route('pengurus.seller.dashboard');
         }
@@ -231,9 +312,20 @@ class SellerController extends Controller
 
     public function updateStock(Request $request, Store $store, Product $product)
     {
-        $user = Auth::user();
-        
-        if (!$user->stores->contains($store->id) || $product->store_id != $store->id) {
+        // Check session authentication
+        if (!Session::has('cred')) {
+            return response()->json(['success' => false, 'message' => 'Sesi berakhir. Silakan login kembali.'], 401);
+        }
+
+        $cred = Session::get('cred');
+        $userId = $cred['user_id'] ?? null;
+
+        if (!$userId) {
+            return response()->json(['success' => false, 'message' => 'Data user tidak valid'], 401);
+        }
+
+        // Check store ownership and product belongs to store
+        if ($store->user_id != $userId || $product->store_id != $store->id) {
             return response()->json(['success' => false, 'message' => 'Akses ditolak'], 403);
         }
 
@@ -252,15 +344,27 @@ class SellerController extends Controller
 
     public function orders(Store $store)
     {
-        $user = Auth::user();
-        
-        if (!$user->stores->contains($store->id)) {
-            Alert::error('Akses Ditolak', 'Anda bukan seller di toko ini.');
+        // Check session authentication
+        if (!Session::has('cred')) {
+            Alert::error('Akses Ditolak', 'Sesi Anda telah berakhir. Silakan login kembali.');
+            return redirect()->route('login');
+        }
+
+        $cred = Session::get('cred');
+        $userId = $cred['user_id'] ?? null;
+
+        if (!$userId) {
+            Alert::error('Akses Ditolak', 'Data user tidak valid.');
+            return redirect()->route('pengurus');
+        }
+
+        // Check store ownership
+        if ($store->user_id != $userId) {
+            Alert::error('Akses Ditolak', 'Anda bukan pemilik toko ini.');
             return redirect()->route('pengurus.seller.dashboard');
         }
 
         $orders = $store->orders()
-                        ->with(['user', 'items.product'])
                         ->latest()
                         ->paginate(20);
 
@@ -269,23 +373,47 @@ class SellerController extends Controller
 
     public function orderDetail(Store $store, Order $order)
     {
-        $user = Auth::user();
-        
-        if (!$user->stores->contains($store->id) || $order->store_id != $store->id) {
+        // Check session authentication
+        if (!Session::has('cred')) {
+            Alert::error('Akses Ditolak', 'Sesi Anda telah berakhir. Silakan login kembali.');
+            return redirect()->route('login');
+        }
+
+        $cred = Session::get('cred');
+        $userId = $cred['user_id'] ?? null;
+
+        if (!$userId) {
+            Alert::error('Akses Ditolak', 'Data user tidak valid.');
+            return redirect()->route('pengurus');
+        }
+
+        // Check store ownership and order belongs to store
+        if ($store->user_id != $userId || $order->store_id != $store->id) {
             Alert::error('Akses Ditolak', 'Anda tidak memiliki akses untuk melihat order ini.');
             return redirect()->route('pengurus.seller.dashboard');
         }
 
-        $order->load(['user', 'items.product']);
+        $order->load(['items.product']);
 
         return view('pengurus.seller.order-detail', compact('store', 'order'));
     }
 
     public function updateOrderStatus(Request $request, Store $store, Order $order)
     {
-        $user = Auth::user();
-        
-        if (!$user->stores->contains($store->id) || $order->store_id != $store->id) {
+        // Check session authentication
+        if (!Session::has('cred')) {
+            return response()->json(['success' => false, 'message' => 'Sesi berakhir. Silakan login kembali.'], 401);
+        }
+
+        $cred = Session::get('cred');
+        $userId = $cred['user_id'] ?? null;
+
+        if (!$userId) {
+            return response()->json(['success' => false, 'message' => 'Data user tidak valid'], 401);
+        }
+
+        // Check store ownership and order belongs to store
+        if ($store->user_id != $userId || $order->store_id != $store->id) {
             return response()->json(['success' => false, 'message' => 'Akses ditolak'], 403);
         }
 
@@ -304,10 +432,23 @@ class SellerController extends Controller
 
     public function reports(Store $store)
     {
-        $user = Auth::user();
-        
-        if (!$user->stores->contains($store->id)) {
-            Alert::error('Akses Ditolak', 'Anda bukan seller di toko ini.');
+        // Check session authentication
+        if (!Session::has('cred')) {
+            Alert::error('Akses Ditolak', 'Sesi Anda telah berakhir. Silakan login kembali.');
+            return redirect()->route('login');
+        }
+
+        $cred = Session::get('cred');
+        $userId = $cred['user_id'] ?? null;
+
+        if (!$userId) {
+            Alert::error('Akses Ditolak', 'Data user tidak valid.');
+            return redirect()->route('pengurus');
+        }
+
+        // Check store ownership
+        if ($store->user_id != $userId) {
+            Alert::error('Akses Ditolak', 'Anda bukan pemilik toko ini.');
             return redirect()->route('pengurus.seller.dashboard');
         }
 
