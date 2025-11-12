@@ -215,14 +215,17 @@ class SellerController extends Controller
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
-            'is_available' => 'boolean',
             'image' => 'nullable|string',
         ]);
 
         $validated['store_id'] = $store->id;
-        $validated['is_available'] = $request->has('is_available');
+        $validated['is_available'] = $request->has('is_available') ? 1 : 0;
+
+        \Log::info('Creating product', ['validated' => $validated]);
 
         $product = Product::create($validated);
+
+        \Log::info('Product created successfully', ['product_id' => $product->id]);
 
         Alert::success('Berhasil', 'Produk berhasil ditambahkan!');
         return redirect()->route('pengurus.seller.products', $store->id);
