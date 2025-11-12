@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -43,7 +44,7 @@ class PublicRegistrationController extends Controller
             
             return [];
         } catch (\Exception $e) {
-            \Log::error('Failed to fetch residences from API', [
+            Log::error('Failed to fetch residences from API', [
                 'error' => $e->getMessage()
             ]);
             return [];
@@ -139,7 +140,7 @@ class PublicRegistrationController extends Controller
             $responseData = json_decode($response->body(), true);
             
             // Log response for debugging
-            \Log::info('Public registration API response', [
+            Log::info('Public registration API response', [
                 'status_code' => $response->status(),
                 'success' => $response->successful(),
                 'has_data' => isset($responseData),
@@ -178,7 +179,7 @@ class PublicRegistrationController extends Controller
             }
         } catch (\Exception $e) {
             // Log exception with full diagnostic telemetry (no sensitive data)
-            \Log::error('Public registration API call failed', [
+            Log::error('Public registration API call failed', [
                 'error' => $e->getMessage(),
                 'exception_class' => get_class($e),
                 'trace_preview' => substr($e->getTraceAsString(), 0, 500),
