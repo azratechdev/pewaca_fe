@@ -157,7 +157,7 @@
           <i class="fas fa-store"></i>
         @endif
       </div>
-      <div>
+      <div class="flex-grow-1">
         <h2 class="mb-2" style="font-weight: 800;">{{ $store->name }}</h2>
         <div class="mb-2">
           <span style="background: rgba(255,255,255,0.2); padding: 6px 12px; border-radius: 12px; display: inline-block;">
@@ -168,6 +168,16 @@
         <p class="mb-1" style="opacity: 0.95;"><i class="fas fa-map-marker-alt me-2"></i>{{ $store->address ?? 'Lokasi tidak tersedia' }}</p>
         <p class="mb-0" style="opacity: 0.95;"><i class="fas fa-phone me-2"></i>{{ $store->phone ?? 'Kontak tidak tersedia' }}</p>
       </div>
+      
+      @if(isset($isOwner) && $isOwner)
+      <div class="ms-auto">
+        <a href="{{ route('pengurus.seller.products', $store->id) }}" 
+           class="btn btn-light d-inline-flex align-items-center gap-2"
+           style="border-radius: 12px; padding: 10px 20px; font-weight: 600; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+          <i class="fas fa-cog"></i> Kelola Produk
+        </a>
+      </div>
+      @endif
     </div>
   </div>
 </div>

@@ -39,7 +39,16 @@ class WarungkuController extends Controller
             $query->where('is_available', true);
         }])->findOrFail($id);
 
-        return view('warungku.store', compact('store'));
+        // Check if current user is the owner of this store
+        $isOwner = false;
+        if (Session::has('cred')) {
+            $cred = Session::get('cred');
+            if (isset($cred['user_id'])) {
+                $isOwner = ($store->user_id == $cred['user_id']);
+            }
+        }
+
+        return view('warungku.store', compact('store', 'isOwner'));
     }
 
     public function showProduct($id)
