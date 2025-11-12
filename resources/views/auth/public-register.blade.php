@@ -218,6 +218,43 @@
                         @enderror
                     </div>
 
+                    <!-- Jenis Akun -->
+                    <div class="form-group mb-3">
+                        <label class="form-label">
+                            <i class="fas fa-user-tag"></i> Jenis Akun <span class="required">*</span>
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input @error('account_type') is-invalid @enderror" 
+                                       type="radio" 
+                                       name="account_type" 
+                                       id="accountTypeWarga" 
+                                       value="warga"
+                                       {{ old('account_type', 'warga') == 'warga' ? 'checked' : '' }}
+                                       required>
+                                <label class="form-check-label" for="accountTypeWarga">
+                                    <i class="fas fa-users"></i> Warga
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input @error('account_type') is-invalid @enderror" 
+                                       type="radio" 
+                                       name="account_type" 
+                                       id="accountTypePengurus" 
+                                       value="pengurus"
+                                       {{ old('account_type') == 'pengurus' ? 'checked' : '' }}
+                                       required>
+                                <label class="form-check-label" for="accountTypePengurus">
+                                    <i class="fas fa-user-shield"></i> Pengurus
+                                </label>
+                            </div>
+                        </div>
+                        @error('account_type')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                        <small class="text-muted">Pilih jenis akun yang sesuai dengan status Anda</small>
+                    </div>
+
                     <!-- Email -->
                     <div class="form-group mb-3">
                         <label class="form-label">

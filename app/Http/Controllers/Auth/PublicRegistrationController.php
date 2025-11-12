@@ -61,6 +61,7 @@ class PublicRegistrationController extends Controller
             'phone_no' => 'required|regex:/^\d{8,13}$/',
             'residence_id' => 'required|integer',
             'blok_rumah' => 'required|string|max:50',
+            'account_type' => 'required|in:warga,pengurus',
             'email' => 'required|email|max:255',
             'password' => 'required|string|min:6|confirmed',
         ], [
@@ -75,6 +76,9 @@ class PublicRegistrationController extends Controller
             
             'blok_rumah.required' => 'Blok rumah wajib diisi.',
             'blok_rumah.max' => 'Blok rumah maksimal 50 karakter.',
+            
+            'account_type.required' => 'Jenis akun wajib dipilih.',
+            'account_type.in' => 'Jenis akun tidak valid.',
             
             'email.required' => 'Email wajib diisi.',
             'email.email' => 'Format email tidak valid.',
@@ -93,7 +97,9 @@ class PublicRegistrationController extends Controller
             'blok_rumah' => $request->blok_rumah,
             'email' => $request->email,
             'password' => $request->password,
-            'is_warga' => true, // Default registration as warga
+            'account_type' => $request->account_type, // 'warga' or 'pengurus'
+            'is_warga' => $request->account_type === 'warga',
+            'is_pengurus' => $request->account_type === 'pengurus',
         ];
 
         try {
