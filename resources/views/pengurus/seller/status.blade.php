@@ -51,7 +51,7 @@
                             </div>
                             <div class="mt-3">
                                 <p class="small text-muted">
-                                    Disetujui oleh {{ $sellerRequest->approver->name ?? 'Admin' }} 
+                                    Disetujui oleh Pengurus 
                                     pada {{ $sellerRequest->approved_at->format('d M Y H:i') }}
                                 </p>
                             </div>
@@ -86,7 +86,7 @@
                             </div>
                             <div class="mt-3">
                                 <p class="small text-muted">
-                                    Ditolak oleh {{ $sellerRequest->approver->name ?? 'Admin' }} 
+                                    Ditolak oleh Pengurus 
                                     pada {{ $sellerRequest->approved_at->format('d M Y H:i') }}
                                 </p>
                             </div>

@@ -180,8 +180,15 @@ class SellerController extends Controller
 
     public function storeProduct(Request $request, Store $store)
     {
+        \Log::info('=== STORE PRODUCT CALLED ===', [
+            'store_id' => $store->id,
+            'request_data' => $request->all(),
+            'session_cred' => Session::get('cred')
+        ]);
+
         // Check session authentication
         if (!Session::has('cred')) {
+            \Log::warning('No session cred found');
             Alert::error('Akses Ditolak', 'Sesi Anda telah berakhir. Silakan login kembali.');
             return redirect()->route('login');
         }
@@ -190,12 +197,17 @@ class SellerController extends Controller
         $userId = $cred['user_id'] ?? null;
 
         if (!$userId) {
+            \Log::warning('No user_id in session');
             Alert::error('Akses Ditolak', 'Data user tidak valid.');
             return redirect()->route('pengurus');
         }
 
         // Check store ownership
         if ($store->user_id != $userId) {
+            \Log::warning('Store ownership check failed', [
+                'store_user_id' => $store->user_id,
+                'session_user_id' => $userId
+            ]);
             Alert::error('Akses Ditolak', 'Anda bukan pemilik toko ini.');
             return redirect()->route('pengurus.seller.dashboard');
         }

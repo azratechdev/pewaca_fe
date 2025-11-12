@@ -28,15 +28,8 @@ class SellerRequest extends Model
         'approved_at' => 'datetime'
     ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
-
-    public function approver()
-    {
-        return $this->belongsTo(User::class, 'approved_by');
-    }
+    // Removed User relationships - this app uses Django API auth (no local users table)
+    // user_id and approved_by are stored as integers for reference only
 
     public function isPending()
     {

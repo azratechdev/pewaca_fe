@@ -40,10 +40,8 @@ class Order extends Model
         });
     }
 
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    // Removed User relationship - this app uses Django API auth (no local users table)
+    // user_id is stored as integer for reference only
 
     public function store(): BelongsTo
     {
