@@ -104,13 +104,11 @@ class PublicRegistrationController extends Controller
 
         try {
             // Call Django API for public registration
-            // Use withoutDebugging() to prevent password logging in HTTP layer
-            $response = Http::withoutDebugging()
-                ->withHeaders([
-                    'Accept' => 'application/json',
-                ])
-                ->timeout(15)
-                ->post(env('API_URL') . '/api/auth/public-sign-up/', $data);
+            $response = Http::withHeaders([
+                'Accept' => 'application/json',
+            ])
+            ->timeout(15)
+            ->post(env('API_URL') . '/api/auth/public-sign-up/', $data);
 
             $responseData = json_decode($response->body(), true);
             
