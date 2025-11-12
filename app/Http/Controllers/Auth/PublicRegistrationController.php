@@ -55,12 +55,15 @@ class PublicRegistrationController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate input
+        // Validate input - unit_id is nullable for backward compatibility
+        // Require EITHER unit_id (new dropdown) OR blok_rumah (fallback text input)
         $validated = $request->validate([
             'full_name' => 'required|string|max:255',
             'phone_no' => 'required|regex:/^\d{8,13}$/',
             'residence_id' => 'required|integer',
-            'blok_rumah' => 'required|string|max:50',
+            'unit_id' => 'nullable|integer',
+            'unit_name' => 'nullable|string|max:50',
+            'blok_rumah_fallback' => 'nullable|string|max:50',
             'account_type' => 'required|in:warga,pengurus',
             'email' => 'required|email|max:255',
             'password' => 'required|string|min:6|confirmed',
@@ -74,8 +77,7 @@ class PublicRegistrationController extends Controller
             'residence_id.required' => 'Residence wajib dipilih.',
             'residence_id.integer' => 'Residence tidak valid.',
             
-            'blok_rumah.required' => 'Blok rumah wajib diisi.',
-            'blok_rumah.max' => 'Blok rumah maksimal 50 karakter.',
+            'unit_id.integer' => 'Unit tidak valid.',
             
             'account_type.required' => 'Jenis akun wajib dipilih.',
             'account_type.in' => 'Jenis akun tidak valid.',
@@ -88,19 +90,43 @@ class PublicRegistrationController extends Controller
             'password.min' => 'Password minimal 6 karakter.',
             'password.confirmed' => 'Konfirmasi password tidak cocok.',
         ]);
+        
+        // Custom validation: require EITHER unit_id OR blok_rumah_fallback
+        if (empty($request->unit_id) && empty($request->blok_rumah_fallback)) {
+            return redirect()->back()
+                ->withErrors(['unit_id' => 'Blok rumah wajib diisi.'])
+                ->withInput();
+        }
 
         // Prepare data for Django API
+        // Dual submission for backward compatibility until Django is updated
         $data = [
             'full_name' => $request->full_name,
             'phone_no' => $request->phone_no,
             'residence_id' => $request->residence_id,
-            'blok_rumah' => $request->blok_rumah,
             'email' => $request->email,
             'password' => $request->password,
             'account_type' => $request->account_type, // 'warga' or 'pengurus'
             'is_warga' => $request->account_type === 'warga',
             'is_staff' => $request->account_type === 'pengurus',
         ];
+        
+        // Add unit_id if available (new Django API)
+        if (!empty($request->unit_id)) {
+            $data['unit_id'] = $request->unit_id;
+        }
+        
+        // Always send blok_rumah for backward compatibility
+        if (!empty($request->unit_name)) {
+            // From dropdown
+            $data['blok_rumah'] = $request->unit_name;
+        } elseif (!empty($request->blok_rumah_fallback)) {
+            // From fallback text input
+            $data['blok_rumah'] = $request->blok_rumah_fallback;
+        } elseif (!empty($request->unit_id)) {
+            // Fallback if only unit_id available
+            $data['blok_rumah'] = 'Unit-' . $request->unit_id;
+        }
 
         try {
             // Call Django API for public registration

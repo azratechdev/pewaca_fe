@@ -256,15 +256,30 @@
                         <label class="form-label">
                             <i class="fas fa-home"></i> Blok Rumah <span class="required">*</span>
                         </label>
+                        
+                        <!-- Dropdown (preferred) -->
+                        <select class="form-control @error('unit_id') is-invalid @enderror" 
+                                name="unit_id" 
+                                id="unitDropdown"
+                                disabled
+                                style="display:block;">
+                            <option value="">-- Pilih Residence terlebih dahulu --</option>
+                        </select>
+                        <input type="hidden" name="unit_name" id="unitNameHidden" value="{{ old('unit_name') }}">
+                        
+                        <!-- Fallback text input (if dropdown fails to load) -->
                         <input type="text" 
-                               class="form-control @error('blok_rumah') is-invalid @enderror" 
-                               name="blok_rumah" 
+                               class="form-control @error('unit_id') is-invalid @enderror" 
+                               name="blok_rumah_fallback" 
+                               id="blokRumahFallback"
                                placeholder="Contoh: A-12"
-                               value="{{ old('blok_rumah') }}"
-                               required>
-                        @error('blok_rumah')
+                               value="{{ old('blok_rumah_fallback') }}"
+                               style="display:none;">
+                        
+                        @error('unit_id')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
+                        <small class="text-muted" id="unitHelpText">Pilih residence untuk melihat daftar unit</small>
                     </div>
 
                     <!-- Jenis Akun -->
@@ -384,7 +399,14 @@
         const submitBtn = document.getElementById('submitBtn');
         const btnText = document.getElementById('btnText');
         const loadingOverlay = document.getElementById('loadingOverlay');
+        const residenceDropdown = document.querySelector('select[name="residence_id"]');
+        const unitDropdown = document.getElementById('unitDropdown');
+        const blokRumahFallback = document.getElementById('blokRumahFallback');
+        const unitHelpText = document.getElementById('unitHelpText');
+        const unitNameHidden = document.getElementById('unitNameHidden');
         let timeoutId = null;
+        let loadedUnits = [];
+        let apiAvailable = true;
 
         // Function to reset button state
         function resetButtonState() {
@@ -396,6 +418,120 @@
                 timeoutId = null;
             }
         }
+
+        // Load units based on selected residence
+        residenceDropdown.addEventListener('change', function() {
+            const residenceId = this.value;
+            
+            // Reset unit dropdown
+            unitDropdown.innerHTML = '<option value="">-- Pilih Blok Rumah --</option>';
+            unitDropdown.disabled = true;
+            unitHelpText.textContent = 'Memuat data unit...';
+            
+            if (!residenceId) {
+                unitHelpText.textContent = 'Pilih residence untuk melihat daftar unit';
+                return;
+            }
+
+            // Show loading state
+            unitHelpText.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memuat data unit...';
+
+            // Fetch units from Django API
+            fetch(`https://admin.pewaca.id/api/units/residence/${residenceId}/`, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success && data.data && data.data.length > 0) {
+                    loadedUnits = data.data;
+                    
+                    // Populate dropdown with units
+                    data.data.forEach(unit => {
+                        const option = document.createElement('option');
+                        option.value = unit.unit_id;
+                        option.textContent = unit.unit_name;
+                        unitDropdown.appendChild(option);
+                    });
+                    unitDropdown.disabled = false;
+                    unitHelpText.textContent = `${data.data.length} unit tersedia`;
+                    
+                    // Restore previously selected unit (for validation errors)
+                    const oldUnitId = '{{ old('unit_id') }}';
+                    if (oldUnitId) {
+                        unitDropdown.value = oldUnitId;
+                        const selectedUnit = loadedUnits.find(u => u.unit_id == oldUnitId);
+                        if (selectedUnit) {
+                            unitNameHidden.value = selectedUnit.unit_name;
+                        }
+                    }
+                } else {
+                    unitDropdown.innerHTML = '<option value="">Tidak ada unit tersedia</option>';
+                    unitHelpText.textContent = 'Tidak ada unit tersedia untuk residence ini';
+                    
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Unit Tidak Tersedia',
+                        text: 'Tidak ada unit yang tersedia untuk residence ini. Silakan pilih residence lain.',
+                        confirmButtonColor: '#667eea'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error loading units:', error);
+                
+                // Switch to fallback text input
+                apiAvailable = false;
+                unitDropdown.style.display = 'none';
+                unitDropdown.disabled = true;
+                unitDropdown.removeAttribute('required');
+                
+                blokRumahFallback.style.display = 'block';
+                blokRumahFallback.disabled = false;
+                blokRumahFallback.setAttribute('required', 'required');
+                blokRumahFallback.focus();
+                
+                unitHelpText.innerHTML = '<i class="fas fa-exclamation-triangle text-warning"></i> Gunakan input manual untuk Blok Rumah';
+                
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Mode Manual Aktif',
+                    html: 'Dropdown tidak tersedia.<br>Silakan ketik Blok Rumah secara manual (contoh: A-12)',
+                    confirmButtonColor: '#667eea'
+                });
+            });
+        });
+
+        // Update hidden unit_name when unit is selected
+        unitDropdown.addEventListener('change', function() {
+            const selectedUnitId = this.value;
+            if (selectedUnitId && loadedUnits.length > 0) {
+                const selectedUnit = loadedUnits.find(u => u.unit_id == selectedUnitId);
+                if (selectedUnit) {
+                    unitNameHidden.value = selectedUnit.unit_name;
+                }
+            } else {
+                unitNameHidden.value = '';
+            }
+        });
+
+        // Auto-load units on page load if residence is already selected (validation errors)
+        document.addEventListener('DOMContentLoaded', function() {
+            const oldResidenceId = '{{ old('residence_id') }}';
+            if (oldResidenceId && residenceDropdown) {
+                // Trigger change event to load units
+                residenceDropdown.value = oldResidenceId;
+                residenceDropdown.dispatchEvent(new Event('change'));
+            }
+        });
 
         // Form validation & submit handler
         form.addEventListener('submit', function(e) {
