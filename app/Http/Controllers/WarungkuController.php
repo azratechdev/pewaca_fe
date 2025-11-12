@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Store;
 use App\Models\Product;
+use App\Models\SellerRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class WarungkuController extends Controller
 {
@@ -15,7 +18,19 @@ class WarungkuController extends Controller
             ->orderBy('rating', 'desc')
             ->get();
 
-        return view('warungku.index', compact('stores'));
+        $hasPendingRequest = false;
+        
+        if (Session::has('cred')) {
+            $cred = Session::get('cred');
+            
+            if (isset($cred['user_id'])) {
+                $hasPendingRequest = SellerRequest::where('user_id', $cred['user_id'])
+                    ->where('status', SellerRequest::STATUS_PENDING)
+                    ->exists();
+            }
+        }
+
+        return view('warungku.index', compact('stores', 'hasPendingRequest'));
     }
 
     public function showStore($id)
@@ -24,7 +39,16 @@ class WarungkuController extends Controller
             $query->where('is_available', true);
         }])->findOrFail($id);
 
-        return view('warungku.store', compact('store'));
+        // Check if current user is the owner of this store
+        $isOwner = false;
+        if (Session::has('cred')) {
+            $cred = Session::get('cred');
+            if (isset($cred['user_id'])) {
+                $isOwner = ($store->user_id == $cred['user_id']);
+            }
+        }
+
+        return view('warungku.store', compact('store', 'isOwner'));
     }
 
     public function showProduct($id)

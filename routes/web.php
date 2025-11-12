@@ -8,12 +8,14 @@ use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\PublicRegistrationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\TagihanController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\WarungkuController;
 use App\Http\Controllers\WarungkuSetupController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\Pengurus\SellerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,6 +34,12 @@ Route::get('/', [LoginController::class, 'showLoginForm'])
 Route::get('/company-profile', [LoginController::class, 'companyProfile'])->name('companyProfile');
 
 Route::post('/', [LoginController::class, 'postlogin'])->name('postlogin');
+
+// Public Registration Routes (New)
+Route::get('/register', [PublicRegistrationController::class, 'showRegister'])->name('register');
+Route::post('/register', [PublicRegistrationController::class, 'store'])->name('register.store');
+
+// UUID-based Registration Routes (Legacy - Invitation System)
 Route::get('/registration/{uuid?}', [RegisterController::class, 'showRegister'])->name('showRegister');
 Route::post('/postregistration', [RegisterController::class, 'postRegister'])->name('postRegister');
 Route::get('/verified/{uuid?}/{token?}', [RegisterController::class, 'verified'])->name('showVerified');
@@ -58,7 +66,8 @@ Route::get('/pemilu-tc', [\App\Http\Controllers\VotingController::class, 'index'
 Route::post('/pemilu-tc/vote', [\App\Http\Controllers\VotingController::class, 'store'])->name('voting.store');
 Route::get('/pemilu-tc/results', [\App\Http\Controllers\VotingController::class, 'results'])->name('voting.results');
 
-Auth::routes();
+// Disable default register routes, use custom routes above
+Auth::routes(['register' => false]);
 
 // Rute yang membutuhkan autentikasi
 Route::group(['middleware' => ['auth', 'check.token']], function () {
@@ -134,6 +143,47 @@ Route::group(['middleware' => ['auth', 'check.token']], function () {
         //report download routes
         Route::get('/pengurus/report/download/comprehensive', [ReportController::class, 'downloadComprehensive'])->name('pengurus.report.download.comprehensive');
         //end report route
+        
+        // Seller Request Management Routes (Pengurus Only)
+        Route::prefix('pengurus/seller-requests')->name('pengurus.seller-requests.')->group(function () {
+            Route::get('/', [App\Http\Controllers\Pengurus\SellerRequestController::class, 'index'])->name('index');
+            Route::get('/{id}', [App\Http\Controllers\Pengurus\SellerRequestController::class, 'show'])->name('show');
+            Route::post('/{id}/approve', [App\Http\Controllers\Pengurus\SellerRequestController::class, 'approve'])->name('approve');
+            Route::post('/{id}/reject', [App\Http\Controllers\Pengurus\SellerRequestController::class, 'reject'])->name('reject');
+        });
+    });
+    
+    // Seller Registration Routes (Open to all authenticated users - NO role required)
+    Route::get('/pengurus/seller/register', [SellerController::class, 'showRegisterForm'])->name('pengurus.seller.register');
+    Route::post('/pengurus/seller/register', [SellerController::class, 'processRegistration'])->name('pengurus.seller.register.process');
+    Route::get('/pengurus/seller/request-status', [SellerController::class, 'requestStatus'])->name('pengurus.seller.request.status');
+    
+    // Warungku Seller Routes (Protected by is_seller check in controller - NO pengurus role required)
+    Route::prefix('pengurus/seller')->name('pengurus.seller.')->group(function () {
+        Route::get('/dashboard', [SellerController::class, 'dashboard'])->name('dashboard');
+        
+        // Store Management
+        Route::get('/my-stores', [SellerController::class, 'myStores'])->name('my-stores');
+        Route::get('/browse-stores', [SellerController::class, 'browseStores'])->name('browse-stores');
+        Route::post('/claim/{store}', [SellerController::class, 'claimStore'])->name('claim-store');
+        Route::post('/leave/{store}', [SellerController::class, 'leaveStore'])->name('leave-store');
+        
+        // Product Management
+        Route::get('/{store}/products', [SellerController::class, 'products'])->name('products');
+        Route::get('/{store}/products/create', [SellerController::class, 'createProduct'])->name('products.create');
+        Route::post('/{store}/products', [SellerController::class, 'storeProduct'])->name('products.store');
+        Route::get('/{store}/products/{product}/edit', [SellerController::class, 'editProduct'])->name('products.edit');
+        Route::put('/{store}/products/{product}', [SellerController::class, 'updateProduct'])->name('products.update');
+        Route::delete('/{store}/products/{product}', [SellerController::class, 'deleteProduct'])->name('products.delete');
+        Route::post('/{store}/products/{product}/stock', [SellerController::class, 'updateStock'])->name('products.update-stock');
+        
+        // Order Management
+        Route::get('/{store}/orders', [SellerController::class, 'orders'])->name('orders');
+        Route::get('/{store}/orders/{order}', [SellerController::class, 'orderDetail'])->name('orders.detail');
+        Route::post('/{store}/orders/{order}/status', [SellerController::class, 'updateOrderStatus'])->name('orders.update-status');
+        
+        // Reports & Analytics
+        Route::get('/{store}/reports', [SellerController::class, 'reports'])->name('reports');
     });
     
     //cashout route
@@ -154,11 +204,6 @@ Route::group(['middleware' => ['auth', 'check.token']], function () {
     // Route::get('/pembayaran/pembayaran_periode', [PembayaranController::class, 'pembayaran_periode'])->name('pembayaran.pembayaran_periode');
     // Route::get('/pembayaran/periode', [PembayaranController::class, 'periode'])->name('pembayaran.periode');
 
-    // Warungku Marketplace Routes (Protected - Requires Login)
-    Route::get('/warungku', [WarungkuController::class, 'index'])->name('warungku.index');
-    Route::get('/warungku/toko/{id}', [WarungkuController::class, 'showStore'])->name('warungku.store');
-    Route::get('/warungku/produk/{id}', [WarungkuController::class, 'showProduct'])->name('warungku.product');
-
     // Cart Routes (Protected - Requires Login)
     Route::get('/warungku/keranjang', [CartController::class, 'index'])->name('cart.index');
     Route::post('/warungku/keranjang/add', [CartController::class, 'add'])->name('cart.add');
@@ -167,6 +212,11 @@ Route::group(['middleware' => ['auth', 'check.token']], function () {
     Route::delete('/warungku/keranjang/clear', [CartController::class, 'clear'])->name('cart.clear');
     Route::get('/warungku/keranjang/count', [CartController::class, 'getCount'])->name('cart.count');
 });
+
+// Warungku Marketplace Routes (Public - No Auth Required)
+Route::get('/warungku', [WarungkuController::class, 'index'])->name('warungku.index');
+Route::get('/warungku/toko/{id}', [WarungkuController::class, 'showStore'])->name('warungku.store');
+Route::get('/warungku/produk/{id}', [WarungkuController::class, 'showProduct'])->name('warungku.product');
 
 use App\Http\Controllers\Test\RegistrationTestController;
 

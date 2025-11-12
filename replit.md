@@ -1,7 +1,7 @@
 # Residence Frontend Application
 
 ## Overview
-PT HEMITECH KARYA INDONESIA (formerly Pewaca) is a Laravel 9 PHP web application for residence management. It provides comprehensive administration for residents and administrators, including user authentication, member management, reporting, and a newly integrated QRIS payment orchestrator for fee collection. The project aims to streamline residence administration and enhance payment processing.
+The Residence Frontend Application, developed by PT HEMITECH KARYA INDONESIA, is a Laravel 9 PHP web application designed for comprehensive residence management. It streamlines administration for residents and administrators, offering features such as user authentication, member management, reporting, and a QRIS payment orchestrator for fee collection. The project aims to enhance efficiency in residence administration and payment processing, including an internal marketplace (Warungku) and a public voting system (Pemilu-TC). The application also incorporates a modern company profile page for PT HEMITECH KARYA INDONESIA.
 
 ## User Preferences
 I prefer simple language and detailed explanations. I want iterative development where you ask before making major changes. Do not make changes to the folder `Z`. Do not make changes to the file `Y`.
@@ -12,91 +12,35 @@ I prefer simple language and detailed explanations. I want iterative development
 - **Framework**: Laravel 9.x
 - **PHP Version**: 8.2
 - **Frontend**: Bootstrap 5, jQuery
-- **Database**: MySQL (with SQLite for development)
+- **Database**: MySQL (main), SQLite (development, QRIS payments, voting system)
 - **Key Packages**: `laravel/ui`, `spatie/laravel-permission`, `realarashid/sweet-alert`, `silviolleite/laravelpwa`
 
 ### Core Features
 - User authentication and role-based access control.
 - Member management and payment tracking.
 - Comprehensive reporting and billing functionalities.
-- Progressive Web App (PWA) capabilities.
-- QRIS Payment Orchestrator for residence fee collection.
-- **Warungku Marketplace**: Internal marketplace for residence community.
-- **Company Profile Page**: Modern, responsive landing page accessible from login via "Go to Pewaca Web" button, showcasing features and benefits of PT HEMITECH KARYA INDONESIA (company profile uses new branding while login pages retain Pewaca branding).
-- **Voting System (Pemilu-TC)**: Public voting system for neighborhood association leader election without authentication requirement.
-
-### QRIS Payment Orchestrator
-- **Backend**: Uses a dedicated SQLite database for payments, `QrisProvider` interface with `QrisProviderMock` and `QrisProviderMidtrans` implementations, `PaymentController` and `WebhookController`, and background jobs for payment expiry and reconciliation. Includes security features like signature verification and idempotency.
-- **Frontend**: Integrates "Bayar via QRIS" option in the payment view, displaying QR codes and auto-refreshing payment status.
-- **Service Layer**: `PaymentService` extracts business logic from controllers, enabling both API and web routes to share validation and payment processing logic without HTTP self-calls (resolves single-threaded PHP server timeout issue).
-
-### Warungku Marketplace
-- **Purpose**: Internal marketplace for residence community to buy and sell products among residents.
-- **Access**: Public routes (no authentication required) accessible from login page via "Pindah ke Warungku" button.
-- **Database Schema**: 
-  - `stores` table: name, description, logo, address, phone, email, rating, is_active
-  - `products` table: store_id (foreign key), name, description, image, price, stock, is_available
-- **Models**: `Store` and `Product` with HasMany/BelongsTo relationships
-- **Routes**:
-  - `/warungku` - Main marketplace page (list of stores)
-  - `/warungku/toko/{id}` - Store detail page with products
-  - `/warungku/produk/{id}` - Product detail page
-- **Controller**: `WarungkuController` handles store and product listing/viewing
-- **UI Features**:
-  - Store cards with logo, rating, product count
-  - Product cards with image, price, stock badge
-  - Responsive Bootstrap 5 design with Pewaca green theme (#5FA782)
-  - "Tambah ke Keranjang" button (UI only, checkout pending implementation)
-- **Data Seeding**: `WarungkuSeeder` provides 4 sample stores with 8 products each
-- **Next Steps**: Run `php artisan migrate` and `php artisan db:seed --class=WarungkuSeeder` to populate marketplace data
-
-### Voting System (Pemilu-TC)
-- **Purpose**: Enable residents to vote for neighborhood association leader (Ketua Paguyuban) without requiring login.
-- **Access**: Public route at `/pemilu-tc` (no authentication required).
-- **Database**: Uses dedicated SQLite database (`voting.sqlite`) with separate connection (`voting_sqlite`).
-- **Database Schema**:
-  - `candidates` table: name, photo, visi, misi, bio, vote_count, is_active
-  - `votes` table: candidate_id (foreign key), voter_name, house_block, ip_address
-- **Models**: `Candidate` and `Vote` with HasMany/BelongsTo relationships, both configured to use `voting_sqlite` connection.
-- **Routes**:
-  - `/pemilu-tc` - Main voting page with 3 candidates
-  - `/pemilu-tc/vote` - POST endpoint to submit vote
-  - `/pemilu-tc/results` - Public results page showing vote counts and percentages
-- **Controller**: `VotingController` handles voting display, submission, and results with transaction support.
-- **UI Features**:
-  - Interactive candidate selection cards with photo, visi, misi, and bio
-  - Two-step voting process: select candidate → enter voter name and house block
-  - Real-time vote count display
-  - Results page with ranking, percentages, and winner highlighting
-  - Fully responsive design with gradient background
-  - SweetAlert integration for success/error messages
-- **Data Seeding**: `CandidateSeeder` provides 3 dummy candidates (Budi Santoso, Siti Rahma Wati, Ahmad Hidayat) with complete profiles.
-- **Security**: IP address tracking for vote auditing, transaction-based voting to ensure data consistency.
+- Progressive Web App (PWA) capabilities with optimized service worker.
+- QRIS Payment Orchestrator using a dedicated SQLite database and flexible provider interface.
+- **Warungku Marketplace**: Internal marketplace for residents, publicly accessible, with product listing and store management. Seller registration includes an approval workflow. Product CRUD fully functional with SweetAlert notifications.
+- **Company Profile Page**: Modern, responsive landing page for PT HEMITECH KARYA INDONESIA.
+- **Voting System (Pemilu-TC)**: Public voting system for neighborhood association leader elections using a dedicated SQLite database.
+- **Public Registration System**: Accessible from login page at `/register`, allows warga and pengurus to register with simplified form (Nama, No HP, Residence, Blok Rumah, Email, Password).
 
 ### UI/UX Decisions
 - Consistent use of Bootstrap 5 for responsive design.
-- `onerror` handlers for images for improved visual consistency.
-- Graceful degradation for data display with clear error messages and pagination.
+- Image `onerror` handlers for visual consistency.
+- Graceful degradation for data display with error messages and pagination.
 
 ### System Design Choices
-- **API Connectivity**: Interacts with a Django backend API at `https://admin.pewaca.id`.
-- **Error Handling**: Robust multi-level validation for API responses with comprehensive logging and user-friendly error messages.
-- **Dynamic Content**: JavaScript fetch calls for dynamic data retrieval.
+- **API Connectivity**: Interacts with a Django backend API.
+- **Error Handling**: Robust multi-level validation and logging for API responses.
+- **Dynamic Content**: JavaScript fetch calls for data retrieval.
 - **Environment Configuration**: Utilizes `.env` for sensitive settings.
-- **PWA Support**: Full PWA implementation for a mobile-first experience, including an offline page and installable app functionality.
-- **PWA Optimization (Oct 2025)**: Service worker updated to Network-First strategy with selective caching (only static assets like images, CSS, JS). Icon and splash screen configurations reduced to essential sizes (192x192, 512x512 icons; 3 splash sizes) to improve mobile app performance and reduce initial load size.
-
-### Recent Bug Fixes & Updates
-- **Oct 30, 2025 - Add Pengurus**: Fixed "Trying to access array offset on null" error by adding proper API response validation and error handling in `PengurusController::getRole()` and `getWarga()` methods.
-- **Oct 30, 2025 - Add Rekening**: Fixed similar null access error by adding comprehensive error handling in `AkunController::addRekening()` and `postRekening()` methods, with detailed logging and user-friendly error messages.
-- **Nov 2, 2025 - Report Filtering**: Updated `/pengurus/report` and all detail pages to filter data by `residence_id` instead of showing all data. Each pengurus now only sees reports for their assigned residence, based on their `residence_commites` data. Frontend extracts `residence_id` from session and sends to backend API as filter parameter.
-- **Nov 2, 2025 - Company Profile Page Rebranding**: Updated company profile page (`/company-profile`) to showcase "PT HEMITECH KARYA INDONESIA" as the company identity. Added new logo (`hemitech-logo-new.png` - green background with black "H" letter), updated company name throughout the profile page, and changed contact information to info@hemitech.co.id and www.hemitech.co.id. Login pages remain with original "Pewaca" branding with "Go to Pewaca Web" button linking to the company profile page.
-- **Nov 2, 2025 - Voting System (Pemilu-TC)**: Created complete public voting system for neighborhood association leader election. Includes `/pemilu-tc` voting page with 3 candidates, `/pemilu-tc/results` results page, separate SQLite database (`voting.sqlite`), and countdown timer on login page announcing election until December 31, 2025. Countdown updates every minute and displays days, hours, and minutes remaining with prominent "Vote Sekarang" button linking to voting page.
-- **Nov 5, 2025 - Image Compression on Registration**: Implemented automatic client-side image compression for registration photo uploads (profile photo and marital book photo) using `browser-image-compression` library. Images are automatically compressed to max 2MB with max dimensions of 1920px while maintaining 80% quality before upload, resolving "POST Content-Length exceeds limit" errors. Features include: loading indicator during compression, file type validation, real-time compression progress feedback, and automatic preview of compressed images.
-
-### Warga Registration Architecture
-- **Flow**: UUID-based invitation system for residents, multi-step registration form, backend validation, email verification, and account creation via the Django API.
-- **Components**: `RegisterController`, Django API endpoints for residence data and user management, email verification system.
+- **PWA Support**: Full PWA implementation with offline page and installable app functionality.
+- **Authentication**: Custom session-based authentication leveraging `Session::get('cred')` for user data, compatible with the Django backend.
+- **User Registration**:
+    - **UUID-based Invitation System** (Legacy): Multi-step registration with complex data fields, backend validation, email verification, and account creation via Django API at `/api/auth/sign-up/{uuid}/`.
+    - **Public Registration** (New - November 2025): Simplified public registration accessible from login page with fields: Nama, No HP, Residence (dropdown), Blok Rumah, Email, Password. Registration handled by `PublicRegistrationController` posting to Django API at `/api/auth/public-sign-up/`. Accounts created as warga (inactive) by default.
 
 ## External Dependencies
 - **Backend API**: `https://admin.pewaca.id` (Django backend)
@@ -107,10 +51,11 @@ I prefer simple language and detailed explanations. I want iterative development
     - Laravel 9.x
     - Bootstrap 5
     - jQuery
-    - Node.js (for asset compilation)
+    - Node.js
     - Composer
     - npm
     - `laravel/ui`
     - `spatie/laravel-permission`
     - `realarashid/sweet-alert`
     - `silviolleite/laravelpwa`
+    - `browser-image-compression` (for client-side image compression)

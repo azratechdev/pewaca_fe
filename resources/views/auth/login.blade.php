@@ -150,6 +150,13 @@
                     </div>
                     <div class="form-group text-center mt-3">
                         <div class="col-xs-12">
+                            <a href="{{ route('register') }}" class="btn btn-warning btn-lg btn-block text-uppercase waves-effect waves-light">
+                                <i class="fa fa-user-plus"></i> Daftar Akun Baru
+                            </a>
+                        </div>
+                    </div>
+                    <div class="form-group text-center mt-3">
+                        <div class="col-xs-12">
                             <a href="{{ route('companyProfile') }}" class="btn btn-success btn-lg btn-block text-uppercase waves-effect waves-light" style="background-color: #5FA782; border-color: #5FA782;">
                                 <i class="fa fa-globe"></i> Go to Pewaca Web
                             </a>

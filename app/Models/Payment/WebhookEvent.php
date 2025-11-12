@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 class WebhookEvent extends Model
 {
     use HasUuids;
-
-    protected $connection = 'sqlite';
     
     public $timestamps = false;
     

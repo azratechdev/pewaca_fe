@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('votes', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('candidate_id')->constrained('candidates')->onDelete('cascade');
-            $table->string('voter_name');
-            $table->string('house_block');
-            $table->ipAddress('ip_address')->nullable();
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->boolean('is_seller')->default(false)->after('is_admin');
         });
     }
 
@@ -30,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('votes');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('is_seller');
+        });
     }
 };

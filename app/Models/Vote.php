@@ -9,8 +9,6 @@ class Vote extends Model
 {
     use HasFactory;
 
-    protected $connection = 'voting_sqlite';
-
     protected $fillable = [
         'candidate_id',
         'voter_name',

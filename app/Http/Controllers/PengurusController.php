@@ -11,7 +11,8 @@ class PengurusController extends Controller
 {
     public function index(Request $request)
     {
-        return view('pengurus.index');
+        $pendingCount = \App\Models\SellerRequest::where('status', 'pending')->count();
+        return view('pengurus.index', compact('pendingCount'));
     }
 
     public function pengurus_tagihan(Request $request)

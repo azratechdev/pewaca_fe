@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PaymentLog extends Model
 {
-    protected $connection = 'sqlite';
-    
     public $timestamps = false;
     
     protected $fillable = [

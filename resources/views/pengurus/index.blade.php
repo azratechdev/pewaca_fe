@@ -62,6 +62,23 @@
             </div>
             <i class="fas fa-chevron-right text-gray-400 text-xl"></i>
         </a>
+
+        <!-- Kelola Seller -->
+        <a href="{{ route('pengurus.seller-requests.index') }}" class="flex items-center bg-white p-6 rounded-lg shadow hover:bg-gray-50">
+            <div class="bg-green-100 text-green-600 p-4 rounded-full">
+                <i class="fas fa-store fa-lg"></i>
+            </div>
+            <div class="flex-1 ml-6">
+                <h2 class="font-semibold text-2xl">
+                    Kelola Seller
+                    @if($pendingCount > 0)
+                        <span class="badge bg-warning text-dark ms-2" style="font-size: 0.75rem; vertical-align: middle;">{{ $pendingCount }}</span>
+                    @endif
+                </h2>
+                <p class="text-gray-500 text-base">Persetujuan seller, Daftar toko</p>
+            </div>
+            <i class="fas fa-chevron-right text-gray-400 text-xl"></i>
+        </a>
     </div>
 </div>
 

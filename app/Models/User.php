@@ -8,13 +8,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Traits\Uuids;
 
 class User extends Authenticatable
 {
-    use Uuids;
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -40,8 +37,6 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    protected $dates = ['deleted_at'];
-
     /**
      * The attributes that should be cast.
      *
@@ -49,7 +44,23 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_seller' => 'boolean',
     ];
 
-  
+    public function stores()
+    {
+        return $this->belongsToMany(Store::class, 'store_user')
+                    ->withPivot('role')
+                    ->withTimestamps();
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function isSeller(): bool
+    {
+        return $this->is_seller === true;
+    }
 }
