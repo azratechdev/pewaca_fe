@@ -113,38 +113,68 @@ class PublicRegistrationController extends Controller
                 ->post(env('API_URL') . '/api/auth/public-sign-up/', $data);
 
             $responseData = json_decode($response->body(), true);
+            
+            // Log response for debugging
+            \Log::info('Public registration API response', [
+                'status_code' => $response->status(),
+                'success' => $response->successful(),
+                'has_data' => isset($responseData),
+            ]);
 
             if ($response->successful()) {
-                Alert::success('Berhasil!', $responseData['message'] ?? 'Registrasi berhasil! Silakan login dengan akun Anda.');
-                return redirect()->route('login');
+                $message = $responseData['message'] ?? 'Registrasi berhasil! Silakan login dengan akun Anda.';
+                
+                return redirect()->route('register')
+                    ->with('success', $message)
+                    ->withInput(['email' => $data['email']]);
             } else {
                 // Handle API validation errors
                 $apiErrors = $responseData['errors'] ?? [];
+                $errorMessage = $responseData['message'] ?? 'Registrasi gagal. Silakan periksa data Anda.';
                 
-                $validator = Validator::make([], []);
-                
-                foreach ($apiErrors as $field => $messages) {
-                    foreach ((array) $messages as $message) {
-                        $validator->errors()->add($field, $message);
+                // If we have specific field errors, use Laravel validation
+                if (!empty($apiErrors)) {
+                    $validator = Validator::make([], []);
+                    
+                    foreach ($apiErrors as $field => $messages) {
+                        foreach ((array) $messages as $message) {
+                            $validator->errors()->add($field, $message);
+                        }
                     }
-                }
 
-                return redirect()->route('register')
-                    ->withErrors($validator)
-                    ->withInput();
+                    return redirect()->route('register')
+                        ->withErrors($validator)
+                        ->withInput();
+                } else {
+                    // Generic error message
+                    return redirect()->route('register')
+                        ->with('error', $errorMessage)
+                        ->withInput();
+                }
             }
         } catch (\Exception $e) {
             // Log exception with full diagnostic telemetry (no sensitive data)
             \Log::error('Public registration API call failed', [
                 'error' => $e->getMessage(),
                 'exception_class' => get_class($e),
-                'trace' => $e->getTraceAsString(),
+                'trace_preview' => substr($e->getTraceAsString(), 0, 500),
                 'email' => $data['email'] ?? null,
                 'residence_id' => $data['residence_id'] ?? null,
             ]);
 
-            Alert::error('Gagal', 'Terjadi kesalahan saat registrasi. Silakan coba lagi.');
-            return redirect()->route('register')->withInput();
+            $errorMsg = 'Terjadi kesalahan saat menghubungi server. ';
+            
+            if (strpos($e->getMessage(), 'Connection refused') !== false) {
+                $errorMsg .= 'Server tidak dapat dijangkau.';
+            } elseif (strpos($e->getMessage(), 'timed out') !== false) {
+                $errorMsg .= 'Koneksi timeout.';
+            } else {
+                $errorMsg .= 'Silakan coba lagi.';
+            }
+
+            return redirect()->route('register')
+                ->with('error', $errorMsg)
+                ->withInput();
         }
     }
 }
