@@ -603,7 +603,9 @@ class SellerController extends Controller
             return redirect()->route('pengurus.seller.request.status');
             
         } catch (\Exception $e) {
-            Alert::error('Error', 'Terjadi kesalahan saat mendaftar. Silakan coba lagi.');
+            \Log::error('Seller registration error: ' . $e->getMessage());
+            \Log::error('Stack trace: ' . $e->getTraceAsString());
+            Alert::error('Error', 'Terjadi kesalahan saat mendaftar: ' . $e->getMessage());
             return redirect()->back()->withInput();
         }
     }
