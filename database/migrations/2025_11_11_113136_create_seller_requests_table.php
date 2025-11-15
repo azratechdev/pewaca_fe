@@ -25,8 +25,8 @@ return new class extends Migration
             $table->timestamp('approved_at')->nullable();
             $table->timestamps();
             
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('approved_by')->references('id')->on('users')->onDelete('set null');
+            // No foreign key constraints - this app uses Django API auth (no local users table)
+            // user_id and approved_by are stored as integers for reference only
         });
     }
 
