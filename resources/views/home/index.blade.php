@@ -114,18 +114,19 @@ $isChecker = $warga['is_checker'] ?? false;
               
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
             @foreach($stories as $story)
+            @if(isset($story['warga']) && !empty($story['warga']))
             <div class="w-full max-w-full bg-white overflow-hidden" style="border-bottom: 0.5px solid #a7a7a7;">
                 <!-- Header Section -->
                 <div class="flex items-center">
                     <img 
-                        alt="Foto profil {{ $story['warga']['full_name'] }}" 
+                        alt="Foto profil {{ $story['warga']['full_name'] ?? 'Pengguna' }}" 
                         class="profile-picture rounded-full" 
-                        src="{{ $story['warga']['profile_photo'] }}" 
+                        src="{{ $story['warga']['profile_photo'] ?? asset('assets/plugins/images/default-avatar.png') }}" 
                         onerror="this.src='{{ asset('assets/plugins/images/default-avatar.png') }}'; this.onerror=null;"
                     />
                     <div class="ml-4">
                         <div class="text-gray-900 font-bold">
-                            {{ $story['warga']['full_name'] }}
+                            {{ $story['warga']['full_name'] ?? 'Pengguna' }}
                         </div>
                         <div class="text-gray-600 text-sm">
                             {{ Carbon::parse($story['created_on'])->format('d M Y H:i') }}
@@ -150,7 +151,7 @@ $isChecker = $warga['is_checker'] ?? false;
                         <br/>
                         @if(!empty($story['image']))
                             <img 
-                                alt="Gambar dari {{ $story['warga']['full_name'] }}" 
+                                alt="Gambar dari {{ $story['warga']['full_name'] ?? 'Pengguna' }}" 
                                 class="fixed-img" 
                                 src="{{ $story['image'] }}" 
                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
@@ -207,21 +208,22 @@ $isChecker = $warga['is_checker'] ?? false;
                     @for ($i = 0; $i < 5; $i++)
                     <div class="flex items-left max-w-full mb-2">
                         <img 
-                            alt="Foto profil {{ $story['warga']['full_name'] }}" 
+                            alt="Foto profil {{ $story['warga']['full_name'] ?? 'Pengguna' }}" 
                             class="profile-picture rounded-full" 
                             style="width: 36px; height: 36px;"
-                            src="{{ $story['warga']['profile_photo'] }}" 
+                            src="{{ $story['warga']['profile_photo'] ?? asset('assets/plugins/images/default-avatar.png') }}" 
                             onerror="this.src='{{ asset('assets/plugins/images/default-avatar.png') }}'; this.onerror=null;"
                         />
                         <div class="ml-4">
                             <div class="text-gray-900 font-bold" style="font-size: 14px;">
-                                {{ $story['warga']['full_name'] }}
+                                {{ $story['warga']['full_name'] ?? 'Pengguna' }}
                             </div>
                         </div>
                     </div>
                     @endfor
                 </div>
             </div>
+            @endif
             {{-- <div class="w-full max-w-full bg-white shadow-xs rounded-lg overflow-hidden">
                 
             </div> --}}
