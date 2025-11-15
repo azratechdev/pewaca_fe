@@ -12,11 +12,11 @@
             <img alt="User profile picture" class="w-12 h-12 rounded-full" height="50" src="{{ $warga['profile_photo'] }}" width="50"/>
             <div class="ml-4">
                 <p class="font-semibold">
-                    {{ $user['username'] }}
+                    {{ $warga['full_name'] }}
                 </p>
-                <p class="text-gray-500">
+                {{-- <p class="text-gray-500">
                     {{ $user['email'] }}
-                </p>
+                </p> --}}
             </div>
         </div>
         <div>

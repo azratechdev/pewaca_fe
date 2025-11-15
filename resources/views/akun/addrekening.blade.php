@@ -39,6 +39,16 @@
     padding-right: 0;
 }
 </style>
+{{-- <style>
+    .select2-results__option img,
+    .select2-selection__rendered img {
+        width: 22px;
+        height: 22px;
+        margin-right: 8px;
+        vertical-align: middle;
+        border-radius: 4px;
+    }
+</style> --}}
 <div class="flex justify-center items-center">
     <div class="bg-white w-full max-w-6xl">
         <div class="p-6 border-b">
@@ -78,7 +88,10 @@
                         <select class="form-control form-select" id="bankSelect" name="nama_bank" required>
                             <option>-Pilih Bank-</option>
                             @foreach ($banks as $bank)
-                                <option value="{{ $bank['bank_id'] }}" {{ old('nama_bank') }} == "{{ $bank['bank_name'] }}" ? 'selected' : '' }}>{{ $bank['bank_name'] }}</option>
+                                <option value="{{ $bank['bank_id'] }}" 
+                                    {{ old('bank_name') }} == "{{ $bank['bank_name'] }}" ? 'selected' : '' }}>
+                                    {{ $bank['bank_name'] }}
+                                </option>
                             @endforeach
                         </select>
                         <label for="nama_bank">Nama Bank</label>
@@ -100,6 +113,25 @@
             placeholder: " ",
             allowClear: true
         });
+        // function formatBank(bank) {
+        //     if (!bank.id) return bank.text;
+
+        //     let icon = $(bank.element).data('icon');
+
+        //     return $(`
+        //         <span>
+        //             <img src="${icon}" onerror="this.src='/default.png'">
+        //             ${bank.text}
+        //         </span>
+        //     `);
+        // }
+
+        // $('#bankSelect').select2({
+        //     templateResult: formatBank,     
+        //     templateSelection: formatBank,  
+        //     width: '100%'
+        // });
+      
     });
 </script>   
 <script>

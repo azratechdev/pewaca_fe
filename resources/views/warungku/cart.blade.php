@@ -6,7 +6,7 @@
     background: linear-gradient(135deg, #5FA782 0%, #4a8a68 100%);
     color: white;
     padding: 1.5rem 0;
-    margin: -20px -20px 20px -20px;
+    /* margin: -20px -20px 20px -20px; */
   }
   .cart-item {
     background: white;
@@ -91,15 +91,28 @@
 
 <div class="cart-header">
   <div class="container">
-    <div class="d-flex align-items-center">
-      <a href="{{ route('warungku.index') }}" class="text-white text-decoration-none me-3">
-        <i class="fas fa-arrow-left fa-lg"></i>
-      </a>
-      <div>
-        <h4 class="mb-0"><i class="fas fa-shopping-cart"></i> Keranjang Belanja</h4>
-        <small>{{ $cart->total_items }} item</small>
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="p-2">
+        <a href="{{ route('warungku.index') }}" class="text-white text-decoration-none me-3">
+          <i class="fas fa-arrow-left fa-lg"></i>
+        </a>
+      </div>
+      <div class="p-2">
+          <h4 class="mb-0"><i class="fas fa-shopping-cart"></i> Keranjang Belanja</h4>
+          <small>{{ $cart->total_items }} item</small>
       </div>
     </div>
+    {{-- <div class="d-flex align-items-center">
+      <div class="p-6"
+        <a href="{{ route('warungku.index') }}" class="text-white text-decoration-none me-3">
+          <i class="fas fa-arrow-left fa-lg"></i>
+        </a>
+        <div>
+          <h4 class="mb-0">Keranjang Belanja <i class="fas fa-shopping-cart"></i></h4>
+          <small>{{ $cart->total_items }} item</small>
+        </div>
+      </div>
+    </div> --}}
   </div>
 </div>
 
