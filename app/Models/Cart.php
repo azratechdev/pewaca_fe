@@ -10,6 +10,8 @@ class Cart extends Model
 {
     use HasFactory;
 
+    protected $connection = 'sqlite_backup';
+
     protected $fillable = [
         'user_email',
     ];

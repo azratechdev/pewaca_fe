@@ -10,6 +10,8 @@ class Store extends Model
 {
     use HasFactory;
 
+    protected $connection = 'sqlite_backup';
+
     protected $fillable = [
         'name',
         'description',

@@ -11,6 +11,8 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $connection = 'sqlite_backup';
+
     protected $fillable = [
         'order_number',
         'user_id',
