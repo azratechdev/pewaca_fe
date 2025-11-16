@@ -107,18 +107,10 @@
                         </div>
                         <br>
                         <div class="row">
-                          <div class="col-md-12">
-                              <a href="{{ route('register') }}" class="btn btn-warning form-control">
-                                <i class="fas fa-user-plus"></i> Daftar Akun Baru
-                              </a>
-                          </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                          <div class="col-md-12">
-                              <a href="{{ route('companyProfile') }}" class="btn btn-outline-success form-control">
-                                <i class="fas fa-globe"></i> Go to Pewaca Web
-                              </a>
+                          <div class="col-md-12 text-center">
+                              <small class="text-muted">
+                                Powered by <a href="https://hemitech.id/" target="_blank" style="color: #198754; text-decoration: none; font-weight: 500;">Hemitech ID</a>
+                              </small>
                           </div>
                         </div>
                     </form>
