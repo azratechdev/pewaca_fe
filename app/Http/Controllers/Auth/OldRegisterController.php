@@ -128,8 +128,21 @@ class RegisterController extends Controller
     {   
         $request->validate([
             'unit_id' => 'required|integer',
+            'nik' => 'nullable',
+            // 'nik' => 'nullable|regex:/^\d{16}$/',
             'full_name' => 'required|string|max:255',
             'phone_no' => 'required|regex:/^\d{8,13}$/',
+            'gender_id' => 'required|integer',
+            'date_of_birth' => 'required|date',
+            'religion' => 'required|integer',
+            'place_of_birth' => 'required|string|max:255',
+            'marital_status' => 'nullable',
+            // 'marital_status' => 'required|integer',
+            'marital_photo' => 'nullable|image|mimes:jpeg,jpg,png',
+            'occupation' => 'required|integer',
+            'education' => 'required|integer',
+            'family_as' => 'required|integer',
+            'profile_photo' => 'nullable|image|mimes:jpeg,jpg,png',
             'code' => 'required|uuid',
             'email' => 'required|email',
             'password' => 'required|string'
@@ -146,7 +159,40 @@ class RegisterController extends Controller
         
             'phone_no.required' => 'Nomor HP / Telephon wajib diisi.',
             'phone_no.regex' => 'Nomor telepon harus terdiri dari 8 hingga 13 digit angka.',
-                
+        
+            'gender_id.required' => 'Jenis kelamin wajib dipilih.',
+            'gender_id.integer' => 'Jenis kelamin tidak valid.',
+        
+            'date_of_birth.required' => 'Tanggal lahir wajib diisi.',
+            'date_of_birth.date' => 'Tanggal lahir tidak valid.',
+        
+            'religion.required' => 'Agama wajib dipilih.',
+            'religion.integer' => 'Agama tidak valid.',
+        
+            'place_of_birth.required' => 'Tempat lahir wajib diisi.',
+            'place_of_birth.string' => 'Tempat lahir harus berupa teks.',
+            'place_of_birth.max' => 'Tempat lahir maksimal 255 karakter.',
+        
+            // 'marital_status.required' => 'Status pernikahan wajib dipilih.',
+            // 'marital_status.integer' => 'Status pernikahan tidak valid.',
+        
+            'marital_photo.image' => 'Foto pernikahan harus berupa gambar.',
+            'marital_photo.mimes' => 'Format foto pernikahan harus jpeg atau jpg.',
+            
+        
+            'occupation.required' => 'Pekerjaan wajib dipilih.',
+            'occupation.integer' => 'Pekerjaan tidak valid.',
+        
+            'education.required' => 'Pendidikan wajib dipilih.',
+            'education.integer' => 'Pendidikan tidak valid.',
+        
+            'family_as.required' => 'Status dalam keluarga wajib dipilih.',
+            'family_as.integer' => 'Status dalam keluarga tidak valid.',
+        
+            'profile_photo.image' => 'Foto profil harus berupa gambar.',
+            'profile_photo.mimes' => 'Format foto profil harus jpeg atau jpg.',
+            
+        
             'code.required' => 'Kode tidak boleh kosong.',
             'code.uuid' => 'Kode tidak valid.',
         
@@ -161,17 +207,37 @@ class RegisterController extends Controller
             'email' => $request->email,
             'password' => $request->password,
             'unit_id' => $request->unit_id,
+            'nik' => $request->nik,
             'full_name' => $request->full_name,
             'phone_no' => $request->phone_no,
+            'gender_id' => $request->gender_id,
+            'date_of_birth' => $request->date_of_birth,
+            'religion' => $request->religion,
+            'place_of_birth' => $request->place_of_birth,
+            'marital_status' => $request->marital_status,
+            'occupation' => $request->occupation,
+            'education' => $request->education,
+            'family_as' => $request->family_as,
             'code' => $request->code
+           
         ];
         //dd($data);
         try {
             //dd("here");
             $http = Http::withHeaders([
                 'Accept' => 'application/json',
-            ])->asMultipart();
-                    
+            ]);
+
+            if (isset($request->profile_photo) && $request->hasFile('profile_photo')) {
+                $file = $request->file('profile_photo');
+                $http->attach('profile_photo', file_get_contents($file->getRealPath()), $file->getClientOriginalName());
+            }
+
+            if (isset($request->marital_photo) && $request->hasFile('marital_photo')) {
+                $file = $request->file('marital_photo');
+                $http->attach('marriagePhoto', file_get_contents($file->getRealPath()), $file->getClientOriginalName());
+            }
+           
             $response = $http->post(env('API_URL') . '/api/auth/sign-up/'.$request->code."/", $data);
   
             $data_response = json_decode($response->body(), true);

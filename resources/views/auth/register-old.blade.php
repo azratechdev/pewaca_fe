@@ -253,7 +253,18 @@
                                 @enderror
                                 
                             </div>
-                        
+                            {{-- pattern="\d{16}" minlength="16" maxlength="16" @error('nik') is-invalid @enderror" --}}
+                            <div class="form-floating mb-3">
+                                <input type="text" pattern="\d{16}" maxlength="16" inputmode="numeric" class="form-control" value="{{ old('nik') }}" id="nik" name="nik" placeholder=" " oninput="updateNikCounter()">
+                                <label for="nik">NIK</label>
+                                <small class="text-danger d-none" id="nik-error">NIK harus 16 digit angka</small>
+                                {{-- @error('nik')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror --}}
+                                <span id="nik-counter" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); font-size: 0.875rem; color: #6c757d;">
+                                    0/16
+                                </span>
+                            </div>
                         
                             <div class="form-floating mb-3">
                                 <input type="text" pattern="[A-Za-z\s]+" class="form-control" id="full_name" name="full_name" placeholder=" " value="{{ old('full_name') }}" required>
@@ -274,6 +285,75 @@
                             </div>
                         
                             <div class="form-floating mb-3">
+                                <select class="form-select" id="gender_id" name="gender_id" required>
+                                    <option value="" disabled selected hidden>-Pilih Jenis Kelamin-</option>
+                                    @foreach ($genders as $gender)
+                                    <option value="{{ $gender['id'] }}" {{ old('gender_id') == $gender['id'] ? 'selected' : '' }}>{{ $gender['name'] }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="gender_id ">Jenis Kelamin</label>
+                            </div>
+                        
+                            <div class="form-floating mb-3">
+                                <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" value="{{ old('date_of_birth') }}"  placeholder=" " required>
+                                <label for="date_of_birth ">Tanggal Lahir</label>
+                            </div>
+                        
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="religion" name="religion" required>
+                                    <option value="" disabled selected hidden>-Pilih Agama-</option>
+                                    @foreach ($religions as $religion )
+                                    <option value="{{ $religion['id'] }}" {{ old('religion') ==  $religion['id'] ? 'selected' : '' }}>{{ $religion['name'] }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="religion">Agama</label>
+                            </div>
+                        
+                            <div class="form-floating mb-3">
+                                <input type="text" id="place_of_birth" class="form-control" value="{{ old('place_of_birth') }}" name="place_of_birth" placeholder=" " required>
+                                <label for="place_of_birth ">Tempat Lahir</label>
+                            </div>
+                        
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="marital_status" name="marital_status">
+                                    <option value="">-Pilih Status-</option>
+                                    @foreach ($statuses as $status )
+                                    <option value="{{ $status['id'] }}" {{ old('marital_status') == $status['id'] ? 'selected' : '' }}>{{ $status['name'] }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="marital_status">Status</label>
+                            </div>
+                            
+                            {{-- @error('marital_photo') is-invalid @enderror --}}
+                            <div class="form-floating mb-3" id="marital_photoGroup" style="display: none;">
+                                <input type="file" class="form-control" id="marital_photo" name="marital_photo" accept="image/jpeg,image/jpg,image/png">
+                                <label for="marital_photo">Upload Foto Buku Nikah</label>
+                                @error('marital_photo')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="occupation" name="occupation" required>
+                                    <option value="" disabled selected hidden>-Pilih Pekerjaan-</option>
+                                    @foreach ($jobs as $job)
+                                    <option value="{{ $job['id'] }}" {{ old('occupation') == $job['id'] ? 'selected' : '' }}>{{ $job['name'] }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="occupation ">Pekerjaan</label>
+                            </div>
+                        
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="education" name="education" required>
+                                    <option value="" disabled selected hidden>-Pilih Pendidikan-</option>
+                                    @foreach ($educations as $education)
+                                    <option value="{{ $education['id'] }}" {{ old('education') == $education['id'] ? 'selected' : '' }}>{{ $education['name'] }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="education">Pendidikan</label>
+                            </div>
+                        
+                            <div class="form-floating mb-3">
                                 <input type="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" id="email" name="email" placeholder=" " required>
                                 <label for="email">Alamat Email</label>
                                 @error('email')
@@ -290,6 +370,39 @@
                                 @enderror
                             </div>
 
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="family_as" name="family_as" required>
+                                    <option value="" disabled selected hidden>-Pilih Sebagai-</option>
+                                    @foreach ($families as $family)
+                                    <option value="{{ $family['id'] }}" {{ old('family_as') == $family['id'] ? 'selected' : '' }}>{{ $family['name'] }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="family_as">Family As</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input 
+                                    type="file" 
+                                    class="form-control @error('profile_photo') is-invalid @enderror" 
+                                    id="profile_photo" 
+                                    name="profile_photo" 
+                                    accept="image/jpeg,image/jpg,image/png"
+                                    style="padding-top: 1.625rem;"
+                                >
+                                <label for="profile_photo">Upload Foto Profil</label>
+                                
+                                <!-- Preview Container (lebar 50%) -->
+                                <div id="imagePreviewContainer" class="mt-3 mx-auto" style="display: none; position: relative; width: 50%;">
+                                    <img id="imagePreview" src="" alt="Preview" style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd;">
+                                    <button id="removeImageButton" class="btn btn-sm btn-danger" style="position: absolute; top: 5px; right: 5px; padding: 0.15rem 0.3rem;">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                
+                                @error('profile_photo')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
                         
                             <div class="form-group mb-3">
                                 <button type="submit" id="submitBtn" class="btn btn-success form-control">Daftar Sebagai Warga</button>
@@ -322,8 +435,148 @@
   <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-   
+   document.addEventListener('DOMContentLoaded', function() {
+    const profilePhotoInput = document.getElementById('profile_photo');
+    const maritalPhotoInput = document.getElementById('marital_photo');
+    const imagePreview = document.getElementById('imagePreview');
+    const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+    const removeImageButton = document.getElementById('removeImageButton');
+
+    // Konfigurasi kompresi gambar
+    const compressionOptions = {
+        maxSizeMB: 2,              // Maksimal 2MB setelah kompresi
+        maxWidthOrHeight: 1920,    // Maksimal lebar/tinggi 1920px
+        useWebWorker: true,        // Gunakan Web Worker untuk performa
+        fileType: 'image/jpeg',    // Convert ke JPEG
+        initialQuality: 0.8        // Quality 80%
+    };
+
+    // Fungsi untuk kompres gambar
+    async function compressImage(file, inputElement) {
+        try {
+            // Tampilkan loading
+            Swal.fire({
+                title: 'Memproses Gambar',
+                html: 'Mengoptimalkan ukuran gambar...<br><small>Ukuran asli: ' + (file.size / 1024 / 1024).toFixed(2) + ' MB</small>',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // Kompres gambar
+            const compressedFile = await imageCompression(file, compressionOptions);
+
+            // Tutup loading dan tampilkan hasil
+            Swal.close();
+
+            // Tampilkan notifikasi hasil kompresi
+            const originalSize = (file.size / 1024 / 1024).toFixed(2);
+            const compressedSize = (compressedFile.size / 1024 / 1024).toFixed(2);
+            const reduction = ((1 - compressedFile.size / file.size) * 100).toFixed(0);
+
+            console.log('Kompresi berhasil:');
+            console.log('- Ukuran asli:', originalSize, 'MB');
+            console.log('- Ukuran setelah kompresi:', compressedSize, 'MB');
+            console.log('- Pengurangan:', reduction, '%');
+
+            // Buat File object baru dari compressed blob dengan nama file yang sesuai
+            // Ganti ekstensi dengan .jpg karena kita kompres ke JPEG
+            const originalName = file.name;
+            const nameWithoutExt = originalName.substring(0, originalName.lastIndexOf('.')) || originalName;
+            const newFileName = nameWithoutExt + '.jpg';
+            
+            const newFile = new File([compressedFile], newFileName, {
+                type: 'image/jpeg',
+                lastModified: Date.now()
+            });
+
+            // Buat DataTransfer object untuk update input file
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(newFile);
+            inputElement.files = dataTransfer.files;
+
+            return newFile;
+
+        } catch (error) {
+            console.error('Error saat kompresi:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal Memproses Gambar',
+                text: 'Terjadi kesalahan saat mengoptimalkan gambar. Silakan coba lagi.',
+                confirmButtonText: 'OK'
+            });
+            // Reset input
+            inputElement.value = '';
+            return null;
+        }
+    }
+
+    // Event listener untuk foto profil
+    if (profilePhotoInput) {
+        profilePhotoInput.addEventListener('change', async function() {
+            const file = this.files[0];
+            if (file) {
+                // Validasi tipe file
+                if (!file.type.match('image.*')) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'File Tidak Valid',
+                        text: 'Mohon pilih file gambar (JPG, JPEG, atau PNG)',
+                        confirmButtonText: 'OK'
+                    });
+                    this.value = '';
+                    return;
+                }
+
+                // Kompres gambar
+                const compressedFile = await compressImage(file, this);
+                
+                if (compressedFile) {
+                    // Tampilkan preview
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        imagePreview.src = e.target.result;
+                        imagePreviewContainer.style.display = 'block';
+                    }
+                    reader.readAsDataURL(compressedFile);
+                }
+            }
+        });
+
+        removeImageButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            profilePhotoInput.value = '';
+            imagePreview.src = '';
+            imagePreviewContainer.style.display = 'none';
+            profilePhotoInput.classList.remove('is-invalid');
+        });
+    }
+
+    // Event listener untuk foto buku nikah
+    if (maritalPhotoInput) {
+        maritalPhotoInput.addEventListener('change', async function() {
+            const file = this.files[0];
+            if (file) {
+                // Validasi tipe file
+                if (!file.type.match('image.*')) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'File Tidak Valid',
+                        text: 'Mohon pilih file gambar (JPG, JPEG, atau PNG)',
+                        confirmButtonText: 'OK'
+                    });
+                    this.value = '';
+                    return;
+                }
+
+                // Kompres gambar
+                await compressImage(file, this);
+            }
+        });
+    }
+
      // Password toggle functionality
     const togglePassword = document.querySelector('#togglePassword');
     const password = document.querySelector('#password');
@@ -482,6 +735,60 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     </script>
 
+    <script>
+        $( document ).ready(function() {
+         
+            const statusSelect = document.getElementById('marital_status');
+            const marital_photoGroup = document.getElementById('marital_photoGroup');
+            const marital_photoInput = document.getElementById('marital_photo');
+
+            if (statusSelect) {
+                function togglemarital_photoInput() {
+                    const selectedStatus = statusSelect.value;
+                    if (selectedStatus === '1') {
+                        marital_photoGroup.style.display = 'block';
+                        // marital_photoInput.setAttribute('required', 'required');
+                    } else {
+                        marital_photoGroup.style.display = 'none';
+                        // marital_photoInput.removeAttribute('required');
+                    }
+                }
+
+                statusSelect.addEventListener('change', togglemarital_photoInput);
+                togglemarital_photoInput();
+            } else {
+                console.error("Element with ID 'marital_status' not found.");
+            }
+        });
+    </script>
+<script>
+    document.getElementById('nik').addEventListener('input', function (e) {
+    let value = e.target.value.replace(/\D/g, ''); // Hanya angka
+
+    if (value.length > 16) {
+        value = value.substring(0, 16); // Batasi 16 digit
+    }
+
+    e.target.value = value;
+
+    const errorEl = document.getElementById('nik-error');
+    const counterEl = document.getElementById('nik-counter');
+
+    // Tampilkan error jika tidak kosong dan < 16
+    if (value.length > 0 && value.length < 16) {
+        errorEl.classList.remove('d-none');
+        e.target.classList.add('is-invalid'); // Jika pakai Bootstrap
+    } else {
+        errorEl.classList.add('d-none');
+        e.target.classList.remove('is-invalid');
+    }
+
+    // Update counter jika ada
+    if (counterEl) {
+        counterEl.textContent = `${value.length}/16`;
+    }
+});
+</script>
 
 <script>
     document.getElementById('phone_no').addEventListener('input', function (e) {
@@ -521,6 +828,37 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 </script>
 
+    {{-- <script>
+        function updateNikCounter() {
+            const nikInput = document.getElementById('nik');
+            const counter = document.getElementById('nik-counter');
+            const errorMsg = document.getElementById('nik-error');
+            const maxLength = 16;
+
+            // Ambil hanya angka
+            nikInput.value = nikInput.value.replace(/\D/g, '');
+
+            const length = nikInput.value.length;
+            counter.textContent = `${length}/${maxLength}`;
+            
+        }
+
+        // Jalankan saat pertama kali halaman dimuat jika ada value
+        document.addEventListener('DOMContentLoaded', updateNikCounter);
+    </script> --}}
+{{-- <script>
+    document.getElementById('nik').addEventListener('input', function (e) {
+        let value = e.target.value.replace(/\D/g, ''); // Hanya angka
+        if (value.length > 16) {
+            value = value.substring(0, 16); // Batasi 16 digit
+        }
+        e.target.value = value;
+
+        // Tampilkan pesan error jika kurang dari 16 digit
+        document.getElementById('nik-error').classList.toggle('d-none', value.length === 16);
+    });
+
+</script> --}}
 </body>
 </html>
 
