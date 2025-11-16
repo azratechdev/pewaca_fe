@@ -108,9 +108,9 @@
                         <br>
                         <div class="row">
                           <div class="col-md-12 text-center">
-                              <small class="text-muted">
+                              <p class="text-muted" style="font-size: 14px; margin-bottom: 0;">
                                 Powered by <a href="https://hemitech.id/" target="_blank" rel="noopener noreferrer" style="color: #198754; text-decoration: none; font-weight: 500;">Hemitech ID</a>
-                              </small>
+                              </p>
                           </div>
                         </div>
                     </form>
