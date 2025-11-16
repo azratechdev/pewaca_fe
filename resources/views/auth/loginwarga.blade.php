@@ -109,7 +109,7 @@
                         <div class="row">
                           <div class="col-md-12 text-center">
                               <small class="text-muted">
-                                Powered by <a href="https://hemitech.id/" target="_blank" style="color: #198754; text-decoration: none; font-weight: 500;">Hemitech ID</a>
+                                Powered by <a href="https://hemitech.id/" target="_blank" rel="noopener noreferrer" style="color: #198754; text-decoration: none; font-weight: 500;">Hemitech ID</a>
                               </small>
                           </div>
                         </div>
