@@ -253,7 +253,18 @@
                                 @enderror
                                 
                             </div>
-                        
+                            {{-- pattern="\d{16}" minlength="16" maxlength="16" @error('nik') is-invalid @enderror" --}}
+                            <div class="form-floating mb-3">
+                                <input type="text" pattern="\d{16}" maxlength="16" inputmode="numeric" class="form-control" value="{{ old('nik') }}" id="nik" name="nik" placeholder=" " oninput="updateNikCounter()">
+                                <label for="nik">NIK</label>
+                                <small class="text-danger d-none" id="nik-error">NIK harus 16 digit angka</small>
+                                {{-- @error('nik')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror --}}
+                                <span id="nik-counter" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); font-size: 0.875rem; color: #6c757d;">
+                                    0/16
+                                </span>
+                            </div>
                         
                             <div class="form-floating mb-3">
                                 <input type="text" pattern="[A-Za-z\s]+" class="form-control" id="full_name" name="full_name" placeholder=" " value="{{ old('full_name') }}" required>
@@ -274,6 +285,75 @@
                             </div>
                         
                             <div class="form-floating mb-3">
+                                <select class="form-select" id="gender_id" name="gender_id" required>
+                                    <option value="" disabled selected hidden>-Pilih Jenis Kelamin-</option>
+                                    @foreach ($genders as $gender)
+                                    <option value="{{ $gender['id'] }}" {{ old('gender_id') == $gender['id'] ? 'selected' : '' }}>{{ $gender['name'] }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="gender_id ">Jenis Kelamin</label>
+                            </div>
+                        
+                            <div class="form-floating mb-3">
+                                <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" value="{{ old('date_of_birth') }}"  placeholder=" " required>
+                                <label for="date_of_birth ">Tanggal Lahir</label>
+                            </div>
+                        
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="religion" name="religion" required>
+                                    <option value="" disabled selected hidden>-Pilih Agama-</option>
+                                    @foreach ($religions as $religion )
+                                    <option value="{{ $religion['id'] }}" {{ old('religion') ==  $religion['id'] ? 'selected' : '' }}>{{ $religion['name'] }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="religion">Agama</label>
+                            </div>
+                        
+                            <div class="form-floating mb-3">
+                                <input type="text" id="place_of_birth" class="form-control" value="{{ old('place_of_birth') }}" name="place_of_birth" placeholder=" " required>
+                                <label for="place_of_birth ">Tempat Lahir</label>
+                            </div>
+                        
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="marital_status" name="marital_status">
+                                    <option value="">-Pilih Status-</option>
+                                    @foreach ($statuses as $status )
+                                    <option value="{{ $status['id'] }}" {{ old('marital_status') == $status['id'] ? 'selected' : '' }}>{{ $status['name'] }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="marital_status">Status</label>
+                            </div>
+                            
+                            {{-- @error('marital_photo') is-invalid @enderror --}}
+                            <div class="form-floating mb-3" id="marital_photoGroup" style="display: none;">
+                                <input type="file" class="form-control" id="marital_photo" name="marital_photo" accept="image/jpeg,image/jpg,image/png">
+                                <label for="marital_photo">Upload Foto Buku Nikah</label>
+                                @error('marital_photo')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="occupation" name="occupation" required>
+                                    <option value="" disabled selected hidden>-Pilih Pekerjaan-</option>
+                                    @foreach ($jobs as $job)
+                                    <option value="{{ $job['id'] }}" {{ old('occupation') == $job['id'] ? 'selected' : '' }}>{{ $job['name'] }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="occupation ">Pekerjaan</label>
+                            </div>
+                        
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="education" name="education" required>
+                                    <option value="" disabled selected hidden>-Pilih Pendidikan-</option>
+                                    @foreach ($educations as $education)
+                                    <option value="{{ $education['id'] }}" {{ old('education') == $education['id'] ? 'selected' : '' }}>{{ $education['name'] }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="education">Pendidikan</label>
+                            </div>
+                        
+                            <div class="form-floating mb-3">
                                 <input type="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" id="email" name="email" placeholder=" " required>
                                 <label for="email">Alamat Email</label>
                                 @error('email')
@@ -290,6 +370,39 @@
                                 @enderror
                             </div>
 
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="family_as" name="family_as" required>
+                                    <option value="" disabled selected hidden>-Pilih Sebagai-</option>
+                                    @foreach ($families as $family)
+                                    <option value="{{ $family['id'] }}" {{ old('family_as') == $family['id'] ? 'selected' : '' }}>{{ $family['name'] }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="family_as">Family As</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input 
+                                    type="file" 
+                                    class="form-control @error('profile_photo') is-invalid @enderror" 
+                                    id="profile_photo" 
+                                    name="profile_photo" 
+                                    accept="image/jpeg,image/jpg,image/png"
+                                    style="padding-top: 1.625rem;"
+                                >
+                                <label for="profile_photo">Upload Foto Profil</label>
+                                
+                                <!-- Preview Container (lebar 50%) -->
+                                <div id="imagePreviewContainer" class="mt-3 mx-auto" style="display: none; position: relative; width: 50%;">
+                                    <img id="imagePreview" src="" alt="Preview" style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd;">
+                                    <button id="removeImageButton" class="btn btn-sm btn-danger" style="position: absolute; top: 5px; right: 5px; padding: 0.15rem 0.3rem;">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                
+                                @error('profile_photo')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
                         
                             <div class="form-group mb-3">
                                 <button type="submit" id="submitBtn" class="btn btn-success form-control">Daftar Sebagai Warga</button>

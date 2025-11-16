@@ -206,11 +206,11 @@
 <div class="warungku-header">
   <div class="container">
     <div class="d-flex justify-content-between align-items-center">
-      <div>
+      <div class="p-6">
         <h4 class="mb-0"><i class="fas fa-store"></i> Warungku</h4>
         <small>Marketplace Warga Pewaca</small>
       </div>
-      <div>
+      <div class="p-6">
         <a href="{{ route('cart.index') }}" class="text-white text-decoration-none cart-icon-container">
           <i class="fas fa-shopping-cart fa-lg"></i>
           <span class="cart-badge" id="cartBadge" style="display: none;">0</span>
