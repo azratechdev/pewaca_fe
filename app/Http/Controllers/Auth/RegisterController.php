@@ -170,7 +170,7 @@ class RegisterController extends Controller
             //dd("here");
             $http = Http::withHeaders([
                 'Accept' => 'application/json',
-            ]);
+            ])->asMultipart();
                     
             $response = $http->post(env('API_URL') . '/api/auth/sign-up/'.$request->code."/", $data);
   
