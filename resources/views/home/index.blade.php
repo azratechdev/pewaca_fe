@@ -675,7 +675,7 @@ $isChecker = $warga['is_checker'] ?? false;
     <div class="header-section">
         <div class="logo-section">
             <img alt="Waca Logo" src="{{ asset('assets/plugins/images/mainlogo.png') }}"/>
-            <div style="font-size: 14px; color: #6b7280; margin-top: 4px; font-weight: 500;">
+            <div style="font-size: 18px; color: #374151; margin-top: 6px; font-weight: 600;">
                 {{ $residence['name'] ?? 'Residence' }}
             </div>
         </div>
