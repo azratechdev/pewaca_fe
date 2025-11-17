@@ -139,9 +139,6 @@
       background: white;
       border-radius: 16px;
       padding: 20px;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
       transition: all 0.3s ease;
       animation: fadeInUp 0.5s ease-out backwards;
@@ -698,7 +695,7 @@ $isChecker = $warga['is_checker'] ?? false;
     @include('layouts.elements.flash')
           
     <!-- Stories Feed -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3 items-start">
         @forelse($stories as $story)
             @if(isset($story['warga']) && !empty($story['warga']))
             <div class="story-card">
