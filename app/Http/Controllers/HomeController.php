@@ -63,6 +63,13 @@ class HomeController extends Controller
                 return [];
             }
             
+            // Debug: Log sample story to check total_replay field
+            if (!empty($stories_response['data'])) {
+                Log::info('Sample Story Data:', [
+                    'first_story' => $stories_response['data'][0] ?? 'No stories'
+                ]);
+            }
+            
             return $stories_response['data'];
         } catch (\Exception $e) {
             Log::error('Get Stories Exception:', [
