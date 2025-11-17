@@ -675,6 +675,9 @@ $isChecker = $warga['is_checker'] ?? false;
     <div class="header-section">
         <div class="logo-section">
             <img alt="Waca Logo" src="{{ asset('assets/plugins/images/mainlogo.png') }}"/>
+            <div style="font-size: 14px; color: #6b7280; margin-top: 4px; font-weight: 500;">
+                {{ $residence['name'] ?? 'Residence' }}
+            </div>
         </div>
         <a href="{{ route('addpost') }}" class="add-post-btn">
             <i class="fas fa-plus"></i>
