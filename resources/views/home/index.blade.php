@@ -9,9 +9,16 @@
     }
 
     .modern-container {
-      max-width: 800px;
+      max-width: 1400px;
       margin: 0 auto;
       padding: 20px;
+      width: 100%;
+    }
+
+    @media (min-width: 1920px) {
+      .modern-container {
+        max-width: 1600px;
+      }
     }
 
     /* Header Section */
