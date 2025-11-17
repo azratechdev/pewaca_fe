@@ -350,15 +350,12 @@
 
   <div class="login-container">
     <div class="login-card">
-      <!-- Logo -->
-      <div class="logo-container">
-        <img src="{{ asset('assets/plugins/images/mainlogo.png') }}" alt="Pewaca Logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%2260%22%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2224%22 fill=%22%23667eea%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3EPewaca%3C/text%3E%3C/svg%3E'">
-      </div>
-
-      <!-- Welcome Text -->
+      <!-- Welcome Text with Logo -->
       <div class="welcome-text">
         <h4>Selamat Datang di</h4>
-        <h2>Pewaca</h2>
+        <div class="logo-container" style="margin-top: 15px;">
+          <img src="{{ asset('assets/plugins/images/mainlogo.png') }}" alt="Pewaca Logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%2260%22%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2224%22 fill=%22%2310b981%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3EPewaca%3C/text%3E%3C/svg%3E'">
+        </div>
       </div>
 
       <!-- Flash Messages -->
