@@ -752,8 +752,8 @@ $isChecker = $warga['is_checker'] ?? false;
                 
                 <!-- Action Buttons -->
                 <div class="action-buttons">
-                    <a href="javascript:void(0)" class="toggle-comment action-btn" data-id="{{ $story['id'] }}" data-total-comments="0">
-                        <i class="far fa-comment-dots"></i> Comment <span class="comment-count-{{ $story['id'] }}"></span>
+                    <a href="javascript:void(0)" class="toggle-comment action-btn" data-id="{{ $story['id'] }}" data-total-comments="{{ $story['total_replay'] ?? 0 }}">
+                        <i class="far fa-comment-dots"></i> Comment <span class="comment-count-{{ $story['id'] }}">({{ $story['total_replay'] ?? 0 }})</span>
                     </a>
                 </div>
                 
@@ -970,9 +970,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.html) {
                     $('.comment-show'+storyId).html(response.html);
-                    // Update counter with actual loaded comments count
-                    const commentCount = $('.comment-show'+storyId+' .comment-all').length;
-                    updateCommentCount(storyId, commentCount);
+                    // Keep existing counter from backend, don't change
                 }
             },
             error: function (xhr, status, error) {
@@ -998,9 +996,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.html) {
                     $('.comment-more'+storyId).append(response.html);
-                    // Update counter after loading more comments
-                    const commentCount = $('.comment-show'+storyId+' .comment-all').length;
-                    updateCommentCount(storyId, commentCount);
+                    // Keep existing counter, don't change on load more
                 }
             },
             error: function (xhr, status, error) {

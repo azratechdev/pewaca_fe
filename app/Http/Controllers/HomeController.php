@@ -63,19 +63,47 @@ class HomeController extends Controller
                 return [];
             }
             
-            // Debug: Log sample story to check total_replay field
-            if (!empty($stories_response['data'])) {
-                Log::info('Sample Story Data:', [
-                    'first_story' => $stories_response['data'][0] ?? 'No stories'
-                ]);
+            $stories = $stories_response['data'];
+            
+            // Fetch comment count for each story
+            foreach ($stories as &$story) {
+                $story['total_replay'] = $this->getCommentCount($story['id']);
             }
             
-            return $stories_response['data'];
+            return $stories;
         } catch (\Exception $e) {
             Log::error('Get Stories Exception:', [
                 'error' => $e->getMessage()
             ]);
             return [];
+        }
+    }
+    
+    private function getCommentCount($storyId)
+    {
+        try {
+            $response = Http::withHeaders([
+                'Accept' => 'application/json',
+                'Authorization' => 'Token '.Session::get('token'),
+            ])->get(env('API_URL') . '/api/story-replays/?page=1&story_id='.$storyId);
+            
+            if (!$response->successful()) {
+                return 0;
+            }
+            
+            $replay_response = json_decode($response->body(), true);
+            
+            if (!$replay_response || !isset($replay_response['count'])) {
+                return 0;
+            }
+            
+            return $replay_response['count'];
+        } catch (\Exception $e) {
+            Log::error('Get Comment Count Exception:', [
+                'error' => $e->getMessage(),
+                'story_id' => $storyId
+            ]);
+            return 0;
         }
     }
 
