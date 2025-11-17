@@ -138,8 +138,10 @@
     .story-card {
       background: white;
       border-radius: 16px;
-      padding: 24px;
-      margin-bottom: 20px;
+      padding: 20px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
       transition: all 0.3s ease;
       animation: fadeInUp 0.5s ease-out backwards;
@@ -166,6 +168,9 @@
     .story-card:nth-child(1) { animation-delay: 0.1s; }
     .story-card:nth-child(2) { animation-delay: 0.2s; }
     .story-card:nth-child(3) { animation-delay: 0.3s; }
+    .story-card:nth-child(4) { animation-delay: 0.15s; }
+    .story-card:nth-child(5) { animation-delay: 0.25s; }
+    .story-card:nth-child(6) { animation-delay: 0.35s; }
 
     /* Profile Header */
     .profile-header {
@@ -693,7 +698,7 @@ $isChecker = $warga['is_checker'] ?? false;
     @include('layouts.elements.flash')
           
     <!-- Stories Feed -->
-    <div class="stories-feed">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
         @forelse($stories as $story)
             @if(isset($story['warga']) && !empty($story['warga']))
             <div class="story-card">
