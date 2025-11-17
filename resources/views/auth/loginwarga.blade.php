@@ -21,7 +21,7 @@
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -176,7 +176,7 @@
     }
 
     .toggle-password:hover {
-      color: #667eea;
+      color: #10b981;
     }
 
     .forgot-password {
@@ -185,7 +185,7 @@
     }
 
     .forgot-password a {
-      color: #667eea;
+      color: #10b981;
       text-decoration: none;
       font-size: 14px;
       font-weight: 500;
@@ -193,14 +193,14 @@
     }
 
     .forgot-password a:hover {
-      color: #764ba2;
+      color: #059669;
       text-decoration: underline;
     }
 
     .btn-login {
       width: 100%;
       height: 56px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
       border: none;
       border-radius: 12px;
       color: white;
@@ -208,7 +208,7 @@
       font-weight: 600;
       letter-spacing: 0.5px;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
       position: relative;
       overflow: hidden;
     }
@@ -230,7 +230,7 @@
 
     .btn-login:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 25px rgba(102, 126, 234, 0.4);
+      box-shadow: 0 6px 25px rgba(16, 185, 129, 0.4);
     }
 
     .btn-login:active {
@@ -262,14 +262,14 @@
     }
 
     .powered-by a {
-      color: #667eea;
+      color: #10b981;
       text-decoration: none;
       font-weight: 600;
       transition: color 0.2s ease;
     }
 
     .powered-by a:hover {
-      color: #764ba2;
+      color: #059669;
     }
 
     /* Alert styling */
