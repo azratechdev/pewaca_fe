@@ -752,7 +752,7 @@ $isChecker = $warga['is_checker'] ?? false;
                 
                 <!-- Action Buttons -->
                 <div class="action-buttons">
-                    <a href="javascript:void(0)" class="toggle-comment action-btn" data-id="{{ $story['id'] }}">
+                    <a href="javascript:void(0)" class="toggle-comment action-btn" data-id="{{ $story['id'] }}" data-total-comments="{{ $story['total_replay'] ?? 0 }}">
                         <i class="far fa-comment-dots"></i> Comment <span class="comment-count-{{ $story['id'] }}">({{ $story['total_replay'] ?? 0 }})</span>
                     </a>
                 </div>
@@ -815,6 +815,13 @@ $isChecker = $warga['is_checker'] ?? false;
 // Function to update comment count
 function updateCommentCount(storyId, count) {
     $('.comment-count-' + storyId).text('(' + count + ')');
+    // Update the data attribute to maintain the count
+    $('.toggle-comment[data-id="' + storyId + '"]').attr('data-total-comments', count);
+}
+
+// Function to get current comment count from data attribute
+function getCommentCount(storyId) {
+    return parseInt($('.toggle-comment[data-id="' + storyId + '"]').attr('data-total-comments') || 0);
 }
 
 $(document).ready(function () {
@@ -870,9 +877,9 @@ $(document).ready(function () {
                             success: function (response) {
                                 if (response.html) {
                                     $('.comment-show'+storyId).html(response.html);
-                                    // Update comment count
-                                    const commentCount = $('.comment-show'+storyId+' .comment-all').length;
-                                    updateCommentCount(storyId, commentCount);
+                                    // Increment comment count by 1 after successful submit
+                                    const currentCount = getCommentCount(storyId);
+                                    updateCommentCount(storyId, currentCount + 1);
                                 }
                             },
                             error: function (xhr, status, error) {
@@ -963,9 +970,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.html) {
                     $('.comment-show'+storyId).html(response.html);
-                    // Update comment count
-                    const commentCount = $('.comment-show'+storyId+' .comment-all').length;
-                    updateCommentCount(storyId, commentCount);
+                    // Don't change count on fetchComments - preserve stored total
                 }
             },
             error: function (xhr, status, error) {
@@ -991,9 +996,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.html) {
                     $('.comment-more'+storyId).append(response.html);
-                    // Update comment count after loading more
-                    const commentCount = $('.comment-show'+storyId+' .comment-all').length;
-                    updateCommentCount(storyId, commentCount);
+                    // Don't change count on load more - total already known
                 }
             },
             error: function (xhr, status, error) {
