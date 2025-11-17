@@ -396,27 +396,213 @@
 
     /* Responsive */
     @media (max-width: 768px) {
+      body {
+        background: linear-gradient(to bottom, #f0f4f8 0%, #e2e8f0 100%);
+      }
+
       .modern-container {
         padding: 12px;
+        max-width: 100%;
       }
 
       .header-section {
-        padding: 16px;
+        padding: 14px 16px;
         margin-bottom: 16px;
+        border-radius: 12px;
+      }
+
+      .logo-section img {
+        height: 40px;
+      }
+
+      .add-post-btn {
+        width: 44px;
+        height: 44px;
       }
 
       .story-card {
-        padding: 18px;
-        margin-bottom: 16px;
+        padding: 16px;
+        margin-bottom: 14px;
+        border-radius: 14px;
       }
 
       .election-banner {
-        padding: 20px;
+        padding: 20px 16px;
+        border-radius: 14px;
+      }
+
+      .election-banner h5 {
+        font-size: 1.1rem;
+      }
+
+      .countdown {
+        font-size: 1.3rem;
+      }
+
+      .btn-vote {
+        padding: 10px 24px;
+        font-size: 14px;
       }
 
       .profile-picture {
         width: 44px;
         height: 44px;
+        border: 2px solid #f3f4f6;
+      }
+
+      .profile-name {
+        font-size: 14px;
+      }
+
+      .profile-time {
+        font-size: 12px;
+      }
+
+      .story-text {
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .fixed-img {
+        border-radius: 10px;
+        max-height: 350px;
+      }
+
+      .action-buttons {
+        gap: 16px;
+      }
+
+      .action-btn {
+        font-size: 13px;
+        padding: 6px 12px;
+      }
+
+      .comment-textarea {
+        font-size: 13px;
+        padding: 10px 14px;
+      }
+
+      .comment-submit-btn {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+      }
+
+      .comment-submit-btn i {
+        font-size: 14px;
+      }
+
+      .waiting-verification {
+        margin: 40px auto;
+        padding: 32px 20px;
+        border-radius: 16px;
+      }
+
+      .waiting-verification h1 {
+        font-size: 18px;
+      }
+
+      .waiting-verification p {
+        font-size: 14px;
+      }
+
+      .empty-state {
+        padding: 40px 16px;
+      }
+
+      .empty-state i {
+        font-size: 40px;
+      }
+
+      .empty-state h3 {
+        font-size: 16px;
+      }
+    }
+
+    /* Extra small devices (phones, less than 375px) */
+    @media (max-width: 375px) {
+      .modern-container {
+        padding: 8px;
+      }
+
+      .header-section {
+        padding: 12px 14px;
+      }
+
+      .logo-section img {
+        height: 36px;
+      }
+
+      .add-post-btn {
+        width: 40px;
+        height: 40px;
+      }
+
+      .story-card {
+        padding: 14px;
+        margin-bottom: 12px;
+      }
+
+      .election-banner {
+        padding: 18px 14px;
+      }
+
+      .election-banner h5 {
+        font-size: 1rem;
+      }
+
+      .countdown {
+        font-size: 1.2rem;
+      }
+
+      .profile-picture {
+        width: 40px;
+        height: 40px;
+      }
+
+      .profile-name {
+        font-size: 13px;
+      }
+
+      .profile-time {
+        font-size: 11px;
+      }
+
+      .story-text {
+        font-size: 13px;
+      }
+
+      .comment-textarea {
+        font-size: 12px;
+        padding: 8px 12px;
+      }
+
+      .comment-submit-btn {
+        width: 36px;
+        height: 36px;
+      }
+
+      .waiting-verification {
+        margin: 30px auto;
+        padding: 24px 16px;
+      }
+    }
+
+    /* Touch-friendly improvements */
+    @media (hover: none) and (pointer: coarse) {
+      .action-btn {
+        padding: 10px 16px;
+        min-height: 44px;
+      }
+
+      .add-post-btn {
+        min-width: 48px;
+        min-height: 48px;
+      }
+
+      .comment-submit-btn {
+        min-width: 44px;
+        min-height: 44px;
       }
     }
 
