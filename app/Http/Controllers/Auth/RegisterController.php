@@ -130,9 +130,11 @@ class RegisterController extends Controller
             'unit_id' => 'required|integer',
             'full_name' => 'required|string|max:255',
             'phone_no' => 'required|regex:/^\d{8,13}$/',
+            'family_as' => 'required|integer',
             'code' => 'required|uuid',
             'email' => 'required|email',
-            'password' => 'required|string'
+            'password' => 'required|string',
+            'g-recaptcha-response' => 'required'
         ], [
             'unit_id.required' => 'Unit wajib diisi.',
             'unit_id.integer' => 'Unit harus berupa angka.',
@@ -146,6 +148,9 @@ class RegisterController extends Controller
         
             'phone_no.required' => 'Nomor HP / Telephon wajib diisi.',
             'phone_no.regex' => 'Nomor telepon harus terdiri dari 8 hingga 13 digit angka.',
+
+            'family_as.required' => 'Status dalam keluarga wajib dipilih.',
+            'family_as.integer' => 'Status dalam keluarga tidak valid.',
                 
             'code.required' => 'Kode tidak boleh kosong.',
             'code.uuid' => 'Kode tidak valid.',
@@ -155,7 +160,27 @@ class RegisterController extends Controller
         
             'password.required' => 'Password wajib diisi.',
             'password.string' => 'Password tidak valid.',
+
+            'g-recaptcha-response.required' => 'Captcha wajib diisi.',
+            'g-recaptcha-response.string' => 'Captcha tidak valid.',
         ]);
+
+        $recaptchaResponse = $request->input('g-recaptcha-response');
+
+        // Verifikasi ke Google
+        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => config('recaptcha.secretkey'),
+            'response' => $recaptchaResponse,
+        ]);
+
+        $result = $response->json();
+
+        if (!$result['success']) {
+            return back()->withErrors([
+                'login' => 'Verifikasi CAPTCHA gagal. Anda mungkin dianggap bot.'
+            ])->withInput();
+        }
+
 
         $data = [
             'email' => $request->email,
@@ -163,6 +188,7 @@ class RegisterController extends Controller
             'unit_id' => $request->unit_id,
             'full_name' => $request->full_name,
             'phone_no' => $request->phone_no,
+            'family_as' => $request->family_as,
             'code' => $request->code
         ];
         //dd($data);

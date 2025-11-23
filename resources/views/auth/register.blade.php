@@ -11,6 +11,7 @@
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+   <script src="https://www.google.com/recaptcha/api.js?render={{ config('recaptcha.sitekey') }}"></script>
   <style>
     .navbar-custom {
       background-color:  #198754; /* Tosca color */
@@ -272,6 +273,16 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror --}}
                             </div>
+
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="family_as" name="family_as" required>
+                                    <option value="" disabled selected hidden>-Pilih Sebagai-</option>
+                                    @foreach ($families as $family)
+                                    <option value="{{ $family['id'] }}" {{ old('family_as') == $family['id'] ? 'selected' : '' }}>{{ $family['name'] }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="family_as">Family As</label>
+                            </div>
                         
                             <div class="form-floating mb-3">
                                 <input type="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" id="email" name="email" placeholder=" " required>
@@ -290,6 +301,11 @@
                                 @enderror
                             </div>
 
+                            <div class="g-recaptcha"
+                                data-sitekey="{{ config('recaptcha.sitekey') }}"
+                                data-callback="onSubmit"
+                                data-size="invisible">
+                            </div>
                         
                             <div class="form-group mb-3">
                                 <button type="submit" id="submitBtn" class="btn btn-success form-control">Daftar Sebagai Warga</button>
@@ -339,8 +355,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
     <script>
-   
         $('#registrasi').on('submit', function(e) {
+            e.preventDefault(); // Hentikan submit default
+
+            const form = this;
             Swal.fire({
                 title: 'Memproses Data',
                 text: 'Harap tunggu sebentar...',
@@ -349,8 +367,53 @@ document.addEventListener('DOMContentLoaded', function() {
                 didOpen: () => {
                     Swal.showLoading(); 
                 }
+             });
+            // const btn = $('#submitBtn');
+            // btn.addClass('loading');
+            // btn.html('<span>Memproses Data...</span>');
+
+            // Jalankan reCAPTCHA invisible
+            grecaptcha.ready(function() {
+                grecaptcha.execute('{{ config('recaptcha.sitekey') }}', { action: 'registrasi' })
+                    .then(function(token) {
+                        // Tambahkan token ke form sebagai input hidden
+                        let recaptchaInput = form.querySelector('input[name="g-recaptcha-response"]');
+                        if (!recaptchaInput) {
+                            recaptchaInput = document.createElement('input');
+                            recaptchaInput.type = 'hidden';
+                            recaptchaInput.name = 'g-recaptcha-response';
+                            form.appendChild(recaptchaInput);
+                        }
+                        recaptchaInput.value = token;
+
+                        // Kirim form
+                        form.submit();
+                    })
+                    .catch(function(error) {
+                        console.error('reCAPTCHA error:', error);
+                        Swal.close();
+                        btn.removeClass('loading');
+                        btn.html('Login');
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: 'Verifikasi keamanan gagal. Silakan coba lagi.'
+                        });
+                    });
             });
         });
+   
+        // $('#registrasi').on('submit', function(e) {
+        //     Swal.fire({
+        //         title: 'Memproses Data',
+        //         text: 'Harap tunggu sebentar...',
+        //         allowOutsideClick: false, 
+        //         allowEscapeKey: false,  
+        //         didOpen: () => {
+        //             Swal.showLoading(); 
+        //         }
+        //     });
+        // });
     </script>
   @if (session('status') == 'success')
     <script>

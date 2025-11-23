@@ -11,7 +11,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
+  <script src="https://www.google.com/recaptcha/api.js?render={{ config('recaptcha.sitekey') }}"></script>
   <style>
     * {
       margin: 0;
@@ -380,6 +380,12 @@
           <i class="fas fa-eye-slash toggle-password" id="togglePassword"></i>
         </div>
 
+        <div class="g-recaptcha"
+            data-sitekey="{{ config('recaptcha.sitekey') }}"
+            data-callback="onSubmit"
+            data-size="invisible">
+        </div>
+
         <!-- Forgot Password -->
         <div class="forgot-password">
           <a href="{{ route('showFormReset') }}">Lupa Kata Sandi?</a>
@@ -406,19 +412,57 @@
 
   <script>
     $('#loginform').on('submit', function(e) {
+        e.preventDefault(); // Hentikan submit default
+
+        const form = this;
         const btn = $('#submitBtn');
         btn.addClass('loading');
         btn.html('<span>Loading...</span>');
-        
-        Swal.fire({
-            text: 'Memproses login...',
-            allowOutsideClick: false, 
-            allowEscapeKey: false,  
-            didOpen: () => {
-                Swal.showLoading(); 
-            }
+
+        // Jalankan reCAPTCHA invisible
+        grecaptcha.ready(function() {
+            grecaptcha.execute('{{ config('recaptcha.sitekey') }}', { action: 'login' })
+                .then(function(token) {
+                    // Tambahkan token ke form sebagai input hidden
+                    let recaptchaInput = form.querySelector('input[name="g-recaptcha-response"]');
+                    if (!recaptchaInput) {
+                        recaptchaInput = document.createElement('input');
+                        recaptchaInput.type = 'hidden';
+                        recaptchaInput.name = 'g-recaptcha-response';
+                        form.appendChild(recaptchaInput);
+                    }
+                    recaptchaInput.value = token;
+
+                    // Kirim form
+                    form.submit();
+                })
+                .catch(function(error) {
+                    console.error('reCAPTCHA error:', error);
+                    Swal.close();
+                    btn.removeClass('loading');
+                    btn.html('Login');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal',
+                        text: 'Verifikasi keamanan gagal. Silakan coba lagi.'
+                    });
+                });
         });
     });
+    // $('#loginform').on('submit', function(e) {
+    //     const btn = $('#submitBtn');
+    //     btn.addClass('loading');
+    //     btn.html('<span>Loading...</span>');
+        
+    //     Swal.fire({
+    //         text: 'Memproses login...',
+    //         allowOutsideClick: false, 
+    //         allowEscapeKey: false,  
+    //         didOpen: () => {
+    //             Swal.showLoading(); 
+    //         }
+    //     });
+    // });
 
     // Password toggle functionality
     const togglePassword = document.querySelector('#togglePassword');
