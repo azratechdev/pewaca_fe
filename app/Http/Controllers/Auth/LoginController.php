@@ -28,7 +28,25 @@ class LoginController extends Controller
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
+            'g-recaptcha-response' => 'required'
         ]);
+
+        $recaptchaResponse = $request->input('g-recaptcha-response');
+
+        // Verifikasi ke Google
+        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => config('recaptcha.secretkey'),
+            'response' => $recaptchaResponse,
+        ]);
+
+        $result = $response->json();
+
+        if (!$result['success']) {
+            return back()->withErrors([
+                'login' => 'Verifikasi CAPTCHA gagal. Anda mungkin dianggap bot.'
+            ])->withInput();
+        }
+
 
         $data = [
             'email' => $request->email,
