@@ -9,16 +9,15 @@
             <h1 class="text-xl font-semibold text-gray-800">
                 <a href="{{ route('pengurus') }}" class="text-dark">
                     <i class="fas fa-arrow-left"></i>
-                </a>&nbsp;Warga
+                </a>&nbsp;Kemananan
             </h1>
+            <br>
             @include('layouts.elements.flash')
         </div>
-
-        @include('pengurus.warga.menu_warga')
-
+        <br>
         <div class="col-md-12 col-sm-12" style="padding-left:10px;padding-right:10px;">
 
-            <form action="{{ route('pengurus.warga.approved') }}" method="POST" class="flex items-center border border-gray-300 rounded-lg overflow-hidden w-full max-w-6xl">
+            <form action="{{ route('pengurus.keamanan') }}" method="POST" class="flex items-center border border-gray-300 rounded-lg overflow-hidden w-full max-w-6xl">
                 @csrf
                 <input type="text" name="filter" placeholder=" Search..." class="py-2 pl-3 w-full focus:outline-none">
                 <button type="submit" class="bg-green-500 text-white px-3 py-3 flex items-center justify-center">
@@ -26,32 +25,34 @@
                 </button>
             </form><br>
 
-            @foreach($approved as $warga)
+            @foreach($security as $key => $warga)
             <div class="flex justify-left items-left">
-                <img 
-                    alt="Profile Photo" 
+                {{-- <img 
+                    alt="User profile picture" 
                     class="w-16 h-16 rounded-full border-2 border-gray-300" 
-                    src="{{ $warga['profile_photo'] ?? asset('assets/plugins/images/default.jpg') }}" 
-                />
+                    src="" 
+                /> --}}
                 <div class="ml-4">
                     <p class="font-semibold text-lg text-gray-800">
                         {{ $warga['full_name']}}
                     </p>
                     <p class="text-gray-500">
-                        {{ $warga['user']['email']}}
+                       {{ $warga['address'] }}
                     </p>
-                
+                    <p class="text-gray-500">
+                       {{ $warga['phone_no'] }}
+                    </p>
                 </div>
             </div>
             <div class="flex justify-between items-center mt-2">
                 <div class="flex items-center">
                     <p class="text-success d-flex align-items-center">
-                        <i class="fa fa-check"></i>&nbsp; Approved
+                        
                     </p>
                 </div>
                 
                 <div class="flex items-center">
-                    <a href="{{ route('detail_warga', ['id' => $warga['id']]) }}" class="btn btn-sm btn-success w-20" style="color: white;border-radius:8px;">Detail</a>
+                    <a href="" class="btn btn-sm btn-success w-20" style="color: white;border-radius:8px;">Hapus</a>
                 </div>
             </div><hr class="mt-2">
             <br>
@@ -60,7 +61,7 @@
             <div class="flex justify-between items-center @if($previous_page == null || $next_page == null) justify-end @else justify-between @endif">
                 @if($previous_page)
                 <div class="flex items-center">
-                    <form action="{{ route('pengurus.warga.approved') }}" method="POST">
+                    <form action="{{ route('pengurus.role') }}" method="POST">
                         @csrf
                         <input type="hidden" name="page" value="{{ $prev }}">
                         <button type="submit" class="btn btn-sm btn-info text-white">
@@ -76,7 +77,7 @@
             
                 @if($next_page)
                 <div class="flex items-center ml-auto">
-                    <form action="{{ route('pengurus.warga.approved') }}" method="POST">
+                    <form action="{{ route('pengurus.keamanan') }}" method="POST">
                         @csrf
                         <input type="hidden" name="page" value="{{ $next }}">
                         <button type="submit" class="btn btn-sm btn-info text-white">
@@ -85,6 +86,13 @@
                     </form>
                 </div>
                 @endif
+            </div>
+            <br>
+            <div class="mt-2">
+                <a href="{{ route('pengurus.addsec') }}" 
+                    class="btn btn-success w-full bg-green-600 text-white py-2 px-4 rounded-lg">
+                    ADD
+                </a>
             </div>
         </div>
     </div>

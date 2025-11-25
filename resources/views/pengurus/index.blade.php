@@ -79,6 +79,18 @@
             </div>
             <i class="fas fa-chevron-right text-gray-400 text-xl"></i>
         </a>
+
+        <!-- Security -->
+        <a href="{{ route('pengurus.keamanan') }}" class="flex items-center bg-white p-6 rounded-lg shadow hover:bg-gray-50">
+            <div class="bg-green-100 text-green-600 p-4 rounded-full">
+                <i class="fas fa-id-card fa-lg"></i>
+            </div>
+            <div class="flex-1 ml-6">
+                <h2 class="font-semibold text-2xl">Security</h2>
+                <p class="text-gray-500 text-base">List Security, Add Security</p>
+            </div>
+            <i class="fas fa-chevron-right text-gray-400 text-xl"></i>
+        </a>
     </div>
 </div>
 

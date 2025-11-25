@@ -117,6 +117,7 @@ Route::group(['middleware' => ['auth', 'check.token']], function () {
 
         Route::match(['get', 'post'], '/pengurus/peran', [PengurusController::class, 'pengurus_role'])->name('pengurus.role');
         Route::get('/pengurus/peran/add', [PengurusController::class, 'addPengurus'])->name('addPengurus');
+        Route::post('/pengurus/peran/postrole', [PengurusController::class, 'postRole'])->name('pengurus.postrole');
         //Route::get('/pengurus/warga', [PengurusController::class, 'pengurus_warga'])->name('pengurus.warga');
 
         //new route pengurus warga
@@ -124,7 +125,11 @@ Route::group(['middleware' => ['auth', 'check.token']], function () {
         Route::match(['get', 'post'], '/pengurus/warga/approved', [PengurusController::class, 'approved_warga'])->name('pengurus.warga.approved');
         //
 
-        Route::post('/pengurus/peran/postrole', [PengurusController::class, 'postRole'])->name('pengurus.postrole');
+        //security route
+         Route::match(['get', 'post'], '/pengurus/keamanan', [PengurusController::class, 'pengurus_keamanan'])->name('pengurus.keamanan');
+        Route::get('/pengurus/keamanan/addsec', [PengurusController::class, 'addKeamanan'])->name('pengurus.addsec');
+        Route::post('/pengurus/keamanan/postsec', [PengurusController::class, 'postSec'])->name('pengurus.postsec');
+       
 
         Route::get('/pengurus/tagihan/list', [TagihanController::class, 'list'])->name('pengurus.tagihan.list');
         Route::get('/pengurus/tagihan/add', [TagihanController::class, 'addTagihan'])->name('tagihan.add');

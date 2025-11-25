@@ -28,7 +28,7 @@
                     Saat menggunakan aplikasi, kami dapat mengumpulkan informasi pribadi berikut:
                     <ul class="list-disc pl-5 mt-2">
                         <li>Nama lengkap</li>
-                        <li>NIK (Nomor Induk Kependudukan)</li>
+                        {{-- <li>NIK (Nomor Induk Kependudukan)</li> --}}
                         <li>Nomor telepon</li>
                         <li>Alamat email</li>
                         <li>Jenis kelamin, agama, status pernikahan, pekerjaan, pendidikan</li>
@@ -107,7 +107,7 @@
                 <span>8.</span>
                 <div>
                     <strong>Kontak</strong><br>
-                    Jika Anda memiliki pertanyaan mengenai kebijakan privasi ini, silakan hubungi kami di <a href="mailto:cs@pewaca.id" class="text-green-600 underline">cs@pewaca.id</a>.
+                    Jika Anda memiliki pertanyaan mengenai kebijakan privasi ini, silakan hubungi kami di <a href="mailto:halo@hemitech.id" class="text-green-600 underline">halo@hemitech.id</a>.
                 </div>
             </div>
         </div>

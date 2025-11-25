@@ -122,13 +122,10 @@
                 </div>
             
                 <div class="form-floating mb-3">
-                    <input type="text" pattern="\d{16}" maxlength="16" inputmode="numeric" class="form-control @error('nik') is-invalid @enderror no-spinner" value="{{ str_replace(' ', '', $data['warga']['nik']) }}" id="nik" name="nik" placeholder=" " oninput="updateNikCounter()">
+                    <input type="hidden" pattern="\d{16}" maxlength="16" inputmode="numeric" class="form-control @error('nik') is-invalid @enderror no-spinner" value="1234567890123456" id="nik" name="nik" placeholder=" " oninput="updateNikCounter()">
                     <label for="nik">NIK</label>
                     <small class="text-danger d-none" id="nik-error">NIK harus 16 digit angka</small>
-                    {{-- @error('nik')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror --}}
-                     <span id="nik-counter" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); font-size: 0.875rem; color: #6c757d;">
+                    <span id="nik-counter" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); font-size: 0.875rem; color: #6c757d;">
                         0/16
                     </span>
                 </div>

@@ -765,10 +765,9 @@ $isChecker = $warga['is_checker'] ?? false;
                     <div class="comment-section">
                         <div class="comment-input-wrapper">
                             <img 
-                                alt="Foto profil Anda" 
-                                src="{{ $warga['profile_photo'] }}" 
-                                onerror="this.src='{{ asset('assets/plugins/images/default-avatar.png') }}'; this.onerror=null;"
-                            />
+                                alt="Profile Photo" 
+                                src="{{ $warga['profile_photo'] ?? asset('assets/plugins/images/default.jpg')}}" 
+                              />
                             <form id="form-comment{{ $story['id'] }}" class="comment-form" enctype="multipart/form-data">
                                 <input type="hidden" id="storyid{{ $story['id'] }}" value="{{ $story['id'] }}" />
                                 <textarea id="story-comment{{ $story['id'] }}" class="comment-textarea" rows="2" placeholder="Tulis komentar..." required></textarea>

@@ -45,7 +45,7 @@
                         <img 
                         alt="Belum ada" 
                         class="profile-picture rounded w-32 h-24" 
-                        src="{{ $warga['profile_photo'] }}"
+                        src="{{ $warga['profile_photo'] ?? asset('assets/plugins/images/default.jpg')}}"
                     /></span>
                 </div>
                 <div class="flex items-center">
@@ -56,10 +56,10 @@
                     <span class="text-gray-600">No Unit <br>
                        {{ $warga['unit_id']['unit_name'] }}</span>
                 </div>
-                <div class="flex items-center">
+                {{-- <div class="flex items-center">
                     <span class="text-gray-600">NIK <br>
                         {{ $warga['nik'] }}</span>
-                </div>
+                </div> --}}
                 <div class="flex items-center">
                     <span class="text-gray-600">Jenis Kelamin <br>
                         {{ $warga['gender'] }}</span>
