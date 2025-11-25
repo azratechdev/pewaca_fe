@@ -15,7 +15,7 @@
         <div class="p-6 flex items-center border-b">
             <div class="ml-4">
                 <p class="font-semibold text-lg text-gray-800">
-                    Email : cs@pewaca.id
+                    Email : halo@hemitech.id
                 </p>
             </div>
         </div>

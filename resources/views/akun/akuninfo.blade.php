@@ -35,23 +35,23 @@
                             <img 
                             alt="Belum ada" 
                             class="profile-picture rounded w-32 h-32" 
-                            src="{{ $data['warga']['profile_photo'] }}"
+                            src="{{ $data['warga']['profile_photo'] ?? asset('assets/plugins/images/default.jpg') }}"
                         /></span>
                     </div>
                     <br>
                     <div class="flex items-center">
                         <span class="text-gray-600">Nama Perumahan <br>
-                        <strong>{{ $data['warga']['unit_id']['unit_residence_name'] }}</strong></span>
+                        <strong>{{ $data['residence']['name'] }}</strong></span>
                     </div>
                     <div class="flex items-center">
                         <span class="text-gray-600">No Unit <br>
-                            <strong>{{ $data['warga']['unit_id']['unit_name'] }}</strong></span>
+                            <strong>{{ $data['warga']['unit_id']['unit_name'] ?? 'Nomor Unit' }}</strong></span>
                     </div>
-                    <div class="flex items-center">
-                        <span class="text-gray-600">NIK <br>
+                    {{-- <div class="flex items-center">
+                        <span class="text-gray-600">NIK <br> 
                             <strong>{{ $data['warga']['nik'] }}</strong>
                         </span>
-                    </div>
+                    </div> --}}
                     <div class="flex items-center">
                         <span class="text-gray-600">Nama Lengkap <br>
                             <strong>{{ $data['warga']['full_name'] }}</strong>

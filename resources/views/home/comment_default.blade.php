@@ -8,7 +8,7 @@
         alt="Foto profil {{ $comment['warga']['full_name'] }}" 
         class="profile-picture rounded-full" 
         style="width: 36px; height: 36px;"
-        src="{{ $comment['warga']['profile_photo'] }}" 
+        src="{{ $comment['warga']['profile_photo'] ?? asset('assets/plugins/images/default.jpg')}}" 
         onerror="this.src='{{ asset('assets/plugins/images/default-avatar.png') }}'; this.onerror=null;"
     />
     <div class="ml-4">
