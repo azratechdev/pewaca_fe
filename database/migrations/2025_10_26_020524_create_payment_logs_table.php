@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('payment_logs', function (Blueprint $table) {
             $table->id();
             $table->uuid('payment_id');
-            $table->enum('event', ['CREATED', 'WEBHOOK_SUCCESS', 'RETRY', 'EXPIRE', 'RECONCILE', 'ERROR']);
+            $table->enum('event', ['CREATED', 'WEBHOOK_SUCCESS', 'RETRY', 'EXPIRE', 'RECONCILE', 'ERROR', 'QR_GENERATED', 'QR_GENERATION_FAILED']);
             $table->json('payload')->nullable();
             $table->timestamp('created_at');
             
