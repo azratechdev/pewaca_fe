@@ -20,8 +20,24 @@ class ForgotPasswordController extends Controller
     public function sendMail(Request $request)
     {
         $request->validate([
-            'email' => 'required|email'
+            'email' => 'required|email',
+            'g-recaptcha-response' => 'required'
         ]);
+
+        $recaptchaResponse = $request->input('g-recaptcha-response');
+         // Verifikasi ke Google
+        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => config('recaptcha.secretkey'),
+            'response' => $recaptchaResponse,
+        ]);
+
+        $result = $response->json();
+
+        if (!$result['success']) {
+            return back()->withErrors([
+                'login' => 'Verifikasi CAPTCHA gagal.'
+            ])->withInput();
+        }
 
         $data = ['email' => $request->email];
 

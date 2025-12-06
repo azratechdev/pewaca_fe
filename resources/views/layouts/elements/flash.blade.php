@@ -2,7 +2,7 @@
     <div class="alert alert-dismissible  {{ Session::get('flash-message.alert-class') }} fade show" role="alert">
         @if (Session::get('flash-message.alert-class') == "alert-success")
             <p style="color: green; margin: 0; font-weight: bold;">
-                {{ Session::get('flash-message.message') }}
+                {{ Session::get('flash-message.message' )}}
             </p>
         @else    
             <p style="color: orange; margin: 0; font-weight: bold;">

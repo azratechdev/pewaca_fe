@@ -43,7 +43,7 @@ class LoginController extends Controller
 
         if (!$result['success']) {
             return back()->withErrors([
-                'login' => 'Verifikasi CAPTCHA gagal. Anda mungkin dianggap bot.'
+                'login' => 'Verifikasi CAPTCHA gagal.'
             ])->withInput();
         }
 
