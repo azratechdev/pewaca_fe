@@ -35,7 +35,7 @@
                             <img 
                             alt="Belum ada" 
                             class="profile-picture rounded w-32 h-32" 
-                            src="{{ $data['warga']['profile_photo'] ?? asset('assets/plugins/images/default.jpg') }}"
+                            src="{{ $data['warga']['profile_photo'] ?? 'https://ui-avatars.com/api/?name=' . urlencode($warga['full_name']) }}"
                         /></span>
                     </div>
                     <br>
