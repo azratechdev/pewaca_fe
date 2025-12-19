@@ -63,7 +63,8 @@
             <i class="fas fa-chevron-right text-gray-400 text-xl"></i>
         </a>
 
-        <!-- Kelola Seller -->
+        <!-- Kelola Seller - DISABLED -->
+        {{-- 
         <a href="{{ route('pengurus.seller-requests.index') }}" class="flex items-center bg-white p-6 rounded-lg shadow hover:bg-gray-50">
             <div class="bg-green-100 text-green-600 p-4 rounded-full">
                 <i class="fas fa-store fa-lg"></i>
@@ -79,6 +80,7 @@
             </div>
             <i class="fas fa-chevron-right text-gray-400 text-xl"></i>
         </a>
+        --}}
 
         <!-- Security -->
         <a href="{{ route('pengurus.keamanan') }}" class="flex items-center bg-white p-6 rounded-lg shadow hover:bg-gray-50">
