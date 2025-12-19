@@ -46,8 +46,11 @@ body {
 }
 
 .card-header-modern {
-    background: linear-gradient(135deg, rgba(44, 162, 95, 0.85), rgba(153, 216, 201, 0.85)),
-                url('{{ $resdetail['image'] ?? '' }}') center/cover;
+    background: linear-gradient(135deg, rgba(44, 162, 95, 0.85), rgba(153, 216, 201, 0.85))
+                @if(isset($resdetail['image']) && !empty($resdetail['image']))
+                , url('{{ $resdetail['image'] }}') center/cover
+                @endif
+    ;
     padding: 2.5rem 2rem;
     text-align: center;
     position: relative;
