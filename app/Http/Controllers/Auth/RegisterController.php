@@ -39,10 +39,20 @@ class RegisterController extends Controller
     // http://43.156.75.206
     public function getResdetail($uuid)
     {
-        $response = Http::withHeaders([
-            'Accept' => 'application/json',
-        ])->get(env('API_URL') . '/api/residence-by-code/'.$uuid."/");
+        $response = Http::withOptions(['verify' => false])
+            ->withHeaders([
+                'Accept' => 'application/json',
+            ])->get(env('API_URL') . '/api/residence-by-code/'.$uuid."/");
         $res_detail_response = json_decode($response->body(), true);
+        
+        // Fix image URL if it contains duplicate base URL
+        if (isset($res_detail_response['data']['image'])) {
+            $imageUrl = $res_detail_response['data']['image'];
+            // Remove duplicate http://domain.com/http:// or https://
+            $imageUrl = preg_replace('/^https?:\/\/[^\/]+\/https?:\/\//', 'https://', $imageUrl);
+            $res_detail_response['data']['image'] = $imageUrl;
+        }
+        
         return $res_detail_response['data'];
     }
 

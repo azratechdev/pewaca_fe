@@ -571,7 +571,14 @@ input[type="file"] {
                 <h1 class="header-title">Pendaftaran Warga</h1>
                 <div class="residence-info">
                     @if(!empty($resdetail['image']))
-                        <img src="{{ $resdetail['image'] }}" class="residence-icon-img" alt="{{ $resdetail['name'] }}">
+                        @php
+                            $imageUrl = $resdetail['image'];
+                            // Remove duplicate base URL if exists
+                            if (str_contains($imageUrl, 'http://') || str_contains($imageUrl, 'https://')) {
+                                $imageUrl = preg_replace('/^https?:\/\/[^\/]+\/https?:\/\//', 'https://', $imageUrl);
+                            }
+                        @endphp
+                        <img src="{{ $imageUrl }}" class="residence-icon-img" alt="{{ $resdetail['name'] }}">
                     @else
                         <i class="fas fa-home residence-icon-img"></i>
                     @endif
