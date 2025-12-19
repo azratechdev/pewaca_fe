@@ -565,9 +565,6 @@ input[type="file"] {
         <div class="registration-card">
             <!-- Header -->
             <div class="card-header-modern">
-                <div class="logo-wrapper">
-                    <img src="{{ asset('assets/plugins/images/mainlogo.png') }}" class="waca-logo" alt="Waca Logo">
-                </div>
                 <h1 class="header-title">Pendaftaran Warga</h1>
                 <div class="residence-info">
                     @if(!empty($resdetail['image']))
