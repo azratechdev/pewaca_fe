@@ -175,15 +175,13 @@ Route::group(['middleware' => ['auth', 'check.token']], function () {
         // CCTV Management Routes moved outside - see top of file
         */
         
-        /*
-        // Seller Request Management Routes (Pengurus Only) - DISABLED
+        // Seller Request Management Routes (Pengurus Only)
         Route::prefix('pengurus/seller-requests')->name('pengurus.seller-requests.')->group(function () {
             Route::get('/', [App\Http\Controllers\Pengurus\SellerRequestController::class, 'index'])->name('index');
             Route::get('/{id}', [App\Http\Controllers\Pengurus\SellerRequestController::class, 'show'])->name('show');
             Route::post('/{id}/approve', [App\Http\Controllers\Pengurus\SellerRequestController::class, 'approve'])->name('approve');
             Route::post('/{id}/reject', [App\Http\Controllers\Pengurus\SellerRequestController::class, 'reject'])->name('reject');
         });
-        */
     });
     
     /*
