@@ -4,6 +4,7 @@
     $isPengurus = Session::get('cred.is_pengurus') ?? false;
     $isChecker = Session::get('warga.is_checker') ?? false;
     $isSeller = auth()->check() && auth()->user()->is_seller;
+    $roleMode = Session::get('role_mode', 'warga');
   @endphp
 <div class="navbar navbar-custom navbar-dark navbar-expand fixed-bottom bg-white" style="padding: 0px;">
   <div class="container-fluid" style="padding-left: 0px;padding-right: 0px;height: 75px;">
@@ -21,7 +22,7 @@
         })) --}}
       @if(Session::has('cred') && collect(Session::get('cred')['residence_commites'])->contains(function ($commite) {
           return isset($commite['role']['id']);
-        }))
+        }) && $roleMode === 'pengurus')
         <li class="nav-item">
             <a href="{{ route('pengurus') }}" class="nav-link text-center {{ Request::is('pengurus') ? 'active' : '' }}">
                 <i class="fa fa-id-card menu-icon"></i>
@@ -40,9 +41,9 @@
       @endif
 
       <li class="nav-item">
-        <a href="{{ route('warungku.index') }}" class="nav-link text-center {{ Request::is('warungku*') ? 'active' : '' }}">
-          <i class="fa fa-store menu-icon"></i>
-          <span class="small d-block menu-text">Warungku</span>
+        <a href="{{ route('cctv.index') }}" class="nav-link text-center {{ Request::is('cctv*') ? 'active' : '' }}">
+          <i class="fa fa-video menu-icon"></i>
+          <span class="small d-block menu-text">CCTV</span>
         </a>
       </li>
 

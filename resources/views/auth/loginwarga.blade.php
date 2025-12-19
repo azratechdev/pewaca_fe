@@ -412,6 +412,11 @@
 
   <script>
     $('#loginform').on('submit', function(e) {
+        @if(env('APP_ENV') === 'local')
+            // Local development - allow submit without reCAPTCHA
+            console.log('Local development - skipping reCAPTCHA');
+            return true;
+        @else
         e.preventDefault(); // Hentikan submit default
 
         const form = this;
@@ -448,6 +453,7 @@
                     });
                 });
         });
+        @endif
     });
     // $('#loginform').on('submit', function(e) {
     //     const btn = $('#submitBtn');

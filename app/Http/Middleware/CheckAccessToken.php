@@ -11,9 +11,17 @@ class CheckAccessToken
 {
     public function handle($request, Closure $next)
     {
+        // DEBUG
+        \Log::info('=== MIDDLEWARE CHECK TOKEN ===');
+        \Log::info('Session ID: ' . session()->getId());
+        \Log::info('Request URL: ' . $request->url());
+        \Log::info('Token exists in session: ' . (Session::has('token') ? 'YES' : 'NO'));
+        
         $token = Session::get('token');
         $refreshToken = Session::get('refresh_token');
         $createdAt = Session::get('token_created_at');
+        
+        \Log::info('Token value: ' . ($token ? 'EXISTS' : 'NULL'));
 
         // Jika token ada
         if ($token && $createdAt) {

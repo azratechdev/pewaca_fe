@@ -10,7 +10,7 @@ class CartItem extends Model
 {
     use HasFactory;
 
-    protected $connection = 'sqlite_backup';
+    // protected $connection = 'sqlite_backup'; // Use default connection (mysql)
 
     protected $fillable = [
         'cart_id',

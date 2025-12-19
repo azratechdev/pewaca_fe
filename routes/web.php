@@ -12,10 +12,12 @@ use App\Http\Controllers\Auth\PublicRegistrationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\TagihanController;
 use App\Http\Controllers\ReportController;
-use App\Http\Controllers\WarungkuController;
-use App\Http\Controllers\WarungkuSetupController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\Pengurus\SellerController;
+// Warungku disabled - replaced with CCTV
+// use App\Http\Controllers\WarungkuController;
+// use App\Http\Controllers\WarungkuSetupController;
+// use App\Http\Controllers\CartController;
+// use App\Http\Controllers\Pengurus\SellerController;
+use App\Http\Controllers\CCTVController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -56,10 +58,26 @@ Route::get('/offline', function () {
     return view('offline');
 })->name('offline');
 
-// Warungku Setup Routes (Admin - Public)
+// CCTV Routes (Replaces Warungku)
+Route::get('/cctv', [CCTVController::class, 'index'])->name('cctv.index')->middleware(['auth', 'check.token']);
+Route::get('/cctv/monitor', [CCTVController::class, 'monitor'])->name('cctv.monitor')->middleware(['auth', 'check.token']);
+Route::get('/cctv/{id}', [CCTVController::class, 'show'])->name('cctv.show')->middleware(['auth', 'check.token']);
+Route::get('/cctv/{id}/stream', [CCTVController::class, 'getStreamUrl'])->name('cctv.stream')->middleware(['auth', 'check.token']);
+
+// CCTV Management Routes (Pengurus Only)
+Route::middleware(['auth', 'check.token', 'role:pengurus'])->prefix('pengurus/cctv')->name('cctv.')->group(function () {
+    Route::get('/manage', [CCTVController::class, 'manage'])->name('manage');
+    Route::post('/store', [CCTVController::class, 'store'])->name('store');
+    Route::put('/{id}', [CCTVController::class, 'update'])->name('update');
+    Route::delete('/{id}', [CCTVController::class, 'destroy'])->name('destroy');
+});
+
+/*
+// Warungku Setup Routes (Admin - Public) - DISABLED
 Route::get('/warungku/setup', [WarungkuSetupController::class, 'setup'])->name('warungku.setup');
 Route::get('/warungku/update-images', [WarungkuSetupController::class, 'updateImages'])->name('warungku.update-images');
 Route::get('/warungku/setup-cart', [WarungkuSetupController::class, 'setupCart'])->name('warungku.setup-cart');
+*/
 
 // Voting Routes (Public - No Auth Required)
 Route::get('/pemilu-tc', [\App\Http\Controllers\VotingController::class, 'index'])->name('voting.index');
@@ -79,12 +97,16 @@ Route::group(['middleware' => ['auth', 'check.token']], function () {
     Route::post('/fetch-html-comment', [HomeController::class, 'getReplays'])->name('getReplays');
     Route::post('/comment-more', [HomeController::class, 'getReplaysMore'])->name('getReplaysMore');
    
+    // OneSignal Test Routes
+    Route::get('/test/onesignal', [App\Http\Controllers\TestOneSignalController::class, 'index'])->name('test.onesignal');
+    Route::post('/test/onesignal/send', [App\Http\Controllers\TestOneSignalController::class, 'sendTest'])->name('test.onesignal.send');
     
     //AKun Route
     Route::get('/akun', [AkunController::class, 'akun'])->name('akun');
     Route::get('/infoakun', [AkunController::class, 'infoakun'])->name('infoakun');
     Route::get('/akun/edit/profile/', [AkunController::class, 'editAkun'])->name('akunEdit');
     Route::post('/akun/edit/profile/', [AkunController::class, 'updateAkun'])->name('akunUpdate');
+    Route::post('/akun/switch-role', [AkunController::class, 'switchRole'])->name('akunSwitchRole');
     Route::get('/inforekening', [AkunController::class, 'inforekening'])->name('inforekening');
     Route::get('/rekening/add', [AkunController::class, 'addRekening'])->name('addRekening');
     Route::post('/rekening/post', [AkunController::class, 'postRekening'])->name('postRekening');
@@ -149,21 +171,30 @@ Route::group(['middleware' => ['auth', 'check.token']], function () {
         Route::get('/pengurus/report/download/comprehensive', [ReportController::class, 'downloadComprehensive'])->name('pengurus.report.download.comprehensive');
         //end report route
         
-        // Seller Request Management Routes (Pengurus Only)
+        /*
+        // CCTV Management Routes moved outside - see top of file
+        */
+        
+        /*
+        // Seller Request Management Routes (Pengurus Only) - DISABLED
         Route::prefix('pengurus/seller-requests')->name('pengurus.seller-requests.')->group(function () {
             Route::get('/', [App\Http\Controllers\Pengurus\SellerRequestController::class, 'index'])->name('index');
             Route::get('/{id}', [App\Http\Controllers\Pengurus\SellerRequestController::class, 'show'])->name('show');
             Route::post('/{id}/approve', [App\Http\Controllers\Pengurus\SellerRequestController::class, 'approve'])->name('approve');
             Route::post('/{id}/reject', [App\Http\Controllers\Pengurus\SellerRequestController::class, 'reject'])->name('reject');
         });
+        */
     });
     
-    // Seller Registration Routes (Open to all authenticated users - NO role required)
+    /*
+    // Seller Registration Routes (Open to all authenticated users - NO role required) - DISABLED
     Route::get('/pengurus/seller/register', [SellerController::class, 'showRegisterForm'])->name('pengurus.seller.register');
     Route::post('/pengurus/seller/register', [SellerController::class, 'processRegistration'])->name('pengurus.seller.register.process');
     Route::get('/pengurus/seller/request-status', [SellerController::class, 'requestStatus'])->name('pengurus.seller.request.status');
+    */
     
-    // Warungku Seller Routes (Protected by is_seller check in controller - NO pengurus role required)
+    /*
+    // Warungku Seller Routes (Protected by is_seller check in controller - NO pengurus role required) - DISABLED
     Route::prefix('pengurus/seller')->name('pengurus.seller.')->group(function () {
         Route::get('/dashboard', [SellerController::class, 'dashboard'])->name('dashboard');
         
@@ -190,6 +221,7 @@ Route::group(['middleware' => ['auth', 'check.token']], function () {
         // Reports & Analytics
         Route::get('/{store}/reports', [SellerController::class, 'reports'])->name('reports');
     });
+    */
     
     //cashout route
     Route::get('/pembayaran', [PembayaranController::class, 'index'])->name('pembayaran');
@@ -209,19 +241,23 @@ Route::group(['middleware' => ['auth', 'check.token']], function () {
     // Route::get('/pembayaran/pembayaran_periode', [PembayaranController::class, 'pembayaran_periode'])->name('pembayaran.pembayaran_periode');
     // Route::get('/pembayaran/periode', [PembayaranController::class, 'periode'])->name('pembayaran.periode');
 
-    // Cart Routes (Protected - Requires Login)
+    /*
+    // Cart Routes (Protected - Requires Login) - DISABLED
     Route::get('/warungku/keranjang', [CartController::class, 'index'])->name('cart.index');
     Route::post('/warungku/keranjang/add', [CartController::class, 'add'])->name('cart.add');
     Route::put('/warungku/keranjang/update/{itemId}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/warungku/keranjang/remove/{itemId}', [CartController::class, 'remove'])->name('cart.remove');
     Route::delete('/warungku/keranjang/clear', [CartController::class, 'clear'])->name('cart.clear');
     Route::get('/warungku/keranjang/count', [CartController::class, 'getCount'])->name('cart.count');
+    */
 });
 
-// Warungku Marketplace Routes (Public - No Auth Required)
+/*
+// Warungku Marketplace Routes (Public - No Auth Required) - DISABLED
 Route::get('/warungku', [WarungkuController::class, 'index'])->name('warungku.index');
 Route::get('/warungku/toko/{id}', [WarungkuController::class, 'showStore'])->name('warungku.store');
 Route::get('/warungku/produk/{id}', [WarungkuController::class, 'showProduct'])->name('warungku.product');
+*/
 
 use App\Http\Controllers\Test\RegistrationTestController;
 

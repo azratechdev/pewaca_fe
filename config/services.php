@@ -33,4 +33,10 @@ return [
 
     'api_base_url' => env('API_BASE_URL', 'http://43.156.75.206'),
 
+    'onesignal' => [
+        'app_id' => env('ONESIGNAL_APP_ID'),
+        'rest_api_key' => env('ONESIGNAL_REST_API_KEY'),
+        'safari_web_id' => env('ONESIGNAL_SAFARI_WEB_ID', ''),
+    ],
+
 ];

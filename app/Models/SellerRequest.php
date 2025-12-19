@@ -9,7 +9,7 @@ class SellerRequest extends Model
 {
     use HasFactory;
 
-    protected $connection = 'sqlite_backup';
+    // protected $connection = 'sqlite_backup'; // Use default connection (mysql)
 
     const STATUS_PENDING = 'pending';
     const STATUS_APPROVED = 'approved';

@@ -1,0 +1,300 @@
+[2025-10-12 07:08:02] local.INFO: CustomAuth Middleware - Session ID: zenaPppp2VcqwkwoS7CQPpKVOZxs5KaaG94jZ4rP  
+[2025-10-12 07:08:02] local.INFO: CustomAuth Middleware - Has cred: Yes  
+[2025-10-12 07:08:02] local.INFO: CustomAuth Middleware - All session keys: _flash, _previous, _token, token, refresh_token, token_created_at, cred, warga, residence, origin_page  
+[2025-10-12 07:08:02] local.INFO: CustomAuth Middleware - Access granted for route: pembayaran.list  
+[2025-10-12 07:08:02] local.INFO: CheckAccessToken Middleware - Route: pembayaran/list  
+[2025-10-12 07:08:02] local.INFO: CheckAccessToken Middleware - Has token: Yes  
+[2025-10-12 07:08:02] local.INFO: CheckAccessToken Middleware - Created at: 2025-10-12 04:01:04  
+[2025-10-12 07:08:02] local.INFO: CheckAccessToken Middleware - Token expired: No  
+[2025-10-12 07:08:02] local.INFO: CheckAccessToken Middleware - Token valid, proceeding  
+[2025-10-12 07:08:03] local.INFO: CustomAuth Middleware - Route: home  
+[2025-10-12 07:08:03] local.INFO: CustomAuth Middleware - Session ID: zenaPppp2VcqwkwoS7CQPpKVOZxs5KaaG94jZ4rP  
+[2025-10-12 07:08:03] local.INFO: CustomAuth Middleware - Has cred: Yes  
+[2025-10-12 07:08:03] local.INFO: CustomAuth Middleware - All session keys: _flash, _previous, _token, token, refresh_token, token_created_at, cred, warga, residence, origin_page  
+[2025-10-12 07:08:03] local.INFO: CustomAuth Middleware - Access granted for route: home  
+[2025-10-12 07:08:03] local.INFO: CheckAccessToken Middleware - Route: home  
+[2025-10-12 07:08:03] local.INFO: CheckAccessToken Middleware - Has token: Yes  
+[2025-10-12 07:08:03] local.INFO: CheckAccessToken Middleware - Created at: 2025-10-12 04:01:04  
+[2025-10-12 07:08:03] local.INFO: CheckAccessToken Middleware - Token expired: No  
+[2025-10-12 07:08:03] local.INFO: CheckAccessToken Middleware - Token valid, proceeding  
+[2025-10-12 07:08:03] local.INFO: HomeController::index() called  
+[2025-10-12 07:08:03] local.INFO: Session data check:  
+[2025-10-12 07:08:03] local.INFO: User: Found  
+[2025-10-12 07:08:03] local.INFO: Warga: Found  
+[2025-10-12 07:08:03] local.INFO: Residence: Not found  
+[2025-10-12 07:08:03] local.INFO: Token: Found  
+[2025-10-12 07:08:03] local.INFO: Stories API Response: {"total_page":null,"page":1,"data":[{"id":1,"warga":{"id":1,"full_name":null,"profile_photo":null},"residence_id":3,"story":"Ini adalah konten story untuk test upload gambar","image":"https://pewaca-1379748683.cos.ap-singapore.myqcloud.com/story_images/Screenshot_2025-01-02_094346.png","total_like":0,"created_by":1,"created_on":"2025-10-12T07:07:16.867722Z","modified_on":"2025-10-12T07:07:19.395071Z","isdelete":false}],"success":true,"error":null,"code":200,"next":null,"previous":null}  
+[2025-10-12 07:08:03] local.INFO: Stories Response Status: 200  
+[2025-10-12 07:08:03] local.INFO: HomeController::index() rendering view  
+[2025-10-18 00:51:53] local.INFO: CheckAccessToken Middleware - Route: /  
+[2025-10-18 00:51:53] local.INFO: CheckAccessToken Middleware - Has token: Yes  
+[2025-10-18 00:51:53] local.INFO: CheckAccessToken Middleware - Created at: 2025-10-12 04:01:04  
+[2025-10-18 00:51:53] local.INFO: CheckAccessToken Middleware - Token expired: Yes  
+[2025-10-18 00:52:00] local.ERROR: cURL error 7: Failed to connect to 127.0.0.1 port 8000 after 2018 ms: Couldn't connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://127.0.0.1:8000/api/auth/token/refresh/ {"exception":"[object] (Illuminate\\Http\\Client\\ConnectionException(code: 0): cURL error 7: Failed to connect to 127.0.0.1 port 8000 after 2018 ms: Couldn't connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://127.0.0.1:8000/api/auth/token/refresh/ at C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Client\\PendingRequest.php:855)
+[stacktrace]
+#0 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(260): Illuminate\\Http\\Client\\PendingRequest->Illuminate\\Http\\Client\\{closure}(1)
+#1 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Client\\PendingRequest.php(821): retry(0, Object(Closure), 100, Object(Closure))
+#2 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Client\\PendingRequest.php(727): Illuminate\\Http\\Client\\PendingRequest->send('POST', 'http://127.0.0....', Array)
+#3 C:\\wamp64\\www\\pewaca_fe\\app\\Http\\Middleware\\CheckAccessToken.php(49): Illuminate\\Http\\Client\\PendingRequest->post('http://127.0.0....', Array)
+#4 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\CheckAccessToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#5 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#6 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#7 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken.php(78): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#8 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#9 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Middleware\\ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#10 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#11 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(121): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#12 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#13 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#14 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#15 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#16 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\EncryptCookies.php(67): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#17 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#18 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#19 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(797): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#20 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(776): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#21 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(740): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#22 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(729): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#23 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(190): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#24 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#25 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#27 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#28 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#29 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#30 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#31 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#32 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#33 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#34 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#35 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#36 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#38 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#40 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(165): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#41 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#42 C:\\wamp64\\www\\pewaca_fe\\public\\index.php(51): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#43 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('C:\\\\wamp64\\\\www\\\\p...')
+#44 {main}
+
+[previous exception] [object] (GuzzleHttp\\Exception\\ConnectException(code: 0): cURL error 7: Failed to connect to 127.0.0.1 port 8000 after 2018 ms: Couldn't connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://127.0.0.1:8000/api/auth/token/refresh/ at C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\Handler\\CurlFactory.php:277)
+[stacktrace]
+#0 C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\Handler\\CurlFactory.php(207): GuzzleHttp\\Handler\\CurlFactory::createRejection(Object(GuzzleHttp\\Handler\\EasyHandle), Array)
+#1 C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\Handler\\CurlFactory.php(159): GuzzleHttp\\Handler\\CurlFactory::finishError(Object(GuzzleHttp\\Handler\\CurlHandler), Object(GuzzleHttp\\Handler\\EasyHandle), Object(GuzzleHttp\\Handler\\CurlFactory))
+#2 C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\Handler\\CurlHandler.php(47): GuzzleHttp\\Handler\\CurlFactory::finish(Object(GuzzleHttp\\Handler\\CurlHandler), Object(GuzzleHttp\\Handler\\EasyHandle), Object(GuzzleHttp\\Handler\\CurlFactory))
+#3 C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\Handler\\Proxy.php(28): GuzzleHttp\\Handler\\CurlHandler->__invoke(Object(GuzzleHttp\\Psr7\\Request), Array)
+#4 C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\Handler\\Proxy.php(48): GuzzleHttp\\Handler\\Proxy::GuzzleHttp\\Handler\\{closure}(Object(GuzzleHttp\\Psr7\\Request), Array)
+#5 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Client\\PendingRequest.php(1150): GuzzleHttp\\Handler\\Proxy::GuzzleHttp\\Handler\\{closure}(Object(GuzzleHttp\\Psr7\\Request), Array)
+#6 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Client\\PendingRequest.php(1116): Illuminate\\Http\\Client\\PendingRequest->Illuminate\\Http\\Client\\{closure}(Object(GuzzleHttp\\Psr7\\Request), Array)
+#7 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Client\\PendingRequest.php(1102): Illuminate\\Http\\Client\\PendingRequest->Illuminate\\Http\\Client\\{closure}(Object(GuzzleHttp\\Psr7\\Request), Array)
+#8 C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\PrepareBodyMiddleware.php(64): Illuminate\\Http\\Client\\PendingRequest->Illuminate\\Http\\Client\\{closure}(Object(GuzzleHttp\\Psr7\\Request), Array)
+#9 C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\Middleware.php(38): GuzzleHttp\\PrepareBodyMiddleware->__invoke(Object(GuzzleHttp\\Psr7\\Request), Array)
+#10 C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\RedirectMiddleware.php(71): GuzzleHttp\\Middleware::GuzzleHttp\\{closure}(Object(GuzzleHttp\\Psr7\\Request), Array)
+#11 C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\Middleware.php(63): GuzzleHttp\\RedirectMiddleware->__invoke(Object(GuzzleHttp\\Psr7\\Request), Array)
+#12 C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\HandlerStack.php(75): GuzzleHttp\\Middleware::GuzzleHttp\\{closure}(Object(GuzzleHttp\\Psr7\\Request), Array)
+#13 C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\Client.php(333): GuzzleHttp\\HandlerStack->__invoke(Object(GuzzleHttp\\Psr7\\Request), Array)
+#14 C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\Client.php(169): GuzzleHttp\\Client->transfer(Object(GuzzleHttp\\Psr7\\Request), Array)
+#15 C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\Client.php(189): GuzzleHttp\\Client->requestAsync('POST', Object(GuzzleHttp\\Psr7\\Uri), Array)
+#16 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Client\\PendingRequest.php(961): GuzzleHttp\\Client->request('POST', 'http://127.0.0....', Array)
+#17 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Client\\PendingRequest.php(823): Illuminate\\Http\\Client\\PendingRequest->sendRequest('POST', 'http://127.0.0....', Array)
+#18 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(260): Illuminate\\Http\\Client\\PendingRequest->Illuminate\\Http\\Client\\{closure}(1)
+#19 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Client\\PendingRequest.php(821): retry(0, Object(Closure), 100, Object(Closure))
+#20 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Client\\PendingRequest.php(727): Illuminate\\Http\\Client\\PendingRequest->send('POST', 'http://127.0.0....', Array)
+#21 C:\\wamp64\\www\\pewaca_fe\\app\\Http\\Middleware\\CheckAccessToken.php(49): Illuminate\\Http\\Client\\PendingRequest->post('http://127.0.0....', Array)
+#22 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\CheckAccessToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#23 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#24 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken.php(78): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#27 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Middleware\\ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#28 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#29 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(121): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#30 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#31 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#32 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#33 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#34 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\EncryptCookies.php(67): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#35 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#36 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#37 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(797): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#38 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(776): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#39 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(740): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#40 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(729): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#41 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(190): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#42 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#43 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#44 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#45 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#46 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#47 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#48 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#49 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#50 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#51 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#52 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#53 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#54 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#55 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#56 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#57 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#58 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(165): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#59 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#60 C:\\wamp64\\www\\pewaca_fe\\public\\index.php(51): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#61 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('C:\\\\wamp64\\\\www\\\\p...')
+#62 {main}
+"} 
+[2025-10-18 00:58:12] local.INFO: CheckAccessToken Middleware - Route: /  
+[2025-10-18 00:58:12] local.INFO: CheckAccessToken Middleware - Has token: Yes  
+[2025-10-18 00:58:12] local.INFO: CheckAccessToken Middleware - Created at: 2025-10-12 04:01:04  
+[2025-10-18 00:58:12] local.INFO: CheckAccessToken Middleware - Token expired: Yes  
+[2025-10-18 00:58:14] local.INFO: CustomAuth Middleware - Route: home  
+[2025-10-18 00:58:14] local.INFO: CustomAuth Middleware - Session ID: zenaPppp2VcqwkwoS7CQPpKVOZxs5KaaG94jZ4rP  
+[2025-10-18 00:58:14] local.INFO: CustomAuth Middleware - Has cred: Yes  
+[2025-10-18 00:58:14] local.INFO: CustomAuth Middleware - All session keys: _flash, _previous, _token, token, refresh_token, token_created_at, cred, warga, residence, origin_page  
+[2025-10-18 00:58:14] local.INFO: CustomAuth Middleware - Access granted for route: home  
+[2025-10-18 00:58:14] local.INFO: CheckAccessToken Middleware - Route: home  
+[2025-10-18 00:58:14] local.INFO: CheckAccessToken Middleware - Has token: Yes  
+[2025-10-18 00:58:14] local.INFO: CheckAccessToken Middleware - Created at: 2025-10-18 00:58:13  
+[2025-10-18 00:58:14] local.INFO: CheckAccessToken Middleware - Token expired: No  
+[2025-10-18 00:58:14] local.INFO: CheckAccessToken Middleware - Token valid, proceeding  
+[2025-10-18 00:58:14] local.INFO: HomeController::index() called  
+[2025-10-18 00:58:14] local.INFO: Session data check:  
+[2025-10-18 00:58:14] local.INFO: User: Found  
+[2025-10-18 00:58:14] local.INFO: Warga: Found  
+[2025-10-18 00:58:14] local.INFO: Residence: Not found  
+[2025-10-18 00:58:14] local.INFO: Token: Found  
+[2025-10-18 00:58:16] local.INFO: Stories API Response: {"total_page":null,"page":1,"data":[{"id":1,"warga":{"id":1,"full_name":null,"profile_photo":null},"residence_id":3,"story":"Ini adalah konten story untuk test upload gambar","image":"https://pewaca-1379748683.cos.ap-singapore.myqcloud.com/story_images/Screenshot_2025-01-02_094346.png","total_like":0,"created_by":1,"created_on":"2025-10-12T07:07:16.867722Z","modified_on":"2025-10-12T07:07:19.395071Z","isdelete":false}],"success":true,"error":null,"code":200,"next":null,"previous":null}  
+[2025-10-18 00:58:16] local.INFO: Stories Response Status: 200  
+[2025-10-18 00:58:16] local.INFO: HomeController::index() rendering view  
+[2025-10-18 00:58:22] local.INFO: CustomAuth Middleware - Route: akun  
+[2025-10-18 00:58:22] local.INFO: CustomAuth Middleware - Session ID: zenaPppp2VcqwkwoS7CQPpKVOZxs5KaaG94jZ4rP  
+[2025-10-18 00:58:22] local.INFO: CustomAuth Middleware - Has cred: Yes  
+[2025-10-18 00:58:22] local.INFO: CustomAuth Middleware - All session keys: _flash, _previous, _token, token, refresh_token, token_created_at, cred, warga, residence, origin_page  
+[2025-10-18 00:58:22] local.INFO: CustomAuth Middleware - Access granted for route: akun  
+[2025-10-18 00:58:22] local.INFO: CheckAccessToken Middleware - Route: akun  
+[2025-10-18 00:58:22] local.INFO: CheckAccessToken Middleware - Has token: Yes  
+[2025-10-18 00:58:22] local.INFO: CheckAccessToken Middleware - Created at: 2025-10-18 00:58:13  
+[2025-10-18 00:58:22] local.INFO: CheckAccessToken Middleware - Token expired: No  
+[2025-10-18 00:58:22] local.INFO: CheckAccessToken Middleware - Token valid, proceeding  
+[2025-12-18 22:12:59] local.ERROR: cURL error 60: SSL certificate problem: unable to get local issuer certificate (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for https://www.google.com/recaptcha/api/siteverify {"exception":"[object] (GuzzleHttp\\Exception\\RequestException(code: 0): cURL error 60: SSL certificate problem: unable to get local issuer certificate (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for https://www.google.com/recaptcha/api/siteverify at C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\Handler\\CurlFactory.php:278)
+[stacktrace]
+#0 C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\Handler\\CurlFactory.php(207): GuzzleHttp\\Handler\\CurlFactory::createRejection(Object(GuzzleHttp\\Handler\\EasyHandle), Array)
+#1 C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\Handler\\CurlFactory.php(159): GuzzleHttp\\Handler\\CurlFactory::finishError(Object(GuzzleHttp\\Handler\\CurlHandler), Object(GuzzleHttp\\Handler\\EasyHandle), Object(GuzzleHttp\\Handler\\CurlFactory))
+#2 C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\Handler\\CurlHandler.php(47): GuzzleHttp\\Handler\\CurlFactory::finish(Object(GuzzleHttp\\Handler\\CurlHandler), Object(GuzzleHttp\\Handler\\EasyHandle), Object(GuzzleHttp\\Handler\\CurlFactory))
+#3 C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\Handler\\Proxy.php(28): GuzzleHttp\\Handler\\CurlHandler->__invoke(Object(GuzzleHttp\\Psr7\\Request), Array)
+#4 C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\Handler\\Proxy.php(48): GuzzleHttp\\Handler\\Proxy::GuzzleHttp\\Handler\\{closure}(Object(GuzzleHttp\\Psr7\\Request), Array)
+#5 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Client\\PendingRequest.php(1150): GuzzleHttp\\Handler\\Proxy::GuzzleHttp\\Handler\\{closure}(Object(GuzzleHttp\\Psr7\\Request), Array)
+#6 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Client\\PendingRequest.php(1116): Illuminate\\Http\\Client\\PendingRequest->Illuminate\\Http\\Client\\{closure}(Object(GuzzleHttp\\Psr7\\Request), Array)
+#7 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Client\\PendingRequest.php(1102): Illuminate\\Http\\Client\\PendingRequest->Illuminate\\Http\\Client\\{closure}(Object(GuzzleHttp\\Psr7\\Request), Array)
+#8 C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\PrepareBodyMiddleware.php(64): Illuminate\\Http\\Client\\PendingRequest->Illuminate\\Http\\Client\\{closure}(Object(GuzzleHttp\\Psr7\\Request), Array)
+#9 C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\Middleware.php(38): GuzzleHttp\\PrepareBodyMiddleware->__invoke(Object(GuzzleHttp\\Psr7\\Request), Array)
+#10 C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\RedirectMiddleware.php(71): GuzzleHttp\\Middleware::GuzzleHttp\\{closure}(Object(GuzzleHttp\\Psr7\\Request), Array)
+#11 C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\Middleware.php(63): GuzzleHttp\\RedirectMiddleware->__invoke(Object(GuzzleHttp\\Psr7\\Request), Array)
+#12 C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\HandlerStack.php(75): GuzzleHttp\\Middleware::GuzzleHttp\\{closure}(Object(GuzzleHttp\\Psr7\\Request), Array)
+#13 C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\Client.php(333): GuzzleHttp\\HandlerStack->__invoke(Object(GuzzleHttp\\Psr7\\Request), Array)
+#14 C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\Client.php(169): GuzzleHttp\\Client->transfer(Object(GuzzleHttp\\Psr7\\Request), Array)
+#15 C:\\wamp64\\www\\pewaca_fe\\vendor\\guzzlehttp\\guzzle\\src\\Client.php(189): GuzzleHttp\\Client->requestAsync('POST', Object(GuzzleHttp\\Psr7\\Uri), Array)
+#16 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Client\\PendingRequest.php(961): GuzzleHttp\\Client->request('POST', 'https://www.goo...', Array)
+#17 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Client\\PendingRequest.php(823): Illuminate\\Http\\Client\\PendingRequest->sendRequest('POST', 'https://www.goo...', Array)
+#18 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(260): Illuminate\\Http\\Client\\PendingRequest->Illuminate\\Http\\Client\\{closure}(1)
+#19 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Client\\PendingRequest.php(821): retry(0, Object(Closure), 100, Object(Closure))
+#20 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Client\\PendingRequest.php(727): Illuminate\\Http\\Client\\PendingRequest->send('POST', 'https://www.goo...', Array)
+#21 C:\\wamp64\\www\\pewaca_fe\\app\\Http\\Controllers\\Auth\\LoginController.php(37): Illuminate\\Http\\Client\\PendingRequest->post('https://www.goo...', Array)
+#22 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): App\\Http\\Controllers\\Auth\\LoginController->postlogin(Object(Illuminate\\Http\\Request))
+#23 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction('postlogin', Array)
+#24 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(259): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Auth\\LoginController), 'postlogin')
+#25 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(205): Illuminate\\Routing\\Route->runController()
+#26 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(798): Illuminate\\Routing\\Route->run()
+#27 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#28 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#29 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#30 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken.php(78): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#31 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#32 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Middleware\\ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#33 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#34 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(121): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#35 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#36 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#38 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\EncryptCookies.php(67): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#40 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#42 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(797): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#43 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(776): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#44 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(740): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#45 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(729): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#46 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(190): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#47 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#48 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#49 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#50 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#51 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#52 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#53 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#54 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#55 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#56 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#57 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#58 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#59 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#60 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#61 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#62 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#63 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(165): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#64 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#65 C:\\wamp64\\www\\pewaca_fe\\public\\index.php(51): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#66 C:\\wamp64\\www\\pewaca_fe\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('C:\\\\wamp64\\\\www\\\\p...')
+#67 {main}
+"} 
+[2025-12-18 22:26:03] local.INFO: === MIDDLEWARE CHECK TOKEN ===  
+[2025-12-18 22:26:03] local.INFO: Session ID: 8JE1Lrz0uSNgL3HVhwNZ4zeq6hwiiZK07lohCv4J  
+[2025-12-18 22:26:03] local.INFO: Request URL: http://127.0.0.1:9000  
+[2025-12-18 22:26:03] local.INFO: Token exists in session: NO  
+[2025-12-18 22:26:03] local.INFO: Token value: NULL  
+[2025-12-18 22:26:13] local.INFO: === MIDDLEWARE CHECK TOKEN ===  
+[2025-12-18 22:26:13] local.INFO: Session ID: 8JE1Lrz0uSNgL3HVhwNZ4zeq6hwiiZK07lohCv4J  
+[2025-12-18 22:26:13] local.INFO: Request URL: http://127.0.0.1:9000  
+[2025-12-18 22:26:13] local.INFO: Token exists in session: NO  
+[2025-12-18 22:26:13] local.INFO: Token value: NULL  
+[2025-12-18 22:28:21] local.INFO: === MIDDLEWARE CHECK TOKEN ===  
+[2025-12-18 22:28:21] local.INFO: Session ID: 8JE1Lrz0uSNgL3HVhwNZ4zeq6hwiiZK07lohCv4J  
+[2025-12-18 22:28:21] local.INFO: Request URL: http://127.0.0.1:9000  
+[2025-12-18 22:28:21] local.INFO: Token exists in session: NO  
+[2025-12-18 22:28:21] local.INFO: Token value: NULL  
+[2025-12-18 22:28:29] local.INFO: === MIDDLEWARE CHECK TOKEN ===  
+[2025-12-18 22:28:29] local.INFO: Session ID: 8JE1Lrz0uSNgL3HVhwNZ4zeq6hwiiZK07lohCv4J  
+[2025-12-18 22:28:29] local.INFO: Request URL: http://127.0.0.1:9000  
+[2025-12-18 22:28:29] local.INFO: Token exists in session: NO  
+[2025-12-18 22:28:29] local.INFO: Token value: NULL  
+[2025-12-18 22:29:36] local.INFO: === MIDDLEWARE CHECK TOKEN ===  
+[2025-12-18 22:29:36] local.INFO: Session ID: 8JE1Lrz0uSNgL3HVhwNZ4zeq6hwiiZK07lohCv4J  
+[2025-12-18 22:29:36] local.INFO: Request URL: http://127.0.0.1:9000  
+[2025-12-18 22:29:36] local.INFO: Token exists in session: NO  
+[2025-12-18 22:29:36] local.INFO: Token value: NULL  
+[2025-12-18 22:33:11] local.INFO: === MIDDLEWARE CHECK TOKEN ===  
+[2025-12-18 22:33:11] local.INFO: Session ID: 8JE1Lrz0uSNgL3HVhwNZ4zeq6hwiiZK07lohCv4J  
+[2025-12-18 22:33:11] local.INFO: Request URL: http://127.0.0.1:9000  
+[2025-12-18 22:33:11] local.INFO: Token exists in session: NO  
+[2025-12-18 22:33:11] local.INFO: Token value: NULL  
+[2025-12-18 22:33:28] local.INFO: === MIDDLEWARE CHECK TOKEN ===  
+[2025-12-18 22:33:28] local.INFO: Session ID: 8JE1Lrz0uSNgL3HVhwNZ4zeq6hwiiZK07lohCv4J  
+[2025-12-18 22:33:28] local.INFO: Request URL: http://127.0.0.1:9000  
+[2025-12-18 22:33:28] local.INFO: Token exists in session: NO  
+[2025-12-18 22:33:28] local.INFO: Token value: NULL  
+[2025-12-18 22:34:53] local.INFO: === MIDDLEWARE CHECK TOKEN ===  
+[2025-12-18 22:34:53] local.INFO: Session ID: 8JE1Lrz0uSNgL3HVhwNZ4zeq6hwiiZK07lohCv4J  
+[2025-12-18 22:34:53] local.INFO: Request URL: http://127.0.0.1:9000  
+[2025-12-18 22:34:53] local.INFO: Token exists in session: NO  
+[2025-12-18 22:34:53] local.INFO: Token value: NULL  
+[2025-12-18 22:36:40] local.INFO: === MIDDLEWARE CHECK TOKEN ===  
+[2025-12-18 22:36:40] local.INFO: Session ID: 8JE1Lrz0uSNgL3HVhwNZ4zeq6hwiiZK07lohCv4J  
+[2025-12-18 22:36:40] local.INFO: Request URL: http://127.0.0.1:9000  
+[2025-12-18 22:36:40] local.INFO: Token exists in session: NO  
+[2025-12-18 22:36:40] local.INFO: Token value: NULL  
+[2025-12-18 22:36:51] local.INFO: === MIDDLEWARE CHECK TOKEN ===  
+[2025-12-18 22:36:51] local.INFO: Session ID: 8JE1Lrz0uSNgL3HVhwNZ4zeq6hwiiZK07lohCv4J  
+[2025-12-18 22:36:51] local.INFO: Request URL: http://127.0.0.1:9000  
+[2025-12-18 22:36:51] local.INFO: Token exists in session: NO  
+[2025-12-18 22:36:51] local.INFO: Token value: NULL  

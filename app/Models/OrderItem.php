@@ -10,7 +10,7 @@ class OrderItem extends Model
 {
     use HasFactory;
 
-    protected $connection = 'sqlite_backup';
+    // protected $connection = 'sqlite_backup'; // Use default connection (mysql)
 
     protected $fillable = [
         'order_id',

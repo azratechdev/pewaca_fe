@@ -191,6 +191,9 @@
     }
     
   </style>
+  
+  <!-- OneSignal Push Notification SDK -->
+  @include('partials.onesignal')
 </head>
 
 <body>
@@ -210,6 +213,9 @@
 
     <!-- SweetAlert2 -->
     @include('sweetalert::alert')
+
+    <!-- OneSignal Push Notification -->
+    @include('partials.onesignal')
 
     <script>
         if ('serviceWorker' in navigator) {

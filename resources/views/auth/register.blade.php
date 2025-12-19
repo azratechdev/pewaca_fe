@@ -5,319 +5,706 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/plugins/images/logo.png') }}">
-  <title>Pewaca</title>
+  <title>Pendaftaran Warga - Pewaca</title>
   <link rel="manifest" href="{{ url('manifest.json') }}">
-
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-   <script src="https://www.google.com/recaptcha/api.js?render={{ config('recaptcha.sitekey') }}"></script>
-  <style>
-    .navbar-custom {
-      background-color:  #198754; /* Tosca color */
-      padding-top: 0px;
-      padding-bottom: 0px;
-    }
-      
-    .card , .login-alert, .logo{
-        margin: 20px; /* Batas atas, kiri, kanan, dan bawah */
-        border:0px;
-    }
-   
-    a {
-      text-decoration: none;
-    }
-
-    .waca-logo {
-        width: 190px; /* Sesuaikan ukuran yang diinginkan */
-        height: 60px; /* Sesuaikan ukuran yang diinginkan */
-        border:0px;
-    }
-
-    /* Style untuk input file */
-      
-        .form-control[type="file"] {
-            padding: 1.625rem 0.75rem 0.5rem;
-        }
-
-        .form-control[type="file"]::file-selector-button {
-            display: none;
-        }
-
-        .form-control[type="file"]::-webkit-file-upload-button {
-            display: none;
-        }
-
-        /* Style untuk preview container setengah lebar */
-        #imagePreviewContainer {
-            transition: all 0.3s ease;
-        }
-
-        /* Style untuk tombol remove */
-        #removeImageButton {
-            background-color: #dc3545;
-            border-radius: 50%;
-            width: 25px;
-            height: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-        }
-
-        #removeImageButton:hover {
-            background-color: #c82333;
-        } 
-
-    .toggle-password {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      cursor: pointer;
-      color: #6b7280;
-    }
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://www.google.com/recaptcha/api.js?render={{ config('recaptcha.sitekey') }}"></script>
   
-  </style>
-
 <style>
-    /* Styling untuk container input */
-    .form-group {
-        position: relative;
-        margin: 20px 0;
-        width: 100%;
-    }
-
-    /* Styling untuk .input-group */
-    .input-group {
-        display: flex;
-        align-items: center;
-        width: 100%;
-       
-    }
-
-    /* Styling untuk prefix */
-    .input-group-text {
-        padding: 10px;
-        background-color: #f0f0f0;
-        border: 1px solid #ccc;
-        border-right: none;
-        font-size: 1em;
-        color: #333;
-        border-radius: 4px 0 0 4px;
-        display: flex;
-        align-items: center;
-    }
-
-    /* Styling untuk input */
-    .form-control {
-        width: 100%;
-        padding: 10px;
-        font-size: 1em;
-        border: 1px solid #ccc;
-        border-radius: 4px 4px 4px 4px;
-        outline: none;
-    }
-
-    /* Styling untuk label */
-    .form-label {
-        position: absolute;
-        left: 12px;
-        top: 10px;
-        font-size: 1em;
-        color: #999;
-        background-color: white;
-        padding: 0 5px;
-        transition: 0.2s ease;
-        pointer-events: none;
-    }
-
-    /* Styling ketika input diisi atau di-fokus */
-    .form-control:focus + .form-label,
-    .form-control:not(:placeholder-shown) + .form-label{
-        top: -10px; /* Pindahkan label ke luar input */
-        left: 8px;
-        font-size: 0.85em;
-        color: #333;
-    }
-
-.swal2-popup.rounded-alert {
-    border-radius: 12px !important;
-    padding: 20px;
-    width: 400px !important;
-    max-width: 75%;
+/* Modern Registration Styles */
+:root {
+    --primary-color: #2ca25f;
+    --primary-light: #99d8c9;
+    --primary-lighter: #e5f5f9;
+    --gradient-start: #2ca25f;
+    --gradient-end: #99d8c9;
 }
 
-/* Tambahan styling opsional */
-.swal2-popup .swal2-title {
-    font-size: 20px !important;
-    font-weight: bold !important;
-    margin: 10px 0 !important;
+body {
+    background: linear-gradient(135deg, var(--primary-lighter) 0%, #ffffff 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.swal2-popup .swal2-content {
-    font-size: 14px !important;
-    margin-bottom: 10px !important;
+.registration-container {
+    padding: 2rem 1rem;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.registration-card {
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 10px 40px rgba(44, 162, 95, 0.1);
+    overflow: hidden;
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.card-header-modern {
+    background: linear-gradient(135deg, rgba(44, 162, 95, 0.85), rgba(153, 216, 201, 0.85)),
+                url('{{ $resdetail['image'] ?? '' }}') center/cover;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    position: relative;
+}
+
+.card-header-modern::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 1;
+}
+
+.logo-wrapper {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 1.5rem;
+}
+
+.waca-logo {
+    max-width: 200px;
+    height: auto;
+    filter: brightness(0) invert(1);
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+}
+
+.header-title {
+    color: white;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0 0 0.75rem 0;
+    position: relative;
+    z-index: 1;
+}
+
+.residence-info {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 1rem 1.5rem;
+    border-radius: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    position: relative;
+    z-index: 1;
+}
+
+.residence-icon-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.residence-icon-img.fas {
+    border-radius: 0;
+    filter: brightness(0) invert(1);
+}
+
+.residence-name {
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.card-body-modern {
+    padding: 2.5rem 2rem;
+}
+
+.subtitle-text {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
     text-align: center;
 }
-.swal2-actions {
-    display: flex !important; /* Atur elemen pembungkus tombol agar fleksibel */
-    justify-content: center !important; /* Pusatkan tombol */
-    width: 100% !important; /* Pastikan pembungkus tombol lebar penuh */
-    margin: 0 !important;
+
+.subtitle-icon {
+    color: var(--primary-color);
+    margin-right: 0.5rem;
 }
 
-.swal-confirm-btn {
-    display: block !important; /* Ubah tombol menjadi elemen blok */
-    width: 100% !important; /* Pastikan tombol melebar penuh */
-    padding: 10px !important; /* Tinggi tombol */
-    font-size: 16px !important; /* Ukuran teks */
-    background-color: #198754 !important; /* Warna hijau success */
-    color: white !important; /* Teks putih */
-    border: none !important; /* Hapus border */
-    border-radius: 4px !important; /* Sudut melengkung */
-    text-align: center !important; /* Teks di tengah */
-}
-</style>
-<style>
-    .form-floating > .form-control:not(:placeholder-shown) ~ label,
-.form-floating > .form-select ~ label {
-    opacity: 1;
-    transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+/* Form Sections */
+.form-section {
+    margin-bottom: 2rem;
 }
 
-/* Atur tampilan Select2 agar sesuai dengan form-floating */
-.select2-container .select2-selection--single {
-    height: calc(3.5rem + 2px); /* Sesuaikan dengan tinggi form-floating */
-    padding: 1rem 0.75rem;
-    border-radius: 0.25rem;
-    border: 1px solid #ced4da;
+.section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin: 0 0 1.25rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--primary-lighter);
 }
 
-.select2-container--default .select2-selection--single .select2-selection__arrow {
-    height: 100%;
-    top: 0;
-    right: 0.75rem;
+.section-title i {
+    font-size: 1.1rem;
+    color: var(--primary-light);
+}
+
+/* Form Groups */
+.form-group-modern {
+    margin-bottom: 1.25rem;
+}
+
+.form-label-modern {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-label-modern i {
+    font-size: 0.9rem;
+    color: var(--primary-light);
+}
+
+.form-control-modern,
+.form-select-modern {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 2px solid var(--primary-lighter);
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.form-control-modern:focus,
+.form-select-modern:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(44, 162, 95, 0.1);
+    outline: none;
+}
+
+.form-control-modern.is-invalid,
+.form-select-modern.is-invalid {
+    border-color: #dc3545;
+}
+
+.invalid-feedback {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: none;
+}
+
+.form-control-modern.is-invalid ~ .invalid-feedback,
+.form-select-modern.is-invalid ~ .invalid-feedback {
+    display: block;
+}
+
+.form-hint {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 0.25rem;
+}
+
+/* Password Toggle */
+.password-wrapper {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #999;
+    transition: color 0.3s ease;
+    font-size: 1.1rem;
+}
+
+.toggle-password:hover {
+    color: var(--primary-color);
+}
+
+/* File Upload */
+.file-upload-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.file-upload-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    border: 2px dashed var(--primary-lighter);
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary-lighter) 0%, #f8fdff 100%);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.file-upload-label:hover {
+    border-color: var(--primary-light);
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-lighter) 100%);
+}
+
+.file-upload-label i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.file-upload-text {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+input[type="file"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+#imagePreviewContainer {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: var(--primary-lighter);
+    border-radius: 12px;
+}
+
+#imagePreview {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+#removeImageButton {
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#removeImageButton:hover {
+    background: #c82333;
+    transform: scale(1.1);
+}
+
+/* Checkbox */
+.checkbox-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.checkbox-modern {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    border: 2px solid var(--primary-lighter);
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 2px;
+    accent-color: var(--primary-color);
+}
+
+.checkbox-label {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+.checkbox-label a {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.checkbox-label a:hover {
+    text-decoration: underline;
+}
+
+/* Submit Button */
+.btn-submit-modern {
+    width: 100%;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    color: white;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(44, 162, 95, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.btn-submit-modern:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(44, 162, 95, 0.4);
+}
+
+.btn-submit-modern:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-submit-modern i {
+    font-size: 1.2rem;
+}
+
+/* Footer Links */
+.footer-links {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--primary-lighter);
+}
+
+.footer-link {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.footer-link a {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.footer-link a:hover {
+    text-decoration: underline;
+}
+
+/* Select2 Modern Styling */
+.select2-container--default .select2-selection--single {
+    height: auto !important;
+    padding: 0.875rem 1rem !important;
+    border: 2px solid var(--primary-lighter) !important;
+    border-radius: 12px !important;
+    transition: all 0.3s ease;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--single {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 4px rgba(44, 162, 95, 0.1) !important;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
-    line-height: 2.5;
-    padding-left: 0;
-    padding-right: 0;
+    padding: 0 !important;
+    line-height: 1.5 !important;
 }
-</style> 
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 100% !important;
+    right: 1rem !important;
+}
+
+/* SweetAlert Custom */
+.swal2-popup.rounded-alert {
+    border-radius: 16px !important;
+    padding: 2rem !important;
+}
+
+.swal2-popup .swal2-title {
+    color: var(--primary-color) !important;
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+}
+
+.swal2-popup .swal2-content {
+    font-size: 1rem !important;
+    color: #666 !important;
+}
+
+.swal-confirm-btn {
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end)) !important;
+    border-radius: 8px !important;
+    padding: 0.75rem 2rem !important;
+    font-weight: 600 !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .registration-container {
+        padding: 1rem 0.5rem;
+    }
+    
+    .card-header-modern {
+        padding: 2rem 1.5rem;
+    }
+    
+    .card-body-modern {
+        padding: 2rem 1.5rem;
+    }
+    
+    .header-title {
+        font-size: 1.5rem;
+    }
+    
+    .waca-logo {
+        max-width: 160px;
+    }
+    
+    .residence-info-card {
+        padding: 1rem 1.25rem;
+    }
+    
+    .residence-icon {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .form-label {
+        font-size: 0.85rem;
+    }
+    
+    .form-control,
+    .form-select {
+        padding: 0.75rem 1rem;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .registration-container {
+        padding: 0.75rem 0.25rem;
+    }
+    
+    .card-header-modern {
+        padding: 1.5rem 1rem;
+    }
+    
+    .card-body-modern {
+        padding: 1.5rem 1rem;
+    }
+    
+    .header-title {
+        font-size: 1.25rem;
+    }
+    
+    .waca-logo {
+        max-width: 140px;
+    }
+    
+    .residence-info-card {
+        padding: 0.875rem 1rem;
+    }
+    
+    .residence-icon {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .residence-name {
+        font-size: 1rem;
+    }
+    
+    .section-header {
+        padding: 0.875rem 1rem;
+    }
+    
+    .section-title {
+        font-size: 1rem;
+    }
+    
+    .section-title i {
+        font-size: 1rem;
+    }
+    
+    .form-control,
+    .form-select {
+        padding: 0.625rem 0.875rem;
+        font-size: 0.9rem;
+    }
+    
+    .password-toggle {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .btn-register {
+        padding: 0.875rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+</style>
 
 </head>
 <body>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4 mt-4" style="align-items: left;">
-                            <picture>
-                              <img src="{{ asset('assets/plugins/images/mainlogo.png') }}" class="img-fluid img-thumbnail waca-logo" alt="Waca Logo">
-                            </picture>
-                        </div>     
-                        <div class="mb-3">
-                            <p class="text-left" style="font-size: 1.2em;">Pendaftaran Warga</p>
-                            <div class="d-flex align-items-center" style="font-size: 1.0em;">
-                                <img src="{{ asset('assets/plugins/images/house-2.png') }}" alt="Icon Perumahan" style="width: 24px; height: 24px; margin-right: 8px;">
-                                <span>{{ $resdetail['name'] }}</span>
-                            </div><br>
-                            {{-- <p  style="font-size: 1.0em;">{{ $resdetail['name'] }}</p> --}}
-                            <p style="font-size:0.8em;">Mohon lengkapi data untuk persyaratan menjadi warga<p>
-                        </div>
-              
-                        {{-- <div class="mb-3">
-                            @include('layouts.elements.flash')
-                        </div>  --}}
-
-                        <form id="registrasi" method="post" action="{{ route('postRegister') }}" enctype="multipart/form-data">
-                            @csrf
-                            <div class="form-floating mb-3">
-                                <input type="hidden" id="code" class="form-control" value="" name="code" required>
-                                <label for="code">Kode</label>
-                            </div>
-                        
-                            <div class="form-floating mb-3">
-                                <select class="form-control form-select @error('unit_id') is-invalid @enderror" id="unitSelect" name="unit_id" required>
-                                    {{-- <option value="" disabled selected hidden>-Pilih Unit-</option> --}}
-                                    <option>-Pilih unit-</option>
-                                    @foreach ($units as $unit )
-                                    <option value="{{ $unit['unit_id'] }}" {{ old('unit_id') == $unit['unit_id'] ? 'selected' : '' }}>{{ $unit['unit_name'] }}</option>
-                                    @endforeach
-                                </select>
-                                <label for="noUnit">No Unit</label>
-                                @error('unit_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                                
-                            </div>
-                        
-                        
-                            <div class="form-floating mb-3">
-                                <input type="text" pattern="[A-Za-z\s]+" class="form-control" id="full_name" name="full_name" placeholder=" " value="{{ old('full_name') }}" required>
-                                <label for="full_name ">Nama Lengkap</label>
-                                
-                                @error('full_name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                                                
-                            <div class="form-floating mb-3">
-                                <input type="text" pattern="\d{8,13}" minlength="8" maxlength="13" inputmode="numeric" class="form-control @error('phone_no') is-invalid @enderror"  value="{{ old('phone_no') }}" id="phone_no" name="phone_no" placeholder=" " required>
-                                <label for="phone_no ">Nomor Telepon</label>
-                                <small class="text-danger d-none" id="phone_no-error">Nomor Telepon minimal 8 digit dan maksimal 13 digit</small>
-                                {{-- @error('phone_no')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror --}}
-                            </div>
-
-                            <div class="form-floating mb-3">
-                                <select class="form-select" id="family_as" name="family_as" required>
-                                    <option value="" disabled selected hidden>-Pilih Sebagai-</option>
-                                    @foreach ($families as $family)
-                                    <option value="{{ $family['id'] }}" {{ old('family_as') == $family['id'] ? 'selected' : '' }}>{{ $family['name'] }}</option>
-                                    @endforeach
-                                </select>
-                                <label for="family_as">Family As</label>
-                            </div>
-                        
-                            <div class="form-floating mb-3">
-                                <input type="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" id="email" name="email" placeholder=" " required>
-                                <label for="email">Alamat Email</label>
-                                @error('email')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        
-                            <div class="form-floating mb-3">
-                                <input type="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" id="password" name="password" placeholder=" " required>
-                                <label for="password">Buat Kata Sandi</label>
-                                <i class="fas fa-eye-slash toggle-password" id="togglePassword"></i>
-                                @error('password')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="g-recaptcha"
-                                data-sitekey="{{ config('recaptcha.sitekey') }}"
-                                data-callback="onSubmit"
-                                data-size="invisible">
-                            </div>
-                        
-                            <div class="form-group mb-3">
-                                <button type="submit" id="submitBtn" class="btn btn-success form-control">Daftar Sebagai Warga</button>
-                            </div>
-                        
-                            <br>
-                            <div class="mb-3">
-                                <p class="text-center">Sudah punya akun? <a href="{{ route('showLoginForm') }}"> Login</a></p>
-                            </div>
-                        </form>
-                    </div>
+    <div class="registration-container">
+        <div class="registration-card">
+            <!-- Header -->
+            <div class="card-header-modern">
+                <div class="logo-wrapper">
+                    <img src="{{ asset('assets/plugins/images/mainlogo.png') }}" class="waca-logo" alt="Waca Logo">
                 </div>
+                <h1 class="header-title">Pendaftaran Warga</h1>
+                <div class="residence-info">
+                    @if(!empty($resdetail['image']))
+                        <img src="{{ $resdetail['image'] }}" class="residence-icon-img" alt="{{ $resdetail['name'] }}">
+                    @else
+                        <i class="fas fa-home residence-icon-img"></i>
+                    @endif
+                    <span class="residence-name">{{ $resdetail['name'] }}</span>
+                </div>
+            </div>
+
+            <!-- Body -->
+            <div class="card-body-modern">
+                <p class="subtitle-text">
+                    <i class="fas fa-info-circle subtitle-icon"></i>
+                    Mohon lengkapi data untuk persyaratan menjadi warga
+                </p>
+
+                <form id="registrasi" method="post" action="{{ route('postRegister') }}" enctype="multipart/form-data">
+                    @csrf
+                    
+                    <input type="hidden" id="code" name="code" value="">
+                    
+                    <!-- Section 1: Unit & Identitas -->
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-home"></i>
+                            Unit & Identitas
+                        </h3>
+                        
+                        <div class="form-group-modern">
+                            <label for="unitSelect" class="form-label-modern">
+                                <i class="fas fa-door-open"></i>
+                                No Unit
+                            </label>
+                            <select class="form-select-modern @error('unit_id') is-invalid @enderror" id="unitSelect" name="unit_id" required>
+                                <option value="">Pilih Unit</option>
+                                @foreach ($units as $unit)
+                                <option value="{{ $unit['unit_id'] }}" {{ old('unit_id') == $unit['unit_id'] ? 'selected' : '' }}>{{ $unit['unit_name'] }}</option>
+                                @endforeach
+                            </select>
+                            @error('unit_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group-modern">
+                            <label for="full_name" class="form-label-modern">
+                                <i class="fas fa-user"></i>
+                                Nama Lengkap
+                            </label>
+                            <input type="text" pattern="[A-Za-z\s]+" class="form-control-modern @error('full_name') is-invalid @enderror" id="full_name" name="full_name" value="{{ old('full_name') }}" required>
+                            @error('full_name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group-modern">
+                            <label for="phone_no" class="form-label-modern">
+                                <i class="fas fa-phone"></i>
+                                Nomor Telepon
+                            </label>
+                            <input type="text" pattern="\d{8,13}" minlength="8" maxlength="13" inputmode="numeric" class="form-control-modern @error('phone_no') is-invalid @enderror" value="{{ old('phone_no') }}" id="phone_no" name="phone_no" required>
+                            <small class="form-hint">Minimal 8 digit, maksimal 13 digit</small>
+                            <small class="text-danger d-none" id="phone_no-error">Nomor Telepon minimal 8 digit dan maksimal 13 digit</small>
+                            @error('phone_no')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group-modern">
+                            <label for="family_as" class="form-label-modern">
+                                <i class="fas fa-users"></i>
+                                Status Keluarga
+                            </label>
+                            <select class="form-select-modern @error('family_as') is-invalid @enderror" id="family_as" name="family_as" required>
+                                <option value="">Pilih Status</option>
+                                @foreach ($families as $family)
+                                <option value="{{ $family['id'] }}" {{ old('family_as') == $family['id'] ? 'selected' : '' }}>{{ $family['name'] }}</option>
+                                @endforeach
+                            </select>
+                            @error('family_as')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Akun & Keamanan -->
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-lock"></i>
+                            Akun & Keamanan
+                        </h3>
+                        
+                        <div class="form-group-modern">
+                            <label for="email" class="form-label-modern">
+                                <i class="fas fa-envelope"></i>
+                                Alamat Email
+                            </label>
+                            <input type="email" class="form-control-modern @error('email') is-invalid @enderror" value="{{ old('email') }}" id="email" name="email" required>
+                            @error('email')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group-modern">
+                            <label for="password" class="form-label-modern">
+                                <i class="fas fa-key"></i>
+                                Kata Sandi
+                            </label>
+                            <div class="password-wrapper">
+                                <input type="password" class="form-control-modern @error('password') is-invalid @enderror" value="{{ old('password') }}" id="password" name="password" required>
+                                <i class="fas fa-eye-slash toggle-password" id="togglePassword"></i>
+                            </div>
+                            @error('password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- Recaptcha -->
+                    <div class="g-recaptcha"
+                        data-sitekey="{{ config('recaptcha.sitekey') }}"
+                        data-callback="onSubmit"
+                        data-size="invisible">
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" id="submitBtn" class="btn-submit-modern">
+                        <i class="fas fa-user-plus"></i>
+                        Daftar Sebagai Warga
+                    </button>
+
+                    <!-- Footer Links -->
+                    <div class="footer-links">
+                        <p class="footer-link">
+                            Sudah punya akun? <a href="{{ route('showLoginForm') }}">Masuk di sini</a>
+                        </p>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

@@ -6,9 +6,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
+use App\Services\OneSignalService;
 
 class PembayaranController extends Controller
 {
+    protected $oneSignal;
+
+    public function __construct(OneSignalService $oneSignal)
+    {
+        $this->oneSignal = $oneSignal;
+    }
     public function index()
     {   
         $data_tagihan = $this->getTagihan();
@@ -299,6 +306,21 @@ class PembayaranController extends Controller
             Log::info('Parsed Response:', ['data' => $data_response]);
 
             if ($response->successful() && isset($data_response['success']) && $data_response['success'] == true) {
+                
+                // Send OneSignal notification
+                try {
+                    $wargaId = Session::get('cred')['warga_id'] ?? Session::get('cred')['id'] ?? null;
+                    if ($wargaId) {
+                        $this->oneSignal->sendPaymentNotification($wargaId, [
+                            'tagihan_id' => $request->tagihan_id,
+                            'tagihan_name' => $data_response['data']['tagihan_name'] ?? 'Tagihan',
+                            'amount' => $nominal_original_format,
+                        ]);
+                    }
+                } catch (\Exception $e) {
+                    Log::error('OneSignal notification failed:', ['error' => $e->getMessage()]);
+                }
+                
                 Session::flash('flash-message', [
                     'message' => 'Bukti pembayaran berhasil diunggah',
                     'alert-class' => 'alert-success',

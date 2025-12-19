@@ -27,6 +27,16 @@ class AkunController extends Controller
         ])->get(env('API_URL') . '/api/auth/profil/');
         $warga_response = json_decode($response->body(), true);
         $data = $warga_response['data'];
+        
+        // Fix malformed image URLs from API
+        if (isset($data['residence']['image'])) {
+            // Remove any localhost:8000 prefix from the URL
+            $imageUrl = $data['residence']['image'];
+            // Pattern: http://127.0.0.1:8000/https://... atau http://localhost:8000/https://...
+            $imageUrl = preg_replace('#^https?://(?:127\.0\.0\.1|localhost):\d+/(?=https?://)#', '', $imageUrl);
+            $data['residence']['image'] = $imageUrl;
+        }
+        
         //dd($data);
         return view('akun.akuninfo', compact('data'));
     }
@@ -97,6 +107,14 @@ class AkunController extends Controller
         ])->get(env('API_URL') . '/api/auth/profil/');
         $warga_response = json_decode($response->body(), true);
         $data = $warga_response['data'];
+        
+        // Fix malformed image URLs from API
+        if (isset($data['residence']['image'])) {
+            // Remove any localhost:8000 prefix from the URL
+            $imageUrl = $data['residence']['image'];
+            $imageUrl = preg_replace('#^https?://(?:127\.0\.0\.1|localhost):\d+/(?=https?://)#', '', $imageUrl);
+            $data['residence']['image'] = $imageUrl;
+        }
 
         //dd($data);
     
@@ -462,5 +480,38 @@ class AkunController extends Controller
         }
     }
 
+    public function switchRole(Request $request)
+    {
+        $cred = Session::get('cred');
+        
+        // Check if user has both roles (is_pengurus must exist)
+        if (!isset($cred['is_pengurus'])) {
+            return redirect()->route('infoakun')->with([
+                'status' => 'error',
+                'message' => 'Akun Anda tidak memiliki akses untuk switch role.'
+            ]);
+        }
+
+        // Get current role mode from session, default to 'warga'
+        $currentMode = Session::get('role_mode', 'warga');
+        
+        // Toggle role mode
+        $newMode = $currentMode === 'warga' ? 'pengurus' : 'warga';
+        
+        // Update session
+        Session::put('role_mode', $newMode);
+        
+        // Update is_pengurus flag based on new mode
+        $cred['is_pengurus'] = ($newMode === 'pengurus');
+        Session::put('cred', $cred);
+        
+        // Success message
+        $roleName = $newMode === 'pengurus' ? 'Pengurus' : 'Warga';
+        
+        return redirect()->route('infoakun')->with([
+            'status' => 'success',
+            'message' => "Berhasil beralih ke mode {$roleName}"
+        ]);
+    }
    
 }

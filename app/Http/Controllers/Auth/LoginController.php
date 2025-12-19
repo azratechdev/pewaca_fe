@@ -25,26 +25,35 @@ class LoginController extends Controller
     
     public function postlogin(Request $request)
     {
+        \Log::info('=== POST LOGIN STARTED ===');
+        \Log::info('Email: ' . $request->email);
+        
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
-            'g-recaptcha-response' => 'required'
         ]);
 
-        $recaptchaResponse = $request->input('g-recaptcha-response');
+        // Only verify reCAPTCHA in production
+        if (env('APP_ENV') === 'production') {
+            $request->validate([
+                'g-recaptcha-response' => 'required'
+            ]);
+            
+            $recaptchaResponse = $request->input('g-recaptcha-response');
 
-        // Verifikasi ke Google
-        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
-            'secret' => config('recaptcha.secretkey'),
-            'response' => $recaptchaResponse,
-        ]);
+            // Verifikasi ke Google
+            $response = Http::withOptions(['verify' => false])->asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+                'secret' => config('recaptcha.secretkey'),
+                'response' => $recaptchaResponse,
+            ]);
 
-        $result = $response->json();
+            $result = $response->json();
 
-        if (!$result['success']) {
-            return back()->withErrors([
-                'login' => 'Verifikasi CAPTCHA gagal. Anda mungkin dianggap bot.'
-            ])->withInput();
+            if (!$result['success']) {
+                return back()->withErrors([
+                    'login' => 'Verifikasi CAPTCHA gagal. Anda mungkin dianggap bot.'
+                ])->withInput();
+            }
         }
 
 
@@ -53,7 +62,7 @@ class LoginController extends Controller
             'password' =>  $request->password,
         ];
 
-        //dd($data);
+        \Log::info('Calling API: ' . env('API_URL') . '/api/auth/login/');
         
         try {
             $response = Http::withHeaders([
@@ -62,6 +71,8 @@ class LoginController extends Controller
             ])->post(env('API_URL') . '/api/auth/login/', $data);
 
             $data_response = json_decode($response->body(), true);
+            
+            \Log::info('API Response:', $data_response);
 
             //dd($data_response);
 
@@ -72,6 +83,12 @@ class LoginController extends Controller
                 Session::put('token', $token); // ✅ access token
                 Session::put('refresh_token', $refresh_token); // ✅ refresh token
                 Session::put('token_created_at', now()); // ✅ timestamp simpan token
+
+                // DEBUG: Log session data
+                \Log::info('=== AFTER LOGIN SESSION PUT ===');
+                \Log::info('Session ID: ' . session()->getId());
+                \Log::info('Token exists: ' . (Session::has('token') ? 'YES' : 'NO'));
+                \Log::info('Session data:', session()->all());
 
                 //dd(session()->all());
               

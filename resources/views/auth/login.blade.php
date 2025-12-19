@@ -133,11 +133,13 @@
                             <input type="password" name="password" class="form-control" id="password" placeholder="Password">
                         </div>
                     </div>
-                    {{-- <div class="form-group">
+                    @if(env('APP_ENV') === 'production')
+                    <div class="form-group">
                         <div class="col-xs-12">
-                            <div class="g-recaptcha" data-sitekey="6Lfwf0gkAAAAAF6rAzrr7EmWKeYRz5eKl8oiFjIG"></div>
+                            <div class="g-recaptcha" data-sitekey="{{ config('recaptcha.sitekey') }}"></div>
                         </div>
-                    </div> --}}
+                    </div>
+                    @endif
                     <div class="form-group">
                         <div class="col-xs-12">
                            <a href="#" class="text-dark pull-right"><i class="fa fa-lock m-r-5"></i> Forgot Password?</a> </div>

@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => 'sqlite_backup',
+    'default' => env('DB_CONNECTION', 'mysql'),
 
     /*
     |--------------------------------------------------------------------------
