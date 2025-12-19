@@ -65,14 +65,17 @@ class LoginController extends Controller
         \Log::info('Calling API: ' . env('API_URL') . '/api/auth/login/');
         
         try {
-            $response = Http::withHeaders([
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-            ])->post(env('API_URL') . '/api/auth/login/', $data);
+            $response = Http::withOptions(['verify' => false])
+                ->timeout(30)
+                ->withHeaders([
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ])->post(env('API_URL') . '/api/auth/login/', $data);
 
             $data_response = json_decode($response->body(), true);
             
             \Log::info('API Response:', $data_response);
+            \Log::info('Response Status: ' . $response->status());
 
             //dd($data_response);
 
@@ -121,8 +124,12 @@ class LoginController extends Controller
             }
 
         } catch (\Exception $e) {
+            \Log::error('=== LOGIN API ERROR ===');
+            \Log::error('Error Message: ' . $e->getMessage());
+            \Log::error('Error Trace: ' . $e->getTraceAsString());
+            
             Session::flash('flash-message', [
-                'message' => 'Unauthorized',
+                'message' => 'Unauthorized - ' . $e->getMessage(),
                 'alert-class' => 'alert-danger',
             ]);
             return redirect()->route('showLoginForm');
