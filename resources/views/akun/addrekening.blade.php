@@ -57,7 +57,7 @@
                     <h1 class="text-xl font-semibold text-gray-800">
                     <a href="{{ route('inforekening') }}" class="text-dark">
                         <i class="fas fa-arrow-left"></i>
-                    </a>&nbsp;&nbsp;&nbsp;&nbsp;Add Rekening
+                    </a>&nbsp;&nbsp;&nbsp;&nbsp;Tambah rekening
                 </h1>
                 </div>
             </div>
@@ -70,7 +70,7 @@
                 <div>
                     <div class="form-floating mt-2">
                         <input type="text" class="form-control @error('nama_lengkap') is-invalid @enderror" value="{{ old('nama_lengkap') }}" id="nama_lengkap" name="nama_lengkap" placeholder=" " required>
-                        <label for="nama_lengkap">Add Bank Account</label>
+                        <label for="nama_lengkap">Nama Akun Bank</label>
                         @error('nama_lengkap')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -78,7 +78,7 @@
 
                     <div class="form-floating mt-2">
                         <input type="number" class="form-control @error('nomor_rekening') is-invalid @enderror" value="{{ old('nomor_rekening') }}" id="nomor_rekening" name="nomor_rekening" placeholder=" " required>
-                        <label for="nomor_rekening">No Rekening</label>
+                        <label for="nomor_rekening">Nomor Rekening</label>
                         @error('nomor_rekening')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

@@ -4,7 +4,13 @@
 <div class="flex justify-center items-center">
     <div class="bg-white w-full max-w-6xl">
         <!-- Header -->
-        <img src="{{ $data['residence']['image'] }}" class="bg-img">
+        @php
+            $image = $data['residence']['image'] ?? '';
+            if (str_contains($image, '127.0.0.1:8000/https://')) {
+                $image = '';
+            }
+        @endphp
+        <img src="{{ $image ?: asset('assets/plugins/images/bg.png') }}" class="bg-img">
 
         <div style="position: relative;top:-290px">
             <div class="p-6">
@@ -78,7 +84,8 @@
                     </div>
                     <div class="flex items-center">
                         <span class="text-gray-600">Tanggal Lahir <br>
-                        <strong>{{ $data['warga']['date_of_birth'] ?? '00-00-0000'}}</strong>
+                        <strong>{{ \Carbon\Carbon::parse($data['warga']['date_of_birth'])->locale('id')->translatedFormat('d F Y') }}
+                        </strong>
                         </span>
                     </div>
                     <div class="flex items-center">

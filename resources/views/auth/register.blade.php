@@ -220,9 +220,15 @@
                             </picture>
                         </div>     
                         <div class="mb-3">
+                            @php
+                                $image = $data['residence']['image'] ?? '';
+                                if (str_contains($image, '127.0.0.1:8000/https://')) {
+                                    $image = '';
+                                }
+                            @endphp
                             <p class="text-left" style="font-size: 1.2em;">Pendaftaran Warga</p>
                             <div class="d-flex align-items-center" style="font-size: 1.0em;">
-                                <img src="{{ asset('assets/plugins/images/house-2.png') }}" alt="Icon Perumahan" style="width: 24px; height: 24px; margin-right: 8px;">
+                                <img src="{{ $image ?: asset('assets/plugins/images/house-2.png') }}" alt="Icon Perumahan" style="width: 24px; height: 24px; margin-right: 8px;">
                                 <span>{{ $resdetail['name'] }}</span>
                             </div><br>
                             {{-- <p  style="font-size: 1.0em;">{{ $resdetail['name'] }}</p> --}}

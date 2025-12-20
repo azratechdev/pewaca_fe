@@ -109,7 +109,7 @@
             <div class="p-0 mt-2">
                 <a href="{{ route('addRekening') }}" 
                     class="btn btn-success w-full bg-green-600 text-white py-2 px-4 rounded-lg">
-                    ADD
+                    Tambah Rekening
                 </a>
             </div>
         </div>

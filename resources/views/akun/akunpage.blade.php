@@ -27,7 +27,7 @@
 
             @if($isPengurus == true)
             <a class="flex items-center p-4 border-b hover:bg-gray-100" href="{{ route('inforekening') }}">
-                <i class="fas fa-credit-card text-gray-500">
+                <i class="fas fa-credit-card text-green-600">
                 </i>
                 <span class="ml-4">
                     Info Rekening
@@ -40,7 +40,7 @@
             <a class="flex items-center p-4 border-b hover:bg-gray-100 @if (!$isPengurus && !$isChecker) cursor-not-allowed text-gray-400 @endif" 
                 href="{{ (!$isPengurus && !$isChecker) ? '#' : '/infoakun' }}" 
                 style="@if (!$isPengurus && !$isChecker) pointer-events: none; @endif">
-                <i class="fas fa-user text-gray-500"></i>
+                <i class="fas fa-user text-green-600""></i>
                 <span class="ml-4">
                     Info Akun
                 </span>
@@ -60,7 +60,7 @@
             <a class="flex items-center p-4 border-b hover:bg-gray-100 @if (!$isPengurus && !$isChecker) cursor-not-allowed text-gray-400 @endif" 
                 href="{{ (!$isPengurus && !$isChecker) ? '#' : '/faq' }}" 
                 style="@if (!$isPengurus && !$isChecker) pointer-events: none; @endif">
-                <i class="fas fa-comments text-gray-500"></i>
+                <i class="fas fa-comments text-green-600""></i>
                 <span class="ml-4">
                     FAQ
                 </span>
@@ -70,7 +70,7 @@
             <a class="flex active items-center p-4 border-b hover:bg-gray-100 @if (!$isPengurus && !$isChecker) cursor-not-allowed text-gray-400 @endif" 
                 href="{{ (!$isPengurus && !$isChecker) ? '#' : '/policy' }}" 
                 style="@if (!$isPengurus && !$isChecker) pointer-events: none; @endif">
-                <i class="fas fa-solid fa-gavel text-gray-500"></i>
+                <i class="fas fa-solid fa-gavel text-green-600""></i>
                 <span class="ml-4">
                     Kebijakan Privasi
                 </span>
@@ -80,7 +80,7 @@
             <a class="flex items-center p-4 border-b hover:bg-gray-100 @if (!$isPengurus && !$isChecker) cursor-not-allowed text-gray-400 @endif" 
                 href="{{ (!$isPengurus && !$isChecker) ? '#' : '/kontak' }}" 
                 style="@if (!$isPengurus && !$isChecker) pointer-events: none; @endif">
-                <i class="fas fa-solid fa-headset text-gray-500"></i>
+                <i class="fas fa-solid fa-headset text-green-600""></i>
                 <span class="ml-4">
                     Hubungi Kami
                 </span>
@@ -88,7 +88,7 @@
             </a>
 
             <a class="flex items-center p-4 hover:bg-gray-100" href="{{ route('log_out') }}">
-                <i class="fas fa-sign-out-alt text-gray-500">
+                <i class="fas fa-sign-out-alt text-green-600">
                 </i>
                 <span class="ml-4">
                     Logout
