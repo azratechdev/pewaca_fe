@@ -9,7 +9,7 @@
             <h1 class="text-xl font-semibold text-gray-800">
                 <a href="{{ route('pengurus') }}" class="text-dark">
                     <i class="fas fa-arrow-left"></i>
-                </a>&nbsp;Kemananan
+                </a>&nbsp;Keamanan
             </h1>
             <br>
             @include('layouts.elements.flash')
