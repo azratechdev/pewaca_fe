@@ -51,7 +51,7 @@
         <a href="{{ route('pembayaran.list') }}" class="nav-link text-center {{ request()->routeIs(['pembayaran.list', 'pembayaran.history', 'postingan']) ? 'active' : '' }}" @if (!$isPengurus && !$isChecker) cursor-not-allowed text-gray-400 @endif" 
         style="@if (!$isPengurus && !$isChecker) pointer-events: none; @endif">
           <i class="fa fa-receipt menu-icon"></i> <!-- Ikon Purchase Order -->
-          <span class="small d-block menu-text">Cashout</span>
+          <span class="small d-block menu-text">Transaksi</span>
         </a>
       </li>
 

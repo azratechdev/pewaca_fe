@@ -11,7 +11,7 @@
             <h1 class="text-xl font-semibold text-gray-800">
                 <a href="{{ $backRoute }}" class="text-dark">
                     <i class="fas fa-arrow-left"></i>
-                </a>&nbsp;&nbsp;&nbsp;&nbsp;Cashout
+                </a>&nbsp;&nbsp;&nbsp;&nbsp;Transaksi
             </h1>
         </div>
 

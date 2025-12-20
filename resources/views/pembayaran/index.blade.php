@@ -5,7 +5,7 @@
         <!-- Header -->
         <div class="p-6 border-b">
             <h1 class="text-xl font-semibold text-gray-800">
-                Cashout
+                Transaksi
             </h1>
         </div>
         

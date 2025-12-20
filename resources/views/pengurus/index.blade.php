@@ -63,6 +63,18 @@
             <i class="fas fa-chevron-right text-gray-400 text-xl"></i>
         </a>
 
+        <!-- Pengeluaran & Dana -->
+        <a href="{{ route('pengurus.pengeluaran') }}" class="flex items-center bg-white p-6 rounded-lg shadow hover:bg-gray-50">
+            <div class="bg-purple-100 text-purple-600 p-4 rounded-full">
+                <i class="fas fa-wallet fa-lg"></i>
+            </div>
+            <div class="flex-1 ml-6">
+                <h2 class="font-semibold text-2xl">Pengeluaran & Dana</h2>
+                <p class="text-gray-500 text-base">Kelola pengeluaran, Dana tersimpan</p>
+            </div>
+            <i class="fas fa-chevron-right text-gray-400 text-xl"></i>
+        </a>
+
         <!-- Kelola Seller - DISABLED -->
         {{-- 
         <a href="{{ route('pengurus.seller-requests.index') }}" class="flex items-center bg-white p-6 rounded-lg shadow hover:bg-gray-50">

@@ -158,6 +158,12 @@ Route::group(['middleware' => ['auth', 'check.token']], function () {
         Route::post('/pengurus/tagihan/post', [TagihanController::class, 'postTagihan'])->name('tagihan.post');
         Route::get('/pengurus/tagihan/{id}/edit', [TagihanController::class, 'editTagihan'])->name('pengurus.tagihan.edit');
         Route::put('/pengurus/tagihan/update', [TagihanController::class, 'postEditTagihan'])->name('pengurus.tagihan.postEdit');
+
+        // Pengeluaran routes
+        Route::get('/pengurus/pengeluaran', [App\Http\Controllers\Pengurus\PengeluaranController::class, 'index'])->name('pengurus.pengeluaran');
+        Route::get('/api/pengurus/pengeluaran', [App\Http\Controllers\Pengurus\PengeluaranController::class, 'getPengeluaran'])->name('api.pengurus.pengeluaran');
+        Route::post('/api/pengurus/pengeluaran/store', [App\Http\Controllers\Pengurus\PengeluaranController::class, 'store'])->name('api.pengurus.pengeluaran.store');
+        Route::get('/api/pengurus/dana-tersimpan', [App\Http\Controllers\Pengurus\PengeluaranController::class, 'getDanaTersimpan'])->name('api.pengurus.dana');
         Route::get('/pengurus/tagihan/approval/{id}/detail', [TagihanController::class, 'approvalDetail'])->name('pengurus.approval.detail');
         Route::post('/pengurus/tagihan/publish', [TagihanController::class, 'publish'])->name('tagihan.publish');
         
