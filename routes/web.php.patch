@@ -1,0 +1,61 @@
+// Tambahkan route ini di akhir routes/web.php, SEBELUM closing brace
+
+// Debug login endpoint (temporary for testing)
+Route::post('/api/debug/login', function (Request $request) {
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
+
+    try {
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
+        ])->post(env('API_URL') . '/api/auth/login/', [
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
+
+        $data_response = json_decode($response->body(), true);
+
+        if ($data_response['success'] == true) {
+            $token = $data_response['data']['token'];
+            $refresh_token = $data_response['data']['token_refresh'];
+
+            Session::put('token', $token);
+            Session::put('refresh_token', $refresh_token);
+            Session::put('token_created_at', now());
+
+            // Get user profile from API
+            $profile_response = Http::withHeaders([
+                'Accept' => 'application/json',
+                'Authorization' => 'Token ' . $token,
+            ])->get(env('API_URL') . '/api/auth/profil/');
+
+            $auth_response = json_decode($profile_response->body(), true);
+
+            if (isset($auth_response['data'])) {
+                Session::put(['cred' => $auth_response['data']['user']]);
+                Session::put(['warga' => $auth_response['data']['warga']]);
+                Session::put(['residence' => $auth_response['data']['residence']]);
+                
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Login berhasil',
+                    'data' => $auth_response['data']
+                ]);
+            }
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => $data_response['message'] ?? 'Login gagal'
+        ], 401);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Error: ' . $e->getMessage()
+        ], 500);
+    }
+});
