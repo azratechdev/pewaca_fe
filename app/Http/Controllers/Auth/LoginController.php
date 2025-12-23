@@ -112,6 +112,11 @@ class LoginController extends Controller
         }
     }
 
+    public function login(Request $request)
+    {
+        return $this->postlogin($request);
+    }
+
     public function authenticate($email)
     {
         $response = Http::withHeaders([
