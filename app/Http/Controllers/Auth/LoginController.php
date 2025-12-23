@@ -167,10 +167,10 @@ class LoginController extends Controller
             $residence_data = $auth_response['data']['residence'];
             //$unit_data = $auth_response['data']['unit_id'];
            
-            Session::put(['cred' => $credentials]);
-            Session::put(['warga' => $warga_data]);
-            Session::put(['residence' => $residence_data]);
-            //Session::put(['unit' => $unit_data]);
+            Session::put('cred', $credentials);
+            Session::put('warga', $warga_data);
+            Session::put('residence', $residence_data);
+            //Session::put('unit', $unit_data);
             
             \Log::info('Session Warga Stored:', [
                 'is_checker' => $warga_data['is_checker'] ?? 'NOT SET',
