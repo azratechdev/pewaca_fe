@@ -9,5 +9,6 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         'login',        // POST /login
         '/login',       // jaga-jaga
+        '/',            // POST /
     ];
 }
