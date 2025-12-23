@@ -257,3 +257,86 @@ Route::get('/debug/session', function () {
     ]);
 })->name('debug.session');
 
+// Debug login endpoint (bypass reCAPTCHA for testing)
+Route::post('/debug/login', function (Request $request) {
+    try {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        \Log::info('DEBUG LOGIN ATTEMPT', ['email' => $request->email]);
+
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
+        ])->post(env('API_URL') . '/api/auth/login/', [
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
+
+        $data_response = json_decode($response->body(), true);
+        \Log::info('API RESPONSE', $data_response);
+
+        if (!empty($data_response['success']) && $data_response['success'] == true) {
+            $token = $data_response['data']['token'];
+            $refresh_token = $data_response['data']['token_refresh'];
+
+            Session::put('token', $token);
+            Session::put('refresh_token', $refresh_token);
+            Session::put('token_created_at', now());
+
+            \Log::info('Token stored in session');
+
+            // Get user profile from API
+            $profile_response = Http::withHeaders([
+                'Accept' => 'application/json',
+                'Authorization' => 'Token ' . $token,
+            ])->get(env('API_URL') . '/api/auth/profil/');
+
+            $auth_response = json_decode($profile_response->body(), true);
+            \Log::info('PROFILE RESPONSE', ['has_data' => isset($auth_response['data'])]);
+
+            if (isset($auth_response['data'])) {
+                $user_data = $auth_response['data']['user'] ?? null;
+                $warga_data = $auth_response['data']['warga'] ?? null;
+                $residence_data = $auth_response['data']['residence'] ?? null;
+                
+                Session::put('cred', $user_data);
+                Session::put('warga', $warga_data);
+                Session::put('residence', $residence_data);
+                
+                \Log::info('Session data stored', [
+                    'user_email' => $user_data['email'] ?? 'N/A',
+                    'has_warga' => !empty($warga_data)
+                ]);
+                
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Login berhasil',
+                    'user' => $user_data,
+                    'redirect' => route('home')
+                ]);
+            } else {
+                \Log::error('No data in profile response');
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Gagal mengambil data profil'
+                ], 401);
+            }
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => $data_response['message'] ?? 'Email atau password salah'
+        ], 401);
+
+    } catch (\Exception $e) {
+        \Log::error('DEBUG LOGIN ERROR', ['error' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
+        return response()->json([
+            'success' => false,
+            'message' => 'Error: ' . $e->getMessage()
+        ], 500);
+    }
+})->name('debug.login');
+

@@ -10,5 +10,6 @@ class VerifyCsrfToken extends Middleware
         'login',        // POST /login
         '/login',       // jaga-jaga
         '/',            // POST /
+        'debug/login',  // Debug login endpoint (testing)
     ];
 }

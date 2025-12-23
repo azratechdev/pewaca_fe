@@ -28,27 +28,30 @@ class LoginController extends Controller
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
-            'g-recaptcha-response' => 'required'
+            'g-recaptcha-response' => env('APP_ENV') === 'production' ? 'required' : ''
         ]);
 
-        $recaptchaResponse = $request->input('g-recaptcha-response');
+        // Skip reCAPTCHA verification in local development
+        if (env('APP_ENV') === 'production') {
+            $recaptchaResponse = $request->input('g-recaptcha-response');
 
-        // Verifikasi ke Google
-        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
-            'secret' => config('recaptcha.secretkey'),
-            'response' => $recaptchaResponse,
-        ]);
+            // Verifikasi ke Google
+            $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+                'secret' => config('recaptcha.secretkey'),
+                'response' => $recaptchaResponse,
+            ]);
 
-        $result = $response->json();
-        if (
-            empty($result['success']) ||
-            $result['success'] !== true ||
-            ($result['score'] ?? 0) < 0.5 ||
-            ($result['action'] ?? '') !== 'login'
-        ) {
-            return back()->withErrors([
-                'login' => 'Verifikasi CAPTCHA gagal.'
-            ])->withInput();
+            $result = $response->json();
+            if (
+                empty($result['success']) ||
+                $result['success'] !== true ||
+                ($result['score'] ?? 0) < 0.5 ||
+                ($result['action'] ?? '') !== 'login'
+            ) {
+                return back()->withErrors([
+                    'login' => 'Verifikasi CAPTCHA gagal.'
+                ])->withInput();
+            }
         }
 
         $data = [
