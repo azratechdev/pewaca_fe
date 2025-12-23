@@ -364,7 +364,7 @@
       </div>
 
       <!-- Login Form -->
-      <form id="loginform" method="post" action="{{ url('/login') }}">
+      <form id="loginform" method="post" action="{{ route('postlogin') }}">
         @csrf
         
         <!-- Email -->

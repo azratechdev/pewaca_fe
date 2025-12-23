@@ -22,7 +22,7 @@
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
     <!-- ===== Color CSS ===== -->
     <link href="{{ asset('assets/css/colors/default.css') }}" id="theme" rel="stylesheet">
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js?render={{ config('recaptcha.sitekey') }}"></script>
     {{-- <script src="https://www.google.com/recaptcha/api.js?render=reCAPTCHA_site_key"></script> --}}
     <style>
         .login-register {
@@ -120,24 +120,9 @@
                 </div>
                 
                 <h3 class="box-title" align="center"><u>Login Pengurus / Warga</u></h3>
-                @if ($errors->any())
-  <div class="alert alert-danger">
-    <ul style="margin:0; padding-left:18px;">
-      @foreach ($errors->all() as $error)
-        <li>{{ $error }}</li>
-      @endforeach
-    </ul>
-  </div>
-@endif
-
-@if (session('flash-message'))
-  <div class="alert {{ session('flash-message.alert-class') ?? 'alert-danger' }}">
-    {{ session('flash-message.message') ?? '' }}
-  </div>
-@endif
-
-<form class="form-horizontal" id="loginform" method="post" action="{{ route('postlogin') }}" enctype="multipart/form-data">
-                    @include('layouts.elements.flash')
+                <form class="form-horizontal" id="loginform" method="post" action="{{ route('postlogin') }}" enctype="multipart/form-data">
+                            <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+@include('layouts.elements.flash')
                     {{ csrf_field() }}
                     <div class="form-group">
                         <div class="col-xs-12">
@@ -249,6 +234,49 @@
         updateCountdown();
         setInterval(updateCountdown, 60000);
      </script>
+
+<script>
+(function() {
+  const form = document.getElementById('loginform');
+  if (!form) return;
+
+  let tokenInput = form.querySelector('input[name="g-recaptcha-response"]');
+  if (!tokenInput) {
+    tokenInput = document.createElement('input');
+    tokenInput.type = 'hidden';
+    tokenInput.name = 'g-recaptcha-response';
+    tokenInput.id = 'g-recaptcha-response';
+    form.appendChild(tokenInput);
+  }
+
+  if (form.dataset.recaptchaBound === '1') return;
+  form.dataset.recaptchaBound = '1';
+
+  form.addEventListener('submit', function(e) {
+    const existing = (tokenInput.value || '').trim();
+    if (existing.length > 10) return;
+
+    e.preventDefault();
+
+    if (typeof grecaptcha === 'undefined' || !grecaptcha.ready) {
+      form.submit();
+      return;
+    }
+
+    grecaptcha.ready(function() {
+      grecaptcha.execute('{{ config('recaptcha.sitekey') }}', { action: 'login' })
+        .then(function(token) {
+          tokenInput.value = token;
+          form.submit();
+        })
+        .catch(function() {
+          form.submit();
+        });
+    });
+  });
+})();
+</script>
+
 </body>
 
 </html>

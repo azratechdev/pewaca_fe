@@ -40,13 +40,16 @@ class LoginController extends Controller
         ]);
 
         $result = $response->json();
-
-        if (!$result['success']) {
+        if (
+            empty($result['success']) ||
+            $result['success'] !== true ||
+            ($result['score'] ?? 0) < 0.5 ||
+            ($result['action'] ?? '') !== 'login'
+        ) {
             return back()->withErrors([
                 'login' => 'Verifikasi CAPTCHA gagal.'
             ])->withInput();
         }
-
 
         $data = [
             'email' => $request->email,
