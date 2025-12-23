@@ -120,7 +120,7 @@
                 </div>
                 
                 <h3 class="box-title" align="center"><u>Login Pengurus / Warga</u></h3>
-                <form class="form-horizontal" id="loginform" method="post" action="{{ route('postlogin') }}" enctype="multipart/form-data">
+                <form class="form-horizontal" id="loginform" method="post" action="{{ url('/login') }}" enctype="multipart/form-data">
                     @include('layouts.elements.flash')
                     {{ csrf_field() }}
                     <div class="form-group">
