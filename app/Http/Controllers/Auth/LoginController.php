@@ -75,13 +75,27 @@ class LoginController extends Controller
                 $token = $data_response['data']['token'];
                 $refresh_token = $data_response['data']['token_refresh'];
 
+                \Log::info('BEFORE SESSION PUT', ['keys' => array_keys(session()->all())]);
+                
                 Session::put('token', $token); // ✅ access token
                 Session::put('refresh_token', $refresh_token); // ✅ refresh token
                 Session::put('token_created_at', now()); // ✅ timestamp simpan token
 
-                //dd(session()->all());
+                \Log::info('AFTER SESSION PUT', [
+                    'token_exists' => Session::has('token'),
+                    'refresh_exists' => Session::has('refresh_token'),
+                    'all_keys' => array_keys(session()->all())
+                ]);
               
                 $res = $this->authenticate($data['email']);
+                
+                \Log::info('AFTER AUTHENTICATE', [
+                    'cred_exists' => Session::has('cred'),
+                    'warga_exists' => Session::has('warga'),
+                    'redirectTo' => $res['redirectTo'],
+                    'all_keys' => array_keys(session()->all())
+                ]);
+                
                 //dd($res);
                 $cekstroy = new HomeController();
                 $stories = $cekstroy->getStories();
@@ -93,8 +107,8 @@ class LoginController extends Controller
                     ]);
                 }
                 
-                // Save session before redirect
-                Session::save();
+                // Ensure all session data is written to storage before redirect
+                session()->regenerate(true);
                 
                 return redirect()->route($res['redirectTo']);
             } else {

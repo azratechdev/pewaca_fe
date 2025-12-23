@@ -29,7 +29,6 @@ use App\Http\Controllers\SecurityController;
 */
 
 Route::get('/', [LoginController::class, 'showLoginForm'])
-    ->middleware('check.token')
     ->name('showLoginForm');
 
 Route::get('/company-profile', [LoginController::class, 'companyProfile'])->name('companyProfile');
@@ -71,7 +70,7 @@ Route::get('/pemilu-tc/results', [\App\Http\Controllers\VotingController::class,
 Auth::routes(['register' => false]);
 
 // Rute yang membutuhkan autentikasi
-Route::group(['middleware' => ['auth', 'check.token']], function () {
+Route::group(['middleware' => ['auth']], function () {
    
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     // Route::post('/postActivated', [LoginController::class, 'postActivated'])->name('postActivated');
