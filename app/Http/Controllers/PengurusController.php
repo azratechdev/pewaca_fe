@@ -82,113 +82,7 @@ class PengurusController extends Controller
         return view('pengurus.role.list_role', compact('pengurus','current','next','prev','next_page','previous_page', 'total_pages'));
     }
 
-    public function pengurus_keamanan(Request $request)
-    {
-
-        $filter = $request->input('filter');
-        $page = $request->input('page', 1); // Default page = 1 jika tidak ada  
-
-        if (!empty($filter)) {
-            $page = 1;
-        }
-
-        $apiUrl = env('API_URL') . '/api/residence-security/?page='.$page;
-
-        if (!empty($filter)) {
-            $apiUrl .= '&search=' . urlencode($filter);
-        }
-      
-        $response = Http::withHeaders([
-            'Accept' => 'application/json',
-            'Authorization' => 'Token ' . Session::get('token'),
-        ])->get($apiUrl);
-
-        $warga_response = json_decode($response->body(), true);
-
-        // if(empty($warga_response)){
-        //     $warga_response['results'] = [
-        //         0 => [
-        //             "id" => 1,
-        //             "residence_id" => 5,
-        //             "full_name" => "Ahmad Fauzi",
-        //             "address" => "Jl. Merdeka No. 15, Jakarta Pusat",
-        //             "phone_no" => "+6281234567890"
-        //         ],
-        //         1 => [
-        //             "id" => 2,
-        //             "residence_id" => 5,
-        //             "full_name" => "Budi Santoso",
-        //             "address" => "Jl. Sudirman No. 28, Bandung",
-        //             "phone_no" => "+6281345678901"
-        //         ],
-        //         2 => [
-        //             "id" => 3,
-        //             "residence_id" => 5,
-        //             "full_name" => "Citra Dewi",
-        //             "address" => "Jl. Gatot Subroto No. 45, Surabaya",
-        //             "phone_no" => "+6281456789012"
-        //         ],
-        //         3 => [
-        //             "id" => 4,
-        //             "residence_id" => 5,
-        //             "full_name" => "Dedi Hermawan",
-        //             "address" => "Jl. Diponegoro No. 12, Yogyakarta",
-        //             "phone_no" => "+6281567890123"
-        //         ],
-        //         4 => [
-        //             "id" => 5,
-        //             "residence_id" => 5,
-        //             "full_name" => "Eka Putri",
-        //             "address" => "Jl. Thamrin No. 7, Medan",
-        //             "phone_no" => "+6281678901234"
-        //         ],
-        //         5 => [
-        //             "id" => 6,
-        //             "residence_id" => 5,
-        //             "full_name" => "Fajar Nugroho",
-        //             "address" => "Jl. Imam Bonjol No. 33, Makassar",
-        //             "phone_no" => "+6281789012345"
-        //         ]
-        //     ];
-            
-        // }
-        //dd($warga_response);
-      
-        $security = $warga_response['results'] ?? [];
-        $next_page = $warga_response['next'] ?? null;
-        $previous_page = $warga_response['previous'] ?? null;
-
-        if($warga_response){
-            $total_pages = (int) ceil($warga_response['count'] / 10);
-        }
-        else {
-            $total_pages = (int) 1;
-        }
-       
-       
-        $next=null;
-        if($next_page != null){
-            $p = explode('page=', $next_page);
-            $next=$p[1];
-        }
-
-        $current = $page;
-
-        $prev=null;
-        if($previous_page != null){
-            if($page == 2){
-                $prev = 1;
-            }else{
-                $p = explode('page=', $previous_page);
-                $prev=$p[1];
-            }
-            
-        }
-       
-        return view('pengurus.security.list_security', compact('security','current','next','prev','next_page','previous_page', 'total_pages'));
-    }
-
-
+  
     // public function getPengurus()
     // {
     //     $response = Http::withHeaders([
@@ -784,12 +678,7 @@ class PengurusController extends Controller
         return view('pengurus.role.addrole', compact('roles', 'wargas'));
     }
 
-    public function addKeamanan()
-    {
-        $residence =  Session::get('residence');   
-        //dd($residence); 
-        return view('pengurus.security.addsecurity', compact('residence'));
-    }
+   
 
     public function postRole(Request $request)
     {
@@ -843,61 +732,6 @@ class PengurusController extends Controller
 
     }
 
-    public function postSec(Request $request)
-    {
-        //dd($request->all());
-        $request->validate([
-            'full_name' => 'required|string',
-            'address' => 'required|string',
-            'phone_no' => 'required|string'
-        ]);
-
-        $data = [
-            'residence_id' => Session::get('residence')['id'],
-            'full_name' => $request->full_name,
-            'address' => $request->address,
-            'phone_no' => $request->phone_no,
-        ];
-
-        //dd($data);
-
-        try {
-            //dd('here');
-            $http = Http::withHeaders([
-                'Accept' => 'application/json',
-                'Authorization' => 'Token '.Session::get('token'),
-            ]);
-                       
-            $response = $http->post(env('API_URL') . '/api/residence-secuirty/', $data);
-
-            $data_response = json_decode($response->body(), true);
-
-            //dd($data_response);
-
-            if ($response['success'] == true) {
-                Session::flash('flash-message', [
-                    'message' => 'Data Security Berhasil Disimpan',
-                    'alert-class' => 'alert-success',
-                ]);
-                return redirect()->route('pengurus.keamanan');
-            } else {
-                Session::flash('flash-message', [
-                    'message' => 'Gagal Menyimpan Data',
-                    'alert-class' => 'alert-warning',
-                ]);
-                return redirect()->route('pengurus.addsec');
-            }
-        
-        } catch (\Exception $e) {
-            Session::flash('flash-message', [
-                'message' => 'Gagal Mengirim Data',
-                'alert-class' => 'alert-danger',
-            ]);
-            return redirect()->route('pengurus.addsec');
-        }
-
-        
-
-    }
+    
 
 }

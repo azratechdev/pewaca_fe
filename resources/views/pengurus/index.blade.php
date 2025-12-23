@@ -81,7 +81,7 @@
         </a>
 
         <!-- Security -->
-        <a href="{{ route('pengurus.keamanan') }}" class="flex items-center bg-white p-6 rounded-lg shadow hover:bg-gray-50">
+        <a href="{{ route('security.listsec') }}" class="flex items-center bg-white p-6 rounded-lg shadow hover:bg-gray-50">
             <div class="bg-green-100 text-green-600 p-4 rounded-full">
                 <i class="fas fa-id-card fa-lg"></i>
             </div>

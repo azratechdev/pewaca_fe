@@ -16,6 +16,7 @@ use App\Http\Controllers\WarungkuController;
 use App\Http\Controllers\WarungkuSetupController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\Pengurus\SellerController;
+use App\Http\Controllers\SecurityController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -126,10 +127,13 @@ Route::group(['middleware' => ['auth', 'check.token']], function () {
         //
 
         //security route
-         Route::match(['get', 'post'], '/pengurus/keamanan', [PengurusController::class, 'pengurus_keamanan'])->name('pengurus.keamanan');
-        Route::get('/pengurus/keamanan/addsec', [PengurusController::class, 'addKeamanan'])->name('pengurus.addsec');
-        Route::post('/pengurus/keamanan/postsec', [PengurusController::class, 'postSec'])->name('pengurus.postsec');
-       
+        Route::match(['get', 'post'], '/pengurus/keamanan', [SecurityController::class, 'list_security'])->name('security.listsec');
+        Route::get('/pengurus/keamanan/addsec', [SecurityController::class, 'addSec'])->name('security.addsec');
+        Route::post('/pengurus/keamanan/postsec', [SecurityController::class, 'postSec'])->name('security.postsec');
+        Route::get('/pengurus/keamanan/{id}/edit', [SecurityController::class, 'editSec'])->name('security.editsec');
+        Route::put('/pengurus/keamanan/updatesec', [SecurityController::class, 'updateSec'])->name('security.updatesec');
+        Route::delete('/pengurus/keamanan/{id}/deletesec', [SecurityController::class, 'deleteSec'])->name('security.deletesec');
+
 
         Route::get('/pengurus/tagihan/list', [TagihanController::class, 'list'])->name('pengurus.tagihan.list');
         Route::get('/pengurus/tagihan/add', [TagihanController::class, 'addTagihan'])->name('tagihan.add');

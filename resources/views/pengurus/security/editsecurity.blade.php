@@ -90,19 +90,20 @@
             <h1 class="text-xl font-semibold text-gray-800">
                 <a href="{{ route('security.listsec') }}" class="text-dark">
                     <i class="fas fa-arrow-left"></i>
-                </a>&nbsp;Add Security
+                </a>&nbsp;Edit Security
             </h1>
             <br>
             @include('layouts.elements.flash')
         </div>
         <br>
         <div class="col-md-12 col-sm-12" style="padding-left:10px;padding-right:10px;">
-            <form id="pengurus_sec_add" method="post" action="{{ route('security.postsec') }}" enctype="multipart/form-data">
+            <form id="pengurus_sec_edit" method="post" action="{{ route('security.updatesec') }}" enctype="multipart/form-data">
                 @csrf
+                @method('put')
                 <div>
-                    <input type="hidden" class="form-control" id="residence_id" name="residence_id" value="{{ $residence['id'] }}" required>
+                    <input type="hidden" class="form-control" id="id" name="id" value="{{ $data['id'] }}" required>
                     <div class="form-floating mt-2">
-                        <input type="text" pattern="[A-Za-z\s]+" class="form-control" id="full_name" name="full_name" placeholder=" " value="{{ old('full_name') }}" required>
+                        <input type="text" pattern="[A-Za-z\s]+" class="form-control" id="full_name" name="full_name" placeholder=" " value="{{ $data['fullname'] }}" required>
                         <label for="full_name ">Nama Lengkap</label>
                         
                         @error('full_name')
@@ -111,7 +112,7 @@
                     </div>
 
                     <div class="form-floating mt-4">
-                        <input type="text"  class="form-control" id="address" name="address" placeholder=" " value="{{ old('full_name') }}" required>
+                        <input type="text"  class="form-control" id="address" name="address" placeholder=" " value="{{ $data['address'] }}" required>
                         <label for="address">Alamat</label>
                         
                         @error('address')
@@ -120,9 +121,9 @@
                     </div>
         
                     <div class="form-floating mt-4">
-                        <input type="text" pattern="\d{10,13}" minlength="10" maxlength="13" inputmode="numeric" class="form-control @error('phone_no') is-invalid @enderror"  value="{{ old('phone_no') }}" id="phone_no" name="phone_no" placeholder=" " required>
+                        <input type="text" pattern="\d{8,13}" minlength="8" maxlength="13" inputmode="numeric" class="form-control @error('phone_no') is-invalid @enderror"  value="{{ $data['phone_no'] }}" id="phone_no" name="phone_no" placeholder=" " required>
                         <label for="phone_no">Nomor Telepon</label>
-                        <small class="text-danger d-none" id="phone_no-error">Nomor Telepon minimal 10 digit dan maksimal 13 digit</small>
+                        <small class="text-danger d-none" id="phone_no-error">Nomor Telepon minimal 8 digit dan maksimal 13 digit</small>
                     </div>
 
                 </div>
@@ -136,7 +137,7 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script>
      
-        const form = document.getElementById('pengurus_sec_add');
+        const form = document.getElementById('pengurus_sec_edit');
         const submitBtn = document.getElementById('submitBtn');
         
       
@@ -171,7 +172,7 @@
     const counterEl = document.getElementById('phone_no-counter');
 
     // Tampilkan error jika tidak kosong dan < 8
-    if ((value.length > 0 && value.length < 10) || value.length > 13) {
+    if ((value.length > 0 && value.length < 8) || value.length > 13) {
         errorEl.classList.remove('d-none');
         e.target.classList.add('is-invalid');
     } else {

@@ -12,10 +12,12 @@ class AkunController extends Controller
 {
     public function akun()
     {
+        
         $user = Session::get('cred');
         $warga = Session::get('warga');
-        //dd($warga);
-        return view('akun.akunpage', compact('user', 'warga'));
+        $token = Session::get('token');
+        //dd($user);
+        return view('akun.akunpage', compact('user', 'warga', 'token'));
     }
 
     public function infoakun()

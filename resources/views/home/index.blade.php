@@ -766,7 +766,7 @@ $isChecker = $warga['is_checker'] ?? false;
                         <div class="comment-input-wrapper">
                             <img 
                                 alt="Profile Photo" 
-                                src="{{ $warga['profile_photo'] ?? asset('assets/plugins/images/default.jpg')}}" 
+                                src="{{ $warga['profile_photo'] ?? 'https://ui-avatars.com/api/?name=' . urlencode($warga['full_name'])}}" 
                               />
                             <form id="form-comment{{ $story['id'] }}" class="comment-form" enctype="multipart/form-data">
                                 <input type="hidden" id="storyid{{ $story['id'] }}" value="{{ $story['id'] }}" />

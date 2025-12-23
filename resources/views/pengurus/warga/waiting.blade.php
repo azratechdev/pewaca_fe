@@ -4,7 +4,7 @@
     <img 
         alt="{{  }}" 
         class="w-16 h-16 rounded-full border-2 border-gray-300" 
-        src="{{ $warga['profile_photo'] ?? asset('assets/plugins/images/default.jpg') }}" 
+        src="{{ $warga['profile_photo'] ?? 'https://ui-avatars.com/api/?name=' . urlencode($warga['full_name']) }}" 
         
     />
     <div class="ml-4">
