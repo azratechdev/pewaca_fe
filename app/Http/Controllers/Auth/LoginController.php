@@ -107,8 +107,8 @@ class LoginController extends Controller
                     ]);
                 }
                 
-                // Ensure all session data is written to storage before redirect
-                session()->regenerate(true);
+                // Force write all session data to disk before returning
+                session()->save();
                 
                 return redirect()->route($res['redirectTo']);
             } else {
