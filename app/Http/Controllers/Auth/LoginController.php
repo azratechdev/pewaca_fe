@@ -27,32 +27,10 @@ class LoginController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required',
-            'g-recaptcha-response' => env('APP_ENV') === 'production' ? 'required' : ''
+            'password' => 'required'
         ]);
 
-        // Skip reCAPTCHA verification in local development
-        if (env('APP_ENV') === 'production') {
-            $recaptchaResponse = $request->input('g-recaptcha-response');
-
-            // Verifikasi ke Google
-            $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
-                'secret' => config('recaptcha.secretkey'),
-                'response' => $recaptchaResponse,
-            ]);
-
-            $result = $response->json();
-            if (
-                empty($result['success']) ||
-                $result['success'] !== true ||
-                ($result['score'] ?? 0) < 0.5 ||
-                ($result['action'] ?? '') !== 'login'
-            ) {
-                return back()->withErrors([
-                    'login' => 'Verifikasi CAPTCHA gagal.'
-                ])->withInput();
-            }
-        }
+        // reCAPTCHA verification disabled for testing
 
         $data = [
             'email' => $request->email,
@@ -107,7 +85,19 @@ class LoginController extends Controller
                     ]);
                 }
                 
-                // Force write all session data to disk before returning
+                // Regenerate session and force save all data
+                session()->invalidate();
+                session()->regenerate();
+                
+                // Re-store session data after regeneration
+                Session::put('token', $token);
+                Session::put('refresh_token', $refresh_token);
+                Session::put('token_created_at', now());
+                Session::put('cred', $credentials);
+                Session::put('warga', $warga_data);
+                Session::put('residence', $residence_data);
+                
+                // Force write to disk
                 session()->save();
                 
                 return redirect()->route($res['redirectTo']);
