@@ -120,7 +120,23 @@
                 </div>
                 
                 <h3 class="box-title" align="center"><u>Login Pengurus / Warga</u></h3>
-                <form class="form-horizontal" id="loginform" method="post" action="{{ url('/login') }}" enctype="multipart/form-data">
+                @if ($errors->any())
+  <div class="alert alert-danger">
+    <ul style="margin:0; padding-left:18px;">
+      @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+      @endforeach
+    </ul>
+  </div>
+@endif
+
+@if (session('flash-message'))
+  <div class="alert {{ session('flash-message.alert-class') ?? 'alert-danger' }}">
+    {{ session('flash-message.message') ?? '' }}
+  </div>
+@endif
+
+<form class="form-horizontal" id="loginform" method="post" action="{{ route('postlogin') }}" enctype="multipart/form-data">
                     @include('layouts.elements.flash')
                     {{ csrf_field() }}
                     <div class="form-group">
