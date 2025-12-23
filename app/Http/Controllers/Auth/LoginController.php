@@ -92,6 +92,10 @@ class LoginController extends Controller
                         'alert-class' => $res['alert'],
                     ]);
                 }
+                
+                // Save session before redirect
+                Session::save();
+                
                 return redirect()->route($res['redirectTo']);
             } else {
                 if($data_response['message'] == 'User is inactive'){

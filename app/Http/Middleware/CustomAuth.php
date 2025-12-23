@@ -11,7 +11,7 @@ class CustomAuth
     {
         // Memeriksa apakah data user ada di sesi
         if (!Session::has('cred')) {
-            return redirect()->route('login');
+            return redirect()->route('showLoginForm');
         }
 
         // Mendapatkan data dari session
