@@ -107,6 +107,19 @@
     <section id="wrapper" class="login-register">
         <div class="login-box">
             <div class="white-box">
+                <!-- Warning Banner - Versi Lama -->
+                <div class="alert alert-warning" style="background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); color: #78350f; border-radius: 10px; padding: 15px; margin-bottom: 20px; text-align: center; border: none;">
+                    <h5 style="margin: 0 0 8px 0; font-weight: 700;">
+                        <i class="fa fa-exclamation-triangle"></i> PEMBERITAHUAN PENTING
+                    </h5>
+                    <p style="margin: 0 0 8px 0; font-size: 0.9rem; line-height: 1.5;">
+                        Ini adalah <strong>versi lama</strong> dari Pewaca. Silakan beralih ke versi baru dengan tampilan, sistem, dan keamanan yang sudah ditingkatkan.
+                    </p>
+                    <a href="https://app.pewaca.id/" class="btn btn-light btn-sm" style="background: white; color: #f59e0b; font-weight: 600; border: none; padding: 8px 20px; border-radius: 20px; text-decoration: none; display: inline-block; margin-top: 5px;">
+                        <i class="fa fa-arrow-right"></i> Menuju Versi Baru
+                    </a>
+                </div>
+                
                 <div class="election-banner">
                     <h4><i class="fa fa-bullhorn"></i> PEMILIHAN KETUA PAGUYUBAN</h4>
                     <p>Teras Country Periode 2025 - 2029</p>

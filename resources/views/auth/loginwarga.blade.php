@@ -344,12 +344,79 @@
     @keyframes spin {
       to { transform: translateY(-50%) rotate(360deg); }
     }
+
+    /* Deprecated Version Banner */
+    .deprecated-banner {
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+      color: #78350f;
+      padding: 20px 25px;
+      border-radius: 16px;
+      margin-bottom: 30px;
+      text-align: center;
+      border: 2px solid #fcd34d;
+      box-shadow: 0 8px 25px rgba(251, 191, 36, 0.3);
+      animation: slideDown 0.5s ease-out;
+    }
+
+    .deprecated-banner h5 {
+      margin: 0 0 12px 0;
+      font-weight: 700;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .deprecated-banner p {
+      margin: 0 0 15px 0;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .deprecated-banner strong {
+      font-weight: 700;
+    }
+
+    .btn-new-version {
+      display: inline-block;
+      background: white;
+      color: #f59e0b;
+      padding: 12px 28px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-new-version:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      color: #f59e0b;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
 
   <div class="login-container">
     <div class="login-card">
+      <!-- Deprecated Version Warning Banner -->
+      <div class="deprecated-banner">
+        <h5>
+          <i class="fas fa-exclamation-triangle"></i>
+          PEMBERITAHUAN PENTING
+        </h5>
+        <p>
+          Ini adalah <strong>versi lama</strong> dari Pewaca. Silakan beralih ke versi baru dengan tampilan, sistem, dan keamanan yang sudah ditingkatkan untuk pengalaman yang lebih baik.
+        </p>
+        <a href="https://app.pewaca.id/" class="btn-new-version">
+          <i class="fas fa-arrow-right me-2"></i>Menuju Versi Baru
+        </a>
+      </div>
+
       <!-- Welcome Text with Logo -->
       <div class="welcome-text">
         <h4>Selamat Datang di</h4>
